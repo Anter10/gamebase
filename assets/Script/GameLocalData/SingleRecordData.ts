@@ -1,5 +1,5 @@
 import BaseRecord from "./BaseRecord";
-import GameData from "./GameData";
+import GameLocalData from "./GameLocalData";
 
  
 export default class SingleRecordData extends BaseRecord{
@@ -15,7 +15,7 @@ export default class SingleRecordData extends BaseRecord{
                         if(key_type.length >= 2){
                             if(key_type[1] == "single"){
                                 const store_data: any = this[key];
-                                const object: any = new GameData.all_convert_single_data[store_data.store_name](store_data);
+                                const object: any = new GameLocalData.all_convert_single_data[store_data.store_name](store_data);
                                 for(let t_key in store_data){
                                     object[t_key] = store_data[t_key];
                                 }
@@ -26,7 +26,7 @@ export default class SingleRecordData extends BaseRecord{
                                 const all_object: any = [];
                                 for(let t_i = 0; t_i < store_data.length; t_i ++){
                                     const t_store_data: any = store_data[t_i];
-                                    const object: any = new GameData.all_convert_single_data[t_store_data.store_name](t_store_data);
+                                    const object: any = new GameLocalData.all_convert_single_data[t_store_data.store_name](t_store_data);
                                     for(let t_key in t_store_data){
                                         object[t_key] = t_store_data[t_key];
                                     }
@@ -44,7 +44,7 @@ export default class SingleRecordData extends BaseRecord{
                                         store_key = parseInt(store_key);
                                     }
                                     const t_store_data: any = store_data[store_key];
-                                    const object: any = new GameData.all_convert_single_data[t_store_data.store_name](t_store_data);
+                                    const object: any = new GameLocalData.all_convert_single_data[t_store_data.store_name](t_store_data);
                                     for(let t_key in t_store_data){
                                         object[t_key] = t_store_data[t_key];
                                     }

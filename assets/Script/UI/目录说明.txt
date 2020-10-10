@@ -1,0 +1,9 @@
+CashOut 提现功能的功能
+Common  通用类型的功能
+Exchange 兑换功能的功能
+Fragment 碎片功能的功能
+InviteFriend 邀请好友功能的功能
+Rank 排行榜功能的功能
+SignIn 每日签到功能的目录
+TurnTable 抽奖转盘功能
+UIManager UI管理功能

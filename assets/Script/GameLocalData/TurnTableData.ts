@@ -11,8 +11,6 @@ class TurnTableData extends BaseRecord{
     }
 
 
-
-
 }
 
 export default TurnTableData;

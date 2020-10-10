@@ -1,5 +1,4 @@
-import ModalInterface from "../Common/ModalInterface";
-import ToastInterface from "../Common/ToastInterface";
+import { ModalInterface, ToastInterface } from "../Common/CommonInterface";
 
 interface UIParamInterface {
           ui_config_path: string,

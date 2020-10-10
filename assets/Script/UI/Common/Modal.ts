@@ -1,7 +1,7 @@
 
 import UIParamInterface from "../UIManager/UIParamInterface";
 import BaseUI from "./BaseUI";
-import ModalInterface from "./ModalInterface";
+import { ModalInterface } from "./CommonInterface";
 
 const {ccclass, property} = cc._decorator;
 

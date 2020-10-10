@@ -1,16 +1,31 @@
+import BaseUI from "../Common/BaseUI";
+import CashOutController from "./CashOutController";
+import { CashOutViewInterface } from "./WithDrawInterface";
+
  
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class CashOutView extends cc.Component {
+/**@description 用户的提现界面 */
+class CashOutView extends BaseUI implements CashOutViewInterface {
+
 
     @property(cc.Label)
-    label: cc.Label = null;
+    moeny_label: cc.Label = null;
 
-    @property
-    text: string = 'hello';
 
-    // LIFE-CYCLE CALLBACKS:
+    public cash_out_controller: CashOutController = null;
+
+    /**@description 刷新余额显示 */
+    flush_money(money: number){
+        this.moeny_label.string = `${money}`;
+    }
+
+    /**@description 提现调用 */
+    cash_out_callback(){
+        this.cash_out_controller.cash_out();
+    }
+    
 
     // onLoad () {}
 
@@ -20,3 +35,6 @@ export default class CashOutView extends cc.Component {
 
     // update (dt) {}
 }
+
+
+export default  CashOutView;

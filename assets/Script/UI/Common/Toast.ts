@@ -1,6 +1,6 @@
 import UIParamInterface from "../UIManager/UIParamInterface";
 import BaseUI from "./BaseUI";
-import ToastInterface from "./ToastInterface";
+import { ToastInterface } from "./CommonInterface";
 
  
 const {ccclass, property} = cc._decorator;

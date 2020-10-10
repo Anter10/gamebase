@@ -1,0 +1,18 @@
+{
+  "name": "gamebase",
+  "version": "1.0.0",
+  "description": "Hello world new project template.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.coohua.com/guoyouchao/gamebase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "hs_export_data": "^1.0.1"
+  }
+}
