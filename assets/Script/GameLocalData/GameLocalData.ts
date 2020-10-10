@@ -3,8 +3,8 @@ import GameRecord from "./GameRecord";
 import GuideData from "./GuideData";
 import TurnTableData from "./TurnTableData";
 
-class GameData{
-    static _instance: GameData = null;
+class GameLocalData{
+    static _instance: GameLocalData = null;
     private _game_data: {[key: string]: any} = {};
     private _store_key: string = "game_data";
 
@@ -19,9 +19,9 @@ class GameData{
           
     }
 
-    static get_instance(): GameData{
+    static get_instance(): GameLocalData{
         if(!this._instance){
-            this._instance = new GameData();
+            this._instance = new GameLocalData();
         }
 
         return this._instance;
@@ -92,4 +92,4 @@ class GameData{
 }
 
 
-export default GameData;
+export default GameLocalData;

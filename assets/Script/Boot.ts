@@ -1,18 +1,22 @@
-import GameData from "./GameData/GameData";
+import GameLocalData from "./GameLocalData/GameLocalData";
+import Native from "./Native/Native";
 import UIConfig from "./UI/UIManager/UIConfig";
 import UIManager from "./UI/UIManager/UIManager";
 var gamebase:any = <any>window;
 
 gamebase.UIManager = UIManager;
-gamebase.UIConfig = UIConfig;
-gamebase.GameData = GameData;
+gamebase.UIConfig  = UIConfig;
+gamebase.GameData  = GameLocalData;
+gamebase.BusinessSDK = gamebase.BusinessSDK;
+gamebase.Native = Native;
 
 class Boot{
     static init(){
-        GameData.get_instance().init();
+        cc.macro.ENABLE_MULTI_TOUCH = false;
+        GameLocalData.get_instance().init();
+        gamebase.Native.init();
     }
 }
-
 
 
 export  {gamebase, Boot};
