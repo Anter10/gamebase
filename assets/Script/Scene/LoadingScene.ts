@@ -1,5 +1,6 @@
  
-import { Boot } from "../Boot";
+import { Boot, gamebase } from "../Boot";
+import EventManager from "../EventManager/EventManager";
 import BaseScene from "./BaseScene";
 
 

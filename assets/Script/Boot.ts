@@ -12,12 +12,14 @@ gamebase.UIConfig  = UIConfig;
 gamebase.GameLocalData  = GameLocalData;
 gamebase.BusinessSDK = gamebase.BusinessSDK;
 gamebase.Native = Native;
+gamebase.GameDataConfig = GameDataConfig;
 
 class Boot{
     static init(){
         cc.macro.ENABLE_MULTI_TOUCH = false;
+
         GameLocalData.get_instance().init();
-        gamebase.Native.init();
+        Native.init();
         GameDataConfig.init();
     }
 }
