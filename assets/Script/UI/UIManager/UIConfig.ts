@@ -3,7 +3,6 @@ const UIConfig = {
       NetworkLoading : "UI/Common/NetworkLoading",
       Toast: "UI/Common/Toast",
       Modal: "UI/Common/Modal",
-
 };
 
 
