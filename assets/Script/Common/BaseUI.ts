@@ -1,4 +1,5 @@
-import UIParamInterface from "../UIManager/UIParamInterface";
+import UIManager from "../UI/UIManager/UIManager";
+import UIParamInterface from "../UI/UIManager/UIParamInterface";
 
  
 const {ccclass, property} = cc._decorator;
@@ -19,6 +20,10 @@ class BaseUI extends cc.Component {
 
     hide(){
         this.node.active = false;
+    }
+
+    on_close_call(){
+        UIManager.close_ui(this.node.name);
     }
 
     start () {

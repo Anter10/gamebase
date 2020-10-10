@@ -1,4 +1,3 @@
-import {Audio} from "./ConfigInterface";
 
 class GameDataConfig{
     public static all_config_data:{[key: string]: any} = {};
@@ -12,7 +11,7 @@ class GameDataConfig{
              }
          })
     }
-    
+
     // 实例用法
     // const config: Audio = this.get_data<Audio>("Audio", 1);
     // console.log("当前的json 数据  = ",config);

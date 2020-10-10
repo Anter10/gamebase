@@ -50,6 +50,28 @@ interface CashOutViewInterface{
     cash_out_callback: Function;
 }
 
+/**@description 提现操作的数据接口 */
+interface CashInterface{
+    /**@description 是否金额 */
+    readonly disable: boolean;
+    /**@description 新的余额 */
+    readonly newMoney:  number;
+    /**@description 新的进度 */
+    readonly newProgress: number;
+}
+
+/**@description 提现记录的数据接口 */
+interface CashOutOrderInterface{
+    /**@description 消耗金额 */
+    readonly costMoney: number;
+    /**@description 提现金额 */
+    readonly money: number;
+    /**@description 提现状态 */
+    readonly status: number;
+    /**@description 提现日期 */
+    readonly datetime: string;
+}
+
 
 /**@description 提现成功的界面接口 */
 interface CashOutSuccessViewInterface{
@@ -57,4 +79,6 @@ interface CashOutSuccessViewInterface{
 }
 
 
-export {InviteDataInterface, GoodsDataInterface,UserMoneyModel, WithDrawInterface,CashOutViewInterface, CashOutSuccessViewInterface};
+
+
+export {CashOutOrderInterface, CashInterface, InviteDataInterface, GoodsDataInterface,UserMoneyModel, WithDrawInterface,CashOutViewInterface, CashOutSuccessViewInterface};

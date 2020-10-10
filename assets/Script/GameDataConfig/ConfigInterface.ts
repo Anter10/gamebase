@@ -1,4 +1,4 @@
-interface Audio { 
+interface AudioConfig { 
     id : number; 
     name : string; 
     time : number; 
@@ -6,12 +6,7 @@ interface Audio {
     info : string; 
 } 
 
-interface Test { 
-    id : Array<number>; 
-    name : Array<string>; 
-} 
-
  
   
 
- export { Audio,Test, };
+ export { AudioConfig, };

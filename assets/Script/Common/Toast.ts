@@ -1,4 +1,4 @@
-import UIParamInterface from "../UIManager/UIParamInterface";
+import UIParamInterface from "../UI/UIManager/UIParamInterface";
 import BaseUI from "./BaseUI";
 import { ToastInterface } from "./CommonInterface";
 

@@ -1,5 +1,4 @@
 const ConfigsName = {
-     Audio:"Audio", 
-     Test:"Test", 
+     AudioConfig:"AudioConfig", 
  }; 
  export default ConfigsName;

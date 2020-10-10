@@ -1,4 +1,4 @@
-import BaseUI from "../Common/BaseUI";
+import BaseUI from "../../Common/BaseUI";
 import CashOutController from "./CashOutController";
 import { CashOutViewInterface } from "./WithDrawInterface";
 

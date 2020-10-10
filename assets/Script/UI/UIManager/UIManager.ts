@@ -1,5 +1,4 @@
-import { gamebase } from "../../Boot";
-import BaseUI from "../Common/BaseUI";
+import BaseUI from "../../Common/BaseUI";
 import UIParamInterface from "./UIParamInterface";
 
 class UIManager{
