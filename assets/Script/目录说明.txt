@@ -1,0 +1,9 @@
+UI 游戏中涉及到的二级弹窗
+Common  游戏中通用的UI
+EventManager 事件管理
+GameDataConfig 游戏中使用到的配置系统
+GameLocalData 游戏本地的存档系统
+GameServerData 游戏服务器交互的数据
+Native 和原生交互
+NetWork 网络请求模块
+Scene 游戏场景系统
