@@ -1,15 +1,20 @@
 import UIManager from "../UI/UIManager/UIManager";
 import UIParamInterface from "../UI/UIManager/UIParamInterface";
+ 
+import Controller from "./Controller";
 
  
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-class BaseUI extends cc.Component {
+abstract class BaseUI extends cc.Component {
     public block_input_events: cc.BlockInputEvents = null;
     public ui_param_interface: UIParamInterface = null;
-    
+    public controller: Controller = null;
+    public widget: cc.Widget = null;
+
     onLoad () {
+        this.widget = this.node.getComponent(cc.Widget);
         this.block_input_events = this.addComponent(cc.BlockInputEvents);
     }
 

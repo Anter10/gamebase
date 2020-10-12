@@ -1,10 +1,14 @@
 import BaseUI from "../../Common/BaseUI";
+import { RouterInterface } from "../../Common/CommonInterface";
+import CashOutController from "../CashOut/CashOutController";
+import UIConfig from "./UIConfig";
 import UIParamInterface from "./UIParamInterface";
 
 class UIManager{
       static all_ui: {[key: string]: BaseUI} = {};
       static ui_is_loading:  {[key: string]: boolean} = {};
 
+      /**@description 直接显示UI */
       static show_ui(ui_param_interface:UIParamInterface){
          if(!this.ui_is_loading[ui_param_interface.ui_config_name]){
             this.ui_is_loading[ui_param_interface.ui_config_name] = true;
@@ -15,6 +19,7 @@ class UIManager{
                         cc.director.getScene().addChild(ui, cc.macro.MAX_ZINDEX);
                         const ui_script: BaseUI = ui.getComponent(ui_param_interface.ui_config_name);
                         ui_script.show(ui_param_interface);
+                        ui_script.controller = ui_param_interface.controller;
                         this.all_ui[ui_param_interface.ui_config_name] = ui_script;
                         this.ui_is_loading[ui_param_interface.ui_config_name] = false;
                     }else{
@@ -23,6 +28,7 @@ class UIManager{
                     }
               });
             }else{
+                this.all_ui[ui_param_interface.ui_config_name].controller = ui_param_interface.controller;
                 this.all_ui[ui_param_interface.ui_config_name].show(ui_param_interface);
                 this.ui_is_loading[ui_param_interface.ui_config_name] = false;
             }
@@ -33,6 +39,29 @@ class UIManager{
              if(this.all_ui[ui_config_name]){
                 this.all_ui[ui_config_name].hide();
              }
+      }
+
+      /**@description 如果需要controller 控制的话 使用路由这个来显示界面 */
+      static nagivate_route(router: RouterInterface){
+             const controller = new router.controller();
+             const ui_param: UIParamInterface = {
+                   ui_config_path: UIConfig[router.ui_config_name],
+                   ui_config_name: router.ui_config_name,
+                   controller: controller,
+                   param: router.param,
+             }
+
+            UIManager.show_ui(ui_param);
+      }
+
+      static test(){
+           const roter: RouterInterface = {
+                 controller: CashOutController,
+                 ui_config_name: "CashOutView",
+                 param:{},
+           }
+
+           this.nagivate_route(roter);
       }
 
 }

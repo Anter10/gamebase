@@ -1,12 +1,21 @@
 /**@description 提现功能的控制器 */
+import { BaseUIInterface } from "../../Common/CommonInterface";
+import Controller from "../../Common/Controller";
 import CashOutView from "./CashOutView";
 import { UserMoneyModel, WithDrawInterface } from "./WithDrawInterface";
 
-class CashOutController{
+class CashOutController implements Controller {
+    public name: string = "CashOutController";
     public view: CashOutView = null;
     public user_money_modal: UserMoneyModel = null;
     public with_draw_items: Array<WithDrawInterface> = [];
     
+    constructor(){
+
+    }
+
+   
+
     get money(){
         return this.user_money_modal.money;
     }

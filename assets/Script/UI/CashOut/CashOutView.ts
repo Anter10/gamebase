@@ -1,4 +1,5 @@
 import BaseUI from "../../Common/BaseUI";
+import { BaseUIInterface } from "../../Common/CommonInterface";
 import CashOutController from "./CashOutController";
 import { CashOutViewInterface } from "./WithDrawInterface";
 
@@ -7,14 +8,11 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 /**@description 用户的提现界面 */
-class CashOutView extends BaseUI implements CashOutViewInterface {
+class CashOutView extends BaseUI implements CashOutViewInterface, BaseUIInterface {
 
 
     @property(cc.Label)
     moeny_label: cc.Label = null;
-
-
-    public cash_out_controller: CashOutController = null;
 
     /**@description 刷新余额显示 */
     flush_money(money: number){
@@ -23,14 +21,16 @@ class CashOutView extends BaseUI implements CashOutViewInterface {
 
     /**@description 提现调用 */
     cash_out_callback(){
-        this.cash_out_controller.cash_out();
+        
     }
     
 
-    // onLoad () {}
-
+    onLoad () {
+        super.onLoad();
+    }
+    
     start () {
-
+        super.start();
     }
 
     // update (dt) {}

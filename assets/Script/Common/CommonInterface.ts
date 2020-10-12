@@ -1,3 +1,4 @@
+import Controller from "./Controller";
 
 /**@description 模态框信息的显示接口 */
 interface ModalInterface{
@@ -31,6 +32,26 @@ interface TouchButtonInterface{
     type?: number;
 }
 
+/**@游戏里面的路由 */
+interface RouterInterface{
+    /**@description 路由的控制器类名 */
+    controller:{new():any},
+    /**@description 视图的配置名称 */
+    ui_config_name: string;
+    /**@description 路由参数 */
+    param?: any,
+};
+
+/**@description 控制器接口 */
+interface ControllerInterface{
+    /**@description 控制器的名称 */
+    name: string;
+}
+
+/**@description 基本UI的接口 */
+interface BaseUIInterface{
+    start: Function;
+}
 
 
-export  {ModalInterface, ToastInterface, TouchButtonInterface};
+export  {BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};
