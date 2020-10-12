@@ -6,8 +6,6 @@ import BaseScene from "./BaseScene";
 import { LoadingSceneInterface } from "./SceneInterface";
 
 
-
-
 const {ccclass, property} = cc._decorator;
 @ccclass
 class LoadingScene extends BaseScene {
@@ -37,6 +35,16 @@ class LoadingScene extends BaseScene {
 
     @property(cc.Node)
     start_game_button_node: cc.Node = null;
+
+    @property(cc.Node)
+    protocol_node: cc.Node = null;
+
+    @property(cc.Node)
+    privacy_node: cc.Node = null;
+
+    @property(cc.Node)
+    protocol_and_privacy_node: cc.Node = null;
+
     
     public loading_scene_interface: LoadingSceneInterface = {
         game_logo_iamge : "",
@@ -47,7 +55,7 @@ class LoadingScene extends BaseScene {
         start_game_button_image:"start_game_button_image",
         start_game_button_text:"开始游戏",
     };
-    
+
     onLoad () {
         super.onLoad();
         Boot.init();
@@ -123,8 +131,20 @@ class LoadingScene extends BaseScene {
         });
     }
 
+
     start () {
         super.start();
+    }
+    
+
+    /**@description 用户协议的调用 */
+    user_protocol_callback(){
+
+    }
+
+    /**@description 用户隐私政策的调用 */
+    user_privacy_callback(){
+
     }
 
     update(){
