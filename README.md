@@ -8,7 +8,7 @@
 ### 4: 和原生段通信模块(Native)
 ### 5: 本地存档模块(GameLocalData)
 ### 6: 游戏中涉及到的工具类
-###    1:游戏本地配置数据的导出模块(项目根目录下的tools exportconfig.js 脚本) 导出的数据在resources/    Config/config.json 下面
+     6.1:游戏本地配置数据的导出模块(项目根目录下的tools exportconfig.js 脚本) 导出的数据在resources/    Config/config.json 下面
 
 ### 7: 事件管理模块(EventManager)
 ### 8: 通过MVC模式开发的功能的界面路由功能(在文件UIManager 脚本中)
