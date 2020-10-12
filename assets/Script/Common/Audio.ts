@@ -1,7 +1,7 @@
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 
 /**@description 播放声音的文件 */
-class Audio{
+class CocosAudio{
       public audio_handler: number = 0;
       public audio_config: AudioConfig = null;
       public audio: cc.AudioSource = null;
@@ -32,7 +32,8 @@ class Audio{
           }
       }
 
+
       
 }
 
-export default Audio;
+export default CocosAudio;

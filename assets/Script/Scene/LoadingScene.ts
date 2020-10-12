@@ -1,6 +1,7 @@
  
 import { Boot, gamebase } from "../Boot";
 import Loader from "../Common/Loader";
+import TouchButton from "../Common/TouchButton";
 import BaseScene from "./BaseScene";
 import { LoadingSceneInterface } from "./SceneInterface";
 
@@ -33,6 +34,9 @@ class LoadingScene extends BaseScene {
 
     @property(cc.ProgressBar)
     loading_progress:cc.ProgressBar = null;
+
+    @property(cc.Node)
+    start_game_button_node: cc.Node = null;
     
     public loading_scene_interface: LoadingSceneInterface = {
         game_logo_iamge : "",
@@ -50,7 +54,13 @@ class LoadingScene extends BaseScene {
         this.flush_view();
     }
 
+    special_set_sprite(){
+
+    }
+
+    /**@description 刷新视图界面 */
     flush_view(){
+        // 加载loading界面上的图片
         const all_need_load_sprite_frame_path: Array<string> = [];
         const all_sprite_name = Object.keys(this.loading_scene_interface);
         const all_need_update_sprite_name: Array<string> = [];
@@ -69,23 +79,57 @@ class LoadingScene extends BaseScene {
                 if(sprite){
                    sprite.spriteFrame = sprite_frame;
                 }
-            }catch(error){
-
+            }catch(error: any){
+                console.log("打卡信息报错", error);
             }
         });
 
+        // 刷新开始游戏按钮上面的文本显示
         if(this.loading_scene_interface.start_game_button_text){
-            this.start_game_button_label.string = this.loading_scene_interface.start_game_button_text;
+           this.start_game_button_label.string = this.loading_scene_interface.start_game_button_text;
         }
 
-        console.log("所有加载的",all_need_load_sprite_frame_path);
+        // 给开始游戏按钮添加点击事件
+        const touch_button: TouchButton = this.start_game_button_node.addComponent(TouchButton);
+        
+        touch_button.register_touch(this.start_game_callback.bind(this));
+
+    }
+
+    /**@description 点击开始游戏的按钮的调用逻辑 */
+    start_game_callback(){
+        console.log("点击开始游戏的按钮");
+
+        this.start_game_success_callback();
+    }
+
+    /**@description 开始游戏成功后的回调 */
+    start_game_success_callback(){
+        this.start_game_button_image.node.active = false;
+        this.loading_progress.node.active = true;
+
+        // 加载主场景
+        cc.director.preloadScene("GameScene",(completedCount: number,totalCount: number,item: any) => {
+            const progress = completedCount / totalCount;
+            this.loading_progress.progress = progress;
+        }, (error: Error)=>{
+            if(!error){
+               setTimeout(()=>{
+                 cc.director.loadScene("GameScene");
+               }, 300);
+            }else{
+                console.log("进入游戏主场景失败了");
+            }
+        });
     }
 
     start () {
         super.start();
     }
 
-    // update (dt) {}
+    update(){
+        this.loading_progress.totalLength = this.loading_progress_bottom_image.node.width;
+    }
 }
 
 
