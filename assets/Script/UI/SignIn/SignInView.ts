@@ -5,7 +5,6 @@ const {ccclass, property} = cc._decorator;
 
 @ccclass
 export default class SignInView extends BaseUI {
-
     @property(cc.Label)
     label: cc.Label = null;
 

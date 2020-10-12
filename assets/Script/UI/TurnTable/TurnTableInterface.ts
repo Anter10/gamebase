@@ -13,6 +13,7 @@ interface TurnTableItemInterface{
     readonly type: number;
 }
 
+/**@description 转盘的数据接口[GET: /api/turntable] */
 interface TurnTableConfigInterface{
     /**@description 每日看视频次数  */
     readonly dayAddEnergyTimes: number;

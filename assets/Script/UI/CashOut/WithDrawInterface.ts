@@ -22,7 +22,7 @@ class UserMoneyModel{
     readonly userId: string;
 }
 
-/**@description 提现界面的列表数据 */
+/**@description 提现界面的列表数据接口[GET: /api/withdraw] */
 interface WithDrawInterface{
     /**@description 是否禁用  */
     readonly disable: boolean;
@@ -50,7 +50,7 @@ interface CashOutViewInterface{
     cash_out_callback: Function;
 }
 
-/**@description 提现操作的数据接口 */
+/**@description 提现操作的数据接口[POST: /api/withdraw] */
 interface CashInterface{
     /**@description 是否金额 */
     readonly disable: boolean;
@@ -60,7 +60,7 @@ interface CashInterface{
     readonly newProgress: number;
 }
 
-/**@description 提现记录的数据接口 */
+/**@description 提现记录的数据接口[GET: /withdraw/order] */
 interface CashOutOrderInterface{
     /**@description 消耗金额 */
     readonly costMoney: number;
