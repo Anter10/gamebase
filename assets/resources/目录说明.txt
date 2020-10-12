@@ -1,0 +1,15 @@
+脚本相关的资源不要放在resources 下面
+
+Animation 游戏中用到的动画文件
+
+Audio 游戏中用到的音频文件
+
+Config 游戏中的配置文件
+
+Font 游戏中的字体文件
+
+Particle 游戏中的粒子特效资源
+
+Scene 游戏中的场景资源
+
+UI 游戏中涉及到的相关的视图资源
