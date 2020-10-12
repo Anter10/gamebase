@@ -64,6 +64,8 @@ class UIManager{
            this.nagivate_route(roter);
       }
 
+      
+
 }
 
 

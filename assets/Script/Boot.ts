@@ -1,3 +1,4 @@
+import Test from "./Common/Test";
 import GameDataConfig from "./GameDataConfig/GameDataConfig";
 import GameLocalData from "./GameLocalData/GameLocalData";
 import Native from "./Native/Native";
@@ -13,14 +14,16 @@ gamebase.GameLocalData  = GameLocalData;
 gamebase.BusinessSDK = gamebase.BusinessSDK;
 gamebase.Native = Native;
 gamebase.GameDataConfig = GameDataConfig;
+gamebase.Test = Test;
+
 
 class Boot{
     static init(){
         cc.macro.ENABLE_MULTI_TOUCH = false;
-
         GameLocalData.get_instance().init();
         Native.init();
         GameDataConfig.init();
+        
     }
 }
 
