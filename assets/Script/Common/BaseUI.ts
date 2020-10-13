@@ -14,7 +14,7 @@ abstract class BaseUI extends cc.Component {
     public ui_param_interface: UIParamInterface = null;
     public controller: Controller = null;
     public widget: cc.Widget = null;
-
+    public c_time: number = new Date().getTime();
     onLoad () {
         this.widget = this.node.getComponent(cc.Widget);
         this.block_input_events = this.addComponent(cc.BlockInputEvents);
@@ -35,7 +35,7 @@ abstract class BaseUI extends cc.Component {
     }
 
     start () {
-       
+        console.log(`界面 ${this.node.name} 花费的时间 ${new Date().getTime() - this.c_time} 秒`);
     }
 
     flush_ui_image(user_privacy_interface, ui_root_path: string){

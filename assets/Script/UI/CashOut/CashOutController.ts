@@ -26,8 +26,6 @@ class CashOutController implements Controller {
     }
     
     init_view(){
-
-        console.log("this.view.ui_param_interface ", this.view.ui_param_interface);
         // 现金类型的提现模块
         if(this.view.ui_param_interface.router.path == CashOutRouterPath.balance){
            Loader.load_prefab("./UI/CashOut/Balance/BalanceCashOutViewBackground", (prefab: cc.Prefab) => {
@@ -39,7 +37,6 @@ class CashOutController implements Controller {
                });
            });
         }else if(this.view.ui_param_interface.router.path == CashOutRouterPath.no_balance){
-            console.log("显示的红包界面2")
             Loader.load_prefab("./UI/CashOut/NoBalance/NoBanlanceCashOutView", (prefab: cc.Prefab) => {
                 const no_balance_cash_out_view = cc.instantiate(prefab);
                 no_balance_cash_out_view.parent = this.view.node;
