@@ -1,7 +1,6 @@
 
-import UIParamInterface from "../UI/UIManager/UIParamInterface";
 import BaseUI from "./BaseUI";
-import { ModalInterface, ModalUiInterface } from "./CommonInterface";
+import { ModalInterface, ModalUiInterface, UIParamInterface } from "./CommonInterface";
 import TouchButton from "./TouchButton";
 import Utils from "./Utils";
 

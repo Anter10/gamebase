@@ -1,10 +1,11 @@
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import CashOutController from "../UI/CashOut/CashOutController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
-import UIParamInterface from "../UI/UIManager/UIParamInterface";
 import Audio from "./Audio";
-import { ModalInterface } from "./CommonInterface";
+import { CashOutRouterPath } from "./CommonEnum";
+import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
     // 使用 window.Test.audio()来测试相关的功能
@@ -38,6 +39,12 @@ class Test{
         UIManager.show_ui(ui_param_interface);
        
     }
+
+    /**@description 测试提现功能 */
+    static cash_out(){
+        CashOutController.open(CashOutRouterPath.no_balance);
+    }
+
 }
 
 export default Test;

@@ -37,11 +37,13 @@ interface TouchButtonInterface{
 /**@游戏里面的路由 */
 interface RouterInterface{
     /**@description 路由的控制器类名 */
-    controller:{new():any},
+    controller:{new():any};
     /**@description 视图的配置名称 */
     ui_config_name: string;
     /**@description 路由参数 */
-    param?: any,
+    param?: any;
+    /**@description 路径 */
+    paths?: string;
 };
 
 /**@description 控制器接口 */
@@ -67,5 +69,14 @@ interface ModalUiInterface{
 }
 
 
+interface UIParamInterface {
+    ui_config_path: string,
+    ui_config_name:string;
+    param?: ModalInterface | ToastInterface;
+    controller?:Controller;
+    router?:RouterInterface;
+}
 
-export  {ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};
+
+
+export  {UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};

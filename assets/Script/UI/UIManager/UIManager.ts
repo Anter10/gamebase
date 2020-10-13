@@ -1,8 +1,7 @@
 import BaseUI from "../../Common/BaseUI";
-import { RouterInterface } from "../../Common/CommonInterface";
+import { RouterInterface, UIParamInterface } from "../../Common/CommonInterface";
 import CashOutController from "../CashOut/CashOutController";
 import UIConfig from "./UIConfig";
-import UIParamInterface from "./UIParamInterface";
 
 class UIManager{
       static all_ui: {[key: string]: BaseUI} = {};
@@ -16,12 +15,15 @@ class UIManager{
                 cc.resources.load(ui_param_interface.ui_config_path,cc.Prefab, (error: Error, prefab: cc.Prefab) => {
                     if(!error){
                         const ui = cc.instantiate(prefab);
-                        cc.director.getScene().addChild(ui, cc.macro.MAX_ZINDEX);
                         const ui_script: BaseUI = ui.getComponent(ui_param_interface.ui_config_name);
                         ui_script.show(ui_param_interface);
                         ui_script.controller = ui_param_interface.controller;
+                        if( ui_script.controller){
+                            ui_script.controller.view = ui_script;
+                        }
                         this.all_ui[ui_param_interface.ui_config_name] = ui_script;
                         this.ui_is_loading[ui_param_interface.ui_config_name] = false;
+                        cc.director.getScene().addChild(ui, cc.macro.MAX_ZINDEX);
                     }else{
                         this.ui_is_loading[ui_param_interface.ui_config_name] = false;
                         console.error(`当前显示的UI: ${ui_param_interface.ui_config_path} 没有加载成功`);
@@ -49,6 +51,7 @@ class UIManager{
                    ui_config_name: router.ui_config_name,
                    controller: controller,
                    param: router.param,
+                   router: router,
              }
 
             UIManager.show_ui(ui_param);

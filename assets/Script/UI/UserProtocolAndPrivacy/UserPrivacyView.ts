@@ -1,7 +1,5 @@
 import BaseUI from "../../Common/BaseUI";
-import Loader from "../../Common/Loader";
 import TouchButton from "../../Common/TouchButton";
-import Utils from "../../Common/Utils";
 import GameConfig from "../../GameConfig";
 import { UserPrivacyInterface } from "./UserProtocolAndPrivacyInterface";
 

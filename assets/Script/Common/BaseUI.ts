@@ -1,5 +1,5 @@
 import UIManager from "../UI/UIManager/UIManager";
-import UIParamInterface from "../UI/UIManager/UIParamInterface";
+import { UIParamInterface } from "./CommonInterface";
  
 import Controller from "./Controller";
 import Loader from "./Loader";

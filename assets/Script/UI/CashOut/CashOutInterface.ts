@@ -25,19 +25,19 @@ class UserMoneyModel{
 /**@description 提现界面的列表数据接口[GET: /api/withdraw] */
 interface WithDrawInterface{
     /**@description 是否禁用  */
-    readonly disable: boolean;
+    readonly disable?: boolean;
     /**@description 提现类型 */
-    readonly goodsType: number;
+    readonly goodsType?: number;
     /**@description id  */
     readonly id: number;
     /**@description 金额 */
-    readonly money:number;
+    readonly money?:number;
     /**@description 所需进度 */
-    readonly needProcess: number;
+    readonly needProcess?: number;
     /**@description 当前进度 */
-    readonly process: number;
+    readonly process?: number;
     /**@description 类型 0: 普通, 1:新人, 2:每日, 3:打卡, 4:通关数, 5:商人订单初级, 6:商人订单中级, 7:商人订单高级 8:欺骗功能,不会完成 */
-    readonly type: number;
+    readonly type?: number;
     /**@description 物品类信息 */
     readonly goodsData?:GoodsDataInterface;
     /**@description *新* 邀请数据 */
@@ -55,21 +55,21 @@ interface CashInterface{
     /**@description 是否金额 */
     readonly disable: boolean;
     /**@description 新的余额 */
-    readonly newMoney:  number;
+    readonly newMoney?:  number;
     /**@description 新的进度 */
-    readonly newProgress: number;
+    readonly newProgress?: number;
 }
 
 /**@description 提现记录的数据接口[GET: /withdraw/order] */
 interface CashOutOrderInterface{
     /**@description 消耗金额 */
-    readonly costMoney: number;
+    readonly costMoney?: number;
     /**@description 提现金额 */
-    readonly money: number;
+    readonly money?: number;
     /**@description 提现状态 */
-    readonly status: number;
+    readonly status?: number;
     /**@description 提现日期 */
-    readonly datetime: string;
+    readonly datetime?: string;
 }
 
 
@@ -77,8 +77,6 @@ interface CashOutOrderInterface{
 interface CashOutSuccessViewInterface{
     
 }
-
-
 
 
 export {CashOutOrderInterface, CashInterface, InviteDataInterface, GoodsDataInterface,UserMoneyModel, WithDrawInterface,CashOutViewInterface, CashOutSuccessViewInterface};
