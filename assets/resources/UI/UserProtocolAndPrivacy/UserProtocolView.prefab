@@ -228,7 +228,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "model_bottom_image",
+    "_name": "modal_bottom_image",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -458,8 +458,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        270.586,
-        464.439,
+        306.231,
+        410.972,
         0,
         0,
         0,
@@ -565,7 +565,7 @@
     "close_button_image": {
       "__id__": 13
     },
-    "model_bottom_image": {
+    "modal_bottom_image": {
       "__id__": 7
     },
     "close_button_node": {

@@ -5,7 +5,7 @@ import Utils from "../../Common/Utils";
 import GameConfig from "../../GameConfig";
 import { UserPrivacyInterface } from "./UserProtocolAndPrivacyInterface";
 
- 
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -18,30 +18,19 @@ class UserPrivacyView extends BaseUI {
     close_button_image: cc.Sprite;
 
     @property(cc.Sprite)
-    model_bottom_image: cc.Sprite;
+    modal_bottom_image: cc.Sprite;
 
     @property(cc.Node)
     close_button_node: cc.Node;
 
     user_privacy_interface: UserPrivacyInterface = {
-        model_bottom_image: "model_bottom_image",
+        modal_bottom_image: "modal_bottom_image",
         close_button_image: "close_button_image",
     }
 
     onLoad () {
         super.onLoad();
-        const [all_need_update_sprite_name, all_need_load_sprite_frame_path] = Utils.get_ui_interface_sprite_path_and_sprite_name(this.user_privacy_interface, "./UI/Common/texture/");
-        Loader.recursion_load_sprite_frame(all_need_load_sprite_frame_path, (sprite_frame: cc.SpriteFrame, loaded_index: number)=>{
-            const sprite: cc.Sprite = this[all_need_update_sprite_name[loaded_index]];
-            try{
-                if(sprite){
-                   sprite.spriteFrame = sprite_frame;
-                }
-            }catch(error: any){
-                console.log("打卡信息报错", error);
-            }
-        });
-
+        this.flush_ui_image(this.user_privacy_interface);
         // 注册关闭按钮的点击事件
         const touch_button: TouchButton = this.close_button_node.addComponent(TouchButton);
         touch_button.register_touch(this.on_close_call.bind(this));

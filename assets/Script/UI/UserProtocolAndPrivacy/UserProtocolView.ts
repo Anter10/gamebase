@@ -18,13 +18,13 @@ class UserProtocolView extends BaseUI {
     close_button_image: cc.Sprite;
 
     @property(cc.Sprite)
-    model_bottom_image: cc.Sprite;
+    modal_bottom_image: cc.Sprite;
 
     @property(cc.Node)
     close_button_node: cc.Node;
 
     user_protocol_interface: UserProtocolInterface = {
-        model_bottom_image: "model_bottom_image",
+        modal_bottom_image: "modal_bottom_image",
         close_button_image: "close_button_image",
     }
 

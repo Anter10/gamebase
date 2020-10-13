@@ -11,7 +11,7 @@
   "height": 392,
   "platformSettings": {},
   "subMetas": {
-    "model_bottom_image": {
+    "modal_bottom_image": {
       "ver": "1.0.4",
       "uuid": "95797608-2a91-415f-be04-bc240dcf4298",
       "rawTextureUuid": "46210c23-756d-467e-9cac-6017bf636795",
@@ -26,10 +26,10 @@
       "height": 392,
       "rawWidth": 276,
       "rawHeight": 392,
-      "borderTop": 63,
-      "borderBottom": 60,
-      "borderLeft": 59,
-      "borderRight": 62,
+      "borderTop": 57,
+      "borderBottom": 59,
+      "borderLeft": 56,
+      "borderRight": 60,
       "subMetas": {}
     }
   }

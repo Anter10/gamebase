@@ -2,12 +2,14 @@ import Controller from "./Controller";
 
 /**@description 模态框信息的显示接口 */
 interface ModalInterface{
-    cancel?: boolean,
-    confirm?: boolean,
-    cancel_text?:String,
-    confirm_text?: String,
-    cancel_callback?: Function,
-    ok_callback?: Function,
+    cancel?: boolean;
+    confirm?: boolean;
+    cancel_text?:string;
+    confirm_text?: string;
+    cancel_callback?: Function;
+    ok_callback?: Function;
+    message?: string;
+
 }
 
 
@@ -54,6 +56,16 @@ interface BaseUIInterface{
 }
 
 
+/**@description Modal的UI界面的图片接口 */
+interface ModalUiInterface{
+    modal_bottom_image?: string;
+    modal_top_tip_image?: string;
+    modal_title_bottom_image?: string;
+    close_button_image?: string;
+    modal_cancel_button_image?: string;
+    modal_ok_button_image?: string;
+}
 
 
-export  {BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};
+
+export  {ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};
