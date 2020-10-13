@@ -28,6 +28,17 @@ class Loader{
           rescursion_load();
       }
 
+      /**@description 加载预质体 */
+      static load_prefab(prefab_path: string, callback?: Function){
+          cc.resources.load(prefab_path, cc.Prefab, (error: Error, prefab: cc.Prefab) => {
+                if(!error){
+                   callback && callback(prefab);
+                }else{
+                    console.error(`prefab ${prefab_path} 路径加载的资源失败`)
+                }
+          });
+      }
+
 }
 
 

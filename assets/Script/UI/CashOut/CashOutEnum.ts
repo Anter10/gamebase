@@ -8,6 +8,4 @@ enum CashOutType{
 }
 
 
-
-
 export {CashOutType};

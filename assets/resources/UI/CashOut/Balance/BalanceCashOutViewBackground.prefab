@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "CashOutView",
+    "_name": "BalanceCashOutViewBackground",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -51,8 +51,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        375,
-        667,
+        0,
+        0,
         0,
         0,
         0,
@@ -77,14 +77,35 @@
     "_id": ""
   },
   {
-    "__type__": "e737abvu7hDd6z+2ijD04Ob",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "moeny_label": null,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "fbeb757a-6bf4-4d5c-8721-02d192be3d1a"
+    },
+    "_type": 1,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
     "_id": ""
   },
   {
@@ -95,7 +116,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "alignMode": 2,
+    "alignMode": 1,
     "_target": null,
     "_alignFlags": 45,
     "_left": 0,
@@ -120,9 +141,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "100724c7-607c-44c7-8a47-d29d4c5f5d3f"
+      "__id__": 0
     },
-    "fileId": "34IHqj90ZBVb4UHIGOw/rF",
+    "fileId": "20dtRjlDlAc4c8wyvdtnUZ",
     "sync": false
   }
 ]

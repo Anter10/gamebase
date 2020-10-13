@@ -43,7 +43,7 @@ interface RouterInterface{
     /**@description 路由参数 */
     param?: any;
     /**@description 路径 */
-    paths?: string;
+    path?: string;
 };
 
 /**@description 控制器接口 */
