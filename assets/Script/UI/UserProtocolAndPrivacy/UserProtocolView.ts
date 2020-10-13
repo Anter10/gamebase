@@ -3,7 +3,7 @@ import Loader from "../../Common/Loader";
 import TouchButton from "../../Common/TouchButton";
 import Utils from "../../Common/Utils";
 import GameConfig from "../../GameConfig";
-import { UserPrivacyInterface } from "./UserProtocolAndPrivacyInterface";
+import { UserPrivacyInterface, UserProtocolInterface } from "./UserProtocolAndPrivacyInterface";
 
  
 const {ccclass, property} = cc._decorator;
@@ -23,16 +23,20 @@ class UserProtocolView extends BaseUI {
     @property(cc.Node)
     close_button_node: cc.Node;
 
-    user_privacy_interface: UserPrivacyInterface = {
-        close_button_image: "",
-        model_bottom_image: "",
+    user_protocol_interface: UserProtocolInterface = {
+        model_bottom_image: "model_bottom_image",
+        close_button_image: "close_button_image",
     }
 
     onLoad () {
         super.onLoad();
-        const [all_need_update_sprite_name, all_need_load_sprite_frame_path] = Utils.get_ui_interface_sprite_path_and_sprite_name(this.user_privacy_interface);
+        const [all_need_update_sprite_name, all_need_load_sprite_frame_path] = Utils.get_ui_interface_sprite_path_and_sprite_name(this.user_protocol_interface, "./UI/Common/texture/");
         
+        console.log("all_need_update_sprite_name ",all_need_update_sprite_name)
+        console.log("all_need_load_sprite_frame_path ",all_need_load_sprite_frame_path)
+
         Loader.recursion_load_sprite_frame(all_need_load_sprite_frame_path, (sprite_frame: cc.SpriteFrame, loaded_index: number)=>{
+            console.log("all_need_update_sprite_name[loaded_index] \ ",all_need_update_sprite_name[loaded_index], sprite_frame);
             const sprite: cc.Sprite = this[all_need_update_sprite_name[loaded_index]];
             try{
                 if(sprite){

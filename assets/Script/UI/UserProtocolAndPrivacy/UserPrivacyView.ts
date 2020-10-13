@@ -30,7 +30,7 @@ class UserPrivacyView extends BaseUI {
 
     onLoad () {
         super.onLoad();
-        const [all_need_update_sprite_name, all_need_load_sprite_frame_path] = Utils.get_ui_interface_sprite_path_and_sprite_name(this.user_privacy_interface, "./UI/UserProtocolAndPrivacy/");
+        const [all_need_update_sprite_name, all_need_load_sprite_frame_path] = Utils.get_ui_interface_sprite_path_and_sprite_name(this.user_privacy_interface, "./UI/Common/texture/");
         Loader.recursion_load_sprite_frame(all_need_load_sprite_frame_path, (sprite_frame: cc.SpriteFrame, loaded_index: number)=>{
             const sprite: cc.Sprite = this[all_need_update_sprite_name[loaded_index]];
             try{

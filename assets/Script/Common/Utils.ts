@@ -2,7 +2,7 @@
 class Utils{
       
       /**@description 得到UI接口需要更新的图片 [all_need_update_sprite_name, all_need_load_sprite_frame_path] */
-      static get_ui_interface_sprite_path_and_sprite_name(ui_interface: any, ui_root_path: string):[Array<string>, Array<string>]{
+      static get_ui_interface_sprite_path_and_sprite_name(ui_interface: any, ui_root_path?: string):[Array<string>, Array<string>]{
         const all_need_load_sprite_frame_path: Array<string> = [];
         const all_sprite_name = Object.keys(ui_interface);
         const all_need_update_sprite_name: Array<string> = [];
