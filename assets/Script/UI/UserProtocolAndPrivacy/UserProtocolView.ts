@@ -31,21 +31,8 @@ class UserProtocolView extends BaseUI {
     onLoad () {
         super.onLoad();
         const [all_need_update_sprite_name, all_need_load_sprite_frame_path] = Utils.get_ui_interface_sprite_path_and_sprite_name(this.user_protocol_interface, "./UI/Common/texture/");
-        
-        console.log("all_need_update_sprite_name ",all_need_update_sprite_name)
-        console.log("all_need_load_sprite_frame_path ",all_need_load_sprite_frame_path)
-
-        Loader.recursion_load_sprite_frame(all_need_load_sprite_frame_path, (sprite_frame: cc.SpriteFrame, loaded_index: number)=>{
-            console.log("all_need_update_sprite_name[loaded_index] \ ",all_need_update_sprite_name[loaded_index], sprite_frame);
-            const sprite: cc.Sprite = this[all_need_update_sprite_name[loaded_index]];
-            try{
-                if(sprite){
-                   sprite.spriteFrame = sprite_frame;
-                }
-            }catch(error: any){
-                console.log("打卡信息报错", error);
-            }
-        });
+         
+        this.flush_ui_image(this.user_protocol_interface, "./UI/Common/texture/")
 
         // 注册关闭按钮的点击事件
         const touch_button: TouchButton = this.close_button_node.addComponent(TouchButton);

@@ -55,8 +55,7 @@ class Modal extends BaseUI {
 
     start () {
         super.start();
-        const [all_need_update_sprite_name, all_need_load_sprite_frame_path] = Utils.get_ui_interface_sprite_path_and_sprite_name(this.modal_ui_interface, "./UI/Common/texture/");
-
+        this.flush_ui_image(this.modal_ui_interface, "./UI/Common/texture/")
     }
 
     show(ui_param_interface: UIParamInterface){

@@ -30,7 +30,7 @@ class UserPrivacyView extends BaseUI {
 
     onLoad () {
         super.onLoad();
-        this.flush_ui_image(this.user_privacy_interface);
+        this.flush_ui_image(this.user_privacy_interface, "./UI/Common/texture/");
         // 注册关闭按钮的点击事件
         const touch_button: TouchButton = this.close_button_node.addComponent(TouchButton);
         touch_button.register_touch(this.on_close_call.bind(this));
