@@ -28,6 +28,7 @@ abstract class BaseUI extends cc.Component {
     }
 
     on_close_call(){
+        console.log("关闭界面",this.node.name);
         UIManager.close_ui(this.node.name);
     }
 

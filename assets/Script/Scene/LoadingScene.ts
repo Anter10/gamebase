@@ -2,6 +2,10 @@
 import { Boot, gamebase } from "../Boot";
 import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
+import Utils from "../Common/Utils";
+import UIConfig from "../UI/UIManager/UIConfig";
+import UIManager from "../UI/UIManager/UIManager";
+import UIParamInterface from "../UI/UIManager/UIParamInterface";
 import BaseScene from "./BaseScene";
 import { LoadingSceneInterface } from "./SceneInterface";
 
@@ -69,17 +73,7 @@ class LoadingScene extends BaseScene {
     /**@description 刷新视图界面 */
     flush_view(){
         // 加载loading界面上的图片
-        const all_need_load_sprite_frame_path: Array<string> = [];
-        const all_sprite_name = Object.keys(this.loading_scene_interface);
-        const all_need_update_sprite_name: Array<string> = [];
-        for(const image_sprite_name of all_sprite_name){
-            const image_name: string = this.loading_scene_interface[image_sprite_name];
-            if(this.loading_scene_interface[image_name]){
-                const path = `./Scene/LoadingScene/${image_name}`;
-                all_need_load_sprite_frame_path.push(path);
-                all_need_update_sprite_name.push(image_sprite_name);
-            }
-        }
+        const [all_need_update_sprite_name, all_need_load_sprite_frame_path] = Utils.get_ui_interface_sprite_path_and_sprite_name(this.loading_scene_interface, "./Scene/LoadingScene/");
 
         Loader.recursion_load_sprite_frame(all_need_load_sprite_frame_path, (sprite_frame: cc.SpriteFrame, loaded_index: number)=>{
             const sprite: cc.Sprite = this[all_need_update_sprite_name[loaded_index]];
@@ -99,8 +93,15 @@ class LoadingScene extends BaseScene {
 
         // 给开始游戏按钮添加点击事件
         const touch_button: TouchButton = this.start_game_button_node.addComponent(TouchButton);
-        
         touch_button.register_touch(this.start_game_callback.bind(this));
+
+        // 给用户协议注册事件
+        const protocol_button: TouchButton = this.protocol_node.addComponent(TouchButton);
+        protocol_button.register_touch(this.user_protocol_callback.bind(this));
+
+        // 给用户声明注册事件 
+        const privacy_button: TouchButton = this.privacy_node.addComponent(TouchButton);
+        privacy_button.register_touch(this.user_privacy_callback.bind(this));
 
     }
 
@@ -115,6 +116,7 @@ class LoadingScene extends BaseScene {
     start_game_success_callback(){
         this.start_game_button_image.node.active = false;
         this.loading_progress.node.active = true;
+        this.protocol_and_privacy_node.active = false;
 
         // 加载主场景
         cc.director.preloadScene("GameScene",(completedCount: number,totalCount: number,item: any) => {
@@ -139,12 +141,20 @@ class LoadingScene extends BaseScene {
 
     /**@description 用户协议的调用 */
     user_protocol_callback(){
-
+        const ui_param_interface: UIParamInterface = {
+               ui_config_path: UIConfig.UserProtocolView,
+               ui_config_name: "UserProtocolView",
+        }
+        UIManager.show_ui(ui_param_interface);
     }
 
     /**@description 用户隐私政策的调用 */
     user_privacy_callback(){
-
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.UserPrivacyView,
+            ui_config_name: "UserPrivacyView",
+        }
+        UIManager.show_ui(ui_param_interface);
     }
 
     update(){

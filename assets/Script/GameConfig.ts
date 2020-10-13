@@ -47,6 +47,11 @@ const GameConfig = {
           return GameConfig.branch == "debug";
       },
 
+      // 用户协议的网页链接
+      user_protocol_url:"http://waqqq.hainanliangyou.com/user.html",
+      // 隐私声明的网页链接
+      user_privacy_url:"http://waqqq.hainanliangyou.com/private.html",
+
       /**@description 服务器的地址 地址规则 前面加上斜杠( / ) 后面不加斜杠( / ) */
       get serverUrl(){
            var serverUrl = "https://bp-api.coohua.com";
