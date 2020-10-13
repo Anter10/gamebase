@@ -11,10 +11,12 @@ export default class TouchButton extends cc.Component {
     private touch_button_interface: TouchButtonInterface = null;
 
     onLoad () {
-
         this.node.on("touchstart",()=>{
-            this.node.runAction(cc.scaleTo(0.1, 1.1));
-        })
+            const action: cc.Action = cc.scaleTo(0.1, 1.1);
+            action.setTag(100002);
+            this.node.runAction(action);
+        });
+
         this.node.on("touchend", ()=> {
             if(this.touch_button_interface.touch_end_call_back){
                 this.touch_button_interface.touch_end_call_back();
@@ -22,12 +24,20 @@ export default class TouchButton extends cc.Component {
                 const audio: CocosAudio = new CocosAudio();
                 audio.play(audio_config);
             }
-            this.node.runAction(cc.scaleTo(0.1, 1));
+            const action: cc.Action = cc.scaleTo(0.1, 1);
+            action.setTag(100002);
+            this.node.runAction(action);
         }, this);
 
         this.node.on("touchcancel", ()=>{
-            this.node.runAction(cc.scaleTo(0.1, 1));
+            const action: cc.Action = cc.scaleTo(0.1, 1);
+            action.setTag(100002);
+            this.node.runAction(action);
         }, this);
+    }
+
+    onDisable(){
+        this.node.stopActionByTag(100002);
     }
 
     add_touch_event(touch_button_interface: TouchButtonInterface){
