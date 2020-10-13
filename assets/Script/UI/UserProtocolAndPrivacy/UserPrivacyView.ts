@@ -24,8 +24,8 @@ class UserPrivacyView extends BaseUI {
     close_button_node: cc.Node;
 
     user_privacy_interface: UserPrivacyInterface = {
-        close_button_image: "",
-        model_bottom_image: "",
+        model_bottom_image: "model_bottom_image",
+        close_button_image: "close_button_image",
     }
 
     onLoad () {

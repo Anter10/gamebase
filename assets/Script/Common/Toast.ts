@@ -16,13 +16,21 @@ class Toast extends BaseUI {
     bottom_sprite: cc.Sprite = null;
 
     start () {
-       
+    
     }
 
     show(ui_param_interface: UIParamInterface){
         super.show(ui_param_interface)
         this.set_toast_interface(<ToastInterface>ui_param_interface.param);
         this.flush_view();
+        this.node.x = cc.winSize.width / 2;
+        this.node.y = cc.winSize.height / 2;
+ 
+        const hide_time = this.toast_interface.duration ? this.toast_interface.duration * 1000 : 2000;
+        setTimeout(()=>{
+            this.on_close_call();
+        },  hide_time);
+
     }
 
     set_toast_interface(toast_interface: ToastInterface){
@@ -32,6 +40,7 @@ class Toast extends BaseUI {
     flush_view(){
          this.flush_text_color();
          this.flush_bottom_sprite_frame();
+         this.text_label.string = this.toast_interface.text ? this.toast_interface.text : "请填写提示信息";
     }
 
     flush_bottom_sprite_frame(){

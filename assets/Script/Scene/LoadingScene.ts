@@ -49,6 +49,8 @@ class LoadingScene extends BaseScene {
     @property(cc.Node)
     protocol_and_privacy_node: cc.Node = null;
 
+    @property(cc.Toggle)
+    user_toggle: cc.Toggle = null;
     
     public loading_scene_interface: LoadingSceneInterface = {
         game_logo_iamge : "",
@@ -108,8 +110,18 @@ class LoadingScene extends BaseScene {
     /**@description 点击开始游戏的按钮的调用逻辑 */
     start_game_callback(){
         console.log("点击开始游戏的按钮");
-
-        this.start_game_success_callback();
+        if(this.user_toggle.isChecked){
+            this.start_game_success_callback();
+        }else{
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param:{
+                    text:"请勾选同意用户协议"
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
+        }
     }
 
     /**@description 开始游戏成功后的回调 */
