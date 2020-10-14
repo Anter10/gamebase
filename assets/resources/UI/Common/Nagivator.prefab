@@ -175,7 +175,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "78ca91dc-7218-4619-b13c-bf512dd7f578"
+      "__uuid__": "4690903f-c43e-458c-9deb-6a3e76834684"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -757,17 +757,20 @@
       "__id__": 1
     },
     "_enabled": true,
-    "back_button_bottom": {
+    "nagivator_bottom": {
+      "__id__": 3
+    },
+    "nagivator_back_bottom": {
       "__id__": 7
+    },
+    "nagivator_back_button": {
+      "__id__": 11
     },
     "action_container": {
       "__id__": 17
     },
     "back_button_node": {
       "__id__": 10
-    },
-    "back_text_label": {
-      "__id__": 15
     },
     "title_label": {
       "__id__": 15

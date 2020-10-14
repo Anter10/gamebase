@@ -1,5 +1,6 @@
 import UIConfig from "../UI/UIManager/UIConfig";
 import ActionNode from "./ActionNode";
+import BaseNode from "./BaseNode";
 import { NagivatorActionInterface, NagivatorInterface, NagivatorUIInterface } from "./CommonInterface";
 import Loader from "./Loader";
 import TouchButton from "./TouchButton";
@@ -7,9 +8,14 @@ import TouchButton from "./TouchButton";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class Nagivator extends cc.Component {
+export default class Nagivator extends BaseNode {
+
     @property(cc.Sprite)
-    back_button_bottom: cc.Node = null;
+    nagivator_bottom: cc.Sprite = null;
+    @property(cc.Sprite)
+    nagivator_back_bottom: cc.Sprite = null;
+    @property(cc.Sprite)
+    nagivator_back_button: cc.Sprite = null;
 
     @property(cc.Node)
     action_container: cc.Node = null;
@@ -25,13 +31,17 @@ export default class Nagivator extends cc.Component {
     
 
     public nagivator_ui_interface: NagivatorUIInterface = {
-        nagivator_bottom:"",
-        nagivator_back_bottom:"", 
-        nagivator_back_button: "",
+        nagivator_bottom:"nagivator_bottom",
+        nagivator_back_bottom:"nagivator_back_bottom", 
+        nagivator_back_button: "nagivator_back_button",
+    }
+
+    onLoad(){
+        super.onLoad();
     }
 
     start () {
-
+        this.flush_ui_image(this.nagivator_ui_interface, "./UI/Common/texture/")
     }
 
     init_actions(actions: Array<NagivatorActionInterface> ){
@@ -71,6 +81,10 @@ export default class Nagivator extends cc.Component {
 
     set_title(title: string){
         this.title_label.string = title;
+    }
+
+    set_nagivator_back_bottom_left_widget(){
+        const widget = this.nagivator_back_button
     }
 
 

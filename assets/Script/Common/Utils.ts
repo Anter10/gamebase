@@ -6,7 +6,6 @@ class Utils{
         const all_need_load_sprite_frame_path: Array<string> = [];
         const all_sprite_name = Object.keys(ui_interface);
         const all_need_update_sprite_name: Array<string> = [];
-        
         for(const image_sprite_name of all_sprite_name){
             const image_name: string = ui_interface[image_sprite_name];
             if(ui_interface[image_name]){
