@@ -45,6 +45,16 @@ class Test{
         CashOutController.open(CashOutRouterPath.no_balance);
     }
 
+    static cash_out_order_view(){
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.CashOutOrderView,
+            ui_config_name: "CashOutOrderView",
+            param:{}
+        }
+
+        UIManager.show_ui(ui_param_interface);
+    }
+
 }
 
 export default Test;

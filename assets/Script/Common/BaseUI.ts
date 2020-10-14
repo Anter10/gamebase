@@ -1,8 +1,10 @@
+import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
-import { UIParamInterface } from "./CommonInterface";
+import { NagivatorActionInterface, UIParamInterface } from "./CommonInterface";
  
 import Controller from "./Controller";
 import Loader from "./Loader";
+import Nagivator from "./Nagivator";
 import Utils from "./Utils";
 
  
@@ -15,6 +17,8 @@ abstract class BaseUI extends cc.Component {
     public controller: Controller = null;
     public widget: cc.Widget = null;
     public c_time: number = new Date().getTime();
+    public nagivator: Nagivator = null;
+
     onLoad () {
         this.widget = this.node.getComponent(cc.Widget);
         this.block_input_events = this.addComponent(cc.BlockInputEvents);
@@ -52,7 +56,19 @@ abstract class BaseUI extends cc.Component {
         });
     }
 
-    // update (dt) {}
+
+    /**@description 添加导航 */
+    add_nagivator(actions: Array<NagivatorActionInterface>, back_call_back: Function){
+        Loader.load_prefab(UIConfig.Nagivator, (prefab: cc.Prefab) => {
+            const nagivator = cc.instantiate(prefab);
+            nagivator.parent = this.node;
+            const nagivator_script: Nagivator = nagivator.getComponent(Nagivator);
+            nagivator_script.init_actions(actions);
+            nagivator_script.set_backbutton_callback(()=> {
+                back_call_back && back_call_back();
+            })
+        })
+    }
 }
 
 

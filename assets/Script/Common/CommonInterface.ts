@@ -77,6 +77,15 @@ interface UIParamInterface {
     router?:RouterInterface;
 }
 
+/**@description 顶部导航右边的动作按钮接口 */
+interface NagivatorActionInterface{
+    /**@description action 的 显示文本 */
+    action_title: string;
+    /**@description action 点击的回调方法 */
+    action:Function;
+}
 
 
-export  {UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};
+
+
+export  {NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};
