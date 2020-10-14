@@ -1,10 +1,11 @@
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import CashOutController from "../UI/CashOut/CashOutController";
+import ClickOnController from "../UI/ClickOn/ClickOnController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";
-import { CashOutRouterPath } from "./CommonEnum";
+import { CashOutRouterPath, ClickOnRouterPath } from "./CommonEnum";
 import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
@@ -37,12 +38,28 @@ class Test{
         }
 
         UIManager.show_ui(ui_param_interface);
-       
     }
 
     /**@description 测试提现功能 */
     static cash_out(){
-        CashOutController.open(CashOutRouterPath.no_balance);
+        CashOutController.open(CashOutRouterPath.balance);
+    }
+
+
+     /**@description 测试提现记录的界面 */
+     static cash_out_order_view(){
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.CashOutOrderView,
+            ui_config_name: "CashOutOrderView",
+            param:{}
+        }
+
+        UIManager.show_ui(ui_param_interface);
+    }
+
+    /**@description 测试提现功能 */
+    static click_on_view(){
+        ClickOnController.open(ClickOnRouterPath.normal);
     }
 
 }

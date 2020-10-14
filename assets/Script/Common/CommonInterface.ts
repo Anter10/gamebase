@@ -77,6 +77,39 @@ interface UIParamInterface {
     router?:RouterInterface;
 }
 
+/**@description 顶部导航右边的动作按钮接口 */
+interface NagivatorActionInterface{
+    /**@description action 的 显示文本 */
+    action_title: string;
+    /**@description action 点击的回调方法 */
+    action:Function;
+}
+
+/**@description 导航器的UI接口 */
+interface NagivatorUIInterface{
+    // 导航条自己的底的图片路径
+    nagivator_bottom: string;
+    // 导航条返回按钮的底的图片路径
+    nagivator_back_bottom:string;
+    // 导航条返回按钮的图片路径
+    nagivator_back_button: string;
+}
 
 
-export  {UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};
+/**@description 导航器的接口 */
+interface NagivatorInterface{
+     /**@description 返回按钮的标题 */
+     title: string;
+     /**@description 返回按钮的回调*/
+     back_callback: Function;
+     /**@description 返回按钮底部节点的widget 的左边的像素值 */
+     widget_left?: number;
+     /**@description 显示导航栏的底部 */
+     show_nagivator_bottom?: boolean;
+}
+
+
+
+
+
+export  {NagivatorInterface,NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};

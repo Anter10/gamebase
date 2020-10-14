@@ -1,8 +1,10 @@
+import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
-import { UIParamInterface } from "./CommonInterface";
+import { NagivatorActionInterface, NagivatorInterface, UIParamInterface } from "./CommonInterface";
  
 import Controller from "./Controller";
 import Loader from "./Loader";
+import Nagivator from "./Nagivator";
 import Utils from "./Utils";
 
  
@@ -15,6 +17,8 @@ abstract class BaseUI extends cc.Component {
     public controller: Controller = null;
     public widget: cc.Widget = null;
     public c_time: number = new Date().getTime();
+    public nagivator: Nagivator = null;
+
     onLoad () {
         this.widget = this.node.getComponent(cc.Widget);
         this.block_input_events = this.addComponent(cc.BlockInputEvents);
@@ -29,9 +33,9 @@ abstract class BaseUI extends cc.Component {
         this.node.active = false;
     }
 
-    on_close_call(){
+    on_close_call(close_view_name?: string){
         console.log("关闭界面",this.node.name);
-        UIManager.close_ui(this.node.name);
+        UIManager.close_ui(close_view_name || this.node.name);
     }
 
     start () {
@@ -52,7 +56,18 @@ abstract class BaseUI extends cc.Component {
         });
     }
 
-    // update (dt) {}
+
+    /**@description 添加导航 */
+    add_nagivator(actions: Array<NagivatorActionInterface>, nagivator_interface: NagivatorInterface ){
+        Loader.load_prefab(UIConfig.Nagivator, (prefab: cc.Prefab) => {
+            const nagivator = cc.instantiate(prefab);
+            nagivator.parent = this.node;
+            nagivator.zIndex = cc.macro.MAX_ZINDEX;
+            const nagivator_script: Nagivator = nagivator.getComponent(Nagivator);
+            nagivator_script.init_actions(actions);
+            nagivator_script.set_nagivator_interface(nagivator_interface);
+        })
+    }
 }
 
 

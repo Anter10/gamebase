@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "BalanceCashOutViewBackground",
+    "_name": "ClickOnView",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -77,38 +77,6 @@
     "_id": ""
   },
   {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "d75f4cd7-27eb-44b8-958a-f3e6244274d2"
-    },
-    "_type": 1,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": ""
-  },
-  {
     "__type__": "cc.Widget",
     "_name": "",
     "_objFlags": 0,
@@ -116,7 +84,7 @@
       "__id__": 1
     },
     "_enabled": true,
-    "alignMode": 1,
+    "alignMode": 2,
     "_target": null,
     "_alignFlags": 45,
     "_left": 0,
@@ -136,14 +104,24 @@
     "_id": ""
   },
   {
+    "__type__": "932bfHCsQVOnK0hOCmNY1fL",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "1b743db9-46e1-4fee-8c89-e80778f9d2cb"
+      "__uuid__": "b2d9ed48-3971-4193-bccd-40a80229ad6e"
     },
-    "fileId": "d5pAZfXEpLfK18wkNGOyGM",
+    "fileId": "34IHqj90ZBVb4UHIGOw/rF",
     "sync": false
   }
 ]

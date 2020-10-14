@@ -1,11 +1,11 @@
  
 import { Boot, gamebase } from "../Boot";
+import { UIParamInterface } from "../Common/CommonInterface";
 import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
 import Utils from "../Common/Utils";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
-import UIParamInterface from "../UI/UIManager/UIParamInterface";
 import BaseScene from "./BaseScene";
 import { LoadingSceneInterface } from "./SceneInterface";
 
