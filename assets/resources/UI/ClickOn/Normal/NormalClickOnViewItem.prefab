@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "ClickOnViewItem",
+    "_name": "NormalClickOnViewItem",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -623,7 +623,7 @@
     "asset": {
       "__uuid__": "13716304-b360-4fa2-96dc-bdd9fdf93613"
     },
-    "fileId": "93qDI52LVJGrCAHpp9E46k",
+    "fileId": "9avxmu+V1ITpxO2lbnXBph",
     "sync": false
   },
   {

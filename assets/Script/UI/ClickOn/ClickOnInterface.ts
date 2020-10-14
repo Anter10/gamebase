@@ -26,4 +26,8 @@ interface ClickOnFreeTipUiInterface{
 }
 
 
+interface ClickOnViewInterface{
+    
+}
+
 export {ClickOnFreeTipUiInterface, ClickOnViewItemUiInterface, ClickOnViewUiInterface};
