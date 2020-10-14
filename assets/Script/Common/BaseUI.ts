@@ -33,9 +33,9 @@ abstract class BaseUI extends cc.Component {
         this.node.active = false;
     }
 
-    on_close_call(){
+    on_close_call(close_view_name?: string){
         console.log("关闭界面",this.node.name);
-        UIManager.close_ui(this.node.name);
+        UIManager.close_ui(close_view_name || this.node.name);
     }
 
     start () {

@@ -1,9 +1,10 @@
+import BaseUI from "../../../Common/BaseUI";
 import Loader from "../../../Common/Loader";
 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-class NoBanlanceCashOutView extends cc.Component {
+class NoBanlanceCashOutView extends BaseUI {
 
     @property(cc.Node)
     container: cc.Node = null;

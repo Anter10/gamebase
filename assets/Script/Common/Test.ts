@@ -42,7 +42,7 @@ class Test{
 
     /**@description 测试提现功能 */
     static cash_out(){
-        CashOutController.open(CashOutRouterPath.no_balance);
+        CashOutController.open(CashOutRouterPath.balance);
     }
 
     static cash_out_order_view(){
