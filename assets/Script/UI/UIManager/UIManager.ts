@@ -24,7 +24,8 @@ class UIManager{
                         }
                         this.all_ui[ui_param_interface.ui_config_name] = ui_script;
                         this.ui_is_loading[ui_param_interface.ui_config_name] = false;
-                        cc.director.getScene().addChild(ui, cc.macro.MAX_ZINDEX);
+                        const keys = Object.keys(this.all_ui);
+                        cc.director.getScene().addChild(ui, cc.macro.MAX_ZINDEX - 1000 + keys.length);
                     }else{
                         this.ui_is_loading[ui_param_interface.ui_config_name] = false;
                         console.error(`当前显示的UI: ${ui_param_interface.ui_config_path} 没有加载成功`);
@@ -66,6 +67,20 @@ class UIManager{
            }
 
            this.nagivate_route(roter);
+      }
+
+      /**@description 清空所有界面 */
+      static clear_ui(){
+          const ui_config_names = Object.keys(this.all_ui);
+          for(const ui_config_name of ui_config_names){
+              const node = this.all_ui[ui_config_name].node;
+              if(cc.isValid(node)){
+                  node.destroy();
+              }
+          }
+
+          this.all_ui = {};
+          this.ui_is_loading = {};
       }
 
       

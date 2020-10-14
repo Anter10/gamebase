@@ -62,6 +62,7 @@ abstract class BaseUI extends cc.Component {
         Loader.load_prefab(UIConfig.Nagivator, (prefab: cc.Prefab) => {
             const nagivator = cc.instantiate(prefab);
             nagivator.parent = this.node;
+            nagivator.zIndex = cc.macro.MAX_ZINDEX;
             const nagivator_script: Nagivator = nagivator.getComponent(Nagivator);
             nagivator_script.init_actions(actions);
             nagivator_script.set_nagivator_interface(nagivator_interface);

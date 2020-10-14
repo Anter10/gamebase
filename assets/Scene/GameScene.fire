@@ -146,7 +146,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Main Camera",
+    "_name": "UI Camera",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        349.87426312891324,
+        390.5774571067819,
         0,
         0,
         0,
@@ -204,7 +204,7 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "31j1jEtcZIn4xiw0qQ2C0C"
+    "_id": "20/UJslHVEJI2o6t/OzUvv"
   },
   {
     "__type__": "cc.Camera",
@@ -214,16 +214,16 @@
       "__id__": 3
     },
     "_enabled": true,
-    "_cullingMask": -3,
-    "_clearFlags": 7,
+    "_cullingMask": 2,
+    "_clearFlags": 0,
     "_backgroundColor": {
       "__type__": "cc.Color",
-      "r": 0,
-      "g": 0,
-      "b": 0,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
-    "_depth": -1,
+    "_depth": 2,
     "_zoomRatio": 1,
     "_targetTexture": null,
     "_fov": 60,
@@ -240,17 +240,17 @@
     },
     "_renderStages": 1,
     "_alignWithScreen": true,
-    "_id": "baUG3ZumNOppAzgLHju8fm"
+    "_id": "08VTRhUtdKK76BZgTU+Rop"
   },
   {
     "__type__": "cc.Node",
-    "_name": "UI Camera",
+    "_name": "Main Camera",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
     },
     "_children": [],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 6
@@ -281,7 +281,7 @@
       "array": [
         0,
         0,
-        350.74028853269766,
+        390.5774571067819,
         0,
         0,
         0,
@@ -302,7 +302,7 @@
     "_is3DNode": false,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "_id": "20/UJslHVEJI2o6t/OzUvv"
+    "_id": "31j1jEtcZIn4xiw0qQ2C0C"
   },
   {
     "__type__": "cc.Camera",
@@ -312,7 +312,7 @@
       "__id__": 5
     },
     "_enabled": true,
-    "_cullingMask": 2,
+    "_cullingMask": -3,
     "_clearFlags": 7,
     "_backgroundColor": {
       "__type__": "cc.Color",
@@ -321,7 +321,7 @@
       "b": 0,
       "a": 255
     },
-    "_depth": 1,
+    "_depth": -1,
     "_zoomRatio": 1,
     "_targetTexture": null,
     "_fov": 60,
@@ -338,7 +338,7 @@
     },
     "_renderStages": 1,
     "_alignWithScreen": true,
-    "_id": "08VTRhUtdKK76BZgTU+Rop"
+    "_id": "baUG3ZumNOppAzgLHju8fm"
   },
   {
     "__type__": "cc.Node",

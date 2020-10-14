@@ -1,4 +1,5 @@
 import Loader from "../Common/Loader";
+import UIManager from "../UI/UIManager/UIManager";
 
 const {ccclass, property} = cc._decorator;
 
@@ -9,7 +10,7 @@ class BaseScene extends cc.Component {
 
 
     onLoad () {
-
+        UIManager.clear_ui();
     }
 
     start () {
