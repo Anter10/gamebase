@@ -1,6 +1,6 @@
 import UIConfig from "../UI/UIManager/UIConfig";
 import ActionNode from "./ActionNode";
-import { NagivatorActionInterface } from "./CommonInterface";
+import { NagivatorActionInterface, NagivatorInterface, NagivatorUIInterface } from "./CommonInterface";
 import Loader from "./Loader";
 import TouchButton from "./TouchButton";
 
@@ -17,11 +17,18 @@ export default class Nagivator extends cc.Component {
     back_button_node: cc.Node = null;
 
     @property(cc.Label)
-    back_text_label: cc.Label = null;
-    @property(cc.Label)
     title_label: cc.Label = null;
+    
+    public nagivator_interface: NagivatorInterface = null;
 
     public actions: Array<NagivatorActionInterface> = [];
+    
+
+    public nagivator_ui_interface: NagivatorUIInterface = {
+        nagivator_bottom:"",
+        nagivator_back_bottom:"", 
+        nagivator_back_button: "",
+    }
 
     start () {
 
@@ -54,9 +61,17 @@ export default class Nagivator extends cc.Component {
         const touch_button: TouchButton = this.back_button_node.addComponent(TouchButton);
         touch_button.register_touch(back_call_back);
     }
+    
+    set_nagivator_interface(nagivator_interface: NagivatorInterface){
+        this.nagivator_interface = nagivator_interface;
+        this.set_title(this.nagivator_interface.title);
+        const touch_button: TouchButton = this.back_button_node.addComponent(TouchButton);
+        touch_button.register_touch(this.nagivator_interface.back_callback);
+    }
 
-
-
+    set_title(title: string){
+        this.title_label.string = title;
+    }
 
 
     // update (dt) {}

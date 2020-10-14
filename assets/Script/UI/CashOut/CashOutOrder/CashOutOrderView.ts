@@ -19,7 +19,10 @@ class CashOutOrderView extends BaseUI {
             });
         }
 
-        this.add_nagivator([],this.on_close_call.bind(this));
+        this.add_nagivator([],{
+            title: "提现记录",
+            back_callback: this.on_close_call.bind(this)
+        });
     }
 
     start () {

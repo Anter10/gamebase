@@ -85,7 +85,27 @@ interface NagivatorActionInterface{
     action:Function;
 }
 
+/**@description 导航器的UI接口 */
+interface NagivatorUIInterface{
+    // 导航条自己的底的图片路径
+    nagivator_bottom: string;
+    // 导航条返回按钮的底的图片路径
+    nagivator_back_bottom:string;
+    // 导航条返回按钮的图片路径
+    nagivator_back_button: string;
+}
+
+
+/**@description 导航器的接口 */
+interface NagivatorInterface{
+     /**@description 返回按钮的标题 */
+     title: string;
+     /**@description 返回按钮的回调*/
+     back_callback: Function;
+}
 
 
 
-export  {NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};
+
+
+export  {NagivatorInterface,NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface};

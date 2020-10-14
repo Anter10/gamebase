@@ -22,8 +22,12 @@ export default class BanlanceCashOutView extends BaseUI {
                 param:{}
             }
             UIManager.show_ui(ui_param_interface);
-        }}], ()=>{
-            this.on_close_call("CashOutView");
+        }}], 
+        {
+            title:"提现",
+            back_callback:()=>{
+                this.on_close_call("CashOutView");
+            }
         })
     }
 

@@ -1,6 +1,6 @@
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
-import { NagivatorActionInterface, UIParamInterface } from "./CommonInterface";
+import { NagivatorActionInterface, NagivatorInterface, UIParamInterface } from "./CommonInterface";
  
 import Controller from "./Controller";
 import Loader from "./Loader";
@@ -58,15 +58,13 @@ abstract class BaseUI extends cc.Component {
 
 
     /**@description 添加导航 */
-    add_nagivator(actions: Array<NagivatorActionInterface>, back_call_back: Function){
+    add_nagivator(actions: Array<NagivatorActionInterface>, nagivator_interface: NagivatorInterface ){
         Loader.load_prefab(UIConfig.Nagivator, (prefab: cc.Prefab) => {
             const nagivator = cc.instantiate(prefab);
             nagivator.parent = this.node;
             const nagivator_script: Nagivator = nagivator.getComponent(Nagivator);
             nagivator_script.init_actions(actions);
-            nagivator_script.set_backbutton_callback(()=> {
-                back_call_back && back_call_back();
-            })
+            nagivator_script.set_nagivator_interface(nagivator_interface);
         })
     }
 }
