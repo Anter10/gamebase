@@ -6,8 +6,7 @@ import UIManager from "../../UIManager/UIManager";
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class BanlanceCashOutView extends BaseUI {
-
+class BanlanceCashOutView extends BaseUI {
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -37,3 +36,6 @@ export default class BanlanceCashOutView extends BaseUI {
 
     // update (dt) {}
 }
+
+
+export default BanlanceCashOutView;

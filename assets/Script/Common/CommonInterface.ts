@@ -102,6 +102,10 @@ interface NagivatorInterface{
      title: string;
      /**@description 返回按钮的回调*/
      back_callback: Function;
+     /**@description 返回按钮底部节点的widget 的左边的像素值 */
+     widget_left?: number;
+     /**@description 显示导航栏的底部 */
+     show_nagivator_bottom?: boolean;
 }
 
 
