@@ -39,5 +39,13 @@ enum TouchButtonEffectType{
      opacity = 3,
 }
 
+/**@description 新手引导的类型的枚举类型 */
+enum NewPlayerGuideType{
+     /**@description 正常模式 */
+     normal = "normal",
+     /**@description 图片类型的模式 */
+     picture = "picture",
+}
 
-export {TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
+
+export {NewPlayerGuideType, TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
