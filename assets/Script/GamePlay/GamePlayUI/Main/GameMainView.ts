@@ -1,14 +1,9 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+import UIConfig from "../../../UI/UIManager/UIConfig";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class NewClass extends cc.Component {
+export default class GameMainView extends cc.Component {
 
     @property(cc.Label)
     label: cc.Label = null;
@@ -16,11 +11,16 @@ export default class NewClass extends cc.Component {
     @property
     text: string = 'hello';
 
+    init_game_play_ui_config() {
+        // UIConfig
+    }
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad() {
 
-    start () {
+    }
+
+    start() {
 
     }
 
