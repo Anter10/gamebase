@@ -37,7 +37,7 @@ class BaseRecord{
                          }
                          _value = value;
                          if(_origin_value_had_changed){
-                            BaseRecord.update_data && BaseRecord.update_data(self);
+                            BaseRecord.update_data && BaseRecord.update_data();
                              self.auto_call && self.auto_call();
                          }
                      },

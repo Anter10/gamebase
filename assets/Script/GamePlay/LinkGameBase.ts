@@ -1,5 +1,4 @@
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
-import GuideData from "../GameLocalData/GuideData";
 import UIConfig from "../UI/UIManager/UIConfig";
 
 class LinkGameBase{

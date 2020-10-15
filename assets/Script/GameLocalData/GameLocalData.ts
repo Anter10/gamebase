@@ -68,13 +68,11 @@ class GameLocalData{
         if (keys.length == 0) {
             return;
         }
-
-        if(store_data){
-           cc.sys.localStorage.setItem(this._store_key, JSON.stringify(store_data));
-        }else{
-           cc.sys.localStorage.setItem(this._store_key, JSON.stringify(this._game_data));
+        let game_store_data =  store_data;
+        if(!game_store_data){
+            game_store_data = this._game_data;
         }
-   
+        cc.sys.localStorage.setItem(this._store_key, JSON.stringify(game_store_data));
     }
     
     clear_data(){
