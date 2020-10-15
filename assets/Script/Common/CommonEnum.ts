@@ -8,8 +8,15 @@ enum CashOutRouterPath{
 
 /**@description 打卡界面的路径 */
 enum ClickOnRouterPath{
+    /**@description 打卡界面的普通界面 */
     normal = "noraml",
 }
 
+/**@description 排行榜的显示路径 */
+enum RankRouterPath{
+    /**@description  */
+    normal = "normal",
+}
 
-export {CashOutRouterPath, ClickOnRouterPath};
+
+export {RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
