@@ -29,5 +29,15 @@ enum OpenRedEnvelopePath{
     normal = "normal",
 }
 
+/**@description 点击按钮的效果类型 */
+enum TouchButtonEffectType{
+     /**@description 没有效果 */
+     none = 1,
+     /**@description 缩放效果 */
+     scale = 2,
+     /**@description 透明的变化的效果 */
+     opacity = 3,
+}
 
-export {OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
+
+export {TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
