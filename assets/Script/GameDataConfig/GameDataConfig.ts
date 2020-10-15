@@ -16,7 +16,7 @@ class GameDataConfig{
     // const config: Audio = this.get_data<Audio>("Audio", 1);
     // console.log("当前的json 数据  = ",config);
      /**@description 可以强制类型转化成想要的类型的来使用 如:GuideData */
-    static get_data<T>(config_name: string, config_id: number): T {
+    static get_config_by_id<T>(config_name: string, config_id: number): T {
         const configs = this.all_config_data[config_name];
         if(configs){
             for(const config of configs){
@@ -26,6 +26,16 @@ class GameDataConfig{
             }
         }else{
             console.error(`当前读取配置信息失败 ${config_name} ${config_id}`);
+        }
+    }
+
+    /**@description 得到整个某个配置的所有数据的Array */
+    static get_config_array<T>(config_name: string): T {
+        const configs = this.all_config_data[config_name];
+        if(configs){
+           return configs;
+        }else{
+            console.error(`当前读取配置信息失败 ${config_name}`);
         }
     }
 
