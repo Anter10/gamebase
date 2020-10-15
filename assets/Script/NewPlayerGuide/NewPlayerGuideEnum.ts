@@ -10,6 +10,7 @@ enum GuideFingerDirection{
      right = 4,
 }
 
+/**@description mask的类型 */
 enum GuideMaskType{
      /**@description 没有mask */
      none = 1,
