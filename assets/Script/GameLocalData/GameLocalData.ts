@@ -1,4 +1,5 @@
 import BaseRecord from "./BaseRecord";
+import GamePlayBaseData from "./GamePlayBaseData";
 import GameRecord from "./GameRecord";
 import GuideData from "./GuideData";
 import TurnTableData from "./TurnTableData";
@@ -12,7 +13,7 @@ class GameLocalData{
            GuideData,
            GameRecord,
            TurnTableData,
-           
+           GamePlayBaseData,
     ];
 
     
