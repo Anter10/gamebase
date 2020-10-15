@@ -1,4 +1,4 @@
-const UIConfig = {
+const UIConfig:{[key: string]: string} = {
       // COMMON 类型的UI
       NetworkLoading : "UI/Common/NetworkLoading",
       Toast: "UI/Common/Toast",
