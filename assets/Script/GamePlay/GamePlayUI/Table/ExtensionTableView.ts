@@ -5,10 +5,12 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import BaseUI from "../../../Common/BaseUI";
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class TableItem extends cc.Component {
+export default class ExtensionTableView extends BaseUI {
 
     @property(cc.Label)
     label: cc.Label = null;

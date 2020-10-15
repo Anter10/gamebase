@@ -1,28 +1,50 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+import BaseNode from "../../../Common/BaseNode";
+import Loader from "../../../Common/Loader";
+import EventConfig from "../../../EventManager/EventConfig";
+import EventManager from "../../../EventManager/EventManager";
+import { TableConfig } from "../../../GameDataConfig/ConfigInterface";
+import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
+import GameLocalData from "../../../GameLocalData/GameLocalData";
+import TableData from "../../../GameLocalData/TableData";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class GameMainTableItem extends cc.Component {
+export default class GameMainTableItem extends BaseNode {
 
-    @property(cc.Label)
-    label: cc.Label = null;
+    @property(cc.Sprite)
+    table_sprite: cc.Sprite = null;
 
-    @property
-    text: string = 'hello';
+    private table_number: number = 0;
 
-    // LIFE-CYCLE CALLBACKS:
+    set_table_number(table_number: number) {
+        this.table_number = table_number;
+    }
 
-    // onLoad () {}
+    onLoad() {
+        EventManager.get_instance().listen(EventConfig.upgrade_table, this, this.refresh_table_sprite);
+    }
 
-    start () {
+    onDisable() {
+        EventManager.get_instance().cancel_listen(EventConfig.upgrade_table, this, this.refresh_table_sprite);
+    }
+
+    refresh_table_sprite() {
+        const table_data = GameLocalData.get_instance().get_data<TableData>(TableData);
+        const table_level = table_data.get_table_data(this.table_number).tableLevel;
+        const table_config: TableConfig = GameDataConfig.get_config_by_id("TableConfig", table_level);
+        if (table_config) {
+            Loader.load_texture(`GamePlay/GamePlayUI/Main/texture/${table_config.name}`, (texture2d: cc.Texture2D) => {
+                this.table_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
+            })
+        } else {
+            this.table_sprite.spriteFrame = null;
+        }
 
     }
 
-    // update (dt) {}
+    start() {
+        this.refresh_table_sprite();
+    }
+    
 }

@@ -1,1 +1,1 @@
-{"AudioConfig":[{"id":1,"name":"background","time":120,"info":"背景音乐"},{"id":2,"name":"button","time":1,"info":"按钮音效"}]}
+{"AudioConfig":[{"id":1,"name":"background","time":120,"info":"背景音乐"},{"id":2,"name":"button","time":1,"info":"按钮音效"}],"TableConfig":[{"id":1,"name":"main_table_1","upgrade":20000},{"id":2,"name":"main_table_2","upgrade":40000},{"id":3,"name":"main_table_3","upgrade":80000},{"id":4,"name":"main_table_4","upgrade":160000}]}

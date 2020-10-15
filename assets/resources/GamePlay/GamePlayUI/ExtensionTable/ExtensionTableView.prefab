@@ -13,14 +13,21 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "GameMain",
+    "_name": "ExtensionTableView",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 2
+      },
+      {
+        "__id__": 3
+      }
+    ],
     "_prefab": {
-      "__id__": 2
+      "__id__": 4
     },
     "_opacity": 255,
     "_color": {
@@ -32,8 +39,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 750,
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -44,8 +51,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        0,
+        375,
+        667,
         0,
         0,
         0,
@@ -65,8 +72,47 @@
     "_skewX": 0,
     "_skewY": 0,
     "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
+    "_groupIndex": 1,
+    "groupIndex": 1,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 45,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "ad50caP0J1NRrlMLQB6/W46",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "label": null,
+    "text": "hello",
     "_id": ""
   },
   {
@@ -75,9 +121,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "a103de60-680e-4f8d-a8f1-e259eac400f2"
+      "__uuid__": "2513fc87-5502-49d2-9b7b-95287e24bfca"
     },
-    "fileId": "92yNLX5+9Mda2F5r9aBS6I",
+    "fileId": "7bal+6FfNBuKOFQS6w7JOh",
     "sync": false
   }
 ]

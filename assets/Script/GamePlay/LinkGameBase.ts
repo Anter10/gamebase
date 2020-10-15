@@ -1,10 +1,12 @@
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
+import TableData from "../GameLocalData/TableData";
 import UIConfig from "../UI/UIManager/UIConfig";
 
 class LinkGameBase{
       /**@description gameplay的本地存档疏忽 */
       static game_play_record:Array<any> = [
          GamePlayBaseData,
+         TableData,
       ];
 
       /**

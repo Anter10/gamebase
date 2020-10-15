@@ -5,24 +5,18 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
-const {ccclass, property} = cc._decorator;
+import BaseNode from "../../../Common/BaseNode";
+
+const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class TableView extends cc.Component {
+export default class ExtensionTableItem extends BaseNode {
 
     @property(cc.Label)
     label: cc.Label = null;
 
-    @property
-    text: string = 'hello';
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {}
-
-    start () {
+    start() {
 
     }
 
-    // update (dt) {}
 }

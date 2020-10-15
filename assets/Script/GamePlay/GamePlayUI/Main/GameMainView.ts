@@ -4,6 +4,7 @@ import TouchButton from "../../../Common/TouchButton";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
+import GameMainTableItem from "./GameMainTableItem";
 
 const { ccclass, property } = cc._decorator;
 
@@ -43,13 +44,16 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     attract_customer_progress: cc.Node = null;
 
+    @property(cc.Node)
+    table_node_array: Array<cc.Node> = [];
+
     onLoad() {
         this.flush_view();
     }
 
     start() {
         this.load_gold_and_heart_item();
-        console.log("我进来了");
+        this.load_table_item();
     }
 
     flush_view() {
@@ -97,6 +101,17 @@ export default class GameMainView extends BaseUI {
         });
     }
 
+    load_table_item() {
+        for (let i = 0; i < this.table_node_array.length; i++) {
+            Loader.load_prefab("/GamePlay/GamePlayUI/Main/GameMainTableItem", (prefab: cc.Prefab) => {
+                const game_main_table_item = cc.instantiate(prefab);
+                game_main_table_item.getComponent(GameMainTableItem).set_table_number(i);
+                game_main_table_item.parent = this.table_node_array[i];
+
+            });
+        }
+    }
+
     click_cash_out_button() {
 
     }
@@ -128,7 +143,6 @@ export default class GameMainView extends BaseUI {
                     game_play_base_data.attract_customer_number = 0;
                     this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
                     //再招揽一位客人。
-                    
                 }, 0.5);
             }
         }

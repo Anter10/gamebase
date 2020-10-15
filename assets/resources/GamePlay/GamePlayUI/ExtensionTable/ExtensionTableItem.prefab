@@ -13,14 +13,18 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "GameMain",
+    "_name": "ExtensionTableItem",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 2
+      }
+    ],
     "_prefab": {
-      "__id__": 2
+      "__id__": 3
     },
     "_opacity": 255,
     "_color": {
@@ -70,12 +74,23 @@
     "_id": ""
   },
   {
+    "__type__": "18c3b3YHARPJpeLikn/mJAJ",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "label": null,
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "a103de60-680e-4f8d-a8f1-e259eac400f2"
+      "__uuid__": "07a7428d-43b1-43ed-8351-d222340c2407"
     },
     "fileId": "92yNLX5+9Mda2F5r9aBS6I",
     "sync": false

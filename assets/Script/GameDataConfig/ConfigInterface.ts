@@ -6,7 +6,13 @@ interface AudioConfig {
     info : string; 
 } 
 
+interface TableConfig { 
+    id : number; 
+    name : string; 
+    upgrade : number; 
+} 
+
  
   
 
- export { AudioConfig, };
+ export { AudioConfig,TableConfig, };
