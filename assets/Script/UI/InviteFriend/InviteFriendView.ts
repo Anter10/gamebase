@@ -1,10 +1,12 @@
 import BaseUI from "../../Common/BaseUI";
+import InviteFriendViewController from "./InviteFriendViewController";
 
  
 const {ccclass, property} = cc._decorator;
 
 @ccclass
-export default class InviteFriendView extends BaseUI {
+class InviteFriendView extends BaseUI {
+    public controller: InviteFriendViewController = null;
 
     @property(cc.Label)
     label: cc.Label = null;
@@ -14,11 +16,18 @@ export default class InviteFriendView extends BaseUI {
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad () {
+        super.onLoad();
+        this.controller.init_view();
+    }
 
     start () {
+        super.start();
 
     }
 
     // update (dt) {}
 }
+
+
+export default InviteFriendView;

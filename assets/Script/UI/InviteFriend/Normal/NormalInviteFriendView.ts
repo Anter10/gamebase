@@ -1,4 +1,5 @@
 import BaseUI from "../../../Common/BaseUI";
+import InviteFriendItem from "../InviteFriendItem";
 
 const {ccclass, property} = cc._decorator;
 
@@ -27,6 +28,21 @@ class NormalInviteFriendView extends BaseUI {
 
     onLoad () {
         super.onLoad();
+        this.add_nagivator([],{
+            title:"邀请好友",
+            back_callback:()=>{
+                this.on_close_call("InviteFriendView");
+            }
+        })
+        this.init_list_view();
+    }
+
+    init_list_view(){
+        for(let i = 0 ; i < 10; i++){
+            const invite_friend_item: cc.Node = cc.instantiate(this.invite_friend_item_prefab);
+            const invite_friend_item_script:InviteFriendItem = invite_friend_item.getComponent(InviteFriendItem);
+            invite_friend_item.parent = this.container;
+        }
     }
 
     start () {

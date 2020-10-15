@@ -17,6 +17,8 @@ const UIConfig:{[key: string]: string} = {
       ClickOnView: "./UI/ClickOn/ClickOnView",
       /**@description 排行榜界面 */
       RankView: "./UI/Rank/RankView",
+      /**@description 邀请好友洁面 */
+      InviteFriendView: "./UI/InviteFriend/InviteFriendView",
 };
 
 
