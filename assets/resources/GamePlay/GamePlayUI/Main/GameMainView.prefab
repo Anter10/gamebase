@@ -2356,6 +2356,12 @@
     "batch_attract_customer_button": {
       "__id__": 60
     },
+    "attract_customer_progress_label": {
+      "__id__": 53
+    },
+    "attract_customer_progress": {
+      "__id__": 49
+    },
     "_id": ""
   },
   {

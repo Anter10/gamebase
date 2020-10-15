@@ -1,7 +1,9 @@
 import BaseUI from "../../../Common/BaseUI";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
-import UIConfig from "../../../UI/UIManager/UIConfig";
+import GameLocalData from "../../../GameLocalData/GameLocalData";
+import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
+import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 
 const { ccclass, property } = cc._decorator;
 
@@ -34,6 +36,12 @@ export default class GameMainView extends BaseUI {
 
     @property(cc.Node)
     batch_attract_customer_button: cc.Node = null;
+
+    @property(cc.Label)
+    attract_customer_progress_label: cc.Label = null;
+
+    @property(cc.Node)
+    attract_customer_progress: cc.Node = null;
 
     onLoad() {
         this.flush_view();
@@ -72,6 +80,10 @@ export default class GameMainView extends BaseUI {
         //批量招揽顾客
         const batch_attract_customer_button: TouchButton = this.batch_attract_customer_button.addComponent(TouchButton);
         batch_attract_customer_button.register_touch(this.click_batch_attract_customer_button.bind(this));
+
+        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
+
     }
 
     load_gold_and_heart_item() {
@@ -106,11 +118,29 @@ export default class GameMainView extends BaseUI {
     }
 
     click_attract_customer_button() {
-        
+        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        let total = game_play_base_data.attract_customer_number + GamePlayConfig.click_attract_customer_button_add;
+        if (total <= 100) {
+            game_play_base_data.attract_customer_number = game_play_base_data.attract_customer_number + GamePlayConfig.click_attract_customer_button_add;
+            this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
+            if (total == 100) {
+                this.scheduleOnce(() => {
+                    game_play_base_data.attract_customer_number = 0;
+                    this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
+                    //再招揽一位客人。
+                    
+                }, 0.5);
+            }
+        }
     }
 
     click_batch_attract_customer_button() {
 
+    }
+
+    set_attract_customer_progress(progress_number: number) {
+        this.attract_customer_progress_label.string = progress_number + "%";
+        this.attract_customer_progress.scaleX = progress_number / 100;
     }
 
 }
