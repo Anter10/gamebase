@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "a95e340c-6b0a-43a7-97fb-8abe5babc947",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 119,
+  "height": 125,
+  "platformSettings": {},
+  "subMetas": {
+    "home_icon_cook": {
+      "ver": "1.0.4",
+      "uuid": "16ae03a9-480f-4e78-9a13-da9097e271dc",
+      "rawTextureUuid": "a95e340c-6b0a-43a7-97fb-8abe5babc947",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -2,
+      "offsetY": 4.5,
+      "trimX": 6,
+      "trimY": 1,
+      "width": 103,
+      "height": 114,
+      "rawWidth": 119,
+      "rawHeight": 125,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

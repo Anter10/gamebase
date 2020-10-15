@@ -1,6 +1,8 @@
 // 游戏内部的事件配置信息
 const EventConfig = {
-      "test":"test"
+      "test": "test",
+      "change_gold_coin_number": "change_gold_coin_number",
+      "change_red_heart_number": "change_red_heart_number",
 }
 
 export default EventConfig;
