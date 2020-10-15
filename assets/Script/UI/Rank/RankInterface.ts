@@ -36,4 +36,12 @@ interface RankPublicInterface{
     readonly newMoney: number;
 }
 
-export {RankPublicInterface, RankItemInterface, RankInterface}
+/**@description 排行榜的表头信息 */
+interface HeaderItemInterface{
+    /**@description 顶部标题的显示文本 */
+    title: string;
+    /**@description title所占的宽度 */
+    item_width?: number;
+}
+
+export {HeaderItemInterface, RankPublicInterface, RankItemInterface, RankInterface}

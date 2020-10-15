@@ -11,6 +11,10 @@ function export_config() {
    exportdata("./../assets/resources/Config" ,"config.json","./../config", "./../assets/Script/GameDataConfig");
 }
 
+function export_server_config() {
+    exportdata("./../assets/resources/ServerConfig" ,"server_config.json","./../config", "./../assets/Script/GameDataConfig");
+ }
+
 function main() {
     console.log("exportdata ", exportdata);
     export_config();

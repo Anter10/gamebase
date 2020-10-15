@@ -29,12 +29,15 @@ interface ShareInterface{
 
 /**@description 填入邀请码返回的数据接口[post: ] */
 interface InputShareCodeInterface{
+    /**@description 师傅的名称 */
     readonly masterName: string;
+    /**@description 师傅的头像 */
     readonly masterPhotoUrl: string;
 }
 
 /**@description 领取风向奖励的接口[post: /g3-odyssey/api/share] */
 interface GetShareAwardMoneyInterface{
+    /**@description 领取后, 刷新最新的余额 */
     readonly newMoney: number;
 }
 
