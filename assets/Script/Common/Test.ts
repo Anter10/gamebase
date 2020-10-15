@@ -12,7 +12,7 @@ import { ModalInterface, UIParamInterface } from "./CommonInterface";
 class Test{
     // 使用 window.Test.audio()来测试相关的功能
     static audio(){
-         const audio_config:AudioConfig = GameDataConfig.get_data("AudioConfig",1);
+         const audio_config:AudioConfig = GameDataConfig.get_config_by_id("AudioConfig",1);
          const audio: Audio = new Audio();
          audio.play(audio_config);
     }

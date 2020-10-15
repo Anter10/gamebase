@@ -1,3 +1,4 @@
+import LinkGameBase from "../GamePlay/LinkGameBase";
 import BaseRecord from "./BaseRecord";
 import GamePlayBaseData from "./GamePlayBaseData";
 import GameRecord from "./GameRecord";
@@ -15,6 +16,14 @@ class GameLocalData{
            TurnTableData,
            GamePlayBaseData,
     ];
+
+    get store_data_types(): Array<any>{
+        const all_store_types = this._all_store_data;
+        for(const game_play_record of LinkGameBase.game_play_record){
+            all_store_types.push(game_play_record);
+        }
+        return all_store_types;
+    }
 
     
     public static all_convert_single_data: Object = {
@@ -39,7 +48,7 @@ class GameLocalData{
             cur_store_data = JSON.parse(local_cur_store_data);
         } 
 
-        for (const store_type of this._all_store_data) {
+        for (const store_type of this.store_data_types) {
             const store_key = store_type._name;
             const store_data = cur_store_data[store_key];
             if (!store_data) {

@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "hh_tool": "^1.0.3",
     "hs_export_data": "^1.0.1"
   }
 }

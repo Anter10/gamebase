@@ -20,7 +20,7 @@ export default class TouchButton extends cc.Component {
         this.node.on("touchend", ()=> {
             if(this.touch_button_interface.touch_end_call_back){
                 this.touch_button_interface.touch_end_call_back();
-                const audio_config: AudioConfig = GameDataConfig.get_data("AudioConfig", this.touch_button_interface.music_id || 2);
+                const audio_config: AudioConfig = GameDataConfig.get_config_by_id("AudioConfig", this.touch_button_interface.music_id || 2);
                 const audio: CocosAudio = new CocosAudio();
                 audio.play(audio_config);
             }
