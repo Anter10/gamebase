@@ -2,11 +2,12 @@ import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import CashOutController from "../UI/CashOut/CashOutController";
 import ClickOnController from "../UI/ClickOn/ClickOnController";
+import InviteFriendViewController from "../UI/InviteFriend/InviteFriendViewController";
 import RankViewController from "../UI/Rank/RankViewController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";
-import { CashOutRouterPath, ClickOnRouterPath, RankRouterPath } from "./CommonEnum";
+import { CashOutRouterPath, ClickOnRouterPath, InviteFriendPath, RankRouterPath } from "./CommonEnum";
 import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
@@ -63,9 +64,14 @@ class Test{
         ClickOnController.open(ClickOnRouterPath.normal);
     }
 
-     /**@description 测试提现功能 */
-     static rank_view(){
+    /**@description 测试提现功能 */
+    static rank_view(){
         RankViewController.open(RankRouterPath.normal);
+    }
+
+     /**@description 测试邀请好友的功能 */
+     static invite_view(){
+        InviteFriendViewController.open(InviteFriendPath.normal);
     }
 }
 

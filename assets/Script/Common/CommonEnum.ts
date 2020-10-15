@@ -14,9 +14,16 @@ enum ClickOnRouterPath{
 
 /**@description 排行榜的显示路径 */
 enum RankRouterPath{
-    /**@description  */
+    /**@description 常规界面 */
     normal = "normal",
 }
 
+/**@description 邀请好友的界面 */
+enum InviteFriendPath{
+    /**@description 常规模式 */
+    normal = "normal",
 
-export {RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
+}
+
+
+export {InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
