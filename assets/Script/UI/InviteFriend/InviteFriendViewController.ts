@@ -22,7 +22,6 @@ class InviteFriendViewController extends Controller{
     }
 
     init_view(){
-        console.log("this.view.ui_param_interface ",this.view.ui_param_interface);
         if(this.view.ui_param_interface.router.path == InviteFriendPath.normal){
             Loader.load_prefab("UI/InviteFriend/Normal/NormalInviteFriendView", (prefab: cc.Prefab) => {
                  const normal_click_on_view = cc.instantiate(prefab);

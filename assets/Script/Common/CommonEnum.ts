@@ -22,8 +22,12 @@ enum RankRouterPath{
 enum InviteFriendPath{
     /**@description 常规模式 */
     normal = "normal",
+}
 
+/**@description 拆红包的露肩 */
+enum OpenRedEnvelopePath{
+    normal = "normal",
 }
 
 
-export {InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
+export {OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
