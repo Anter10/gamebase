@@ -19,6 +19,8 @@ const UIConfig:{[key: string]: string} = {
       RankView: "./UI/Rank/RankView",
       /**@description 邀请好友洁面 */
       InviteFriendView: "./UI/InviteFriend/InviteFriendView",
+      /**@description 拆红包界面 */
+      OpenRedEnvelopeView:"./UI/OpenRedEnvelope/OpenRedEnvelopeView",
 };
 
 

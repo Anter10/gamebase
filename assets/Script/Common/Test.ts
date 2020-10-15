@@ -3,11 +3,12 @@ import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import CashOutController from "../UI/CashOut/CashOutController";
 import ClickOnController from "../UI/ClickOn/ClickOnController";
 import InviteFriendViewController from "../UI/InviteFriend/InviteFriendViewController";
+import OpenRedEnvelopeViewController from "../UI/OpenRedEnvelope/OpenRedEnvelopeViewController";
 import RankViewController from "../UI/Rank/RankViewController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";
-import { CashOutRouterPath, ClickOnRouterPath, InviteFriendPath, RankRouterPath } from "./CommonEnum";
+import { CashOutRouterPath, ClickOnRouterPath, InviteFriendPath, OpenRedEnvelopePath, RankRouterPath } from "./CommonEnum";
 import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
@@ -72,6 +73,11 @@ class Test{
      /**@description 测试邀请好友的功能 */
      static invite_view(){
         InviteFriendViewController.open(InviteFriendPath.normal);
+    }
+
+    /**@description 测试邀请好友的功能 */
+    static open_red_envelope_view(){
+        OpenRedEnvelopeViewController.open(OpenRedEnvelopePath.normal);
     }
 }
 
