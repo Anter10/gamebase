@@ -1,6 +1,6 @@
  
-import UIParamInterface from "../UI/UIManager/UIParamInterface";
 import BaseUI from "./BaseUI";
+import { UIParamInterface } from "./CommonInterface";
 
 const {ccclass, property} = cc._decorator;
 
