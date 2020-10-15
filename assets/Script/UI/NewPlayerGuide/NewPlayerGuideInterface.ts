@@ -1,13 +1,12 @@
-
 interface NewPlayerGuideInterface{
       /**@description 引导ID */
       guide_id: number;
       /**@description 引导到的节点 */
       guide_to_node?: cc.Node;
-      /**@description 0:没有mask 1: 方形 2: 圆形  */
+      /**@description 0:没有mask 1: 方形 2: 圆形 3 图片类型的引导 */
       guide_mask_type: number;
       /**@description 引导的回调方法 */
-      call_backback: Function;
+      callback: Function;
       /**@description 引导的区域大小 */
       react?: cc.Rect;
       /**@description 引导文本 */
