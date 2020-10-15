@@ -1,6 +1,7 @@
 import { UIParamInterface } from "../Common/CommonInterface";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
+import LinkGameBase from "./LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
 
@@ -10,7 +11,7 @@ class GamePlay extends cc.Component {
 
     //初始化添加uiconfig里的内容
     init_game_play_ui_config() {
-        UIConfig.GameMainView = "GamePlay/GamePlayUI/Main/GameMainView";
+        LinkGameBase.register_ui_path("GameMainView", `GamePlay/GamePlayUI/Main/GameMainView`);
     }
 
     onLoad() {
