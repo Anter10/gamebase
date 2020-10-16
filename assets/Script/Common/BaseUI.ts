@@ -1,3 +1,5 @@
+import EventConfig from "../EventManager/EventConfig";
+import EventManager from "../EventManager/EventManager";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import { NagivatorActionInterface, NagivatorInterface, UIParamInterface } from "./CommonInterface";
@@ -22,6 +24,19 @@ abstract class BaseUI extends cc.Component {
     onLoad () {
         this.widget = this.node.getComponent(cc.Widget);
         this.block_input_events = this.addComponent(cc.BlockInputEvents);
+    }
+
+    /**@description 注册Android 返回键监听关闭当前界面的方法 */
+    register_back_call_event(){
+        EventManager.get_instance().listen(EventConfig.webBackPage,this, this.android_back_callback.bind(this));
+    }
+
+    android_back_callback(){
+        this.on_close_call();
+    }
+
+    onDisable(){
+        EventManager.get_instance().cancel_listen(EventConfig.webBackPage,this, this.android_back_callback.bind(this));
     }
 
     show(ui_param_interface: UIParamInterface){

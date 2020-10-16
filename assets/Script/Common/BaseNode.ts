@@ -34,6 +34,7 @@ class BaseNode extends cc.Component {
    update (dt) {
        
    }
+
 }
 
 
