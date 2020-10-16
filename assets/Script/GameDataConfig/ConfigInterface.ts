@@ -10,6 +10,8 @@ interface TableConfig {
     id : number; 
     name : string; 
     upgrade : number; 
+    growth : number; 
+    description : string; 
 } 
 
  

@@ -6,25 +6,92 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import BaseUI from "../../../Common/BaseUI";
+import Loader from "../../../Common/Loader";
+import TouchButton from "../../../Common/TouchButton";
+import { ExtensionTypeButton } from "../../GamePlayEnum/GamePlayEnum";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class ExtensionTableView extends BaseUI {
 
-    @property(cc.Label)
-    label: cc.Label = null;
+    @property(cc.Node)
+    close_button: cc.Node = null;
 
-    @property
-    text: string = 'hello';
+    @property(cc.Node)
+    table_button: cc.Node = null;
 
-    // LIFE-CYCLE CALLBACKS:
+    @property(cc.Node)
+    decoration_button: cc.Node = null;
 
-    // onLoad () {}
+    @property(cc.Node)
+    content: cc.Node = null;
 
-    start () {
+    @property(cc.Node)
+    gold_coin_frame_node: cc.Node = null;
 
+    private cur_button_type = ExtensionTypeButton.table;
+
+    onLoad() {
+        this.flush_view();
     }
 
-    // update (dt) {}
+    start() {
+        this.load_gold_item();
+        this.flush_table_content();
+    }
+
+    flush_view() {
+        //关闭界面
+        const close_button: TouchButton = this.close_button.addComponent(TouchButton);
+        close_button.register_touch(this.close_view.bind(this));
+
+        //选择桌子按钮
+        const table_button: TouchButton = this.table_button.addComponent(TouchButton);
+        table_button.register_touch(this.click_table_button_type.bind(this));
+
+        //选择装饰按钮
+        const decoration_button: TouchButton = this.decoration_button.addComponent(TouchButton);
+        decoration_button.register_touch(this.click_decoration_button_type.bind(this));
+    }
+
+    click_table_button_type() {
+        if (this.cur_button_type != ExtensionTypeButton.table) {
+            this.cur_button_type = ExtensionTypeButton.table;
+            let c_sprite_frame = this.decoration_button.getComponent(cc.Sprite).spriteFrame;
+            this.decoration_button.getComponent(cc.Sprite).spriteFrame = this.table_button.getComponent(cc.Sprite).spriteFrame;
+            this.table_button.getComponent(cc.Sprite).spriteFrame = c_sprite_frame;
+            this.flush_table_content();
+        }
+    }
+
+    click_decoration_button_type() {
+        if (this.cur_button_type != ExtensionTypeButton.decoration) {
+            this.cur_button_type = ExtensionTypeButton.decoration;
+            let c_sprite_frame = this.decoration_button.getComponent(cc.Sprite).spriteFrame;
+            this.decoration_button.getComponent(cc.Sprite).spriteFrame = this.table_button.getComponent(cc.Sprite).spriteFrame;
+            this.table_button.getComponent(cc.Sprite).spriteFrame = c_sprite_frame;
+            this.flush_decoration_content();
+        }
+    }
+
+    close_view() {
+        this.on_close_call();
+    }
+
+    flush_table_content() {
+        this.content.removeAllChildren();
+    }
+
+    flush_decoration_content() {
+        this.content.removeAllChildren();
+    }
+
+    load_gold_item() {
+        Loader.load_prefab("/GamePlay/GamePlayUI/Common/GoldCoinFrame/GoldCoinFrameItem", (prefab: cc.Prefab) => {
+            const gold_coin_frame_item = cc.instantiate(prefab);
+            gold_coin_frame_item.parent = this.gold_coin_frame_node;
+        });
+    }
+
 }
