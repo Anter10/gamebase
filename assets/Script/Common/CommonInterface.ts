@@ -75,6 +75,7 @@ interface UIParamInterface {
     param?: any;
     controller?:Controller;
     router?:RouterInterface;
+    complete_callback?:Function;
 }
 
 /**@description 顶部导航右边的动作按钮接口 */

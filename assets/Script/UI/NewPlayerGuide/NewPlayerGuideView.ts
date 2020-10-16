@@ -2,6 +2,7 @@
 /**@description 新手引导的蒙版层 */
 
 import BaseUI from "../../Common/BaseUI";
+import { GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, TouchButtonEffectType } from "../../Common/CommonEnum";
 import { UIParamInterface } from "../../Common/CommonInterface";
 import TouchButton from "../../Common/TouchButton";
 import GameLocalData from "../../GameLocalData/GameLocalData";
@@ -9,7 +10,7 @@ import GuideData from "../../GameLocalData/GuideData";
 import UIConfig from "../UIManager/UIConfig";
 import UIManager from "../UIManager/UIManager";
 import { GuideFingerDirection, GuideMaskType, GuideNpcDirection, GuideType } from "./NewPlayerGuideEnum";
-import { NewPlayerGuideInterface } from "./NewPlayerGuideInterface";
+import { GuideHandeInterface, GuideHelpMsgInterface, GuideMaskInterface, GuideNpcInterface, NewPlayerGuideInterface } from "./NewPlayerGuideInterface";
 
 const { ccclass, property } = cc._decorator;
 
@@ -38,54 +39,44 @@ class NewPlayerGuideView extends BaseUI {
 
     /**
      * 
-     * @param guide_id type: number 引导ID
-     * @param guide_mask_type type: GuideMaskType 1: 方形 2: 圆形
-     * @param guide_type type: GuideType 引导类型 normal: 常规 picture: 整张图片
-     * @param callback type: Function 这次新手的回调函数
-     * @param show_hand type:boolean 显示手指 true 显示手指 false 不显示手指
-     * @param hand_finger_dir type:GuideNpcDirection  手指的指向 
-     * @param show_npc type: boolean 显示NPC 
-     * @param npc_id type: number 引导显示的NPC ID
-     * @param npc_direction type:GuideFingerDirection npc NPC的方向 1: 向左 -1 向右
-     * @param npc_align_left type: number  NPC 距离左边的位置 和右边正能有一个
-     * @param npc_align_right type: number NPC 距离右边的位置 和左边只能又一个
-     * @param show_mask type: boolean 是否显示mask
-     * @param guide_to_node type: cc.Node mask 引导到的节点
-     * @param mask_size type: cc.Size 引导的区域大小 如果为圆类型的话 直接取宽作为半径 
-     * @param show_help_msg type: boolean 是否显示帮助
-     * @param help_message type: string 引导提示文本 需要
-     * @param picture_type_spriteframe type: cc.SpriteFrame  全图引导的 帮助图片的纹理
+     * @param guide_id 引导的ID
+     * @param guide_mask_type 引导的mask 类型
+     * @param guide_type 引导类型
+     * @param callback 引导回调函数
+     * @param help_msg 引导提示信息
+     * @param help_mask 引导mask信息
+     * @param help_hand 引导手指的信息
+     * @param help_npc  引导NPC的信息 npc的图片默认是朝向右边的
      */
-    static show_guide(guide_id: number, guide_mask_type: GuideMaskType, guide_type: GuideType, callback: Function,
-        show_hand?: boolean, hand_finger_dir?: GuideFingerDirection, 
-        show_npc?:boolean,npc_id?: number,npc_direction?:GuideNpcDirection,npc_align_left?: number,npc_align_right?:number,
-        show_mask?:boolean, guide_to_node?:cc.Node,mask_size?: cc.Size,
-        show_help_msg?:boolean, help_message?: string, picture_type_spriteframe?: cc.SpriteFrame,
+    static show_guide(
+        guide_id: number, 
+        guide_type: GuideType,
+        guide_to_node: cc.Node,
+        callback: Function,
+        help_msg?:GuideHelpMsgInterface,
+        help_mask?:GuideMaskInterface,
+        help_hand?:GuideHandeInterface,
+        help_npc?:GuideNpcInterface
     ){
         const new_player_guide_interface:NewPlayerGuideInterface = {
             guide_id : guide_id,
-            guide_mask_type: guide_mask_type,
             guide_type: guide_type,
             callback: callback,
-            show_hand: show_hand,
-            hand_finger_dir: hand_finger_dir,
-            show_npc:show_npc,
-            npc_id: npc_id,
-            npc_direction: npc_direction,
-            npc_align_left: npc_align_left,
-            npc_align_right: npc_align_right,
-            show_mask:show_mask,
             guide_to_node: guide_to_node,
-            mask_size: mask_size,
-            show_help_msg: show_help_msg,
-            help_message: help_message,
-            picture_type_spriteframe: picture_type_spriteframe,
+
+            guide_hande_interface: help_hand,
+            guide_npc_interface: help_npc,
+            guide_mask_interface: help_mask,
+            guide_help_msg_interface: help_msg,
         }
 
         const ui_parameter: UIParamInterface = {
             ui_config_path: UIConfig.NewPlayerGuideView ,
             ui_config_name: "NewPlayerGuideView",
             param:  new_player_guide_interface,
+            complete_callback:(guide:NewPlayerGuideView)=>{
+                guide.show_new_player_guide_msg(guide.ui_param_interface.param);
+            }
         }
 
         UIManager.show_ui(ui_parameter);
@@ -94,35 +85,185 @@ class NewPlayerGuideView extends BaseUI {
     onLoad(){
         super.onLoad();
         const touch_button: TouchButton = this.click_button.addComponent(TouchButton);
-        console.log(this.ui_param_interface);
+        touch_button.register_touch(this.help_guide_callback.bind(this));
+    }
+    
+    register_touch(touch_callback: Function){
+        const touch_button: TouchButton = this.click_button.addComponent(TouchButton);
+        touch_button.register_touch(()=>{
+            touch_callback && touch_callback();
+        },null,null,TouchButtonEffectType.none);
+    }
+
+    show(ui_param_interface: UIParamInterface){
+        super.show(ui_param_interface);
+        console.log("新手引导数据 ",ui_param_interface);
     }
 
     show_new_player_guide_msg(new_player_guide_interface: NewPlayerGuideInterface) {
         this.new_player_guide_interface = new_player_guide_interface;
 
-        // 处理手指的逻辑
-        if(this.new_player_guide_interface.show_hand){
-            // this.hand
-        }
-        // this.help_guide_area_node.width = this.new_player_guide_interface
-        // this.help_guide_area_node.height = GuideConfig[new_player_guide.guide_id][1];
-        // this.click_button.width = GuideConfig[new_player_guide.guide_id][0];
-        // this.click_button.height = GuideConfig[new_player_guide.guide_id][1];
-        // this.finger_effect.angle = GuideConfig[new_player_guide.guide_id][2];
-        // this.finger_effect.active = GuideConfig[new_player_guide.guide_id][3];
-        // this.mask_sprite.active = GuideConfig[new_player_guide.guide_id][6];
-        // this.help_guide_tip_label.node.active = GuideConfig[new_player_guide.guide_id][4];
-        // this.write_background.active = GuideConfig[new_player_guide.guide_id][4];
-        // if (this.help_guide_tip_label.node.active) {
-        //     this.help_guide_tip_label.string = GuideConfig[new_player_guide.guide_id][5];
-        // }
-        // let click_node = new_player_guide.guide_node;
-        // let click_node_word_space = click_node.parent.convertToWorldSpaceAR(click_node.position);
-        // let pos = this.node.parent.convertToNodeSpaceAR(click_node_word_space);
-        // this.help_guide_area_node.setPosition(pos);
-        // this.finger_effect.setPosition(pos);
-        // this.click_button.setPosition(pos);
+        let target_node_pos = cc.v3(0,0,0);
 
+
+        if(this.new_player_guide_interface.guide_to_node){
+            let click_node_word_space = this.new_player_guide_interface.guide_to_node.parent.convertToWorldSpaceAR(this.new_player_guide_interface.guide_to_node.position);
+            target_node_pos = this.node.parent.convertToNodeSpaceAR(click_node_word_space);
+            this.click_button.position = target_node_pos;
+        }
+
+        console.log("引导到的目标位置 = ", target_node_pos);
+
+
+        // 处理手指的逻辑
+        this.hand_icon.node.active = this.new_player_guide_interface.guide_hande_interface.show_hand;
+        if(this.new_player_guide_interface.guide_hande_interface.show_hand){
+           this.hand_icon.node.active = this.new_player_guide_interface.guide_hande_interface.show_hand;
+           
+           const handle_direction: GuideFingerDirection = this.new_player_guide_interface.guide_hande_interface.hand_finger_dir;
+           if(handle_direction == GuideFingerDirection.up){
+             this.hand_icon.node.angle = 180;
+           }else if(handle_direction == GuideFingerDirection.down){
+             this.hand_icon.node.angle = 0;
+           }else if(handle_direction == GuideFingerDirection.left){
+             this.hand_icon.node.angle = 270;
+           }else if(handle_direction == GuideFingerDirection.right){
+             this.hand_icon.node.angle = 90;
+           }
+
+           if(this.new_player_guide_interface.guide_hande_interface.hand_angle){
+               this.hand_icon.node.angle = this.new_player_guide_interface.guide_hande_interface.hand_angle;
+           }
+
+           if(this.new_player_guide_interface.guide_hande_interface.hand_position_offset){
+              this.hand_icon.node.position = target_node_pos.addSelf(this.new_player_guide_interface.guide_hande_interface.hand_position_offset);
+           }else{
+              this.hand_icon.node.position = target_node_pos;
+           }
+        }
+
+        // 处理mask的逻辑
+        
+        if(this.new_player_guide_interface.guide_mask_interface.show_mask){
+
+            if(this.new_player_guide_interface.guide_mask_interface.guide_mask_type == GuideMaskType.circle){
+               this.help_guide_mask.node.width = this.new_player_guide_interface.guide_mask_interface.mask_size.width;
+               this.help_guide_mask.node.height = this.new_player_guide_interface.guide_mask_interface.mask_size.height;
+               this.help_guide_mask.type = cc.Mask.Type.ELLIPSE;
+            }else if(this.new_player_guide_interface.guide_mask_interface.guide_mask_type == GuideMaskType.rect){
+                this.help_guide_mask.node.width = this.new_player_guide_interface.guide_mask_interface.mask_size.width;
+                this.help_guide_mask.node.height = this.new_player_guide_interface.guide_mask_interface.mask_size.height;
+                this.help_guide_mask.type = cc.Mask.Type.RECT;
+            }
+
+            this.help_guide_mask.node.position = target_node_pos;
+
+            if(this.new_player_guide_interface.guide_mask_interface.mask_animation){
+                this.play_mask_animation();
+            }else{
+                this.stop_mask_animation();
+            }
+
+            this.click_button.width = this.new_player_guide_interface.guide_mask_interface.mask_size.width;
+            this.click_button.height = this.new_player_guide_interface.guide_mask_interface.mask_size.height;
+
+        }else{
+            this.help_guide_mask.node.width = 0;
+            this.help_guide_mask.node.height = 0;
+            this.click_button.width = 0;
+            this.click_button.height = 0;
+
+            this.stop_mask_animation();
+        }
+        
+        
+
+        // 处理帮助文本提示的逻辑
+        this.help_message_bottom.active = this.new_player_guide_interface.guide_help_msg_interface.show_help_msg;
+        if(this.new_player_guide_interface.guide_help_msg_interface.show_help_msg){
+            this.help_message_label.string = this.new_player_guide_interface.guide_help_msg_interface.help_message;
+            
+            const widget: cc.Widget = this.help_message_bottom.getComponent(cc.Widget); 
+           
+            if(this.new_player_guide_interface.guide_help_msg_interface.horizonal_align_mode == GuideMsgAlignHorizontalMode.left){
+               widget.isAlignLeft = true;
+               widget.isAlignRight = false;
+               widget.left = this.new_player_guide_interface.guide_help_msg_interface.horizonal_align;
+            }else if(this.new_player_guide_interface.guide_help_msg_interface.horizonal_align_mode == GuideMsgAlignHorizontalMode.right){
+               widget.isAlignLeft = false;
+               widget.isAlignRight = true;
+               widget.right = this.new_player_guide_interface.guide_help_msg_interface.horizonal_align;
+            }
+          
+ 
+            if(this.new_player_guide_interface.guide_help_msg_interface.verticle_align_mode == GuideMsgAlignVerticleMode.top){
+               widget.isAlignTop = true;
+               widget.isAlignBottom = false;
+               widget.top = this.new_player_guide_interface.guide_help_msg_interface.verticle_align;
+            }else if(this.new_player_guide_interface.guide_help_msg_interface.verticle_align_mode == GuideMsgAlignVerticleMode.bottom){
+               widget.isAlignTop = false;
+               widget.isAlignBottom = true;
+               widget.bottom = this.new_player_guide_interface.guide_help_msg_interface.verticle_align;
+           }
+ 
+           widget.isStretchWidth = false;
+           widget.isStretchHeight = false;
+           widget.updateAlignment();
+        }
+
+        // 处理NPC的逻辑
+        this.npc_icon.node.active = this.new_player_guide_interface.guide_npc_interface.show_npc;
+        if(this.new_player_guide_interface.guide_npc_interface.show_npc){
+           
+           if(this.new_player_guide_interface.guide_npc_interface.npc_direction == GuideNpcDirection.left){
+              this.npc_icon.node.scaleX = -(Math.abs(this.npc_icon.node.scale)); 
+           }else if(this.new_player_guide_interface.guide_npc_interface.npc_direction == GuideNpcDirection.right){
+              this.npc_icon.node.scaleX = Math.abs(this.npc_icon.node.scale); 
+           }else{
+              this.npc_icon.node.scaleX = Math.abs(this.npc_icon.node.scale); 
+           }
+
+           if(this.new_player_guide_interface.guide_npc_interface.npc_sprite_frame){
+              this.npc_icon.spriteFrame = this.new_player_guide_interface.guide_npc_interface.npc_sprite_frame;
+           }
+
+           const widget: cc.Widget = this.npc_icon.node.getComponent(cc.Widget); 
+           
+           if(this.new_player_guide_interface.guide_npc_interface.horizonal_align_mode == GuideNpcAlignHorizontalMode.left){
+              widget.isAlignLeft = true;
+              widget.isAlignRight = false;
+              widget.left = this.new_player_guide_interface.guide_npc_interface.horizonal_align;
+           }else if(this.new_player_guide_interface.guide_npc_interface.horizonal_align_mode == GuideNpcAlignHorizontalMode.right){
+              widget.isAlignLeft = false;
+              widget.isAlignRight = true;
+              widget.right = this.new_player_guide_interface.guide_npc_interface.horizonal_align;
+           }
+         
+
+           if(this.new_player_guide_interface.guide_npc_interface.verticle_align_mode == GuideNpcAlignVerticleMode.top){
+              widget.isAlignTop = true;
+              widget.isAlignBottom = false;
+              widget.top = this.new_player_guide_interface.guide_npc_interface.verticle_align;
+           }else if(this.new_player_guide_interface.guide_npc_interface.verticle_align_mode == GuideNpcAlignVerticleMode.bottom){
+              widget.isAlignTop = false;
+              widget.isAlignBottom = true;
+              widget.bottom = this.new_player_guide_interface.guide_npc_interface.verticle_align;
+          }
+
+          widget.isStretchWidth = false;
+          widget.isStretchHeight = false;
+          widget.updateAlignment();
+        }
+    }
+
+    play_mask_animation(){
+        const animation = this.help_guide_mask.node.getComponent(cc.Animation);
+        animation.play("new_help_guide_mask_animation");
+    }
+
+    stop_mask_animation(){
+        const animation = this.help_guide_mask.node.getComponent(cc.Animation);
+        animation.stop("new_help_guide_mask_animation");
     }
 
     help_guide_callback() {
