@@ -34,4 +34,7 @@ enum GuideNpcDirection{
      right = "right",
 }
 
+
+
+
 export {GuideNpcDirection, GuideType, GuideFingerDirection, GuideMaskType};

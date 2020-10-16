@@ -47,5 +47,37 @@ enum NewPlayerGuideType{
      picture = "picture",
 }
 
+/**@description 新手引导NPC的水平方向的适配 */
+enum GuideNpcAlignHorizontalMode{
+     // 左对齐
+     left = 1,
+     // 右对齐
+     right = 2,
+}
 
-export {NewPlayerGuideType, TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
+/**@description 新手引导NPC的水平方向的适配 */
+enum GuideNpcAlignVerticleMode{
+    // 左对齐
+    top = 1,
+    // 右对齐
+    bottom = 2,
+}
+
+/**@description 新手引导NPC的水平方向的适配 */
+enum GuideMsgAlignHorizontalMode{
+    // 左对齐
+    left = 1,
+    // 右对齐
+    right = 2,
+}
+
+/**@description 新手引导NPC的水平方向的适配 */
+enum GuideMsgAlignVerticleMode{
+   // 左对齐
+   top = 1,
+   // 右对齐
+   bottom = 2,
+}
+
+
+export {GuideMsgAlignHorizontalMode,GuideMsgAlignVerticleMode,GuideNpcAlignVerticleMode,GuideNpcAlignHorizontalMode, NewPlayerGuideType, TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
