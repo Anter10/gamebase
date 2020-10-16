@@ -1031,9 +1031,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "995cbc06-f78c-431b-bde9-8175ff4cf642"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -1137,33 +1135,15 @@
       "__id__": 1
     },
     "_enabled": true,
-    "rank_view_background": {
-      "__id__": 3
-    },
-    "red_envelope_title_icon": {
-      "__id__": 7
-    },
-    "red_envelope_light_icon": {
-      "__id__": 10
-    },
-    "red_envelope_icon": {
-      "__id__": 13
-    },
-    "red_envelope_msg_bottom": {
-      "__id__": 28
-    },
-    "get_money_from_envelope_button": {
-      "__id__": 26
-    },
-    "red_envelope_monvey_label": {
-      "__id__": 16
-    },
-    "red_envelope_msg_label": {
-      "__id__": 20
-    },
-    "get_money_from_envelope_button_text_label": {
-      "__id__": 24
-    },
+    "rank_view_background": null,
+    "red_envelope_title_icon": null,
+    "red_envelope_light_icon": null,
+    "red_envelope_icon": null,
+    "red_envelope_msg_bottom": null,
+    "get_money_from_envelope_button": null,
+    "red_envelope_monvey_label": null,
+    "red_envelope_msg_label": null,
+    "get_money_from_envelope_button_text_label": null,
     "_id": ""
   },
   {

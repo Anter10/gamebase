@@ -1,7 +1,7 @@
 import Test from "./Common/Test";
 import GameDataConfig from "./GameDataConfig/GameDataConfig";
 import GameLocalData from "./GameLocalData/GameLocalData";
-import Native from "./Native/Native";
+import Native from "./Sdk/Native";
 import UIConfig from "./UI/UIManager/UIConfig";
 import UIManager from "./UI/UIManager/UIManager";
 

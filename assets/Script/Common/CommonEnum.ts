@@ -39,6 +39,14 @@ enum TouchButtonEffectType{
      opacity = 3,
 }
 
+/**@description 点击按钮播放广告的类型 */
+enum AdVideoType{
+     /**@description 激励视频的广告 */
+     video_ad = "video_ad",
+     /**@description 直客广告 */
+     zhike = "zhike",
+}
 
 
-export {TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
+
+export {AdVideoType, TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
