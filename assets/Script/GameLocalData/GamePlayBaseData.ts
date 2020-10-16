@@ -14,18 +14,28 @@ class GamePlayBaseData extends BaseRecord {
 
     change_gold_coin_number(change_gold_number: number): boolean {
         if (change_gold_number + this.gold_coin_number >= 0) {
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_gold_coin_number);
             this.gold_coin_number = change_gold_number + this.gold_coin_number;
+            this.store_gold_coin_number(this.gold_coin_number);
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_gold_coin_number);
             return true;
         } else {
             return false;
         }
     }
 
+    store_gold_coin_number(gold_coin_number: number) {
+        this.gold_coin_number = gold_coin_number;
+    }
+
+    store_red_heart_number(red_heart_number: number) {
+        this.red_heart_number = red_heart_number;
+    }
+
     change_red_heart_number(change_red_heart_number: number): boolean {
         if (change_red_heart_number + this.red_heart_number >= 0) {
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_red_heart_number);
             this.red_heart_number = change_red_heart_number + this.red_heart_number;
+            this.store_gold_coin_number(this.red_heart_number);
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_red_heart_number);
             return true;
         } else {
             return false;

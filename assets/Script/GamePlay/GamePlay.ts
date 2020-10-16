@@ -12,6 +12,8 @@ class GamePlay extends cc.Component {
     //初始化添加uiconfig里的内容
     init_game_play_ui_config() {
         LinkGameBase.register_ui_path("GameMainView", `GamePlay/GamePlayUI/Main/GameMainView`);
+        LinkGameBase.register_ui_path("ExtensionTableView", `GamePlay/GamePlayUI/ExtensionTable/ExtensionTableView`);
+        LinkGameBase.register_ui_path("ShowTableDescriptionView", `GamePlay/GamePlayUI/ExtensionTable/ShowTableDescriptionView`);
     }
 
     onLoad() {

@@ -14,7 +14,7 @@ export default class GoldCoinFrameItem extends BaseNode {
     @property(cc.Label)
     gold_number_label: cc.Label = null;
 
-    onLoad() {
+    onEnable() {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_gold_coin_number, this, this.refresh_gold_number_label);
     }
 

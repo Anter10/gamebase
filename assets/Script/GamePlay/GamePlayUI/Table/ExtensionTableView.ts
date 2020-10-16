@@ -8,7 +8,9 @@
 import BaseUI from "../../../Common/BaseUI";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
+import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import { ExtensionTypeButton } from "../../GamePlayEnum/GamePlayEnum";
+import ExtensionTableFrameItem from "./ExtensionTableFrameItem";
 
 const { ccclass, property } = cc._decorator;
 
@@ -26,6 +28,12 @@ export default class ExtensionTableView extends BaseUI {
 
     @property(cc.Node)
     content: cc.Node = null;
+
+    @property(cc.Node)
+    table_content: cc.Node = null;
+
+    @property(cc.Node)
+    decoration_content: cc.Node = null;
 
     @property(cc.Node)
     gold_coin_frame_node: cc.Node = null;
@@ -80,11 +88,19 @@ export default class ExtensionTableView extends BaseUI {
     }
 
     flush_table_content() {
-        this.content.removeAllChildren();
+        this.decoration_content.removeAllChildren();
+        for (let i = 0; i < GamePlayConfig.total_table_number; i++) {
+            Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionTableFrameItem", (prefab: cc.Prefab) => {
+                const extension_table_frame_item = cc.instantiate(prefab);
+                extension_table_frame_item.getComponent(ExtensionTableFrameItem).set_mark_number(i);
+                extension_table_frame_item.y = -130 - i * extension_table_frame_item.height;
+                extension_table_frame_item.parent = this.table_content;
+            });
+        }
     }
 
     flush_decoration_content() {
-        this.content.removeAllChildren();
+        this.table_content.removeAllChildren();
     }
 
     load_gold_item() {

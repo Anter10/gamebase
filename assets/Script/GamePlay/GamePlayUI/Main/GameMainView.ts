@@ -1,8 +1,11 @@
 import BaseUI from "../../../Common/BaseUI";
+import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import GameMainTableItem from "./GameMainTableItem";
 
@@ -125,7 +128,11 @@ export default class GameMainView extends BaseUI {
     }
 
     click_extension_button() {
-
+        const ui_extension_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.ExtensionTableView,
+            ui_config_name: "ExtensionTableView",
+        }
+        UIManager.show_ui(ui_extension_param_interface);
     }
 
     click_punch_clock_button() {

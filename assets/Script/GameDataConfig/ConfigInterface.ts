@@ -9,6 +9,7 @@ interface AudioConfig {
 interface TableConfig { 
     id : number; 
     name : string; 
+    chinese_name : string; 
     upgrade : number; 
     growth : number; 
     description : string; 
