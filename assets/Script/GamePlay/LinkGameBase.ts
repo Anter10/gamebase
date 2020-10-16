@@ -1,3 +1,4 @@
+import DecorationData from "../GameLocalData/DecorationData";
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
 import TableData from "../GameLocalData/TableData";
 import UIConfig from "../UI/UIManager/UIConfig";
@@ -7,6 +8,7 @@ class LinkGameBase{
       static game_play_record:Array<any> = [
          GamePlayBaseData,
          TableData,
+         DecorationData,
       ];
 
       /**@description game_play 相关的事件 */
@@ -14,6 +16,7 @@ class LinkGameBase{
          "change_gold_coin_number": "change_gold_coin_number",
          "change_red_heart_number": "change_red_heart_number",
          "upgrade_table": "upgrade_table",
+         "upgrade_decoration": "upgrade_decoration",
       }
 
       /**

@@ -7,6 +7,7 @@ import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
+import GameMainDecorationItem from "./GameMainDecorationItem";
 import GameMainTableItem from "./GameMainTableItem";
 
 const { ccclass, property } = cc._decorator;
@@ -50,6 +51,9 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     table_node_array: Array<cc.Node> = [];
 
+    @property(cc.Node)
+    decoration_array: cc.Node = null;
+
     onLoad() {
         this.flush_view();
     }
@@ -57,6 +61,7 @@ export default class GameMainView extends BaseUI {
     start() {
         this.load_gold_and_heart_item();
         this.load_table_item();
+        this.load_decoration_item();
     }
 
     flush_view() {
@@ -111,6 +116,16 @@ export default class GameMainView extends BaseUI {
                 game_main_table_item.getComponent(GameMainTableItem).set_table_number(i);
                 game_main_table_item.parent = this.table_node_array[i];
 
+            });
+        }
+    }
+
+    load_decoration_item() {
+        for (let i = 0; i < this.decoration_array.childrenCount; i++) {
+            Loader.load_prefab("/GamePlay/GamePlayUI/Main/GameMainDecorationItem", (prefab: cc.Prefab) => {
+                const game_main_table_item = cc.instantiate(prefab);
+                game_main_table_item.getComponent(GameMainDecorationItem).set_decoration_number(i);
+                game_main_table_item.parent = this.decoration_array.children[i];
             });
         }
     }

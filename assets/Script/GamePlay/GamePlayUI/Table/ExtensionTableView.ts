@@ -6,19 +6,18 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 import BaseUI from "../../../Common/BaseUI";
+import { NagivatorInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import { ExtensionTypeButton } from "../../GamePlayEnum/GamePlayEnum";
+import ExtensionDecorationFrameItem from "./ExtensionDecorationFrameItem ";
 import ExtensionTableFrameItem from "./ExtensionTableFrameItem";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class ExtensionTableView extends BaseUI {
-
-    @property(cc.Node)
-    close_button: cc.Node = null;
 
     @property(cc.Node)
     table_button: cc.Node = null;
@@ -38,8 +37,13 @@ export default class ExtensionTableView extends BaseUI {
     @property(cc.Node)
     gold_coin_frame_node: cc.Node = null;
 
+    @property(cc.Label)
+    growth_description: cc.Label = null;
+
     private cur_button_type = ExtensionTypeButton.table;
 
+    readonly table_content_height = 1500;
+    readonly decoration_content_height = 1700;
     onLoad() {
         this.flush_view();
     }
@@ -50,9 +54,15 @@ export default class ExtensionTableView extends BaseUI {
     }
 
     flush_view() {
-        //关闭界面
-        const close_button: TouchButton = this.close_button.addComponent(TouchButton);
-        close_button.register_touch(this.close_view.bind(this));
+
+        const nagivator_interface: NagivatorInterface = {
+            title: "扩建",
+            /**@description 返回按钮的回调*/
+            back_callback: () => {
+                this.on_close_call();
+            }
+        };
+        this.add_nagivator([], nagivator_interface);
 
         //选择桌子按钮
         const table_button: TouchButton = this.table_button.addComponent(TouchButton);
@@ -88,19 +98,37 @@ export default class ExtensionTableView extends BaseUI {
     }
 
     flush_table_content() {
-        this.decoration_content.removeAllChildren();
-        for (let i = 0; i < GamePlayConfig.total_table_number; i++) {
-            Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionTableFrameItem", (prefab: cc.Prefab) => {
-                const extension_table_frame_item = cc.instantiate(prefab);
-                extension_table_frame_item.getComponent(ExtensionTableFrameItem).set_mark_number(i);
-                extension_table_frame_item.y = -130 - i * extension_table_frame_item.height;
-                extension_table_frame_item.parent = this.table_content;
-            });
+        this.decoration_content.active = false;
+        this.table_content.active = true;
+        this.growth_description.string = "高等级桌椅可以获得更高金币加成哦!";
+        this.content.height = this.table_content_height;
+        if (this.decoration_content.childrenCount == 0) {
+            for (let i = 0; i < GamePlayConfig.total_table_number; i++) {
+                Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionTableFrameItem", (prefab: cc.Prefab) => {
+                    const extension_table_frame_item = cc.instantiate(prefab);
+                    extension_table_frame_item.getComponent(ExtensionTableFrameItem).set_mark_number(i);
+                    extension_table_frame_item.y = -130 - i * extension_table_frame_item.height;
+                    extension_table_frame_item.parent = this.table_content;
+                });
+            }
         }
     }
 
     flush_decoration_content() {
-        this.table_content.removeAllChildren();
+        this.table_content.active = false;
+        this.decoration_content.active = true;
+        this.growth_description.string = "高等级装饰可以获得更高金币加成哦!";
+        this.content.height = this.decoration_content_height;
+        if (this.decoration_content.childrenCount == 0) {
+            for (let i = 0; i < GamePlayConfig.total_decoration_number; i++) {
+                Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionDecorationFrameItem", (prefab: cc.Prefab) => {
+                    const extension_table_frame_item = cc.instantiate(prefab);
+                    extension_table_frame_item.getComponent(ExtensionDecorationFrameItem).set_mark_number(i);
+                    extension_table_frame_item.y = -130 - i * extension_table_frame_item.height;
+                    extension_table_frame_item.parent = this.decoration_content;
+                });
+            }
+        }
     }
 
     load_gold_item() {
@@ -109,5 +137,6 @@ export default class ExtensionTableView extends BaseUI {
             gold_coin_frame_item.parent = this.gold_coin_frame_node;
         });
     }
+
 
 }

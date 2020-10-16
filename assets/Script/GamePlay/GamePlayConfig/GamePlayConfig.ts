@@ -5,5 +5,7 @@ const GamePlayConfig = {
     click_attract_customer_button_add: 20,
     //桌子总数量
     total_table_number: 8,
+    //装饰总数量
+    total_decoration_number: 9,
 }
 export default GamePlayConfig;

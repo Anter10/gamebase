@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "ShowTableDescriptionView",
+    "_name": "ShowDecorationDescriptionView",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -49,10 +49,13 @@
       },
       {
         "__id__": 37
+      },
+      {
+        "__id__": 38
       }
     ],
     "_prefab": {
-      "__id__": 38
+      "__id__": 39
     },
     "_opacity": 255,
     "_color": {
@@ -602,8 +605,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "柳木桌",
-    "_N$string": "柳木桌",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -753,8 +756,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "2级桌",
-    "_N$string": "2级桌",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 34,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -784,7 +787,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "table_sprite",
+    "_name": "decoration_sprite",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -861,9 +864,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "8b8e8796-cc7f-42f8-b495-05710947e5ac"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -1144,8 +1145,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "此桌提供150%的金币收益",
-    "_N$string": "此桌提供150%的金币收益",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 28,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1351,7 +1352,17 @@
     "_id": ""
   },
   {
-    "__type__": "892e1dOvAJBZJNhBWKXFVas",
+    "__type__": "cc.BlockInputEvents",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_id": ""
+  },
+  {
+    "__type__": "39662NhUmBGLaom/lGE3tyg",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -1370,7 +1381,7 @@
     "growth_label": {
       "__id__": 29
     },
-    "table_sprite": {
+    "decoration_sprite": {
       "__id__": 22
     },
     "close_button": {

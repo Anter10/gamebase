@@ -6,6 +6,15 @@ interface AudioConfig {
     info : string; 
 } 
 
+interface DecorationConfig { 
+    id : number; 
+    name : string; 
+    chinese_name : string; 
+    upgrade : Array<number>; 
+    growth : Array<number>; 
+    description : string; 
+} 
+
 interface TableConfig { 
     id : number; 
     name : string; 
@@ -18,4 +27,4 @@ interface TableConfig {
  
   
 
- export { AudioConfig,TableConfig, };
+ export { AudioConfig,DecorationConfig,TableConfig, };
