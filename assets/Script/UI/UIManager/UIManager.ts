@@ -27,6 +27,7 @@ class UIManager{
                         const keys = Object.keys(this.all_ui);
                         cc.director.getScene().addChild(ui, cc.macro.MAX_ZINDEX - 1000 + keys.length);
                         ui_param_interface.complete_callback && ui_param_interface.complete_callback(ui_script);
+                        ui_script.onAddFinished(); 
                     }else{
                         this.ui_is_loading[ui_param_interface.ui_config_name] = false;
                         console.error(`当前显示的UI: ${ui_param_interface.ui_config_path} 没有加载成功`);
@@ -37,6 +38,7 @@ class UIManager{
                 this.all_ui[ui_param_interface.ui_config_name].controller = ui_param_interface.controller;
                 this.all_ui[ui_param_interface.ui_config_name].show(ui_param_interface);
                 this.ui_is_loading[ui_param_interface.ui_config_name] = false;
+                this.all_ui[ui_param_interface.ui_config_name].onAddFinished(); 
                 ui_param_interface.complete_callback && ui_param_interface.complete_callback(this.all_ui[ui_param_interface.ui_config_name]);
             }
         }

@@ -23,6 +23,8 @@ const UIConfig:{[key: string]: string} = {
       OpenRedEnvelopeView:"./UI/OpenRedEnvelope/OpenRedEnvelopeView",
       /**@description 新手引导的界面 */
       NewPlayerGuideView:"./UI/NewPlayerGuide/NewPlayerGuideView",
+      /**@description 拆红包成功的界面 */
+      NormalOpenRedEnvelopeSuccessView:"./UI/OpenRedEnvelope/Normal/NormalOpenRedEnvelopeSuccessView",
 };
 
 

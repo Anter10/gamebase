@@ -4,5 +4,10 @@ interface OpenRedEnvelopeInterface{
     
 }
 
+/**@description 通用拆红包成功后的界面数据接口 */
+interface NormalOpenRedEnvelopeSuccessViewInterface{
+     money: number;
+}
 
-export {OpenRedEnvelopeInterface};
+
+export {NormalOpenRedEnvelopeSuccessViewInterface,OpenRedEnvelopeInterface};

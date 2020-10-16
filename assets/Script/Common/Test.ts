@@ -83,6 +83,16 @@ class Test{
         OpenRedEnvelopeViewController.open(OpenRedEnvelopePath.normal);
     }
 
+    static open_red_envelope_success_view(){
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.NormalOpenRedEnvelopeSuccessView,
+            ui_config_name: "NormalOpenRedEnvelopeSuccessView",
+            param:{money: 10.5}
+        }
+    
+        UIManager.show_ui(ui_param_interface);
+    }
+
     /**@description 显示新手引导 */
     static guide_view(start_game_button_node:cc.Node){
         NewPlayerGuideView.show_guide(
