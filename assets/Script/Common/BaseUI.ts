@@ -56,6 +56,10 @@ abstract class BaseUI extends cc.Component {
         });
     }
 
+    onAddFinished(){
+        console.log("界面添加完成");
+    }
+
 
     /**@description 添加导航 */
     add_nagivator(actions: Array<NagivatorActionInterface>, nagivator_interface: NagivatorInterface ){
