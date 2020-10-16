@@ -12,12 +12,26 @@ enum GuideFingerDirection{
 
 /**@description mask的类型 */
 enum GuideMaskType{
-     /**@description 没有mask */
-     none = 1,
      /**@description 方形的形状 */
-     rect = 2,
+     rect = 1,
      /**@description 圆形的形状 */
-     circle = 3,
+     circle = 2,
 }
 
-export {GuideFingerDirection, GuideMaskType};
+/**@description 引导的类型 */
+enum GuideType{
+     /**@description 正常的类型 */
+     normal = "normal",
+     /**@description 图片类型 */
+     pciture = "picture",
+}
+
+/**@description  NPC的朝向 */
+enum GuideNpcDirection{
+     /**@description 朝左 */
+     left = "left",
+     /**@description 朝右 */
+     right = "right",
+}
+
+export {GuideNpcDirection, GuideType, GuideFingerDirection, GuideMaskType};

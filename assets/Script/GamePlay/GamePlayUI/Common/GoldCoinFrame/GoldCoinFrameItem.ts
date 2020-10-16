@@ -4,6 +4,7 @@ import EventManager from "../../../../EventManager/EventManager";
 import GameLocalData from "../../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../../GameLocalData/GamePlayBaseData";
 import GamePlayConfig from "../../../GamePlayConfig/GamePlayConfig";
+import LinkGameBase from "../../../LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
 
@@ -14,7 +15,7 @@ export default class GoldCoinFrameItem extends BaseNode {
     gold_number_label: cc.Label = null;
 
     onLoad() {
-        EventManager.get_instance().listen(EventConfig.change_gold_coin_number, this, this.refresh_gold_number_label);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_gold_coin_number, this, this.refresh_gold_number_label);
     }
 
     start() {
@@ -31,7 +32,7 @@ export default class GoldCoinFrameItem extends BaseNode {
     }
 
     onDisable() {
-        EventManager.get_instance().cancel_listen(EventConfig.change_gold_coin_number, this, this.refresh_gold_number_label);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.change_gold_coin_number, this, this.refresh_gold_number_label);
     }
 
 }

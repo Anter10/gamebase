@@ -6,6 +6,7 @@ import { TableConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import TableData from "../../../GameLocalData/TableData";
+import LinkGameBase from "../../LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
 
@@ -22,11 +23,11 @@ export default class GameMainTableItem extends BaseNode {
     }
 
     onLoad() {
-        EventManager.get_instance().listen(EventConfig.upgrade_table, this, this.refresh_table_sprite);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.refresh_table_sprite);
     }
 
     onDisable() {
-        EventManager.get_instance().cancel_listen(EventConfig.upgrade_table, this, this.refresh_table_sprite);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.refresh_table_sprite);
     }
 
     refresh_table_sprite() {

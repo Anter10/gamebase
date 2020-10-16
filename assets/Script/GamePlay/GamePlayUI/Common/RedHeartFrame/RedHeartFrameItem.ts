@@ -3,6 +3,7 @@ import EventConfig from "../../../../EventManager/EventConfig";
 import EventManager from "../../../../EventManager/EventManager";
 import GameLocalData from "../../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../../GameLocalData/GamePlayBaseData";
+import LinkGameBase from "../../../LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
 
@@ -13,7 +14,7 @@ export default class RedHeartFrameItem extends BaseNode {
     red_heart_number_label: cc.Label = null;
 
     onLoad() {
-        EventManager.get_instance().listen(EventConfig.change_red_heart_number, this, this.refresh_red_heart_number_label);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_red_heart_number, this, this.refresh_red_heart_number_label);
     }
 
     start() {
@@ -26,7 +27,7 @@ export default class RedHeartFrameItem extends BaseNode {
     }
 
     onDisable() {
-        EventManager.get_instance().cancel_listen(EventConfig.change_red_heart_number, this, this.refresh_red_heart_number_label);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.change_red_heart_number, this, this.refresh_red_heart_number_label);
     }
 
 }

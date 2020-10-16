@@ -1,5 +1,6 @@
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
+import LinkGameBase from "../GamePlay/LinkGameBase";
 import BaseRecord from "./BaseRecord";
 
 // 游戏的玩家的基础数据
@@ -13,7 +14,7 @@ class GamePlayBaseData extends BaseRecord {
 
     change_gold_coin_number(change_gold_number: number): boolean {
         if (change_gold_number + this.gold_coin_number >= 0) {
-            EventManager.get_instance().emit(EventConfig.change_gold_coin_number);
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_gold_coin_number);
             this.gold_coin_number = change_gold_number + this.gold_coin_number;
             return true;
         } else {
@@ -23,7 +24,7 @@ class GamePlayBaseData extends BaseRecord {
 
     change_red_heart_number(change_red_heart_number: number): boolean {
         if (change_red_heart_number + this.red_heart_number >= 0) {
-            EventManager.get_instance().emit(EventConfig.change_red_heart_number);
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_red_heart_number);
             this.red_heart_number = change_red_heart_number + this.red_heart_number;
             return true;
         } else {
