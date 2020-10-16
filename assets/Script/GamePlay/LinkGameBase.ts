@@ -7,6 +7,11 @@ class LinkGameBase{
 
       ];
 
+      /**@description game_play 相关的事件 */
+      static game_play_event_config:{[key: string]:string} = {
+          
+      }
+
       /**
        * @description 忘GameBase里面注册ui界面的配置信息
        * @param ui_config_name 对应UI的prefab名称 (注意: prefab 名称 和 对应的脚本名称必须一致)

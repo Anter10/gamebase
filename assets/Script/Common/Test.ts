@@ -3,6 +3,7 @@ import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import CashOutController from "../UI/CashOut/CashOutController";
 import ClickOnController from "../UI/ClickOn/ClickOnController";
 import InviteFriendViewController from "../UI/InviteFriend/InviteFriendViewController";
+import NewPlayerGuideView from "../UI/NewPlayerGuide/NewPlayerGuideView";
 import OpenRedEnvelopeViewController from "../UI/OpenRedEnvelope/OpenRedEnvelopeViewController";
 import RankViewController from "../UI/Rank/RankViewController";
 import UIConfig from "../UI/UIManager/UIConfig";
@@ -78,6 +79,11 @@ class Test{
     /**@description 测试邀请好友的功能 */
     static open_red_envelope_view(){
         OpenRedEnvelopeViewController.open(OpenRedEnvelopePath.normal);
+    }
+
+    /**@description 显示新手引导 */
+    static guide_view(){
+        // NewPlayerGuideView.show_guide()
     }
 }
 

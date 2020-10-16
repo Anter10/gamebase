@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "NewPlayerGuide",
+    "_name": "NewPlayerGuideView",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -40,10 +40,13 @@
     "_components": [
       {
         "__id__": 24
+      },
+      {
+        "__id__": 25
       }
     ],
     "_prefab": {
-      "__id__": 25
+      "__id__": 26
     },
     "_opacity": 255,
     "_color": {
@@ -516,7 +519,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "当天眼亮起时，可以通过点查看影响好感度变化的选项，现在我们看看吧",
     "_N$string": "当天眼亮起时，可以通过点查看影响好感度变化的选项，现在我们看看吧",
     "_fontSize": 24,
@@ -548,7 +550,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "finger_icon",
+    "_name": "hand_icon",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -889,6 +891,37 @@
     "_id": ""
   },
   {
+    "__type__": "ec4f6jJGXBOv65VT/EiEozt",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "help_guide_mask": {
+      "__id__": 7
+    },
+    "help_message_label": {
+      "__id__": 13
+    },
+    "help_message_bottom": {
+      "__id__": 9
+    },
+    "click_button": {
+      "__id__": 18
+    },
+    "hand_icon": {
+      "__id__": 16
+    },
+    "help_mask_background": {
+      "__id__": 4
+    },
+    "npc_icon": {
+      "__id__": 21
+    },
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -896,7 +929,7 @@
     "asset": {
       "__uuid__": "b4d27bb6-ffcf-4fe1-9ee7-3f7671f0a6f7"
     },
-    "fileId": "dd2mT6CsBInaJP/9udItaQ",
+    "fileId": "",
     "sync": false
   }
 ]

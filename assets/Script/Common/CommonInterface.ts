@@ -72,7 +72,7 @@ interface ModalUiInterface{
 interface UIParamInterface {
     ui_config_path: string,
     ui_config_name:string;
-    param?: ModalInterface | ToastInterface;
+    param?: any;
     controller?:Controller;
     router?:RouterInterface;
 }

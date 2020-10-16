@@ -21,6 +21,8 @@ const UIConfig:{[key: string]: string} = {
       InviteFriendView: "./UI/InviteFriend/InviteFriendView",
       /**@description 拆红包界面 */
       OpenRedEnvelopeView:"./UI/OpenRedEnvelope/OpenRedEnvelopeView",
+      /**@description 新手引导的界面 */
+      NewPlayerGuideView:"./UI/NewPlayerGuide/NewPlayerGuideView",
 };
 
 
