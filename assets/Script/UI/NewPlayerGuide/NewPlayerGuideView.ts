@@ -2,14 +2,14 @@
 /**@description 新手引导的蒙版层 */
 
 import BaseUI from "../../Common/BaseUI";
-import { GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, TouchButtonEffectType } from "../../Common/CommonEnum";
+import { TouchButtonEffectType } from "../../Common/CommonEnum";
 import { UIParamInterface } from "../../Common/CommonInterface";
 import TouchButton from "../../Common/TouchButton";
 import GameLocalData from "../../GameLocalData/GameLocalData";
 import GuideData from "../../GameLocalData/GuideData";
 import UIConfig from "../UIManager/UIConfig";
 import UIManager from "../UIManager/UIManager";
-import { GuideFingerDirection, GuideMaskType, GuideNpcDirection, GuideType } from "./NewPlayerGuideEnum";
+import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "./NewPlayerGuideEnum";
 import { GuideHandeInterface, GuideHelpMsgInterface, GuideMaskInterface, GuideNpcInterface, NewPlayerGuideInterface } from "./NewPlayerGuideInterface";
 
 const { ccclass, property } = cc._decorator;

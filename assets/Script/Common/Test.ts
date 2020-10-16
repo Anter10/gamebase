@@ -4,14 +4,14 @@ import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import CashOutController from "../UI/CashOut/CashOutController";
 import ClickOnController from "../UI/ClickOn/ClickOnController";
 import InviteFriendViewController from "../UI/InviteFriend/InviteFriendViewController";
-import { GuideFingerDirection, GuideMaskType, GuideNpcDirection, GuideType } from "../UI/NewPlayerGuide/NewPlayerGuideEnum";
+import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "../UI/NewPlayerGuide/NewPlayerGuideEnum";
 import NewPlayerGuideView from "../UI/NewPlayerGuide/NewPlayerGuideView";
 import OpenRedEnvelopeViewController from "../UI/OpenRedEnvelope/OpenRedEnvelopeViewController";
 import RankViewController from "../UI/Rank/RankViewController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";
-import { CashOutRouterPath, ClickOnRouterPath, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, InviteFriendPath, OpenRedEnvelopePath, RankRouterPath } from "./CommonEnum";
+import { CashOutRouterPath, ClickOnRouterPath,InviteFriendPath, OpenRedEnvelopePath, RankRouterPath } from "./CommonEnum";
 import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
