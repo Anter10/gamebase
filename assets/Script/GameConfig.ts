@@ -28,9 +28,9 @@ const GameConfig = {
       /**@description 请求地址的类型 apiType:0 测试地址  1：正式地址  */
       apiType: 0,
       /**@description 产品名称 */
-      productName: "g3_knifecut",
+      productName: "g3_zlzdd",
       /**@description 游戏包的名 */
-      packageName:"com.hainanyaoshi.paopao",
+      packageName:"com.hainanliangyou.zlzdd",
     
       /**@description 当前游戏是debug 还是release 模式 debug | release */
       branch: "debug", 
@@ -42,6 +42,11 @@ const GameConfig = {
 
       /**description remoteName mvp | test  */
       remoteName: "mvp",
+
+      /**@description 通用API的根地址 */
+      api_root_path: "g3-odyssey",
+      /**@description 专用API的地址 */
+      game_api_root_path: "",
 
       get is_debug(){
           return GameConfig.branch == "debug";

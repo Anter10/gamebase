@@ -43,7 +43,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 180,
+      "width": 60,
       "height": 48
     },
     "_anchorPoint": {
@@ -82,7 +82,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "rank_type_text",
+    "_name": "rank_type_node_value_label",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -159,7 +159,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "奖金",
     "_N$string": "奖金",
     "_fontSize": 30,
@@ -190,38 +189,6 @@
     "sync": false
   },
   {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "2cbf0827-b9b8-4248-9444-46898dd04ddd"
-    },
-    "_type": 0,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": ""
-  },
-  {
     "__type__": "cc.Layout",
     "_name": "",
     "_objFlags": 0,
@@ -231,7 +198,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 180,
+      "width": 60,
       "height": 48
     },
     "_resize": 1,
@@ -242,15 +209,28 @@
       "height": 40
     },
     "_N$startAxis": 0,
-    "_N$paddingLeft": 60,
-    "_N$paddingRight": 60,
+    "_N$paddingLeft": 0,
+    "_N$paddingRight": 0,
     "_N$paddingTop": 0,
     "_N$paddingBottom": 0,
-    "_N$spacingX": 0,
+    "_N$spacingX": 30,
     "_N$spacingY": 0,
     "_N$verticalDirection": 1,
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
+    "_id": ""
+  },
+  {
+    "__type__": "1f940AnueJC3bUgsVAGVFv+",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "rank_type_node_value_label": {
+      "__id__": 3
+    },
     "_id": ""
   },
   {
@@ -261,7 +241,7 @@
     "asset": {
       "__uuid__": "a4bc5a37-52fb-44e4-99d3-1f794b3c9abd"
     },
-    "fileId": "8doaTtc+BOf5RT5xo8/PkH",
+    "fileId": "",
     "sync": false
   }
 ]

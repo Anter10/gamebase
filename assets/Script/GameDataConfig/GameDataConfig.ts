@@ -1,7 +1,7 @@
 
 class GameDataConfig{
     public static all_config_data:{[key: string]: any} = {};
-
+    
     static init(){
          cc.resources.load("./Config/config", cc.JsonAsset, (error: Error, json: cc.JsonAsset) => {
              if(!error){
@@ -10,6 +10,11 @@ class GameDataConfig{
              }else{
              }
          })
+    }
+
+    /**@description 得到服务器端的JSON数据配置 */
+    static server_request_server_config(){
+          
     }
 
     // 实例用法

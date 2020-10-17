@@ -450,7 +450,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "王刚",
     "_N$string": "王刚",
     "_fontSize": 28,
@@ -559,7 +558,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "4",
     "_N$string": "4",
     "_fontSize": 40,
@@ -778,7 +776,7 @@
     "asset": {
       "__uuid__": "b2668215-10b4-437a-8cdd-e51156fa25cb"
     },
-    "fileId": "b7eoMB1Z1IUr/+jFQiUHw2",
+    "fileId": "",
     "sync": false
   }
 ]

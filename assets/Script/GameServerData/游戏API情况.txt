@@ -1,0 +1,16 @@
+1: 我爱切切切
+排行榜功能
+appId: 41,// 消消消13 35 2d3b7d01256db7edc8937d8c03dfb578_17307  果园31 58  0bad4a2c1832cd12da7708821ccc24e1_17719
+pkgId: 67,//
+deviceId:"861144046191155",
+brand:"Xiaomi",
+gps:"40.015551,116.361037",
+bs:"default",
+appVersion:"1.0.0",
+os:"android",
+channel:"ALIYUN_MAN_CHANNEL",
+romVersion:"default",
+osVersion: "9",
+oaid: "default",
+accessKey: "239cc2d850fbd17f61b6bc23c02db044_21944",//
+apiType: 0

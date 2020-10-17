@@ -39,6 +39,17 @@ class Loader{
           });
       }
 
+      /**@description 请求远程的图片资源 */
+      static request_remote_image(url: string, callback: Function){
+        cc.assetManager.loadRemote(url, (error: Error, texture: cc.Texture2D) => {
+            if(!error){
+                callback && callback(new cc.SpriteFrame(texture));
+            }else{
+                console.error(`当前的地址[${url}] 下载失败 ${error}`);
+            }
+        });
+      }
+
 }
 
 
