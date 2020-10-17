@@ -15,6 +15,13 @@ interface DecorationConfig {
     description : string; 
 } 
 
+interface PeopleConfig { 
+    id : number; 
+    picture_name : string; 
+    chinese_name : string; 
+    type : number; 
+} 
+
 interface TableConfig { 
     id : number; 
     name : string; 
@@ -27,4 +34,4 @@ interface TableConfig {
  
   
 
- export { AudioConfig,DecorationConfig,TableConfig, };
+ export { AudioConfig,DecorationConfig,PeopleConfig,TableConfig, };

@@ -1,5 +1,6 @@
 import DecorationData from "../GameLocalData/DecorationData";
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
+import PeopleData from "../GameLocalData/PeopleData";
 import TableData from "../GameLocalData/TableData";
 import UIConfig from "../UI/UIManager/UIConfig";
 
@@ -9,6 +10,7 @@ class LinkGameBase{
          GamePlayBaseData,
          TableData,
          DecorationData,
+         PeopleData,
       ];
 
       /**@description game_play 相关的事件 */
