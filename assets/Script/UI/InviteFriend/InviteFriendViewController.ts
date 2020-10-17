@@ -41,15 +41,19 @@ class InviteFriendViewController extends Controller{
 
     update_view(){
         CommonServerData.get_invite_friends((share_interface: ShareInterface)=>{
-            this.share_interface = share_interface;
-            if(share_interface.stages){
-                if(this.view.ui_param_interface.router.path == InviteFriendPath.normal){
-                    this.normal_invite_friend_view.update_view(share_interface.stages);
+            if(share_interface){
+                this.share_interface = share_interface;
+                if(share_interface.stages){
+                    if(this.view.ui_param_interface.router.path == InviteFriendPath.normal){
+                        this.normal_invite_friend_view.update_view(share_interface.stages);
+                    }else{
+                        console.log("当前页面显示失败")
+                    }
                 }else{
-                    console.log("当前页面显示失败")
+                    console.log("没有获得分享数据");
                 }
             }else{
-                console.log("没有获得分享数据");
+                console.log("功能没有开启");
             }
         })
     }
