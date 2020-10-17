@@ -1,3 +1,4 @@
+import CommonServerData from "../GameServerData/CommonServerData";
 
 class GameDataConfig{
     public static all_config_data:{[key: string]: any} = {};
@@ -7,14 +8,23 @@ class GameDataConfig{
              if(!error){
                 const keys = Object.keys(json.json);
                 this.all_config_data = json.json;
+                this.server_request_server_config();
              }else{
              }
-         })
+         });
     }
 
     /**@description 得到服务器端的JSON数据配置 */
     static server_request_server_config(){
-          
+         CommonServerData.request_game_config_data((server_config: any)=>{
+              if(server_config){
+                 console.log("当前服务器返回的游戏配置数据 = ",server_config);
+                 const keys = Object.keys(server_config);
+                 for(const key of keys){
+                     this.all_config_data[key] = server_config[key];
+                 }
+              }
+         });
     }
 
     // 实例用法

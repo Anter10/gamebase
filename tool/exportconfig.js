@@ -1,6 +1,9 @@
 let fs = require("fs");
 const exec = require('child_process').execSync;
 const exportdata = require("hs_export_data");
+const server_data_config = require("./gameserverdata");
+
+console.log("server_data_config ",server_data_config);
 
 function execute(cmd) {
     exec(cmd, { stdio: 'inherit' });
@@ -8,7 +11,7 @@ function execute(cmd) {
 
 
 function export_config() {
-   exportdata("./../assets/resources/Config" ,"config.json","./../config", "./../assets/Script/GameDataConfig");
+   exportdata("./../assets/resources/Config" ,"config.json","./../config", "./../assets/Script/GameDataConfig", server_data_config);
 }
 
 function export_server_config() {
