@@ -14,19 +14,21 @@ class InviteFriendView extends BaseUI {
     @property
     text: string = 'hello';
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
         super.onLoad();
         this.controller.init_view();
+    }
+
+    onAddFinished(){
+        super.onAddFinished();
+        this.controller.view = this;
+        this.controller.update_view();
     }
 
     start () {
         super.start();
 
     }
-
-    // update (dt) {}
 }
 
 
