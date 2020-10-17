@@ -104,8 +104,10 @@ export class HttpClient {
         if (request.contentType) {
             xhr.setRequestHeader("Content-Type", request.contentType);
         }
-        
-        xhr.open(request.method, this.serverBaseUrl + request.path, true);
+        const request_path = this.serverBaseUrl + request.path;
+
+        console.log("请求地址 = ",this.serverBaseUrl + request.path);
+        xhr.open(request.method, request_path , true);
 
         if(request.headers){
             for(let key in request.headers){

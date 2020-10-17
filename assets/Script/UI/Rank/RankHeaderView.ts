@@ -12,7 +12,6 @@ export default class RankHeaderView extends BaseNode {
     container: cc.Node = null;
     @property(cc.Prefab)
     header_item_prefab: cc.Prefab = null;
-    
     public header_item_interfaces:Array<HeaderItemInterface> = [];
 
     onLoad () {

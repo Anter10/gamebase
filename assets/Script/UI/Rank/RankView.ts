@@ -12,6 +12,11 @@ export default class RankView extends BaseUI {
         this.controller.init_view();
     }
 
+    onAddFinished(){
+        super.onAddFinished();
+        this.controller.update_normal_rank_view();
+    }
+
     start () {
         super.start();
 
