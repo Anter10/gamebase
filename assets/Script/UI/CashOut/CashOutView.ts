@@ -29,7 +29,12 @@ class CashOutView extends BaseUI implements CashOutViewInterface, BaseUIInterfac
     onLoad () {
         super.onLoad();
         this.controller.init_view();
-        console.log(this.controller)
+    }
+
+    onAddFinished(){
+        super.onAddFinished();
+        this.controller.view = this;
+        this.controller.update_cash_out_view();
     }
     
     start () {

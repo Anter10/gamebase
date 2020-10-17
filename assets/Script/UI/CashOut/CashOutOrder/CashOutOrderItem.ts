@@ -1,3 +1,6 @@
+import Utils from "../../../Common/Utils";
+import { CashOutOrderInterface } from "../CashOutInterface";
+
  
 const {ccclass, property} = cc._decorator;
 
@@ -15,6 +18,11 @@ class CashOutOrderItem extends cc.Component {
 
     start () {
        
+    }
+
+    update_view(cash_out_order_item_interface: CashOutOrderInterface){
+        this.cash_out_order_money_label.string = `${Utils.money(cash_out_order_item_interface.money, 1)}`;
+        this.cash_out_order_date_label.string = cash_out_order_item_interface.datetime;
     }
 }
 

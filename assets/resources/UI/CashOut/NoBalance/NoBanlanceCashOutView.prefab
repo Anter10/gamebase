@@ -30,6 +30,9 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 58
+      },
+      {
         "__id__": 59
       }
     ],
@@ -444,7 +447,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "打卡进度",
     "_N$string": "打卡进度",
     "_fontSize": 30,
@@ -791,7 +793,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "2/7",
     "_N$string": "2/7",
     "_fontSize": 40,
@@ -971,7 +972,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "每天获得10颗红心完成打卡，今日还差8颗",
     "_N$string": "每天获得10颗红心完成打卡，今日还差8颗",
     "_fontSize": 26,
@@ -1148,7 +1148,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "去打卡",
     "_N$string": "去打卡",
     "_fontSize": 32,
@@ -1364,13 +1363,10 @@
     "_components": [
       {
         "__id__": 56
-      },
-      {
-        "__id__": 57
       }
     ],
     "_prefab": {
-      "__id__": 58
+      "__id__": 57
     },
     "_opacity": 255,
     "_color": {
@@ -1569,7 +1565,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "打卡7天即可提现，店铺等级越高提现越多哦",
     "_N$string": "打卡7天即可提现，店铺等级越高提现越多哦",
     "_fontSize": 24,
@@ -2068,19 +2063,6 @@
     "_id": ""
   },
   {
-    "__type__": "21232SamN1OTrvnU4VHNNhy",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 37
-    },
-    "_enabled": true,
-    "container": {
-      "__id__": 47
-    },
-    "_id": ""
-  },
-  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -2119,6 +2101,22 @@
     "_id": ""
   },
   {
+    "__type__": "21232SamN1OTrvnU4VHNNhy",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "container": {
+      "__id__": 47
+    },
+    "no_banlance_view_item_prefab": {
+      "__uuid__": "6f65cef0-c767-47f7-848b-7b6001209901"
+    },
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -2126,7 +2124,7 @@
     "asset": {
       "__uuid__": "36766010-378e-4658-8d8c-c1c19851ee80"
     },
-    "fileId": "df31FKvBxODZ2nke7ruWcm",
+    "fileId": "",
     "sync": false
   }
 ]

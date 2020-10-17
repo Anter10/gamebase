@@ -1,6 +1,17 @@
 
 class Utils{
       
+      /**
+       * @description 转换显示钱的数量
+       * @param money 当前的钱数
+       * @param fixed_number 保留小数点的位数
+       */
+      static money(money: number, fixed_number?: number){
+            const t_fixed_number = fixed_number ? fixed_number : 1
+            const show_money = (money / 100).toFixed(t_fixed_number);
+            return show_money;
+      }
+
       /**@description 得到UI接口需要更新的图片 [all_need_update_sprite_name, all_need_load_sprite_frame_path] */
       static get_ui_interface_sprite_path_and_sprite_name(ui_interface: any, ui_root_path?: string):[Array<string>, Array<string>]{
         const all_need_load_sprite_frame_path: Array<string> = [];

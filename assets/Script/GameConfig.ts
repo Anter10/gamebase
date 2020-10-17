@@ -3,11 +3,11 @@ const GameConfig = {
       /**@description 游戏的AB版本 */
       gameExamine : false,
       /**description 游戏的APPID */
-      appId: 41,
+      appId: 44,
       // 包ID
       pkgId: 67,
       // 设备的ID
-      deviceId: "861144046191155",
+      deviceId: "bff1979e4c6c74141414310680bdb547fc671844e483b95c7e4e7ac050462ae0",
       // brand名称
       brand:"Xiaomi",
       // 经纬度信息
@@ -24,7 +24,7 @@ const GameConfig = {
       osVersion: "9",
       oaid: "default",
       /**@description accessKey */
-      accessKey: "239cc2d850fbd17f61b6bc23c02db044_21944",
+      accessKey: "8e7332d189c6b5229fb6afd561dd57fc_19619",
       /**@description 请求地址的类型 apiType:0 测试地址  1：正式地址  */
       apiType: 0,
       /**@description 产品名称 */
