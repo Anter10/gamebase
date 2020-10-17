@@ -135,7 +135,11 @@ export default class GameMainView extends BaseUI {
     }
 
     click_cook_woman_button() {
-
+        const ui_cook_woman_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.CookWomanView,
+            ui_config_name: "CookWomanView",
+        }
+        UIManager.show_ui(ui_cook_woman_param_interface);
     }
 
     click_menu_button() {

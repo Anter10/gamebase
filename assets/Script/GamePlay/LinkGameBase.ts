@@ -19,6 +19,7 @@ class LinkGameBase{
          "change_red_heart_number": "change_red_heart_number",
          "upgrade_table": "upgrade_table",
          "upgrade_decoration": "upgrade_decoration",
+         "upgrade_cook_woman_level": "upgrade_cook_woman_level",
       }
 
       /**

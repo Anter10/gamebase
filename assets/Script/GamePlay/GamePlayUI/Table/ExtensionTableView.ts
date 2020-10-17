@@ -54,7 +54,6 @@ export default class ExtensionTableView extends BaseUI {
     }
 
     flush_view() {
-
         const nagivator_interface: NagivatorInterface = {
             title: "扩建",
             /**@description 返回按钮的回调*/

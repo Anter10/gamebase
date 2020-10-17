@@ -9,6 +9,8 @@ interface PeopleInterface {
     peopleConfigId: number;
     //人物动作循环起点时间
     peopleMoveStartTime: number;
+    //人物等级
+    peopleLevel: number;
 }
 
 // 游戏中八张桌子的数据
@@ -16,7 +18,7 @@ class PeopleData extends BaseRecord {
     static _name = "PeopleData";
     base_name = "PeopleData";
 
-    private people_data: Array<PeopleInterface> = [];
+    private people_data: Array<PeopleInterface> = [{ peopleDataNumber: 1, peopleConfigId: 2, peopleMoveStartTime: 0, peopleLevel: 1 }];
 
     constructor() {
         super();
@@ -39,6 +41,7 @@ class PeopleData extends BaseRecord {
             peopleDataNumber: max_people_data_number + 1,
             peopleConfigId: people_config_id,
             peopleMoveStartTime: Time.get_second_time(),
+            peopleLevel: 0,
         };
         this.people_data.push(init_new_people);
         return init_new_people;
@@ -48,6 +51,16 @@ class PeopleData extends BaseRecord {
         for (let i = 0; i < this.people_data.length; i++) {
             if (this.people_data[i].peopleConfigId == people_config_id) {
                 this.people_data[i].peopleMoveStartTime = people_move_start_time;
+                this.store_people_data(this.people_data);
+                return;
+            }
+        }
+    }
+
+    change_cook_woman_level(people_config_id: number, people_level: number) {
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (this.people_data[i].peopleConfigId == people_config_id) {
+                this.people_data[i].peopleLevel = people_level;
                 this.store_people_data(this.people_data);
                 return;
             }

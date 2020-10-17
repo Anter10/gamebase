@@ -6,20 +6,14 @@ interface AudioConfig {
     info : string; 
 } 
 
-interface DecorationConfig { 
-    id : number; 
-    name : string; 
-    chinese_name : string; 
-    upgrade : Array<number>; 
-    growth : Array<number>; 
-    description : string; 
-} 
-
 interface PeopleConfig { 
     id : number; 
     picture_name : string; 
     chinese_name : string; 
     type : number; 
+    cook_accelerate : Array<number>; 
+    heart_accelerate : Array<number>; 
+    upgrade_need_coin : Array<number>; 
 } 
 
 interface TableConfig { 
@@ -31,7 +25,16 @@ interface TableConfig {
     description : string; 
 } 
 
+interface DecorationConfig { 
+    id : number; 
+    name : string; 
+    chinese_name : string; 
+    upgrade : Array<number>; 
+    growth : Array<number>; 
+    description : string; 
+} 
+
  
   
 
- export { AudioConfig,DecorationConfig,PeopleConfig,TableConfig, };
+ export { AudioConfig,PeopleConfig,TableConfig,DecorationConfig, };
