@@ -6,5 +6,15 @@ enum ExtensionTypeButton {
     decoration = "decoration",
 }
 
+/**@description 人物类型的枚举  */
+enum PeopleType {
+    /**@description 灶王爷 */
+    kitchen_god = 0,
+    /**@description 厨娘 */
+    cook_woman = 1,
+    /**@description 顾客 */
+    customer = 2,
+}
 
-export { ExtensionTypeButton };
+
+export { ExtensionTypeButton, PeopleType };
