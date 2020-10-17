@@ -1,4 +1,5 @@
 import BaseUI from "../../../Common/BaseUI";
+import { ShareInterface, StageInterface } from "../InviteFriendInterface";
 import InviteFriendItem from "../InviteFriendItem";
 
 const {ccclass, property} = cc._decorator;
@@ -34,14 +35,14 @@ class NormalInviteFriendView extends BaseUI {
                 this.on_close_call("InviteFriendView");
             }
         })
-        this.init_list_view();
     }
 
-    init_list_view(){
-        for(let i = 0 ; i < 10; i++){
+    update_view(stages: Array<StageInterface>){
+        for(const stage of stages){
             const invite_friend_item: cc.Node = cc.instantiate(this.invite_friend_item_prefab);
             const invite_friend_item_script:InviteFriendItem = invite_friend_item.getComponent(InviteFriendItem);
             invite_friend_item.parent = this.container;
+            invite_friend_item_script.update_view(stage);
         }
     }
 

@@ -53,6 +53,16 @@ class CommonServerData{
     static get_order(callback: Function) {
         ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/withdraw/order`, callback);
     }
+
+    /**
+     * @description 得到邀请好友的数据信息
+     * @param callback 
+     */
+    static get_invite_friends(callback:Function){
+        ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/share`, callback);
+    }
+
+
 }
 
 
