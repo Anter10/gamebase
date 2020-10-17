@@ -31,29 +31,34 @@ class RankViewController implements Controller{
                    const normal_click_on_view = cc.instantiate(prefab);
                    normal_click_on_view.parent = this.view.node;
                    this.normal_rank_view = normal_click_on_view.getComponent(NormalRankView);
-                   this.update_normal_rank_view();
+                   this.update_rank_view();
                 });
           }else{
               console.log("当前")
           }
       }
 
-      update_normal_rank_view(){
+      update_rank_view(){
           CommonServerData.get_rank((rank_data_interface: RankInterface) =>{
-              console.log("排行榜数据 =       ",rank_data_interface);
-              if(this.normal_rank_view){
-                this.normal_rank_view.add_player_rank_view(rank_data_interface.myItem);
-                this.normal_rank_view.init_rank_list(rank_data_interface);
-                const rank_headers = [];
-                const headers = rank_data_interface.headers.split(" ");
-                for(const item_key of headers){
-                    if(item_key){
-                       rank_headers.push({title: item_key});
-                    }
+             console.log("排行榜数据 =       ",rank_data_interface);
+             if(this.view.ui_param_interface.router.path == RankRouterPath.normal){
+                if(this.normal_rank_view){
+                  this.normal_rank_view.add_player_rank_view(rank_data_interface.myItem);
+                  this.normal_rank_view.init_rank_list(rank_data_interface);
+                  const rank_headers = [];
+                  const headers = rank_data_interface.headers.split(" ");
+                  for(const item_key of headers){
+                      if(item_key){
+                         rank_headers.push({title: item_key});
+                      }
+                  }
+                  this.normal_rank_view.init_header_view(rank_headers);
                 }
-                this.normal_rank_view.init_header_view(rank_headers);
+              }else{
+                
               }
           });
+          
       }
 }
 

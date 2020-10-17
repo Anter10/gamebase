@@ -22,8 +22,8 @@ class UserMoneyModel{
     readonly userId: string;
 }
 
-/**@description 提现界面的列表数据接口[GET: /api/withdraw] */
-interface WithDrawInterface{
+/**@description 提现界面的列表单个Item数据接口*/
+interface CashOutViewItemInterface{
     /**@description 是否禁用  */
     readonly disable?: boolean;
     /**@description 提现类型 */
@@ -42,6 +42,11 @@ interface WithDrawInterface{
     readonly goodsData?:GoodsDataInterface;
     /**@description *新* 邀请数据 */
     readonly inviteData?:InviteDataInterface;
+}
+
+/**@description 提现列表的数据接口 [GET: /api/withdraw]  */
+interface CashOutInterface{
+    items: Array<CashOutViewItemInterface>;
 }
 
 /**@description 提现界面的刷新接口 */
@@ -72,6 +77,11 @@ interface CashOutOrderInterface{
     readonly datetime?: string;
 }
 
+/**@description  提现记录 */
+interface OrderInterface{
+    items: Array<CashOutOrderInterface>
+}
+
 
 /**@description 提现成功的界面接口 */
 interface CashOutSuccessViewInterface{
@@ -79,4 +89,4 @@ interface CashOutSuccessViewInterface{
 }
 
 
-export {CashOutOrderInterface, CashInterface, InviteDataInterface, GoodsDataInterface,UserMoneyModel, WithDrawInterface,CashOutViewInterface, CashOutSuccessViewInterface};
+export {OrderInterface, CashOutInterface, CashOutOrderInterface, CashInterface, InviteDataInterface, GoodsDataInterface,UserMoneyModel, CashOutViewItemInterface,CashOutViewInterface, CashOutSuccessViewInterface};

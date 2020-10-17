@@ -1,4 +1,6 @@
+import { TouchButtonEffectType } from "./CommonEnum";
 import Loader from "./Loader";
+import TouchButton from "./TouchButton";
 import Utils from "./Utils";
 
 const {ccclass, property} = cc._decorator;
@@ -33,6 +35,11 @@ class BaseNode extends cc.Component {
 
    update (dt) {
        
+   }
+
+   register_touch_button(touch_call_back,music_id?: number,touch_effect_type?: TouchButtonEffectType){
+       const touch_button: TouchButton = this.node.addComponent(TouchButton);
+       touch_button.register_touch(touch_call_back,music_id, touch_effect_type);
    }
 
 }

@@ -28,9 +28,13 @@
       }
     ],
     "_active": true,
-    "_components": [],
+    "_components": [
+      {
+        "__id__": 14
+      }
+    ],
     "_prefab": {
-      "__id__": 14
+      "__id__": 15
     },
     "_opacity": 255,
     "_color": {
@@ -81,7 +85,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "tx_button_1",
+    "_name": "balance_item_bottom",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -265,7 +269,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "0.3元",
     "_N$string": "0.3元",
     "_fontSize": 40,
@@ -365,7 +368,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Label",
+    "_name": "cornor_type_tip_label",
     "_objFlags": 0,
     "_parent": {
       "__id__": 8
@@ -442,7 +445,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "新人专享",
     "_N$string": "新人专享",
     "_fontSize": 18,
@@ -516,6 +518,28 @@
     "sync": false
   },
   {
+    "__type__": "6d880Z9KUxDqpsY6xQrfHyw",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "balance_item_bottom": {
+      "__id__": 3
+    },
+    "cornor_type_bottom": {
+      "__id__": 12
+    },
+    "cash_out_money_label": {
+      "__id__": 6
+    },
+    "cornor_type_tip_label": {
+      "__id__": 10
+    },
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
@@ -523,7 +547,7 @@
     "asset": {
       "__uuid__": "727edd4f-3604-46ba-af2c-0a37783b1a04"
     },
-    "fileId": "c4irqDLwFNO5D/fEXooEU3",
+    "fileId": "",
     "sync": false
   }
 ]
