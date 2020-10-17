@@ -18,6 +18,14 @@ class CommonServerData{
     static post_rank(callback: Function) {
         ServerData.get_instance().post_data(`/g3-chengyu/api/rank`,"", callback);
     }
+
+     /**
+      * @description 游戏数据配置
+      * @param callback Function 请求回调参数
+      */
+    static request_game_config_data(callback:Function) {
+        ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/game` ,callback);
+    }
 }
 
 
