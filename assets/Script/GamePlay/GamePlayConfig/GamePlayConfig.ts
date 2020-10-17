@@ -11,5 +11,7 @@ const GamePlayConfig = {
     kitchen_god_active_time: 60000,
     //灶王爷候场时间
     kitchen_god_wait_time: 120000,
+    //厨娘最高等级
+    cook_woman_max_level: 5,
 }
 export default GamePlayConfig;

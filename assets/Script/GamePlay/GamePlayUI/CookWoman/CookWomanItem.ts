@@ -1,4 +1,5 @@
 import BaseNode from "../../../Common/BaseNode";
+import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
@@ -6,6 +7,8 @@ import { PeopleConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import PeopleData from "../../../GameLocalData/PeopleData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 import LinkGameBase from "../../LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
@@ -39,6 +42,21 @@ export default class CookWomanItem extends BaseNode {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_cook_woman_level, this, this.fresh_node_label);
     }
 
+    onLoad() {
+        //查看人物详情
+        const shoe_woman_description: TouchButton = this.cook_woman_sprite.node.addComponent(TouchButton);
+        shoe_woman_description.register_touch(this.show_woman_description.bind(this));
+    }
+
+    show_woman_description() {
+        const ui_cook_woman_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.CookWomanDescriptionView,
+            ui_config_name: "CookWomanDescriptionView",
+            param: this.cook_woman_config,
+        }
+        UIManager.show_ui(ui_cook_woman_param_interface);
+    }
+
     start() {
         this.people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
         this.fresh_node_label();
@@ -63,7 +81,7 @@ export default class CookWomanItem extends BaseNode {
             this.get_mark.active = false;
             this.price_label.string = this.cook_woman_config.upgrade_need_coin[0] + "金币";
 
-            //购买新的桌子
+            //解锁人物
             const buy_new_table_button: TouchButton = this.price.addComponent(TouchButton);
             buy_new_table_button.register_touch(this.click_buy_new_table_button.bind(this));
         }
