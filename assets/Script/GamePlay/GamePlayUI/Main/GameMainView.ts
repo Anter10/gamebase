@@ -143,7 +143,11 @@ export default class GameMainView extends BaseUI {
     }
 
     click_menu_button() {
-
+        const ui_menu_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.MenuView,
+            ui_config_name: "MenuView",
+        }
+        UIManager.show_ui(ui_menu_param_interface);
     }
 
     click_extension_button() {

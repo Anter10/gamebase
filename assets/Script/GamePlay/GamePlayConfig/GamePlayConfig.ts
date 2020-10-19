@@ -13,5 +13,7 @@ const GamePlayConfig = {
     kitchen_god_wait_time: 120000,
     //厨娘最高等级
     cook_woman_max_level: 5,
+    //每日最多解锁菜品数量
+    daily_unlock_menu_limit: 10,
 }
 export default GamePlayConfig;

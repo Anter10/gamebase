@@ -16,5 +16,21 @@ enum PeopleType {
     customer = 2,
 }
 
+/**@description 解锁菜品的奖励类型  */
+enum UnlockMenuRewardType {
+    /**@description 未解锁 */
+    lock = 0,
+    /**@description 解锁未领取 */
+    unlock = 1,
+    /**@description 已领取 */
+    get = 2,
+}
 
-export { ExtensionTypeButton, PeopleType };
+/**@description 菜谱类型  */
+enum MenuType {
+    /**@description 未解锁 */
+    lock = 0,
+    /**@description 解锁 */
+    unlock = 1,
+}
+export { ExtensionTypeButton, PeopleType, UnlockMenuRewardType, MenuType };

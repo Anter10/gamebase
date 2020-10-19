@@ -15,13 +15,11 @@ interface DecorationConfig {
     description : string; 
 } 
 
-interface TableConfig { 
+interface MenuConfig { 
     id : number; 
-    name : string; 
     chinese_name : string; 
-    upgrade : number; 
-    growth : number; 
-    description : string; 
+    sell_price : number; 
+    ad_number : number; 
 } 
 
 interface PeopleConfig { 
@@ -34,7 +32,23 @@ interface PeopleConfig {
     upgrade_need_coin : Array<number>; 
 } 
 
+interface TableConfig { 
+    id : number; 
+    name : string; 
+    chinese_name : string; 
+    upgrade : number; 
+    growth : number; 
+    description : string; 
+} 
+
+interface UnlockMenuRewardConfig { 
+    id : number; 
+    unlock_menu : number; 
+    reward_coin : number; 
+    reward_heart : number; 
+} 
+
  
   
 
- export { AudioConfig,DecorationConfig,TableConfig,PeopleConfig, };
+ export { AudioConfig,DecorationConfig,MenuConfig,PeopleConfig,TableConfig,UnlockMenuRewardConfig, };

@@ -17,6 +17,7 @@ class GamePlay extends cc.Component {
         LinkGameBase.register_ui_path("ShowDecorationDescriptionView", `GamePlay/GamePlayUI/ExtensionTable/ShowDecorationDescriptionView`);
         LinkGameBase.register_ui_path("CookWomanView", `GamePlay/GamePlayUI/CookWoman/CookWomanView`);
         LinkGameBase.register_ui_path("CookWomanDescriptionView", `GamePlay/GamePlayUI/CookWoman/CookWomanDescriptionView`);
+        LinkGameBase.register_ui_path("MenuView", `GamePlay/GamePlayUI/Menu/MenuView`);
     }
 
     onLoad() {
