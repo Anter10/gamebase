@@ -75,7 +75,7 @@ export default class MenuItem extends BaseNode {
                 //播放广告。如果看完。
                 this.unlock_new_menu();
             } else {
-                console.log("请先解锁上一个菜品",this.menu_config.id);
+                console.log("请先解锁上一个菜品", this.menu_config.id);
             }
         }
     }
@@ -92,7 +92,7 @@ export default class MenuItem extends BaseNode {
     }
 
     un_refresh_node() {
-        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_1`, (texture2d: cc.Texture2D) => {
+        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${this.menu_config.id}`, (texture2d: cc.Texture2D) => {
             this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
         })
         this.menu_name_label.string = this.menu_config.chinese_name;
