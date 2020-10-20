@@ -101,13 +101,15 @@ export class HttpClient {
         this.currentRequestNum++;
         const xhr = new XMLHttpRequest();
         xhr.timeout = request.timeout;
+       
+        const request_path = this.serverBaseUrl + request.path;
+
+        console.log("请求地址 = ",request_path);
+        xhr.open(request.method, request_path , true);
+
         if (request.contentType) {
             xhr.setRequestHeader("Content-Type", request.contentType);
         }
-        const request_path = this.serverBaseUrl + request.path;
-
-        console.log("请求地址 = ",this.serverBaseUrl + request.path);
-        xhr.open(request.method, request_path , true);
 
         if(request.headers){
             for(let key in request.headers){

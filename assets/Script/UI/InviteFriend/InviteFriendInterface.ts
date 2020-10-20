@@ -1,7 +1,7 @@
 
 /**@description 邀请好友的奖励数据的接口 */
 interface StageInterface{
-     /**@description 总共金额, 单位元 */
+     /**@description 好友数量 */
     readonly num: number;
     /**@description 金额, 单位分 */
     readonly money: number;

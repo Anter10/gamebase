@@ -54,6 +54,15 @@ class Modal extends BaseUI {
 
     start () {
         super.start();
+        const ok_button: TouchButton = this.ok_button_node.addComponent(TouchButton);
+        ok_button.register_touch(this.ok_callback.bind(this));
+
+        const cancel_button: TouchButton = this.cancel_button_node.addComponent(TouchButton);
+        cancel_button.register_touch(this.cancel_callback.bind(this));
+
+        const close_button: TouchButton = this.close_button_node.addComponent(TouchButton);
+        close_button.register_touch(this.on_close_call.bind(this));
+
         this.flush_ui_image(this.modal_ui_interface, "./UI/Common/texture/")
     }
 
@@ -77,15 +86,7 @@ class Modal extends BaseUI {
            this.cancel_label.string = this.modal_interface.cancel_text;
         }
 
-        const ok_button: TouchButton = this.ok_button_node.addComponent(TouchButton);
-        ok_button.register_touch(this.ok_callback.bind(this));
-
-        const cancel_button: TouchButton = this.cancel_button_node.addComponent(TouchButton);
-        cancel_button.register_touch(this.cancel_callback.bind(this));
-
-        const close_button: TouchButton = this.close_button_node.addComponent(TouchButton);
-        close_button.register_touch(this.on_close_call.bind(this));
-
+    
         if(this.modal_interface.message){
            this.message_label.string = this.modal_interface.message;
         }
