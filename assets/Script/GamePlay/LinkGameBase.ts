@@ -2,6 +2,7 @@ import DecorationData from "../GameLocalData/DecorationData";
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
 import MenuData from "../GameLocalData/MenuData";
 import PeopleData from "../GameLocalData/PeopleData";
+import StoreUpgradeData from "../GameLocalData/StoreUpgradeData";
 import TableData from "../GameLocalData/TableData";
 import UnlockMenuRewardData from "../GameLocalData/UnlockMenuRewardData";
 import UIConfig from "../UI/UIManager/UIConfig";
@@ -15,6 +16,7 @@ class LinkGameBase{
          PeopleData,
          MenuData,
          UnlockMenuRewardData,
+         StoreUpgradeData,
       ];
 
       /**@description game_play 相关的事件 */
@@ -25,6 +27,8 @@ class LinkGameBase{
          "upgrade_decoration": "upgrade_decoration",
          "upgrade_cook_woman_level": "upgrade_cook_woman_level",
          "unlock_menu_reward": "unlock_menu_reward",
+         "upgrade_store_level": "upgrade_store_level",
+         "click_store_button": "click_store_button",
       }
 
       /**

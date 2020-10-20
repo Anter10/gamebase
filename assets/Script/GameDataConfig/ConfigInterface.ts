@@ -32,6 +32,16 @@ interface PeopleConfig {
     upgrade_need_coin : Array<number>; 
 } 
 
+interface StoreUpgradeConfig { 
+    id : number; 
+    name : string; 
+    heart_number : number; 
+    cash_number : number; 
+    upgrade_need_table : Array<number>; 
+    upgrade_need_decoration : Array<number>; 
+    upgrade_need_cook_woman : Array<number>; 
+} 
+
 interface TableConfig { 
     id : number; 
     name : string; 
@@ -51,4 +61,4 @@ interface UnlockMenuRewardConfig {
  
   
 
- export { AudioConfig,DecorationConfig,MenuConfig,PeopleConfig,TableConfig,UnlockMenuRewardConfig, };
+ export { AudioConfig,DecorationConfig,MenuConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };

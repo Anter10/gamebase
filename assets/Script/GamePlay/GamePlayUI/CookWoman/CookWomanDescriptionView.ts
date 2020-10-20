@@ -110,7 +110,13 @@ export default class CookWomanDescriptionView extends BaseUI {
             this.green_sprite.active = false;
         } else {
             this.level_label.string = `LV.${this.cook_woman_level}`;
-            this.upgrade_button_label.string = "升级";
+            if (this.cook_woman_level == GamePlayConfig.cook_woman_max_level) {
+                this.cost_coin_label.string = "";
+                this.upgrade_button_label.string = "满级";
+            } else {
+                this.cost_coin_label.string = this.cook_woman_config.upgrade_need_coin[this.cook_woman_level] + "";
+                this.upgrade_button_label.string = "升级";
+            }
             this.green_sprite.active = true;
             this.green_sprite.x = 78.75 * this.cook_woman_level - 200.75;
         }
@@ -126,7 +132,6 @@ export default class CookWomanDescriptionView extends BaseUI {
                 this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `<color=#460B0D>${this.cook_woman_config.heart_accelerate[i - 1]}%  </c>`;
             }
         }
-        this.cost_coin_label.string = this.cook_woman_config.upgrade_need_coin[this.cook_woman_level] + "";
     }
 
     not_refresh_cook_woman_description() {

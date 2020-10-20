@@ -7,6 +7,7 @@ import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
+import StoreIconItem from "../Common/StoreIconItem/StoreIconItem";
 import GameMainDecorationItem from "./GameMainDecorationItem";
 import GameMainTableItem from "./GameMainTableItem";
 
@@ -54,6 +55,12 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     decoration_array: cc.Node = null;
 
+    @property(cc.Node)
+    store_upgrade_button: cc.Node = null;
+
+    @property(cc.Node)
+    store_upgrade_node: cc.Node = null;
+
     onLoad() {
         this.flush_view();
     }
@@ -62,12 +69,25 @@ export default class GameMainView extends BaseUI {
         this.load_gold_and_heart_item();
         this.load_table_item();
         this.load_decoration_item();
+        this.load_store();
+    }
+
+    load_store() {
+        Loader.load_prefab("/GamePlay/GamePlayUI/Common/StoreIconItem/StoreIconItem", (prefab: cc.Prefab) => {
+            const game_store_icon_item = cc.instantiate(prefab);
+            game_store_icon_item.getComponent(StoreIconItem).open_refresh_icon();
+            game_store_icon_item.parent = this.store_upgrade_node;
+        });
     }
 
     flush_view() {
         //提现
         const cash_out_button: TouchButton = this.cash_out_button.addComponent(TouchButton);
         cash_out_button.register_touch(this.click_cash_out_button.bind(this));
+
+        //店铺升级
+        const store_upgrade_button: TouchButton = this.store_upgrade_button.addComponent(TouchButton);
+        store_upgrade_button.register_touch(this.click_store_upgrade_button.bind(this));
 
         //厨娘
         const cook_woman_button: TouchButton = this.cook_woman_button.addComponent(TouchButton);
@@ -115,7 +135,6 @@ export default class GameMainView extends BaseUI {
                 const game_main_table_item = cc.instantiate(prefab);
                 game_main_table_item.getComponent(GameMainTableItem).set_table_number(i);
                 game_main_table_item.parent = this.table_node_array[i];
-
             });
         }
     }
@@ -140,6 +159,14 @@ export default class GameMainView extends BaseUI {
             ui_config_name: "CookWomanView",
         }
         UIManager.show_ui(ui_cook_woman_param_interface);
+    }
+
+    click_store_upgrade_button() {
+        const ui_store_upgrade_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.StoreUpgradeView,
+            ui_config_name: "StoreUpgradeView",
+        }
+        UIManager.show_ui(ui_store_upgrade_param_interface);
     }
 
     click_menu_button() {

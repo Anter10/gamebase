@@ -2,6 +2,7 @@ import {AudioConfig} from "./ConfigInterface"
 import {DecorationConfig} from "./ConfigInterface" 
 import {MenuConfig} from "./ConfigInterface" 
 import {PeopleConfig} from "./ConfigInterface" 
+import {StoreUpgradeConfig} from "./ConfigInterface" 
 import {TableConfig} from "./ConfigInterface" 
 import {UnlockMenuRewardConfig} from "./ConfigInterface" 
  
@@ -11,6 +12,7 @@ import {UnlockMenuRewardConfig} from "./ConfigInterface"
      DecorationConfig:"DecorationConfig", 
      MenuConfig:"MenuConfig", 
      PeopleConfig:"PeopleConfig", 
+     StoreUpgradeConfig:"StoreUpgradeConfig", 
      TableConfig:"TableConfig", 
      UnlockMenuRewardConfig:"UnlockMenuRewardConfig", 
  }; 

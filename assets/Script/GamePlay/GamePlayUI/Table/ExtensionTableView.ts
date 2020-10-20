@@ -1,10 +1,3 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-
 import BaseUI from "../../../Common/BaseUI";
 import { NagivatorInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
@@ -43,7 +36,7 @@ export default class ExtensionTableView extends BaseUI {
     private cur_button_type = ExtensionTypeButton.table;
 
     readonly table_content_height = 1500;
-    readonly decoration_content_height = 1700;
+    readonly decoration_content_height = 1850;
     onLoad() {
         this.flush_view();
     }
@@ -123,7 +116,7 @@ export default class ExtensionTableView extends BaseUI {
                 Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionDecorationFrameItem", (prefab: cc.Prefab) => {
                     const extension_table_frame_item = cc.instantiate(prefab);
                     extension_table_frame_item.getComponent(ExtensionDecorationFrameItem).set_mark_number(i);
-                    extension_table_frame_item.y = -130 - i * extension_table_frame_item.height;
+                    extension_table_frame_item.y = -130 - i * (extension_table_frame_item.height + 20);
                     extension_table_frame_item.parent = this.decoration_content;
                 });
             }

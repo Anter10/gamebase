@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "3d217380-08ac-4421-9e3f-f9c7370d6211",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 256,
+  "height": 299,
+  "platformSettings": {},
+  "subMetas": {
+    "Restaurant_Badge_8": {
+      "ver": "1.0.4",
+      "uuid": "495e7a3e-a77c-4281-af2d-582d75362898",
+      "rawTextureUuid": "3d217380-08ac-4421-9e3f-f9c7370d6211",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -1.5,
+      "offsetY": 0.5,
+      "trimX": 3,
+      "trimY": 2,
+      "width": 247,
+      "height": 294,
+      "rawWidth": 256,
+      "rawHeight": 299,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

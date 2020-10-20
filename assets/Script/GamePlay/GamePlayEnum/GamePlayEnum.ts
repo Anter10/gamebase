@@ -33,4 +33,14 @@ enum MenuType {
     /**@description 解锁 */
     unlock = 1,
 }
-export { ExtensionTypeButton, PeopleType, UnlockMenuRewardType, MenuType };
+
+/**@description 升级店铺需要的条件类型  */
+enum StoreUpgradeConditionType {
+    /**@description 未解锁 */
+    Table = 0,
+    /**@description 解锁 */
+    Decoration = 1,
+    /**@description 解锁 */
+    CookWoman = 2,
+}
+export { ExtensionTypeButton, PeopleType, UnlockMenuRewardType, MenuType, StoreUpgradeConditionType };

@@ -1,6 +1,6 @@
 {
   "ver": "2.3.5",
-  "uuid": "c9f79c6b-80ed-4b41-b38d-3116ad203c4e",
+  "uuid": "4e51344b-121e-45a1-a5c5-dda7ee9ad011",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "UI_DishIcon_2": {
       "ver": "1.0.4",
-      "uuid": "bf76da36-e412-47b9-ace5-c800bdd5bc61",
-      "rawTextureUuid": "c9f79c6b-80ed-4b41-b38d-3116ad203c4e",
+      "uuid": "ab7329bc-203a-4870-a09b-f8e45e477dad",
+      "rawTextureUuid": "4e51344b-121e-45a1-a5c5-dda7ee9ad011",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
