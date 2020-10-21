@@ -29,6 +29,7 @@ class LinkGameBase{
          "unlock_menu_reward": "unlock_menu_reward",
          "upgrade_store_level": "upgrade_store_level",
          "click_store_button": "click_store_button",
+         "select_store_level": "select_store_level",
       }
 
       /**

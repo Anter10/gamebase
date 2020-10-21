@@ -16,9 +16,13 @@ class StoreUpgradeData extends BaseRecord {
 
     change_store_level_data(store_level_data: number) {
         this.store_level_data = store_level_data;
+        this.store_store_level_data(this.store_level_data);
         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_store_level);
     }
 
+    store_store_level_data(store_level_data: number) {
+        this.store_level_data = store_level_data;
+    }
 }
 
 export default StoreUpgradeData;

@@ -37,9 +37,19 @@ export default class StoreIconItem extends BaseNode {
     onDestroy() {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_store_level, this, this.un_refresh_icon);
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.click_store_button, this, this.close_click_bg);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.select_store_level, this, this.select_store_level);
     }
 
     start() {
+        this.un_refresh_icon();
+    }
+
+    select_store_item() {
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.select_store_level, this, this.select_store_level);
+    }
+
+    select_store_level(event, store_level: number) {
+        this.store_level = store_level;
         this.un_refresh_icon();
     }
 
@@ -61,6 +71,7 @@ export default class StoreIconItem extends BaseNode {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.click_store_button, this, this.close_click_bg);
 
         //点击商店图标
+        //TouchButton出问题。！！！！！
         const cash_out_button: TouchButton = this.node.addComponent(TouchButton);
         cash_out_button.register_touch(this.click_this_node.bind(this));
     }
