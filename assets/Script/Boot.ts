@@ -19,12 +19,12 @@ gamebase.GameDataConfig = GameDataConfig;
 gamebase.Test = Test;
 gamebase.ServerData = ServerData;
 gamebase.CommonServerData = CommonServerData;
+Native.init();
 class Boot{
     static init(){
         cc.macro.ENABLE_MULTI_TOUCH = false;
         GameLocalData.get_instance().init();
         ServerData.get_instance().init();
-        Native.init();
         GameDataConfig.init();
     }
 }
