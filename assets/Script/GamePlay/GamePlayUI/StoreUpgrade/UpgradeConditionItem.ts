@@ -28,7 +28,6 @@ export default class UpgradeConditionItem extends BaseNode {
     set_condition_config(condition_type: StoreUpgradeConditionType, condition_config: Array<number>) {
         this.condition_config = condition_config;
         this.condition_type = condition_type;
-        console.log(condition_type, condition_config);
     }
 
     start() {

@@ -71,8 +71,12 @@ export default class StoreIconItem extends BaseNode {
         this.click_bg.active = true;
     }
 
-    close_click_bg() {
-        this.click_bg.active = false;
+    close_click_bg(event, click_level_number: number) {
+        if (click_level_number == this.store_level) {
+            this.click_bg.active = true;
+        } else {
+            this.click_bg.active = false;
+        }
     }
 
 }
