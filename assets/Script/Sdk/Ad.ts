@@ -51,7 +51,7 @@ class Ad{
             if(gamebase.WebViewJavascriptBridge){
                 const call_back = (video_ad_play_result: number) =>{
                     console.log(`看完激励视频广告后的回调参数${video_ad_play_result}`);
-                    if(video_ad_play_result == 0){
+                    if(video_ad_play_result == 1){
                        video_ad_data_interface.success && (video_ad_data_interface.success());
                     }else{
                        video_ad_data_interface.fail && (video_ad_data_interface.fail());
