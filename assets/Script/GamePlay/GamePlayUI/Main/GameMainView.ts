@@ -6,6 +6,7 @@ import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
+import { AStar } from "../../AStar/AStar";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import StoreIconItem from "../Common/StoreIconItem/StoreIconItem";
 import GameMainDecorationItem from "./GameMainDecorationItem";
@@ -53,7 +54,7 @@ export default class GameMainView extends BaseUI {
     table_node_array: Array<cc.Node> = [];
 
     @property(cc.Node)
-    decoration_array: cc.Node = null;
+    decoration_array: Array<cc.Node> = [];
 
     @property(cc.Node)
     store_upgrade_button: cc.Node = null;
@@ -140,17 +141,17 @@ export default class GameMainView extends BaseUI {
     }
 
     load_decoration_item() {
-        for (let i = 0; i < this.decoration_array.childrenCount; i++) {
+        for (let i = 0; i < this.decoration_array.length; i++) {
             Loader.load_prefab("/GamePlay/GamePlayUI/Main/GameMainDecorationItem", (prefab: cc.Prefab) => {
                 const game_main_table_item = cc.instantiate(prefab);
                 game_main_table_item.getComponent(GameMainDecorationItem).set_decoration_number(i);
-                game_main_table_item.parent = this.decoration_array.children[i];
+                game_main_table_item.parent = this.decoration_array[i];
             });
         }
     }
 
     click_cash_out_button() {
-
+        console.log(AStar.Test());
     }
 
     click_cook_woman_button() {

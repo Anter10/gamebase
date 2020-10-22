@@ -15,5 +15,7 @@ const GamePlayConfig = {
     cook_woman_max_level: 5,
     //每日最多解锁菜品数量
     daily_unlock_menu_limit: 10,
+    //主界面客人移动的速度
+    customer_speed: 40,
 }
 export default GamePlayConfig;
