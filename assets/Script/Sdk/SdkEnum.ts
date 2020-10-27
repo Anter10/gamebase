@@ -22,4 +22,10 @@ enum NativeEnum{
     NENativeCallH5 = "NENativeCallH5",
 }
 
-export {AdFuncEnum, ShareFuncEnum, NativeEnum};
+/**@description 分享类型 */
+enum ShareType {
+    Friend,
+    Timeline
+}
+
+export {AdFuncEnum,ShareType, ShareFuncEnum, NativeEnum};
