@@ -262,7 +262,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
     "_string": "完成当前打卡 可以解锁下一阶段累加的打卡任务",
     "_N$string": "完成当前打卡 可以解锁下一阶段累加的打卡任务",
     "_fontSize": 28,
@@ -300,7 +299,7 @@
     "asset": {
       "__uuid__": "c6502aa2-272b-4dc4-919d-53517b8f3d3b"
     },
-    "fileId": "e6GIR89ZpBR7shkdiXaUFu",
+    "fileId": "",
     "sync": false
   }
 ]
