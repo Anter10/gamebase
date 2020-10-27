@@ -2,12 +2,14 @@ import BaseUI from "../../../Common/BaseUI";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
+import EventManager from "../../../EventManager/EventManager";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import { AStar } from "../../AStar/AStar";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
+import LinkGameBase from "../../LinkGameBase";
 import StoreIconItem from "../Common/StoreIconItem/StoreIconItem";
 import GameMainDecorationItem from "./GameMainDecorationItem";
 import GameMainTableItem from "./GameMainTableItem";
@@ -197,6 +199,7 @@ export default class GameMainView extends BaseUI {
             game_play_base_data.attract_customer_number = game_play_base_data.attract_customer_number + GamePlayConfig.click_attract_customer_button_add;
             this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
             if (total == 100) {
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
                 this.scheduleOnce(() => {
                     game_play_base_data.attract_customer_number = 0;
                     this.set_attract_customer_progress(game_play_base_data.attract_customer_number);

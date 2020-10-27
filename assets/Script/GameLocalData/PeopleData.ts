@@ -1,4 +1,5 @@
 import Time from "../Common/Time";
+import { CustomerState } from "../GamePlay/GamePlayEnum/GamePlayEnum";
 import BaseRecord from "./BaseRecord";
 
 
@@ -8,21 +9,35 @@ interface PeopleInterface {
     //人物配置编号
     peopleConfigId: number;
     //人物动作循环起点时间
-    peopleMoveStartTime: number;
+    peopleMoveStartTime?: number;
     //人物等级
-    peopleLevel: number;
+    peopleLevel?: number;
+    //顾客排队入场
+    lineUp?: number;
+    //顾客座位号
+    seatNumber?: number;
+    //顾客点餐
+    customerOder?: number;
+    //顾客每次状态改变时间
+    changeStateTime?: number;
+    //人物状态
+    customerState?: CustomerState;
 }
 
-// 游戏中八张桌子的数据
+// 游戏中人物的数据
 class PeopleData extends BaseRecord {
     static _name = "PeopleData";
     base_name = "PeopleData";
 
-    private people_data: Array<PeopleInterface> = [{ peopleDataNumber: 1, peopleConfigId: 2, peopleMoveStartTime: 0, peopleLevel: 1 }];
+    private people_data: Array<PeopleInterface> = [{ peopleDataNumber: 1, peopleConfigId: 2, peopleLevel: 1 }];
 
     constructor() {
         super();
         this.apply_auto_update();
+    }
+
+    get_people_data(): Array<PeopleInterface> {
+        return this.people_data;
     }
 
     store_people_data(people_data) {
@@ -35,7 +50,9 @@ class PeopleData extends BaseRecord {
             if (this.people_data[i].peopleConfigId == people_config_id) {
                 return this.people_data[i];
             }
-            max_people_data_number = this.people_data[i].peopleConfigId;
+            if (max_people_data_number < this.people_data[i].peopleDataNumber) {
+                max_people_data_number = this.people_data[i].peopleDataNumber;
+            }
         }
         let init_new_people: PeopleInterface = {
             peopleDataNumber: max_people_data_number + 1,
@@ -44,6 +61,7 @@ class PeopleData extends BaseRecord {
             peopleLevel: 0,
         };
         this.people_data.push(init_new_people);
+        this.store_people_data(this.people_data);
         return init_new_people;
     }
 
@@ -67,6 +85,74 @@ class PeopleData extends BaseRecord {
         }
     }
 
-}
+    add_customer(people_config_id: number): PeopleInterface {
+        let max_people_data_number = -1;
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (max_people_data_number < this.people_data[i].peopleDataNumber) {
+                max_people_data_number = this.people_data[i].peopleDataNumber;
+            }
+        }
+        let init_new_people: PeopleInterface = {
+            peopleDataNumber: max_people_data_number + 1,
+            peopleConfigId: people_config_id,
+            lineUp: 0,
+            seatNumber: 0,
+            customerOder: 0,
+            changeStateTime: Time.get_second_time(),
+            customerState: CustomerState.line_up,
+        };
+        this.people_data.push(init_new_people);
+        return init_new_people;
+    }
 
+    get_customer_data(people_data_number: number): PeopleInterface {
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (people_data_number == this.people_data[i].peopleDataNumber) {
+                return this.people_data[i];
+            }
+        }
+    }
+
+    get_line_max(): number {
+        let max_line_up = 0;
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (this.people_data[i].lineUp > max_line_up) {
+                max_line_up = this.people_data[i].lineUp;
+            }
+        }
+        return max_line_up + 1;
+    }
+
+    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, customerOder?: number, changeStateTime?: number, customerState?: CustomerState }) {
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (customer.peopleDataNumber == this.people_data[i].peopleDataNumber) {
+                if (customer.lineUp) {
+                    this.people_data[i].lineUp = customer.lineUp;
+                }
+                if (customer.seatNumber) {
+                    this.people_data[i].seatNumber = customer.seatNumber;
+                }
+                if (customer.customerOder) {
+                    this.people_data[i].customerOder = customer.customerOder;
+                }
+                if (customer.changeStateTime) {
+                    this.people_data[i].changeStateTime = customer.changeStateTime;
+                }
+                if (customer.customerState) {
+                    this.people_data[i].customerState = customer.customerState;
+                }
+            }
+        }
+    }
+
+    refresh_line_up_number() {
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (this.people_data[i].lineUp && this.people_data[i].lineUp != 0) {
+                this.people_data[i].lineUp = this.people_data[i].lineUp - 1;
+                this.store_people_data(this.people_data);
+            }
+        }
+    }
+
+}
 export default PeopleData;

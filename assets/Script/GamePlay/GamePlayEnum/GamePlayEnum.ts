@@ -16,6 +16,22 @@ enum PeopleType {
     customer = 2,
 }
 
+/**@description 顾客状态  */
+enum CustomerState {
+    /**@description 无状态 */
+    null = 0,
+    /**@description 排队中 */
+    line_up = 1,
+    /**@description 坐座位 */
+    sit_seat = 2,
+    /**@description 点菜中 */
+    oder_menu = 3,
+    /**@description 吃饭中 */
+    eat = 4,
+    /**@description 离开 */
+    exit = 5,
+}
+
 /**@description 解锁菜品的奖励类型  */
 enum UnlockMenuRewardType {
     /**@description 未解锁 */
@@ -43,4 +59,5 @@ enum StoreUpgradeConditionType {
     /**@description 解锁 */
     CookWoman = 2,
 }
-export { ExtensionTypeButton, PeopleType, UnlockMenuRewardType, MenuType, StoreUpgradeConditionType };
+
+export { ExtensionTypeButton, PeopleType, UnlockMenuRewardType, MenuType, StoreUpgradeConditionType, CustomerState };

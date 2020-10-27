@@ -2,6 +2,7 @@ import DecorationData from "../GameLocalData/DecorationData";
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
 import MenuData from "../GameLocalData/MenuData";
 import PeopleData from "../GameLocalData/PeopleData";
+import SeatData from "../GameLocalData/SeatData";
 import StoreUpgradeData from "../GameLocalData/StoreUpgradeData";
 import TableData from "../GameLocalData/TableData";
 import UnlockMenuRewardData from "../GameLocalData/UnlockMenuRewardData";
@@ -17,6 +18,7 @@ class LinkGameBase{
          MenuData,
          UnlockMenuRewardData,
          StoreUpgradeData,
+         SeatData,
       ];
 
       /**@description game_play 相关的事件 */
@@ -30,6 +32,7 @@ class LinkGameBase{
          "upgrade_store_level": "upgrade_store_level",
          "click_store_button": "click_store_button",
          "select_store_level": "select_store_level",
+         "add_customer": "add_customer",
       }
 
       /**
