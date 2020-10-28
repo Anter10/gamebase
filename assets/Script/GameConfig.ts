@@ -57,6 +57,8 @@ const GameConfig = {
       // 隐私声明的网页链接
       user_privacy_url:"http://waqqq.hainanliangyou.com/private.html",
 
+      /**@description BI的根地址 */
+      bi_root_path:"g3-ocpc",
       /**@description 服务器的地址 地址规则 前面加上斜杠( / ) 后面不加斜杠( / ) */
       get serverUrl(){
            var serverUrl = "https://bp-api.coohua.com";

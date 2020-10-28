@@ -106,3 +106,15 @@ export interface SdkModuleInterface{
     /**@description 游戏初始化成功的回调 */
     init_success_callback?:Function;
 }
+
+
+export interface BiInterface{
+    /**@description 事件ID */
+    eventId: string;
+    /**@description 事件名字 */
+    eventName: string;
+    /**@description 事件参数 */
+    eventParam: string;
+    /**@description 时间戳 */
+    ts: string;
+}
