@@ -15,6 +15,11 @@ interface DecorationConfig {
     description : string; 
 } 
 
+interface ChatConfig { 
+    id : number; 
+    text : string; 
+} 
+
 interface MenuConfig { 
     id : number; 
     chinese_name : string; 
@@ -61,4 +66,4 @@ interface UnlockMenuRewardConfig {
  
   
 
- export { AudioConfig,DecorationConfig,MenuConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };
+ export { AudioConfig,DecorationConfig,ChatConfig,MenuConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };

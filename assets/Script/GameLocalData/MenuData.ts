@@ -34,6 +34,16 @@ class MenuData extends BaseRecord {
         return init_menu_data;
     }
 
+    get_unlock_number(): number {
+        let unlock_number = 0;
+        for (let i = 0; i < this.menu_data.length; i++) {
+            if (this.menu_data[i].menuType == MenuType.unlock) {
+                unlock_number++;
+            }
+        }
+        return unlock_number;
+    }
+
     store_menu_data(menu_data: Array<MenuInterface>) {
         this.menu_data = menu_data;
     }

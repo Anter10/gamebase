@@ -30,6 +30,7 @@ export default class Map extends cc.Component {
     static map_grid: any = null;
     static map_item_size: number = 40;
     static walk_unable_node_y: Array<number> = [];
+    static walk_people_y: Array<number> = [];
 
     private line_number: number = 0;
     private vertical_number: number = 0;
@@ -40,6 +41,7 @@ export default class Map extends cc.Component {
         this.init_map();
         this.set_guide();
     }
+
     start() {
         this.people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
         this.people_configs = GameDataConfig.get_config_array("PeopleConfig");

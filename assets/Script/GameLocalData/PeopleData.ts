@@ -16,12 +16,16 @@ interface PeopleInterface {
     lineUp?: number;
     //顾客座位号
     seatNumber?: number;
-    //顾客点餐
-    customerOder?: number;
+    //顾客点餐菜品配置id
+    customerOderConfig?: number;
+    //顾客点餐顺序id
+    customerOderNumber?: number;
     //顾客每次状态改变时间
     changeStateTime?: number;
     //人物状态
     customerState?: CustomerState;
+    //行走节点数量
+    walkNode?: number;
 }
 
 // 游戏中人物的数据
@@ -97,7 +101,6 @@ class PeopleData extends BaseRecord {
             peopleConfigId: people_config_id,
             lineUp: 0,
             seatNumber: 0,
-            customerOder: 0,
             changeStateTime: Time.get_second_time(),
             customerState: CustomerState.line_up,
         };
@@ -123,7 +126,17 @@ class PeopleData extends BaseRecord {
         return max_line_up + 1;
     }
 
-    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, customerOder?: number, changeStateTime?: number, customerState?: CustomerState }) {
+    get_oder_number_max(): number {
+        let max_oder_number = 0;
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (this.people_data[i].customerOderNumber > max_oder_number) {
+                max_oder_number = this.people_data[i].lineUp;
+            }
+        }
+        return max_oder_number + 1;
+    }
+
+    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOderNumber?: number, customerOderConfig?: number }) {
         for (let i = 0; i < this.people_data.length; i++) {
             if (customer.peopleDataNumber == this.people_data[i].peopleDataNumber) {
                 if (customer.lineUp) {
@@ -132,15 +145,23 @@ class PeopleData extends BaseRecord {
                 if (customer.seatNumber) {
                     this.people_data[i].seatNumber = customer.seatNumber;
                 }
-                if (customer.customerOder) {
-                    this.people_data[i].customerOder = customer.customerOder;
-                }
                 if (customer.changeStateTime) {
                     this.people_data[i].changeStateTime = customer.changeStateTime;
                 }
                 if (customer.customerState) {
                     this.people_data[i].customerState = customer.customerState;
+                    this.people_data[i].changeStateTime = Time.get_second_time();
                 }
+                if (customer.walkNode) {
+                    this.people_data[i].walkNode = customer.walkNode;
+                }
+                if (customer.customerOderNumber) {
+                    this.people_data[i].customerOderNumber = customer.customerOderNumber;
+                }
+                if (customer.customerOderConfig) {
+                    this.people_data[i].customerOderConfig = customer.customerOderConfig;
+                }
+                this.store_people_data(this.people_data);
             }
         }
     }

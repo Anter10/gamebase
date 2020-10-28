@@ -1,6 +1,12 @@
 import BaseNode from "../../../Common/BaseNode";
-import { PeopleConfig, TableConfig } from "../../../GameDataConfig/ConfigInterface";
+import Random from "../../../Common/Random";
+import Time from "../../../Common/Time";
+import TouchButton from "../../../Common/TouchButton";
+import EventManager from "../../../EventManager/EventManager";
+import { MenuConfig, PeopleConfig, TableConfig } from "../../../GameDataConfig/ConfigInterface";
+import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
+import MenuData from "../../../GameLocalData/MenuData";
 import PeopleData from "../../../GameLocalData/PeopleData";
 import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
@@ -9,7 +15,11 @@ import { ANode } from "../../AStar/ANode";
 import { AStar } from "../../AStar/AStar";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import { CustomerState } from "../../GamePlayEnum/GamePlayEnum";
+import LinkGameBase from "../../LinkGameBase";
 import Map from "./Map";
+import { ChatConfig } from "../../../GameDataConfig/ConfigInterface";
+import GameConfig from "../../../GameConfig";
+import Loader from "../../../Common/Loader";
 
 const { ccclass, property } = cc._decorator;
 
@@ -18,6 +28,24 @@ export default class Customer extends BaseNode {
 
     @property(sp.Skeleton)
     walk_animation: sp.Skeleton = null;
+
+    @property(cc.Sprite)
+    menu_sprite: cc.Sprite = null;
+
+    @property(cc.Node)
+    customer_node: cc.Node = null;
+
+    @property(cc.Node)
+    menu: cc.Node = null;
+
+    @property(cc.Node)
+    dialogue: cc.Node = null;
+
+    @property(cc.Label)
+    speak_label: cc.Label = null;
+
+    @property(sp.SkeletonData)
+    customer_animation: Array<sp.SkeletonData> = [];
 
     /**@description 当前行走的路径 */
     _go_path: Array<ANode> = [];
@@ -40,37 +68,109 @@ export default class Customer extends BaseNode {
     people_data: PeopleData = null;
     customer_config: PeopleConfig = null;
     customer_data_id: number = 0;
+    cur_node_y: number = 0;
+    chair_number: number = 0;
+
+    onLoad() {
+        //点击顾客头上的菜
+        const menu_sprite_button: TouchButton = this.menu_sprite.addComponent(TouchButton);
+        menu_sprite_button.register_touch(this.click_customer_menu.bind(this));
+    }
 
     init(customer_data_id: number) {
         this.customer_data_id = customer_data_id;
         this.people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
-        // this.customer_config = 
+        this.customer_config = GameDataConfig.get_config_by_id("PeopleConfig", this.people_data.get_customer_data(this.customer_data_id).peopleConfigId);
+        this.walk_animation.skeletonData = this.customer_animation[this.customer_config.id - 6];
     }
 
     start() {
 
     }
 
+    onEnable() {
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.finish_menu, this, this.get_menu);
+    }
+
+    onDisable() {
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.finish_menu, this, this.get_menu);
+    }
+
+    get_menu(event, menu_oder_number: number) {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        if (customer_data.customerOderNumber && menu_oder_number == customer_data.customerOderNumber) {
+            this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.eat });
+        }
+    }
+
     set_customer() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
         if (customer_data.seatNumber != 0 && customer_data.seatNumber % 2 != 0) {
-            this.node.scaleX = -0.3;
+            this.customer_node.scaleX = -0.3;
         }
+        this.dialogue.active = false;
         switch (customer_data.customerState) {
             case CustomerState.line_up:
                 this.line_up_node(customer_data.lineUp);
                 break;
             case CustomerState.sit_seat:
-                console.log("customer_data.seatNumber", customer_data.seatNumber)
-                this.node.setPosition(this.cell_position({ x: GamePlayConfig.chair_position[customer_data.seatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.seatNumber - 1][1] }));
                 this.walk_animation.animation = "wanshouji";
                 break;
             case CustomerState.oder_menu:
-                this.walk_animation.animation = "diancan";
+                this.walk_animation.animation = "diancai";
+                break;
+            case CustomerState.wait_menu:
+                this.walk_animation.animation = "dakeshui";
+                if (customer_data.peopleDataNumber % 3 == 1) {
+                    const chat_config: Array<ChatConfig> = GameDataConfig.get_config_array("ChatConfig");
+                    let random_index = Random.rangeInt(0, chat_config.length - 1);
+                    this.scheduleOnce(() => {
+                        this.speak_label.string = chat_config[random_index].text;
+                        this.dialogue.active = true;
+                        this.scheduleOnce(() => {
+                            this.dialogue.active = false;
+                        }, GamePlayConfig.chat_exist_time);
+                    }, GamePlayConfig.chat_active_time)
+                }
                 break;
             case CustomerState.eat:
-                this.walk_animation.animation = "chifan";
+                this.walk_animation.animation = "chifai";
                 break;
+            case CustomerState.exit:
+                this.node.active = false;
+                const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
+                seat_data.change_seat_data(customer_data.seatNumber, true);
+
+                //清除这个垃圾数据
+                break;
+        }
+        if (customer_data.customerState != CustomerState.line_up && customer_data.customerState != CustomerState.exit) {
+            this.node.setPosition(this.cell_position({ x: GamePlayConfig.chair_position[customer_data.seatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.seatNumber - 1][1] }));
+            this.set_child_position(GamePlayConfig.chair_position[customer_data.seatNumber - 1][1]);
+            if (customer_data.seatNumber != 0) {
+                switch (customer_data.seatNumber % 4) {
+                    case 0:
+                        this.node.x = this.node.x + 10;
+                        break;
+                    case 1:
+                        this.node.x = this.node.x - 15;
+                        break;
+                    case 2:
+                        this.node.x = this.node.x + 20;
+                        break;
+                    case 3:
+                        this.node.x = this.node.x + 10;
+                        break;
+                }
+                if ((customer_data.seatNumber - 1) / 4 >= 3) {
+                    this.node.y = this.node.y - 20;
+                }
+            }
+        }
+        if (customer_data.customerState == CustomerState.oder_menu) {
+            this.menu.active = true;
+        } else {
+            this.menu.active = false;
         }
     }
 
@@ -86,8 +186,8 @@ export default class Customer extends BaseNode {
         for (let i = 1; i <= unlock_table_number * 2; i++) {
             if (seat_data.get_seat_data(i).seatHavePeople == false) {
                 seat_data.change_seat_data(i, true);
-                this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, seatNumber: i, customerState: CustomerState.sit_seat });
-                this.walk_simple({ x: 8, y: 5 }, { x: GamePlayConfig.chair_position[i][0], y: GamePlayConfig.chair_position[i][1] });
+                this.chair_number = i;
+                this.walk_simple({ x: 8, y: 5 }, { x: GamePlayConfig.chair_position[i - 1][0], y: GamePlayConfig.chair_position[i - 1][1] });
                 return;
             }
         }
@@ -103,8 +203,10 @@ export default class Customer extends BaseNode {
     line_up_node(line_up_number: number) {
         if (line_up_number == 1) {
             this.node.setPosition(this.cell_position({ x: GamePlayConfig.line_up_position[0][0], y: GamePlayConfig.line_up_position[0][1] }));
+            this.set_child_position(GamePlayConfig.line_up_position[0][1]);
         } else if (line_up_number == 2) {
             this.node.setPosition(this.cell_position({ x: GamePlayConfig.line_up_position[1][0], y: GamePlayConfig.line_up_position[1][1] }));
+            this.set_child_position(GamePlayConfig.line_up_position[1][1]);
         } else {
             this.node.active = false;
             console.log("等排队");
@@ -119,14 +221,43 @@ export default class Customer extends BaseNode {
         const all_path = star.find(grid);
         console.log("当前的路径1 = ", star.path);
         this._go_path = star.path;
-        this.set_people_position();
         this._start_move = true;
     }
 
     set_people_position() {
         this.node.setPosition(this.cell_position(this._go_path[this._move_index - 1]));
+        this.cur_node_y = this._go_path[this._move_index - 1].y;
     }
 
+    //点击接单
+    click_customer_menu() {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        if (customer_data.customerState == CustomerState.oder_menu) {
+            this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.wait_menu, customerOderNumber: this.people_data.get_oder_number_max() });
+            this.set_customer();
+        }
+    }
+
+    //自动接单
+    automatic_customer_menu() {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        if (customer_data.customerState == CustomerState.oder_menu) {
+            if (Time.get_second_time() - customer_data.changeStateTime >= GamePlayConfig.automatic_menu_time) {
+                this.click_customer_menu();
+            }
+        }
+    }
+
+    //顾客是不是吃完了
+    is_eat_end() {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        if (customer_data.customerState == CustomerState.eat) {
+            if (Time.get_second_time() - customer_data.changeStateTime >= GamePlayConfig.customer_eat_menu) {
+                this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.exit });
+                this.walk_simple({ x: GamePlayConfig.chair_position[customer_data.seatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.seatNumber - 1][1] }, { x: 8, y: 5 });
+            }
+        }
+    }
     set_route_config() {
         let start_node = this.cell_position(this._go_path[this._move_index - 1]);
         let end_node = this.cell_position(this._go_path[this._move_index]);
@@ -146,16 +277,64 @@ export default class Customer extends BaseNode {
                 this.set_route_config();
                 this._move_length = 0;
                 this.set_node_direction_animation();
-                this.set_child_position();
+                this.set_child_position(this._go_path[this._move_index].y);
                 this._move_index++;
+                if (this._move_index == this._go_path.length) {
+                    this.walk_end_set_next_state();
+                }
             }
+        }
+        this.automatic_customer_menu();
+        this.is_eat_end();
+    }
+
+    walk_end_set_next_state() {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        if (customer_data.customerState == CustomerState.line_up) {
+            this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.sit_seat, seatNumber: this.chair_number });
+            this.set_customer();
+            this.scheduleOnce(() => {
+                this.set_oder_menu();
+                this.set_customer();
+            }, 1);
+        }
+        if (customer_data.customerState == CustomerState.exit) {
+            this.set_customer();
         }
     }
 
-    set_child_position() {
+    //设置点菜中
+    set_oder_menu() {
+        const menu_data = GameLocalData.get_instance().get_data<MenuData>(MenuData);
+        const menu_config: Array<MenuConfig> = GameDataConfig.get_config_array("MenuConfig");
+        let min = 0;
+        let max = 0;
+        if (menu_data.get_unlock_number() < 5) {
+            min = 0;
+            max = menu_data.get_unlock_number() + 1;
+        } else if (menu_data.get_unlock_number() >= 5 && menu_data.get_unlock_number() != menu_config.length) {
+            min = menu_data.get_unlock_number() - 4;
+            max = menu_data.get_unlock_number() + 1;
+        } else {
+            min = menu_data.get_unlock_number() - 4;
+            max = menu_data.get_unlock_number();
+        }
+        let random_menu = Random.rangeInt(min, max);
+        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${menu_config[random_menu].id}`, (texture2d: cc.Texture2D) => {
+            this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
+        })
+        this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.oder_menu, customerOderConfig: random_menu });
+    }
+    set_child_position(move_y: number) {
         let insert_number = 0;
         for (let i = 0; i < Map.walk_unable_node_y.length; i++) {
-            if (Map.walk_unable_node_y[i] < this._go_path[this._move_index].y + 2) {
+            if (Map.walk_unable_node_y[i] && Map.walk_unable_node_y[i] < move_y + 2) {
+                insert_number++;
+            }
+        }
+        Map.walk_people_y[this.customer_data_id] = move_y;
+        for (let i = 0; i < Map.walk_people_y.length; i++) {
+            if (Map.walk_people_y[i] && Map.walk_people_y[i] < move_y + 2) {
                 insert_number++;
             }
         }
@@ -165,19 +344,19 @@ export default class Customer extends BaseNode {
     set_node_direction_animation() {
         if (this._move_direction.y > 0 && this.walk_animation.animation != "beimian_walk") {
             this.walk_animation.animation = "beimian_walk";
-            this.node.scaleX = 0.3;
+            this.customer_node.scaleX = 0.3;
         }
         if (this._move_direction.y < 0 && this.walk_animation.animation != "zhengmian_walk") {
             this.walk_animation.animation = "zhengmian_walk";
-            this.node.scaleX = 0.3;
+            this.customer_node.scaleX = 0.3;
         }
         if (this._move_direction.x > 0 && this.walk_animation.animation != "cemian_walk") {
             this.walk_animation.animation = "cemian_walk";
-            this.node.scaleX = -0.3;
+            this.customer_node.scaleX = -0.3;
         }
         if (this._move_direction.x < 0 && this.walk_animation.animation != "cemian_walk") {
             this.walk_animation.animation = "cemian_walk";
-            this.node.scaleX = 0.3;
+            this.customer_node.scaleX = 0.3;
         }
     }
 

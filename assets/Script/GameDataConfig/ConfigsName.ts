@@ -1,5 +1,6 @@
 import {AudioConfig} from "./ConfigInterface" 
 import {DecorationConfig} from "./ConfigInterface" 
+import {ChatConfig} from "./ConfigInterface" 
 import {MenuConfig} from "./ConfigInterface" 
 import {PeopleConfig} from "./ConfigInterface" 
 import {StoreUpgradeConfig} from "./ConfigInterface" 
@@ -10,6 +11,7 @@ import {UnlockMenuRewardConfig} from "./ConfigInterface"
  const ConfigsName = {
      AudioConfig:"AudioConfig", 
      DecorationConfig:"DecorationConfig", 
+     ChatConfig:"ChatConfig", 
      MenuConfig:"MenuConfig", 
      PeopleConfig:"PeopleConfig", 
      StoreUpgradeConfig:"StoreUpgradeConfig", 
