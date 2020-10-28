@@ -138,4 +138,4 @@ class Random {
 }
 
 
-exports.Random = Random;
+export default Random;
