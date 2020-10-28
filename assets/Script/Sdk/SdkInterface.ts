@@ -53,9 +53,9 @@ export interface ShareInterface{
     /**@description 分享的额外参数[用二维码代替] */
     query?: string;
     /**@description 分享的成功回调*/
-    success?: (res: any) =>{};
+    success: (res: any) =>{};
     /**@description 分享的失败回调*/
-    fail?: (res: any) =>{};
+    fail: (res: any) =>{};
 }
 
 /**@description 复制内容的接口 */

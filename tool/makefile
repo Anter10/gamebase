@@ -1,4 +1,2 @@
-SHELL := /usr/bin/env bash
-
-pack:
+hello:
 	node pack.js 
