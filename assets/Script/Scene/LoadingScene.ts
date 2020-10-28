@@ -60,7 +60,7 @@ class LoadingScene extends BaseScene {
         loading_progress_bottom_image:"loading_progress_bottom_image",
         loading_progress_upper_image:"loading_progress_upper_image",
         start_game_button_image:"start_game_button_image",
-        start_game_button_text:"开始游戏",
+        start_game_button_text:"微信登陆",
     };
 
     onLoad () {
