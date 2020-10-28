@@ -4,11 +4,23 @@ import { ShareType } from "./SdkEnum";
 import { CopyMessageInterface, OSAdinterface, RewardedAdInterface, SdkModuleInterface, ShareInterface, WechatLoginInterface, ZhikeAdInterface } from "./SdkInterface";
 
 export module SdkModule {
-    const android_class_name = "com/android_sdk_module";
+    const android_class_name = "org/cocos2dx/javascript/InstantAppActivity";
     const ios_class_name = "ios_sdk_module";
     const sdk_module_interface: SdkModuleInterface = {};
-    const S = `Ljava/lang/String`;
+    const S = `Ljava/lang/String;`;
 
+    export function test(){
+        console.log(cc.sys.os , cc.sys.OS_ANDROID,"Android 0", SdkModule.isAndroid());
+        if(SdkModule.isAndroid()){
+            console.log("Android 1");
+            jsb.reflection.callStaticMethod(`${android_class_name}`, "test", "()V");
+            console.log("Android 2");
+        }
+    }
+
+    export function jtest(hello: string){
+        console.log("android 层调用JS层",hello);
+    }
     /** 当前平台 */
     export function platform(): string{
         return isAndroid() ? "android" : "ios";
@@ -62,12 +74,13 @@ export module SdkModule {
     export function wechat_login(login_interface: WechatLoginInterface){
         sdk_module_interface.wechat_login_success_callback = login_interface.success;
         sdk_module_interface.wechat_login_fail_callback = login_interface.fail;
-        jsb.reflection.callStaticMethod(`${android_class_name}`, "wechat_login", "()V");
+        if(SdkModule.isAndroid()){
+          jsb.reflection.callStaticMethod(`${android_class_name}`, "wechat_login", "()V");
+        }
     }   
 
     /**@description 用户微信登录成功的回调 */
     export function login_success(res: any){
-         console.log("微信登陆成功的数据  =  ",res);
          if(sdk_module_interface.wechat_login_success_callback){
             sdk_module_interface.wechat_login_success_callback(res)
          }
@@ -85,7 +98,9 @@ export module SdkModule {
     export function copy_message(copy_interface: CopyMessageInterface){
         sdk_module_interface.copy_fail_callback = copy_interface.fail;
         sdk_module_interface.copy_success_callback = copy_interface.success;
-        jsb.reflection.callStaticMethod(`${android_class_name}`, "copy_message", `(${S})V`, copy_interface.message);
+        if(SdkModule.isAndroid()){
+           jsb.reflection.callStaticMethod(`${android_class_name}`, "copy_message", `(${S})V`, copy_interface.message);
+        }
     }
 
     /**@description 复制成功的回调方法 */
@@ -107,7 +122,9 @@ export module SdkModule {
         sdk_module_interface.share_fail_callback = share_interface.fail;
         /**@description 分享的title */
         sdk_module_interface.share_success_callback = share_interface.success;
-        jsb.reflection.callStaticMethod(`${android_class_name}`, "share", `(${S}${S}${S}${S})V`, share_interface.title, share_interface.message, share_interface.image_url, share_interface.query);
+        if(SdkModule.isAndroid()){
+           jsb.reflection.callStaticMethod(`${android_class_name}`, "share", `(${S}${S}${S}${S})V`, share_interface.title, share_interface.message, share_interface.image_url, share_interface.query);
+        }
     }
 
     /**@description 分享成功的回调 */
@@ -129,19 +146,25 @@ export module SdkModule {
     export function show_os_ad(os_ad_interface: OSAdinterface){
         sdk_module_interface.os_ad_fail_callback = os_ad_interface.fail;
         sdk_module_interface.os_ad_success_callback = os_ad_interface.success;
-        jsb.reflection.callStaticMethod(`${android_class_name}`, "show_os_ad", `(${S})V`, os_ad_interface.ad_id);
+        if(SdkModule.isAndroid()){
+           jsb.reflection.callStaticMethod(`${android_class_name}`, "show_os_ad", `(${S})V`, os_ad_interface.ad_id);
+        }
     }
 
     /**@description 关闭信息流广告 */
     export function close_os_ad(){
-        jsb.reflection.callStaticMethod(`${android_class_name}`, "close_os_ad", `()V`);
+        if(SdkModule.isAndroid()){
+           jsb.reflection.callStaticMethod(`${android_class_name}`, "close_os_ad", `()V`);
+        }
     }
 
     /**@description 观看激励视频广告 */
     export function rewarded_ad(rewarded_interface: RewardedAdInterface){
         sdk_module_interface.rewarded_video_fail_callback = rewarded_interface.fail;
         sdk_module_interface.rewarded_video_success_callback = rewarded_interface.success;
-        jsb.reflection.callStaticMethod(`${android_class_name}`, "rewarded_ad", `(${S})V`, rewarded_interface.ad_id);
+        if(SdkModule.isAndroid()){
+           jsb.reflection.callStaticMethod(`${android_class_name}`, "rewarded_ad", `(${S})V`, rewarded_interface.ad_id);
+        }
     }
 
     /**@description 观看激励视频成功的接口 参数随意 */
@@ -162,7 +185,9 @@ export module SdkModule {
     export function zhike_video(zhike_interface: ZhikeAdInterface){
         sdk_module_interface.video_zhike_fail_callback = zhike_interface.fail;
         sdk_module_interface.video_zhike_success_callback = zhike_interface.success;
-        jsb.reflection.callStaticMethod(`${android_class_name}`, "rewarded_ad", `(I${S})V`,zhike_interface.ad_duration, zhike_interface.ad_id);
+        if(SdkModule.isAndroid()){
+           jsb.reflection.callStaticMethod(`${android_class_name}`, "rewarded_ad", `(I${S})V`,zhike_interface.ad_duration, zhike_interface.ad_id);
+        }
     }
 
     /**@description 直客广告成功的回调 */
@@ -178,6 +203,9 @@ export module SdkModule {
            sdk_module_interface.video_zhike_fail_callback(res);
         }
     }
+
+
+    
 }
 
 window["SdkModule"] = SdkModule;

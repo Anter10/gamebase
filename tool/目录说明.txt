@@ -1,0 +1,2 @@
+1: exportconfig.js 到处游戏配置 和 需要服务器段配置的脚本 使用方法 直接node exportconfig.js就行了
+2: pack 打包脚本 使用方法直接使用pack来打包就行
