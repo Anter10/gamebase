@@ -66,7 +66,9 @@ const GameConfig = {
               serverUrl = "http://bp-api.coohua.top";
            }
            return serverUrl;
-      }
+      },
+
+      timeId: 20201028,
 } 
 
 
