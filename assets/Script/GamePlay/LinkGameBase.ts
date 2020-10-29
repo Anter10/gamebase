@@ -8,8 +8,23 @@ class LinkGameBase{
       ];
 
       /**@description game_play 相关的事件 */
-      static game_play_event_config:{[key: string]:string} = {
-          
+      static game_play_event_config = {
+             /**@description 杀进程进游戏的时候 开始进来的时候的等待状态 */
+             start_waiting:"start_waiting",
+             /**@description 玩完一局游戏的时候 等待开始游戏的状态 */
+             waiting: "waiting",
+             /**@description 匹配的状态 */
+             mating :"mating",
+             /**@description 发牌的状态 */
+             carding : "carding",
+             /**@description 叫地主的状态 */
+             lording :"lording",
+             /**@description 亮底牌状态 */
+             reveal_the_ins_and_outs : "reveal_the_ins_and_outs",
+             /**@description 游戏中的状态 */
+             gameing:"gameing",
+             /**@description 游戏结束的状态 */
+             end : "end",
       }
 
       /**
