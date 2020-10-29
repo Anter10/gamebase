@@ -26,6 +26,8 @@ interface PeopleInterface {
     customerState?: CustomerState;
     //行走节点数量
     walkNode?: number;
+    //将要行走到的椅子
+    walkToSeatNumber?: number;
 }
 
 // 游戏中人物的数据
@@ -46,6 +48,26 @@ class PeopleData extends BaseRecord {
 
     store_people_data(people_data) {
         this.people_data = people_data;
+    }
+
+    delete_people_by_people_data_number(people_data_number: number) {
+        let cur_people_data = [];
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (this.people_data[i].peopleDataNumber != people_data_number) {
+                cur_people_data.push(this.people_data[i]);
+            }
+        }
+        this.people_data = cur_people_data;
+        this.store_people_data(this.people_data);
+    }
+
+    seat_have_people(seat_number: number): boolean {
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (this.people_data[i].seatNumber == seat_number) {
+                return true;
+            }
+        }
+        return false;
     }
 
     get_people_data_by_people_config_id(people_config_id: number): PeopleInterface {
@@ -103,6 +125,7 @@ class PeopleData extends BaseRecord {
             seatNumber: 0,
             changeStateTime: Time.get_second_time(),
             customerState: CustomerState.line_up,
+            walkToSeatNumber: 0,
         };
         this.people_data.push(init_new_people);
         return init_new_people;
@@ -136,7 +159,7 @@ class PeopleData extends BaseRecord {
         return max_oder_number + 1;
     }
 
-    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOderNumber?: number, customerOderConfig?: number }) {
+    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOderNumber?: number, customerOderConfig?: number, walkToSeatNumber?: number }) {
         for (let i = 0; i < this.people_data.length; i++) {
             if (customer.peopleDataNumber == this.people_data[i].peopleDataNumber) {
                 if (customer.lineUp) {
@@ -160,6 +183,9 @@ class PeopleData extends BaseRecord {
                 }
                 if (customer.customerOderConfig) {
                     this.people_data[i].customerOderConfig = customer.customerOderConfig;
+                }
+                if (customer.walkToSeatNumber) {
+                    this.people_data[i].walkToSeatNumber = customer.walkToSeatNumber;
                 }
                 this.store_people_data(this.people_data);
             }

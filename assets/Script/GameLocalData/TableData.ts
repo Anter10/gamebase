@@ -1,3 +1,5 @@
+import EventManager from "../EventManager/EventManager";
+import LinkGameBase from "../GamePlay/LinkGameBase";
 import BaseRecord from "./BaseRecord";
 
 
@@ -40,6 +42,7 @@ class TableData extends BaseRecord {
         for (let i = 0; i < this.table_data.length; i++) {
             if (this.table_data[i].tableNumber == table_number) {
                 this.table_data[i].tableLevel = table_level;
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.new_seat);
                 this.store_table_data(this.table_data);
             }
         }

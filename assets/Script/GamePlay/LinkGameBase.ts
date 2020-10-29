@@ -34,7 +34,6 @@ class LinkGameBase{
          "select_store_level": "select_store_level",
          "add_customer": "add_customer",
          "finish_menu": "finish_menu",
-         //桌子扩建了。人走了。
          "new_seat": "new_seat",
       }
 

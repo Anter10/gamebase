@@ -75,6 +75,8 @@ export default class Customer extends BaseNode {
         //点击顾客头上的菜
         const menu_sprite_button: TouchButton = this.menu_sprite.addComponent(TouchButton);
         menu_sprite_button.register_touch(this.click_customer_menu.bind(this));
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.finish_menu, this, this.get_menu);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.new_seat, this, this.have_new_seat);
     }
 
     init(customer_data_id: number) {
@@ -88,12 +90,47 @@ export default class Customer extends BaseNode {
 
     }
 
-    onEnable() {
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.finish_menu, this, this.get_menu);
+    onDestroy() {
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.finish_menu, this, this.get_menu);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.new_seat, this, this.have_new_seat);
     }
 
-    onDisable() {
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.finish_menu, this, this.get_menu);
+    have_new_seat() {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        const table_data = GameLocalData.get_instance().get_data<TableData>(TableData);
+        const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
+        let unlock_table_number = 0;
+        let have_unlock_table = false;
+        let unlock_chair_number = 0;
+        for (let i = 0; i < GamePlayConfig.total_table_number; i++) {
+            if (table_data.get_table_data(i).tableLevel > 0) {
+                unlock_table_number++;
+            }
+        }
+        for (let i = 1; i <= unlock_table_number * 2; i++) {
+            if (seat_data.get_seat_data(i).seatHavePeople == false) {
+                have_unlock_table = true;
+                unlock_chair_number = i;
+                break;
+            }
+        }
+        if (have_unlock_table) {
+            if (customer_data.lineUp == 1) {
+                this.chair_number = unlock_chair_number;
+                seat_data.change_seat_data(unlock_chair_number, true);
+                this.people_data.refresh_line_up_number();
+                this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, walkToSeatNumber: unlock_chair_number })
+                this.walk_simple({ x: GamePlayConfig.line_up_position[0][0], y: GamePlayConfig.line_up_position[0][1] }, { x: GamePlayConfig.chair_position[unlock_chair_number - 1][0], y: GamePlayConfig.chair_position[unlock_chair_number - 1][1] });
+            }
+            else if (customer_data.lineUp == 2) {
+                this.walk_simple({ x: GamePlayConfig.line_up_position[1][0], y: GamePlayConfig.line_up_position[1][1] }, { x: GamePlayConfig.line_up_position[0][0], y: GamePlayConfig.line_up_position[0][1] });
+            }
+            else if (customer_data.lineUp == 3) {
+                this.node.setPosition(this.cell_position({ x: GamePlayConfig.line_up_position[1][0], y: GamePlayConfig.line_up_position[1][1] }));
+                this.set_child_position(GamePlayConfig.line_up_position[1][1]);
+                this.node.active = true;
+            }
+        }
     }
 
     get_menu(event, menu_oder_number: number) {
@@ -103,15 +140,40 @@ export default class Customer extends BaseNode {
         }
     }
 
+    random_animation() {
+        if (Random.rangeInt(0, 1) == 0) {
+            this.walk_animation.animation = "dakeshui";
+        } else {
+            this.walk_animation.animation = "wanshouji";
+        }
+    }
+
     set_customer() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
         if (customer_data.seatNumber != 0 && customer_data.seatNumber % 2 != 0) {
             this.customer_node.scaleX = -0.3;
         }
         this.dialogue.active = false;
+        if (customer_data.customerState == CustomerState.wait_menu) {
+            this.random_animation();
+            this.walk_animation.setCompleteListener((a, b, c) => {
+                this.random_animation();
+            });
+        }
         switch (customer_data.customerState) {
             case CustomerState.line_up:
+                this.walk_animation.animation = "zhengmian_walk";
                 this.line_up_node(customer_data.lineUp);
+                this.have_new_seat();
+
+                //椅子上锁了。人没走到
+                //排队到一半退出的。
+                if (customer_data.walkToSeatNumber && customer_data.walkToSeatNumber != 0) {
+                    this.node.active = true;
+                    this.chair_number = customer_data.walkToSeatNumber;
+                    this.walk_simple({ x: 8, y: 5 }, { x: GamePlayConfig.chair_position[customer_data.walkToSeatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.walkToSeatNumber - 1][1] });
+                }
                 break;
             case CustomerState.sit_seat:
                 this.walk_animation.animation = "wanshouji";
@@ -120,7 +182,6 @@ export default class Customer extends BaseNode {
                 this.walk_animation.animation = "diancai";
                 break;
             case CustomerState.wait_menu:
-                this.walk_animation.animation = "dakeshui";
                 if (customer_data.peopleDataNumber % 3 == 1) {
                     const chat_config: Array<ChatConfig> = GameDataConfig.get_config_array("ChatConfig");
                     let random_index = Random.rangeInt(0, chat_config.length - 1);
@@ -138,9 +199,8 @@ export default class Customer extends BaseNode {
                 break;
             case CustomerState.exit:
                 this.node.active = false;
-                const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
                 seat_data.change_seat_data(customer_data.seatNumber, true);
-
+                this.people_data.delete_people_by_people_data_number(this.customer_data_id);
                 //清除这个垃圾数据
                 break;
         }
@@ -187,6 +247,7 @@ export default class Customer extends BaseNode {
             if (seat_data.get_seat_data(i).seatHavePeople == false) {
                 seat_data.change_seat_data(i, true);
                 this.chair_number = i;
+                this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, walkToSeatNumber: i })
                 this.walk_simple({ x: 8, y: 5 }, { x: GamePlayConfig.chair_position[i - 1][0], y: GamePlayConfig.chair_position[i - 1][1] });
                 return;
             }
@@ -197,6 +258,7 @@ export default class Customer extends BaseNode {
     wait_line_up() {
         const line_up = this.people_data.get_line_max();
         this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, lineUp: line_up });
+        this.walk_animation.animation = "zhengmian_walk";
         this.line_up_node(line_up);
     }
 
@@ -209,7 +271,6 @@ export default class Customer extends BaseNode {
             this.set_child_position(GamePlayConfig.line_up_position[1][1]);
         } else {
             this.node.active = false;
-            console.log("等排队");
         }
     }
 
@@ -258,6 +319,7 @@ export default class Customer extends BaseNode {
             }
         }
     }
+
     set_route_config() {
         let start_node = this.cell_position(this._go_path[this._move_index - 1]);
         let end_node = this.cell_position(this._go_path[this._move_index]);
@@ -290,8 +352,9 @@ export default class Customer extends BaseNode {
 
     walk_end_set_next_state() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
-        if (customer_data.customerState == CustomerState.line_up) {
-            this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.sit_seat, seatNumber: this.chair_number });
+        if (customer_data.customerState == CustomerState.line_up && customer_data.lineUp == 0) {
+            this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.sit_seat, seatNumber: this.chair_number, walkToSeatNumber: 0 });
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.new_seat);
             this.set_customer();
             this.scheduleOnce(() => {
                 this.set_oder_menu();
@@ -325,6 +388,7 @@ export default class Customer extends BaseNode {
         })
         this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.oder_menu, customerOderConfig: random_menu });
     }
+
     set_child_position(move_y: number) {
         let insert_number = 0;
         for (let i = 0; i < Map.walk_unable_node_y.length; i++) {

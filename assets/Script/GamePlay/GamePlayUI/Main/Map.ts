@@ -39,7 +39,7 @@ export default class Map extends cc.Component {
 
     onLoad() {
         this.init_map();
-        this.set_guide();
+        // this.set_guide();
     }
 
     start() {
