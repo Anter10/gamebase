@@ -1,0 +1,41 @@
+
+caishen.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+图层_4
+  rotate: false
+  xy: 1, 255
+  size: 251, 198
+  orig: 251, 198
+  offset: 0, 0
+  index: -1
+图层_5
+  rotate: false
+  xy: 254, 421
+  size: 95, 54
+  orig: 95, 54
+  offset: 0, 0
+  index: -1
+图层_1_拷贝
+  rotate: false
+  xy: 1, 1
+  size: 273, 252
+  orig: 273, 252
+  offset: 0, 0
+  index: -1
+图层_6
+  rotate: false
+  xy: 254, 255
+  size: 196, 164
+  orig: 196, 164
+  offset: 0, 0
+  index: -1
+图层_2
+  rotate: false
+  xy: 276, 1
+  size: 132, 123
+  orig: 132, 123
+  offset: 0, 0
+  index: -1

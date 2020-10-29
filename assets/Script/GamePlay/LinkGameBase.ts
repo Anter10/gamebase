@@ -35,6 +35,8 @@ class LinkGameBase{
          "add_customer": "add_customer",
          "finish_menu": "finish_menu",
          "new_seat": "new_seat",
+         "change_cook_woman_state": "change_cook_woman_state",
+         "add_cook_woman": "add_cook_woman",
       }
 
       /**

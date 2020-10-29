@@ -29,5 +29,9 @@ const GamePlayConfig = {
     chat_active_time: 10,
     //随机聊天文案的展示时间
     chat_exist_time: 2,
+    //厨娘接菜位置
+    cook_woman_get_menu_position: [4, 29],
+    //厨娘初始
+    cook_woman_init_position: [9, 30],
 }
 export default GamePlayConfig;

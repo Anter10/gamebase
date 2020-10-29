@@ -62,4 +62,22 @@ enum StoreUpgradeConditionType {
     CookWoman = 2,
 }
 
-export { ExtensionTypeButton, PeopleType, UnlockMenuRewardType, MenuType, StoreUpgradeConditionType, CustomerState };
+/**@description 厨娘状态  */
+enum CookWomanState {
+    /**@description 无 */
+    Null = 0,
+    /**@description 闲逛 */
+    Stroll = 1,
+    /**@description 获得订单*/
+    GetOrder = 2,
+    /**@description 做饭 */
+    Cook = 3,
+    /**@description 完成做饭 */
+    CompleteCook = 4,
+    /**@description 送餐 */
+    SendMenu = 5,
+    /**@description 送完回灶台 */
+    CompleteSendMenu = 6,
+}
+
+export { ExtensionTypeButton, PeopleType, UnlockMenuRewardType, MenuType, StoreUpgradeConditionType, CustomerState, CookWomanState };

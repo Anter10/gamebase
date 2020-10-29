@@ -86,10 +86,6 @@ export default class Customer extends BaseNode {
         this.walk_animation.skeletonData = this.customer_animation[this.customer_config.id - 6];
     }
 
-    start() {
-
-    }
-
     onDestroy() {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.finish_menu, this, this.get_menu);
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.new_seat, this, this.have_new_seat);

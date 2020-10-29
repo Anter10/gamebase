@@ -6,15 +6,6 @@ interface AudioConfig {
     info : string; 
 } 
 
-interface DecorationConfig { 
-    id : number; 
-    name : string; 
-    chinese_name : string; 
-    upgrade : Array<number>; 
-    growth : Array<number>; 
-    description : string; 
-} 
-
 interface ChatConfig { 
     id : number; 
     text : string; 
@@ -35,6 +26,15 @@ interface PeopleConfig {
     cook_accelerate : Array<number>; 
     heart_accelerate : Array<number>; 
     upgrade_need_coin : Array<number>; 
+} 
+
+interface DecorationConfig { 
+    id : number; 
+    name : string; 
+    chinese_name : string; 
+    upgrade : Array<number>; 
+    growth : Array<number>; 
+    description : string; 
 } 
 
 interface StoreUpgradeConfig { 
@@ -66,4 +66,4 @@ interface UnlockMenuRewardConfig {
  
   
 
- export { AudioConfig,DecorationConfig,ChatConfig,MenuConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };
+ export { AudioConfig,ChatConfig,MenuConfig,PeopleConfig,DecorationConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };

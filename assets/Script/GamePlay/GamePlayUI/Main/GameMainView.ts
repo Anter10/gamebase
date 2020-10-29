@@ -13,6 +13,7 @@ import LinkGameBase from "../../LinkGameBase";
 import StoreIconItem from "../Common/StoreIconItem/StoreIconItem";
 import GameMainDecorationItem from "./GameMainDecorationItem";
 import GameMainTableItem from "./GameMainTableItem";
+import PlotItem from "./PlotItem";
 
 const { ccclass, property } = cc._decorator;
 
@@ -64,6 +65,9 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     store_upgrade_node: cc.Node = null;
 
+    @property(cc.Node)
+    pot_array: cc.Node = null;
+
     onLoad() {
         this.flush_view();
     }
@@ -73,6 +77,17 @@ export default class GameMainView extends BaseUI {
         this.load_table_item();
         this.load_decoration_item();
         this.load_store();
+        this.load_plot_item();
+    }
+
+    load_plot_item() {
+        for (let i = 0; i < this.pot_array.childrenCount; i++) {
+            Loader.load_prefab("/GamePlay/GamePlayUI/Main/PlotItem", (prefab: cc.Prefab) => {
+                const plot_item_node = cc.instantiate(prefab);
+                plot_item_node.getComponent(PlotItem).set_plot_user(i);
+                plot_item_node.parent = this.pot_array.children[i];
+            });
+        }
     }
 
     load_store() {

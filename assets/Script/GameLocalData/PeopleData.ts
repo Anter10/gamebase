@@ -1,9 +1,11 @@
 import Time from "../Common/Time";
-import { CustomerState } from "../GamePlay/GamePlayEnum/GamePlayEnum";
+import EventManager from "../EventManager/EventManager";
+import { CookWomanState, CustomerState } from "../GamePlay/GamePlayEnum/GamePlayEnum";
+import LinkGameBase from "../GamePlay/LinkGameBase";
 import BaseRecord from "./BaseRecord";
 
 
-interface PeopleInterface {
+export interface PeopleInterface {
     //人物数据编号
     peopleDataNumber: number;
     //人物配置编号
@@ -14,7 +16,7 @@ interface PeopleInterface {
     peopleLevel?: number;
     //顾客排队入场
     lineUp?: number;
-    //顾客座位号
+    //顾客座位号,厨娘走到座位号
     seatNumber?: number;
     //顾客点餐菜品配置id
     customerOderConfig?: number;
@@ -22,12 +24,16 @@ interface PeopleInterface {
     customerOderNumber?: number;
     //顾客每次状态改变时间
     changeStateTime?: number;
-    //人物状态
+    //顾客状态
     customerState?: CustomerState;
     //行走节点数量
     walkNode?: number;
     //将要行走到的椅子
     walkToSeatNumber?: number;
+    //厨娘状态
+    cookWomanState?: CookWomanState;
+    //厨娘做的菜
+    cookWomanMenuConfigId?: number;
 }
 
 // 游戏中人物的数据
@@ -40,6 +46,27 @@ class PeopleData extends BaseRecord {
     constructor() {
         super();
         this.apply_auto_update();
+    }
+
+    change_cook_woman_data(cook_woman: { peopleConfigId: number, cookWomanState?: CookWomanState, walkToSeatNumber: number, seatNumber: number, changeStateTime?: number, cookWomanMenuConfigId: number }) {
+        for (let i = 0; i < this.people_data.length; i++) {
+            if (cook_woman.peopleConfigId == this.people_data[i].peopleConfigId) {
+                if (cook_woman.cookWomanState) {
+                    this.people_data[i].cookWomanState = cook_woman.cookWomanState;
+                    this.people_data[i].changeStateTime = Time.get_second_time();
+                }
+                if (cook_woman.walkToSeatNumber) {
+                    this.people_data[i].walkToSeatNumber = cook_woman.walkToSeatNumber;
+                }
+                if (cook_woman.seatNumber) {
+                    this.people_data[i].seatNumber = cook_woman.seatNumber;
+                }
+                if (cook_woman.cookWomanMenuConfigId) {
+                    this.people_data[i].cookWomanMenuConfigId = cook_woman.cookWomanMenuConfigId;
+                }
+                this.store_people_data(this.people_data);
+            }
+        }
     }
 
     get_people_data(): Array<PeopleInterface> {
@@ -72,6 +99,9 @@ class PeopleData extends BaseRecord {
 
     get_people_data_by_people_config_id(people_config_id: number): PeopleInterface {
         let max_people_data_number = -1;
+        if(people_config_id == 0){
+            console.log("?");
+        }
         for (let i = 0; i < this.people_data.length; i++) {
             if (this.people_data[i].peopleConfigId == people_config_id) {
                 return this.people_data[i];
@@ -85,6 +115,7 @@ class PeopleData extends BaseRecord {
             peopleConfigId: people_config_id,
             peopleMoveStartTime: Time.get_second_time(),
             peopleLevel: 0,
+            cookWomanState: CookWomanState.Null,
         };
         this.people_data.push(init_new_people);
         this.store_people_data(this.people_data);
@@ -105,6 +136,9 @@ class PeopleData extends BaseRecord {
         for (let i = 0; i < this.people_data.length; i++) {
             if (this.people_data[i].peopleConfigId == people_config_id) {
                 this.people_data[i].peopleLevel = people_level;
+                if (people_level == 1) {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_cook_woman, people_config_id);
+                }
                 this.store_people_data(this.people_data);
                 return;
             }

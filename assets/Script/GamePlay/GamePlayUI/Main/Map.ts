@@ -8,6 +8,7 @@ import PeopleData from "../../../GameLocalData/PeopleData";
 import { AMap } from "../../AStar/AMap";
 import { CustomerState, PeopleType } from "../../GamePlayEnum/GamePlayEnum";
 import LinkGameBase from "../../LinkGameBase";
+import CookWoman from "./CookWoman";
 import Customer from "./Customer";
 
 const { ccclass, property } = cc._decorator;
@@ -39,21 +40,43 @@ export default class Map extends cc.Component {
 
     onLoad() {
         this.init_map();
-        // this.set_guide();
+        this.set_guide();
     }
 
     start() {
         this.people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
         this.people_configs = GameDataConfig.get_config_array("PeopleConfig");
+        this.init_cook_woman();
         this.init_customer();
+    }
+
+    init_cook_woman() {
+        for (let i = 0; i < this.people_configs.length; i++) {
+            if (this.people_configs[i].type == PeopleType.cook_woman) {
+                if (this.people_data.get_people_data_by_people_config_id(this.people_configs[i].id).peopleLevel > 0) {
+                    this.add_cook_woman(0, this.people_configs[i].id);
+                }
+            }
+        }
     }
 
     onEnable() {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.add_customer, this, this.add_customer);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.add_cook_woman, this, this.add_cook_woman);
     }
 
     onDisable() {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.add_customer, this, this.add_customer);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.add_cook_woman, this, this.add_cook_woman);
+    }
+
+    add_cook_woman(event, people_config_id: number) {
+        Loader.load_prefab("GamePlay/GamePlayUI/Main/CookWoman", (customer: cc.Prefab) => {
+            const cook_woman_node = cc.instantiate(customer);
+            const cook_woman_script = cook_woman_node.getComponent(CookWoman);
+            cook_woman_node.parent = this.node;
+            cook_woman_script.set_cook_woman_config_id(people_config_id);
+        })
     }
 
     init_customer() {

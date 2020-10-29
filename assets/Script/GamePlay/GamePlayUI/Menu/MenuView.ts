@@ -57,7 +57,6 @@ export default class MenuView extends BaseUI {
                     unlock_reward_item.y = -1000 * (j + 1) + 100;
                 }
                 this.content.insertChild(unlock_reward_item, 0);
-                console.log(unlock_reward_item.y);
             })
         }
         for (let i = 0; i < menu_configs.length / 3; i++) {

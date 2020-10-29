@@ -1,0 +1,174 @@
+
+fire.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+合成 1_00020
+  rotate: false
+  xy: 188, 301
+  size: 91, 65
+  orig: 154, 86
+  offset: 31, 7
+  index: -1
+合成 1_00034
+  rotate: false
+  xy: 1, 228
+  size: 92, 72
+  orig: 154, 86
+  offset: 31, 7
+  index: -1
+合成 1_00016
+  rotate: false
+  xy: 283, 153
+  size: 93, 72
+  orig: 154, 86
+  offset: 30, 6
+  index: -1
+合成 1_00044
+  rotate: false
+  xy: 384, 77
+  size: 93, 74
+  orig: 154, 86
+  offset: 30, 7
+  index: -1
+合成 1_00022
+  rotate: false
+  xy: 376, 296
+  size: 91, 67
+  orig: 154, 86
+  offset: 31, 7
+  index: -1
+合成 1_00040
+  rotate: false
+  xy: 1, 79
+  size: 92, 73
+  orig: 154, 86
+  offset: 32, 7
+  index: -1
+合成 1_00014
+  rotate: false
+  xy: 384, 1
+  size: 93, 74
+  orig: 154, 86
+  offset: 30, 7
+  index: -1
+合成 1_00018
+  rotate: false
+  xy: 96, 154
+  size: 92, 72
+  orig: 154, 86
+  offset: 31, 7
+  index: -1
+合成 1_00004
+  rotate: false
+  xy: 376, 227
+  size: 91, 67
+  orig: 154, 86
+  offset: 31, 7
+  index: -1
+合成 1_00032
+  rotate: false
+  xy: 378, 153
+  size: 93, 72
+  orig: 154, 86
+  offset: 30, 6
+  index: -1
+合成 1_00000
+  rotate: false
+  xy: 190, 227
+  size: 92, 72
+  orig: 154, 86
+  offset: 31, 7
+  index: -1
+合成 1_00024
+  rotate: false
+  xy: 95, 228
+  size: 90, 71
+  orig: 154, 86
+  offset: 32, 7
+  index: -1
+合成 1_00028
+  rotate: false
+  xy: 1, 1
+  size: 94, 76
+  orig: 154, 86
+  offset: 31, 6
+  index: -1
+合成 1_00002
+  rotate: false
+  xy: 95, 301
+  size: 91, 65
+  orig: 154, 86
+  offset: 31, 7
+  index: -1
+合成 1_00008
+  rotate: false
+  xy: 189, 79
+  size: 92, 73
+  orig: 154, 86
+  offset: 32, 7
+  index: -1
+合成 1_00036
+  rotate: false
+  xy: 1, 302
+  size: 91, 65
+  orig: 154, 86
+  offset: 31, 7
+  index: -1
+合成 1_00026
+  rotate: false
+  xy: 95, 79
+  size: 92, 73
+  orig: 154, 86
+  offset: 32, 7
+  index: -1
+合成 1_00006
+  rotate: false
+  xy: 284, 227
+  size: 90, 71
+  orig: 154, 86
+  offset: 32, 7
+  index: -1
+合成 1_00046
+  rotate: false
+  xy: 1, 154
+  size: 93, 72
+  orig: 154, 86
+  offset: 30, 6
+  index: -1
+合成 1_00038
+  rotate: false
+  xy: 190, 154
+  size: 90, 71
+  orig: 154, 86
+  offset: 32, 7
+  index: -1
+合成 1_00010
+  rotate: false
+  xy: 193, 1
+  size: 94, 76
+  orig: 154, 86
+  offset: 31, 6
+  index: -1
+合成 1_00012
+  rotate: false
+  xy: 289, 1
+  size: 93, 74
+  orig: 154, 86
+  offset: 30, 7
+  index: -1
+合成 1_00042
+  rotate: false
+  xy: 97, 1
+  size: 94, 76
+  orig: 154, 86
+  offset: 31, 6
+  index: -1
+合成 1_00030
+  rotate: false
+  xy: 289, 77
+  size: 93, 74
+  orig: 154, 86
+  offset: 30, 7
+  index: -1
