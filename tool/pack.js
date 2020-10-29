@@ -5,6 +5,11 @@ function execute(cmd) {
     exec(cmd, { stdio: 'inherit' });
 }
 
+// 构建参数
+function build_parameters() {
+
+}
+
 
 function build_game() {
     // 编译项目
@@ -18,10 +23,11 @@ function build_game() {
     // // 打包APK
     const pack_apk = "cd ./build/jsb-link/frameworks/runtime-src/proj.android-studio && ./gradlew assembleDebug";
     execute(pack_apk);
+
+    console.log("构建成功");
 }
 
 function main() {
-    console.log("当前Jenkins的构建参数 = ",process.env.debug);
     build_game();
 }
 
