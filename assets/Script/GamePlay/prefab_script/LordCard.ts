@@ -7,8 +7,9 @@
 
 import Loader from "../../Common/Loader";
 import TouchButton from "../../Common/TouchButton";
-import { CardTypeNumber, LordCardStatue } from "../GamePlayEnum";
+import { CardStatue, CardTypeNumber, LordCardStatue, LordCardType } from "../GamePlayEnum";
 import { LordCardInterface } from "../GamePlayInterface";
+import { LordUtils } from "../LordUtils";
 
 const {ccclass, property} = cc._decorator;
 
@@ -28,12 +29,16 @@ export default class LordCard extends cc.Component {
     @property(cc.Sprite)
     small_icon: cc.Sprite = null;
 
-    @property(cc.Label)
-    id_label: cc.Label = null;
+    @property(cc.Sprite)
+    id_sprite: cc.Sprite = null;
 
     private _lord_card_statue: LordCardStatue = LordCardStatue.in_hand;
-    private _select: boolean = false;
+    public _select: boolean = false;
     public _selected_pre_y: number = 0;
+    public isChoose = false;
+    public status: CardStatue = CardStatue.SITDOWN;
+    public row: number = 1;
+    public special: boolean = false;
 
     public set lord_card_statue(_lord_card_statue:LordCardStatue){
         this._lord_card_statue = _lord_card_statue;
@@ -43,15 +48,21 @@ export default class LordCard extends cc.Component {
         return this._lord_card_statue;
     }
 
+    public card: LordCardInterface = null;
+
     flush_data(card: LordCardInterface){
+        this.card = card;
         if(card.id < 15){
            this.normal_node.active = true;
            this.king_icon.active = false;
-           this.id_label.string = `${card.id}`;
-
+        
            Loader.load_texture(`./GamePlay/prefab/card/${card.card_type}`,(texture2d: cc.Texture2D) => {
                this.big_icon.spriteFrame = new cc.SpriteFrame(texture2d);
                this.small_icon.spriteFrame = new cc.SpriteFrame(texture2d);
+           });
+
+           Loader.load_texture(`./GamePlay/prefab/card/pkp_hong_${card.id}`,(texture2d: cc.Texture2D) => {
+                this.id_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
            });
 
         }else{
@@ -63,24 +74,40 @@ export default class LordCard extends cc.Component {
            });
 
         }
+
+        if(this.card.card_type == LordCardType.clubs || this.card.card_type == LordCardType.spade){
+            this.id_sprite.node.color = cc.Color.BLACK.fromHEX("#000000");
+            this.big_icon.node.color = cc.Color.BLACK.fromHEX("#000000");
+            this.small_icon.node.color = cc.Color.BLACK.fromHEX("#000000");
+        }else{
+            this.id_sprite.node.color = cc.Color.BLACK.fromHEX("#ff0000");
+            this.big_icon.node.color = cc.Color.BLACK.fromHEX("#ff0000");
+            this.small_icon.node.color = cc.Color.BLACK.fromHEX("#ff0000");
+        }
     }
   
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
-        const touch_button = this.node.addComponent(TouchButton);
-        touch_button.register_touch(() => {
-             if(this.lord_card_statue == LordCardStatue.in_hand){
-                this._select = !this._select;
-                if(this._select){
-                    this._selected_pre_y = this.node.y;
-                    this.node.y = this._selected_pre_y + 20; 
-                }else{
-                    this.node.y = this._selected_pre_y; 
-                }
-             }
-        });
+           
+
+        // const touch_button = this.node.addComponent(TouchButton);
+        // touch_button.register_touch(() => {
+        //     this.select_card();
+        // });
+    }
+
+
+
+    select_card(){
+        if(this.lord_card_statue == LordCardStatue.in_hand){
+            this._select = !this._select;
+            if(this._select){
+                this._selected_pre_y = this.node.y;
+                this.node.y = this._selected_pre_y + 20; 
+            }else{
+                this.node.y = this._selected_pre_y; 
+            }
+         }
     }
 
     start () {

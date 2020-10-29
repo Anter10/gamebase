@@ -3,6 +3,19 @@ import { LordCardType, LordDealCardsType } from "./GamePlayEnum";
 import { DealCardInterface, LordCardInterface } from "./GamePlayInterface";
 
 export class LordUtils{
+
+    static special_card_id(card_id: number){
+        if(card_id == 11){
+            return "J";
+        }else if(card_id == 12){
+            return "Q";
+        }else if(card_id == 13){
+            return "K";
+        }else if(card_id == 14){
+            return "A";
+        }
+    }
+
     /**@description 初始得到新的牌 */
     static new_cards(): Array<LordCardInterface>{
         //                [2,3,4,5,6,7,8,9,10, J, Q, K, A,  👑, 👑];  
@@ -105,6 +118,25 @@ export class LordUtils{
                  all_cards[cur_deal_pos].push(cur_card);
                  cur_deal_index ++;
              }
+         }
+
+         // 对牌进行排序ID从大到小
+         const sort_cards = (card1: LordCardInterface, card2: LordCardInterface)=>{
+             if(card1 && card2){
+                if(card2.id > card1.id){
+                    return 1;
+                }else if(card2.id < card1.id){
+                    return -1;
+                }else{
+                    return 0;
+                }
+             }else{
+                 return -1;
+             }
+         }
+
+         for(let pos of Object.keys(all_cards)){
+            all_cards[pos].sort(sort_cards);
          }
 
          // 最后三张为底牌

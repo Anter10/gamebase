@@ -119,3 +119,9 @@ export enum LordCardStatue{
     /**@description 作为亮牌显示 */
     in_bottom_showing = "in_bottom_showing"
 }
+
+
+export enum CardStatue{
+    STANDUP = "STANDUP",
+    SITDOWN = "SITDOWN",
+}
