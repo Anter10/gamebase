@@ -2,12 +2,15 @@
 
 import Random from "../Common/Random";
 import EventManager from "../EventManager/EventManager";
+import GamePlay from "./GamePlay";
 import { LordCardType, LordDealCardsType, LordGameState } from "./GamePlayEnum";
 import { LordCardInterface } from "./GamePlayInterface";
 import LinkGameBase from "./LinkGameBase";
 import { LordUtils } from "./LordUtils";
 class LordGameLogic{
     private _game_state: LordGameState = LordGameState.start_waiting;
+
+    public game_play: GamePlay = null;
 
     constructor(){
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.start_waiting, this, this.start_waiting.bind(this));
@@ -57,7 +60,9 @@ class LordGameLogic{
     /**@description 发牌逻辑 */
     deal_cards(){
         let deal_cards_type:LordDealCardsType = LordDealCardsType.none;
-        LordUtils.deal_cards(deal_cards_type);
+        const deal_cards = LordUtils.deal_cards(deal_cards_type);
+        
+        return deal_cards;
     }
 
 }

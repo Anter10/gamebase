@@ -91,3 +91,19 @@ export enum LordDealCardsType{
     /**@description 偏向非地主的牌*/
     farmer = "farmer",
 }
+
+/**@description 特殊牌的别名 */
+export enum CardTypeNumber{
+    /**@description J [11]*/
+    "J" = 11,
+     /**@description Q [12]*/
+    "Q" = 12,
+     /**@description K [13]*/
+    "K" = 13,
+     /**@description A [14]*/
+    "A" = 14,
+     /**@description 小王 [15]*/
+    "w" = 15,
+     /**@description 大王 [16]*/
+    "W" = 16,
+}

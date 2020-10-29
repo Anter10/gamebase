@@ -5,11 +5,12 @@ import { DealCardInterface, LordCardInterface } from "./GamePlayInterface";
 export class LordUtils{
     /**@description 初始得到新的牌 */
     static new_cards(): Array<LordCardInterface>{
-        const cur_cards = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+        //                [2,3,4,5,6,7,8,9,10, J, Q, K, A,  👑, 👑];  
+        const cur_cards = [2,3,4,5,6,7,8,9,10,11,12,13, 14, 15, 16];
         const t_cards:Array<LordCardInterface> = [];
 
         for(const card_id of cur_cards){
-            if(card_id < 14 ){
+            if(card_id < 15 ){
                 for(let i = 0; i < 4; i ++){
                     let card_type = LordCardType.none;
                     if( i == 0){
@@ -30,9 +31,9 @@ export class LordUtils{
             }else{
                 let card_type = LordCardType.none;
 
-                if(card_id == 14){
+                if(card_id == 15){
                     card_type = LordCardType.small_king;
-                }else if(card_id == 15){
+                }else if(card_id == 16){
                     card_type = LordCardType.big_king;
                 }
 

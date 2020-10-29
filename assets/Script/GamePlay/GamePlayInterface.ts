@@ -11,23 +11,27 @@ export interface LordCardInterface{
 /**@description 人的数据类型接口 */
 export interface LordPeopleInterface{
     /**@description 唯一的ID */
-    id : number;
+    id?: number;
     /**@description 所在的位置 玩家为 0 下一家为 1 再下一家为 2*/
-    position : number;
+    position?: number;
     /**@description 玩家的名称 */
-    nick_name: string;
+    nick_name?: string;
     /**@description 玩家的头像 */
-    avatar_url: string;
-    /**@description 玩家的金币数 */
-    coin_count: number;
+    avatar_url?: string;
+    /**@description 玩家的钱数 */
+    money?: number;
     /**@description 玩家的类型 */
-    peopel_type: PeopleType;
+    peopel_type?: PeopleType;
     /**@description 玩家的身份类型 */
-    people_identity_type: PeopleIdentityType;
+    people_identity_type?: PeopleIdentityType;
     /**@description 玩家手里面的牌 */
-    cards: Array<LordCardInterface>;
+    cards?: Array<LordCardInterface>;
     /**@description 玩家出过的牌 */
-    play_cards: Array<LordCardInterface>;
+    play_cards?: Array<LordCardInterface>;
+    /**@description 显示提现过的金额 0的话不显示 */
+    show_cash_out?: number;
+    /**@description 玩家所在的地点 */
+    where_name?:string;
 }
 
 /**@description 出牌数据接口 */

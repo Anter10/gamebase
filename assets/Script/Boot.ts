@@ -27,6 +27,7 @@ class Boot{
         GameLocalData.get_instance().init();
         ServerData.get_instance().init();
         GameDataConfig.init();
+        cc.debug.setDisplayStats(false);
         // SdkModule.test();
     }
 }

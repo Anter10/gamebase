@@ -25,6 +25,8 @@ class LinkGameBase{
              gameing:"gameing",
              /**@description 游戏结束的状态 */
              end : "end",
+             /**@description 刷新玩家排的显示逻辑 */
+             flush_player_show_cards: "flush_player_show_cards",
       }
 
       /**
