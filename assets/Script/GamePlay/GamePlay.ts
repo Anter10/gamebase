@@ -23,9 +23,14 @@ class GamePlay extends cc.Component {
     ThirdPeople: cc.Node = null;
     @property(cc.Node)
     PlayerPeople: cc.Node = null;
+    @property(cc.Prefab)
+    card_prefab: cc.Prefab = null;
     
     public _players: Array<Player> = [];
     public deal_cards: DealCardInterface = null;
+    public card_pool:cc.NodePool = new cc.NodePool();
+
+  
     
     
     onLoad () {
@@ -44,6 +49,18 @@ class GamePlay extends cc.Component {
         CellUi.cell_parent_node = this.node;
         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.start_waiting);
         this.init_players();
+    }
+
+    remove(card: cc.Node){
+        this.card_pool.put(card);
+    }
+
+    create_card(){
+        if(this.card_pool.size() > 0){
+           return this.card_pool.get();
+        }else{
+           return cc.instantiate(this.card_prefab);
+        }
     }
 
     /**@destroy 初始化玩家 */
@@ -87,6 +104,10 @@ class GamePlay extends cc.Component {
         console.log("发牌");
         const deal_cards = this.game_logic.deal_cards();
         this.deal_cards = deal_cards;
+        for(let pos = 0; pos < this._players.length; pos ++){
+            const cards_data = this.deal_cards.every_pos_cards[pos];
+            this._players[pos].deal_cards(cards_data);
+        }
     }
     lording(){
 

@@ -49,3 +49,4 @@ export interface DealCardInterface{
     /**@description 每个位置的牌 */
     every_pos_cards: {[position: number]: Array<LordCardInterface>};
 }
+

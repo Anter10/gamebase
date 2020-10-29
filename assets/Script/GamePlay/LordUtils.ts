@@ -114,7 +114,6 @@ export class LordUtils{
              in_bottom_cards: in_bottom_cards,
              every_pos_cards: all_cards,
          }
-         console.log("正常发完排的数据 = ", deal_cards);
          return deal_cards;
     }
 
@@ -124,7 +123,6 @@ export class LordUtils{
         let deal_cards: DealCardInterface = null;
         if(deal_cards_type == LordDealCardsType.none){
            deal_cards = this.normal_deal_cards(t_cards);
-           console.log("正常发完排的数据 = ", deal_cards);
         }
         return deal_cards;
     }

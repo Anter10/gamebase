@@ -1,7 +1,7 @@
 // 模拟游戏服务器
 
 import Random from "../Common/Random";
-import { LordGameConfig, WhereConfig } from "../GameDataConfig/ConfigInterface";
+import { LordGameConfig, NickConfig, WhereConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import { PeopleIdentityType, PeopleType } from "./GamePlayEnum";
 import { LordPeopleInterface } from "./GamePlayInterface";
@@ -50,6 +50,9 @@ export class GamePalyServer{
 
             let avatar_url = Random.rangeInt(1, 6);
 
+            const nick_names: Array<NickConfig> = GameDataConfig.get_config_array<NickConfig>("NickConfig");
+            const nick_index = Random.rangeInt(0, nick_names.length - 1);
+            
             
 
             // 初始化
@@ -63,6 +66,7 @@ export class GamePalyServer{
                 avatar_url: avatar_url,
                 cards:[],
                 play_cards:[],
+                nick_name: nick_names[nick_index].name,
             }
 
             players.push(player);

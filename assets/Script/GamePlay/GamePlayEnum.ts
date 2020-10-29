@@ -107,3 +107,15 @@ export enum CardTypeNumber{
      /**@description 大王 [16]*/
     "W" = 16,
 }
+
+/**@description 牌的状态 */
+export enum LordCardStatue{
+    /**@description 在手里 */
+    in_hand  = "in_hand",
+    /**@description 已经出过了 */
+    out_hand = "out_hand",
+    /**@description 作为底牌显示 */
+    in_bottom = "in_bottom",
+    /**@description 作为亮牌显示 */
+    in_bottom_showing = "in_bottom_showing"
+}
