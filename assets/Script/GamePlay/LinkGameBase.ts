@@ -33,6 +33,8 @@ class LinkGameBase{
              call_lord: "call_lord",
              /**@description 不叫地主的事件 */
              no_call_lord: "no_call_lord",
+             /**@description 翻牌 */
+             convert_card: "convert_card",
       }
 
       /**

@@ -27,6 +27,9 @@ class GamePlay extends cc.Component {
     PlayerPeople: cc.Node = null;
     @property(cc.Prefab)
     card_prefab: cc.Prefab = null;
+
+    @property(cc.Node)
+    main_difenbangzi: cc.Node = null;
     
     public _players: Array<Player> = [];
     public deal_cards: DealCardInterface = null;
@@ -56,7 +59,7 @@ class GamePlay extends cc.Component {
         this.init_players();
     }
 
-    remove(card: cc.Node){
+    remove_card(card: cc.Node){
         this.card_pool.put(card);
     }
 
@@ -116,6 +119,7 @@ class GamePlay extends cc.Component {
 
         this.scheduleOnce(() => {
             this.unscheduleAllCallbacks();
+            CellUi.show_lord_bottom_card_node(this.deal_cards.in_bottom_cards);
             this.game_logic.deal_call_lord_logic();
         }, 1.5);
     }
@@ -142,12 +146,10 @@ class GamePlay extends cc.Component {
     // 叫地主的调用
     show_call_lord(){
         CellUi.show_call_lord_button_node();
-        CellUi.show_lord_bottom_card_node();
     }
 
     // 叫地主 玩家和机器人都会触发叫地主的逻辑
     call_lord(event: any, call_lord_interface: CallLordDataInterface){
-        call_lord_interface.pos = 0;
         console.log("叫地主的数据 = ", call_lord_interface);
         const cur_node = this._players[call_lord_interface.pos].node;
         const target_pos = cur_node.position;

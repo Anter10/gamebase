@@ -1,6 +1,7 @@
 /**@description 单个小的UI的显示和管理逻辑 */
 
 import Loader from "../Common/Loader";
+import { LordCardInterface } from "./GamePlayInterface";
 import CallLordButton from "./prefab_script/CallLordButton";
 import LordBottomCardNode from "./prefab_script/LordBottomCardNode";
 import PiPeiNode from "./prefab_script/PiPeiNode";
@@ -27,6 +28,7 @@ export class CellUi{
                 this.call_lord_effect_node.parent = this.cell_parent_node;
                 this.call_lord_effect_node.getComponent(QiangDiZhuEffect).show(target_pos);
                 this.call_lord_effect_node.active = true;
+                this.call_lord_effect_node.zIndex = cc.macro.MAX_ZINDEX - 100;
             });
         }else{
             this.call_lord_effect_node.active = true;
@@ -36,17 +38,18 @@ export class CellUi{
 
 
     /**@description 显示叫地主的按钮 */
-    static show_lord_bottom_card_node(){
+    static show_lord_bottom_card_node(cards:Array<LordCardInterface>){
         if(!this.lord_bottom_card_node){
             Loader.load_prefab(`./GamePlay/prefab/cells/LordBottomCardNode`,(prefab: cc.Prefab)=>{
                 const start_button_node = cc.instantiate(prefab);
                 this.lord_bottom_card_node = start_button_node;
                 this.lord_bottom_card_node.parent = this.cell_parent_node;
-                this.lord_bottom_card_node.getComponent(LordBottomCardNode);
+                this.lord_bottom_card_node.getComponent(LordBottomCardNode).show(cards);
                 this.lord_bottom_card_node.active = true;
             });
         }else{
             this.lord_bottom_card_node.active = true;
+            this.lord_bottom_card_node.getComponent(LordBottomCardNode).show(cards);
         }
     }
     

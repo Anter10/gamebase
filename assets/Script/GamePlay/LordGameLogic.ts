@@ -93,7 +93,7 @@ class LordGameLogic{
                 if(player.player_interface.position == pos){
                     player.set_identified(PeopleIdentityType.lord);
                 }else{
-                    player.set_identified(PeopleIdentityType.lord);
+                    player.set_identified(PeopleIdentityType.farmer);
                 }
             }
 
@@ -130,7 +130,7 @@ class LordGameLogic{
             if(player.player_interface.position == pos){
                 player.set_identified(PeopleIdentityType.lord);
             }else{
-                player.set_identified(PeopleIdentityType.lord);
+                player.set_identified(PeopleIdentityType.farmer);
             }
         }
 

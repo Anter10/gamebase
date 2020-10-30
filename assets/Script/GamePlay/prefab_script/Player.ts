@@ -22,6 +22,8 @@ export default class Player extends cc.Component {
 
     @property(cc.Label)
     car_number_label: cc.Label = null;
+    @property(cc.Sprite)
+    call_or_no_call_lord_mesage_sprite: cc.Sprite = null;
 
     public player_interface: LordPeopleInterface = null;
     
@@ -74,6 +76,23 @@ export default class Player extends cc.Component {
 
     set_identified(identified: PeopleIdentityType){
         this.player_interface.people_identity_type = identified;
+        this.show_call_or_no_call_lord_message();
+    }
+
+    show_call_or_no_call_lord_message(){
+        this.call_or_no_call_lord_mesage_sprite.node.active = false;
+        let show_msg_image_path = "main_bujiao";
+        if(this.player_interface.people_identity_type == PeopleIdentityType.lord){
+            show_msg_image_path = "main_jiaodizhu";
+        }
+
+        Loader.load_texture(`./GamePlay/prefab/main/texture/ui/${show_msg_image_path}`,(texture: cc.Texture2D) => {
+            this.call_or_no_call_lord_mesage_sprite.spriteFrame = new cc.SpriteFrame(texture);
+            this.call_or_no_call_lord_mesage_sprite.node.active = true;
+            this.scheduleOnce(() => {
+                this.call_or_no_call_lord_mesage_sprite.node.active = false;
+            }, 3);
+        });
     }
 
 

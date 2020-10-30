@@ -1,6 +1,9 @@
 
 /**@description 抢地主的特效效果 */
 
+import EventManager from "../../EventManager/EventManager";
+import LinkGameBase from "../LinkGameBase";
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -15,18 +18,27 @@ export default class QiangDiZhuEffect extends cc.Component {
 
     }
 
-    start_fly(){
+    kaishi(){
         console.log("开始飞行",this.target_pos);
-        cc.tween(this.node).to(1.5, {
-        position: this.target_pos,
-        }).start();
+        const add_time = this.target_pos.mag() / 300;
+        cc.tween(this.node).to(add_time, {
+          position: this.target_pos,
+        })
+        .call(()=>{
+           EventManager.get_instance().emit(LinkGameBase.game_play_event_config.convert_card);
+        })
+        .start();
     }
 
     show(target_pos: cc.Vec3){
         this.target_pos = target_pos;
         this.node.position.x = 0;
         this.node.position.y = 0;
+        
+
         const animation = this.node.getComponent(cc.Animation);
+        const statue = animation.getAnimationState("qiangdizhu");
+
         animation.stop("qiangdizhu");
         animation.play("qiangdizhu");
     }
