@@ -20,6 +20,9 @@ export default class Player extends cc.Component {
     @property(cc.Node)
     card_container: cc.Node = null;
 
+    @property(cc.Label)
+    car_number_label: cc.Label = null;
+
     public player_interface: LordPeopleInterface = null;
     
     set_player_interface(player_interface: LordPeopleInterface){
@@ -45,6 +48,9 @@ export default class Player extends cc.Component {
     // 给玩家发牌
     deal_cards(cards: Array<LordCardInterface>){
         this.player_interface.cards = cards;
+        if(this.car_number_label){
+           this.car_number_label.string = `${this.player_interface.cards.length}`;
+        }
         if(this.player_interface.peopel_type == PeopleType.real){
            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.flush_player_show_cards, cards);
         }

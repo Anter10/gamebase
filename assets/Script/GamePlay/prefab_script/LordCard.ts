@@ -52,7 +52,7 @@ export default class LordCard extends cc.Component {
 
     flush_data(card: LordCardInterface){
         this.card = card;
-        if(card.id < 15){
+        if(card.id < 16){
            this.normal_node.active = true;
            this.king_icon.active = false;
         

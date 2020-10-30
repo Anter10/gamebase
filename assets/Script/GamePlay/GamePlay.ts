@@ -5,6 +5,7 @@ import { DealCardInterface } from "./GamePlayInterface";
 import { GamePalyServer } from "./GamePlayServer";
 import LinkGameBase from "./LinkGameBase";
 import LordGameLogic from "./LordGameLogic";
+import { LordUtils } from "./LordUtils";
 import Player from "./prefab_script/Player";
 
 const {ccclass, property} = cc._decorator;
@@ -36,6 +37,7 @@ class GamePlay extends cc.Component {
     onLoad () {
         console.log(`进入游戏的game_play了`)
         gamebase.game_play = this;
+        gamebase.lord_util = LordUtils;
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.start_waiting, this, this.start_waiting.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.waiting, this, this.waiting.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.mating, this, this.mating.bind(this));

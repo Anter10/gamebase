@@ -2,7 +2,7 @@ import { LordCardType, PeopleIdentityType, PeopleType } from "./GamePlayEnum";
 
 /**@description 牌的数据接口 */
 export interface LordCardInterface{
-    /**@description 数字 1 - 15【A - 大王】 */
+    /**@description 数字 3 - 17【3 - 大王】 */
     id: number;
     /**@description 牌的花色类型*/
     card_type: LordCardType;
