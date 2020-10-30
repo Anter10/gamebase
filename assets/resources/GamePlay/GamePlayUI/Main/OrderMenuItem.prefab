@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "CookWoman",
+    "_name": "OrderMenuItem",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -27,11 +27,14 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 11
+        "__id__": 8
+      },
+      {
+        "__id__": 9
       }
     ],
     "_prefab": {
-      "__id__": 12
+      "__id__": 10
     },
     "_opacity": 255,
     "_color": {
@@ -43,8 +46,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 150
+      "width": 41,
+      "height": 50
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -82,7 +85,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "cook_woman_node",
+    "_name": "menu_sprite",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -107,8 +110,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 392.77,
-      "height": 511.74
+      "width": 34,
+      "height": 26
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -120,14 +123,14 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        3.536,
         0,
         0,
         0,
         0,
         1,
-        0.4,
-        0.4,
+        1,
+        1,
         1
       ]
     },
@@ -145,7 +148,7 @@
     "_id": ""
   },
   {
-    "__type__": "sp.Skeleton",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -154,36 +157,26 @@
     "_enabled": true,
     "_materials": [
       {
-        "__uuid__": "7afd064b-113f-480e-b793-8817d19f63c3"
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "paused": false,
-    "defaultSkin": "default",
-    "defaultAnimation": "cemian_duancai",
-    "_preCacheMode": 0,
-    "_cacheMode": 0,
-    "loop": true,
-    "premultipliedAlpha": false,
-    "timeScale": 1,
-    "_accTime": 0,
-    "_playCount": 0,
-    "_frameCache": null,
-    "_curFrame": null,
-    "_skeletonCache": null,
-    "_animationName": "cemian_duancai",
-    "_animationQueue": [],
-    "_headAniInfo": null,
-    "_playTimes": 0,
-    "_isAniComplete": true,
-    "_N$skeletonData": {
-      "__uuid__": "6992a95c-1e5c-4b30-a931-d64b9d2fb212"
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "a86388e0-f508-4688-8a20-38ccda49a461"
     },
-    "_N$_defaultCacheMode": 0,
-    "_N$debugSlots": false,
-    "_N$debugBones": false,
-    "_N$debugMesh": false,
-    "_N$useTint": false,
-    "_N$enableBatch": false,
+    "_type": 0,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
     "_id": ""
   },
   {
@@ -192,108 +185,40 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "ef9dcab6-27c6-4697-9a0b-b015cb854a2f"
+      "__uuid__": "5f7c3cff-938b-4faf-a193-38f4b45d1a26"
     },
-    "fileId": "daFLgrou9N96YcWdKIyLrL",
+    "fileId": "f03r0nPxVCU6ukg19JMqmh",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "dialogue",
+    "_name": "coin_label",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
-    },
-    "_children": [
-      {
-        "__id__": 6
-      }
-    ],
-    "_active": false,
-    "_components": [
-      {
-        "__id__": 9
-      }
-    ],
-    "_prefab": {
-      "__id__": 10
-    },
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 98,
-      "height": 65
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        0,
-        85,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "speak_label",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 5
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 7
+        "__id__": 6
       }
     ],
     "_prefab": {
-      "__id__": 8
+      "__id__": 7
     },
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 25,
-      "g": 17,
-      "b": 15,
+      "r": 109,
+      "g": 0,
+      "b": 11,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 90,
-      "height": 25.2
+      "width": 36.68,
+      "height": 12.6
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -305,7 +230,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        4.681,
+        -17.824,
         0,
         0,
         0,
@@ -334,50 +259,6 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 6
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_string": "",
-    "_N$string": "",
-    "_fontSize": 14,
-    "_lineHeight": 20,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_batchAsBitmap": false,
-    "_styleFlags": 1,
-    "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 3,
-    "_N$cacheMode": 0,
-    "_id": ""
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "ef9dcab6-27c6-4697-9a0b-b015cb854a2f"
-    },
-    "fileId": "daZVyM6dtMN7/NwC1eGD3h",
-    "sync": false
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
       "__id__": 5
     },
     "_enabled": true,
@@ -388,11 +269,55 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
+    "_string": "300金币",
+    "_N$string": "300金币",
+    "_fontSize": 10,
+    "_lineHeight": 10,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 2,
+    "_N$cacheMode": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "5f7c3cff-938b-4faf-a193-38f4b45d1a26"
+    },
+    "fileId": "360HsdunBIAIsgqJ6Xri+2",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "815d15bf-fee3-4e9c-9c00-2cd16c1b0abc"
+      "__uuid__": "7104bf70-9223-465a-93f0-be141dd79142"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -406,44 +331,19 @@
     "_id": ""
   },
   {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 1
-    },
-    "asset": {
-      "__uuid__": "ef9dcab6-27c6-4697-9a0b-b015cb854a2f"
-    },
-    "fileId": "33IW5Q5/hD459GLx/edICN",
-    "sync": false
-  },
-  {
-    "__type__": "0fd72YyOPlIWaxAAo0NPcDS",
+    "__type__": "8a2c2lvGCNIJq8Y6clhZFXO",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "cook_woman_animation": {
+    "coin_label": {
+      "__id__": 6
+    },
+    "menu_sprite": {
       "__id__": 3
     },
-    "cook_woman_node": {
-      "__id__": 2
-    },
-    "cook_woman_skeleton_array": [
-      {
-        "__uuid__": "6992a95c-1e5c-4b30-a931-d64b9d2fb212"
-      },
-      {
-        "__uuid__": "ecf3ab6e-10df-4fd1-a564-7435a6888970"
-      },
-      {
-        "__uuid__": "c92bf81c-4e3a-4cce-aacf-9a0d9af4a37e"
-      },
-      {
-        "__uuid__": "00051536-e3b5-4e81-b965-5320a3c8074f"
-      }
-    ],
     "_id": ""
   },
   {
@@ -452,7 +352,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "ef9dcab6-27c6-4697-9a0b-b015cb854a2f"
+      "__uuid__": "5f7c3cff-938b-4faf-a193-38f4b45d1a26"
     },
     "fileId": "",
     "sync": false

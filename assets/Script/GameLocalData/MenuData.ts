@@ -22,6 +22,11 @@ class MenuData extends BaseRecord {
 
     private menu_data: Array<MenuInterface> = [];
 
+    constructor() {
+        super();
+        this.apply_auto_update();
+    }
+    
     get_menu_data_by_id(menu_id: number): MenuInterface {
         for (let i = 0; i < this.menu_data.length; i++) {
             if (this.menu_data[i].menuNumber == menu_id) {
@@ -35,7 +40,7 @@ class MenuData extends BaseRecord {
     }
 
     get_unlock_number(): number {
-        let unlock_number = 0;
+        let unlock_number = 1;
         for (let i = 0; i < this.menu_data.length; i++) {
             if (this.menu_data[i].menuType == MenuType.unlock) {
                 unlock_number++;

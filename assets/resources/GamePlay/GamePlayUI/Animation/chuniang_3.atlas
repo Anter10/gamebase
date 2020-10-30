@@ -34,7 +34,7 @@ repeat: none
   index: -1
 腿2
   rotate: false
-  xy: 887, 132
+  xy: 884, 496
   size: 41, 128
   orig: 41, 128
   offset: 0, 0
@@ -69,7 +69,7 @@ repeat: none
   index: -1
 胳膊2
   rotate: false
-  xy: 815, 419
+  xy: 947, 226
   size: 67, 92
   orig: 67, 92
   offset: 0, 0
@@ -83,7 +83,7 @@ repeat: none
   index: -1
 胳膊1
   rotate: false
-  xy: 947, 320
+  xy: 815, 419
   size: 67, 92
   orig: 67, 92
   offset: 0, 0
@@ -139,7 +139,7 @@ repeat: none
   index: -1
 铲子
   rotate: false
-  xy: 765, 263
+  xy: 726, 350
   size: 86, 84
   orig: 86, 84
   offset: 0, 0
@@ -328,7 +328,7 @@ repeat: none
   index: -1
 腿2_1
   rotate: false
-  xy: 884, 496
+  xy: 887, 132
   size: 41, 128
   orig: 41, 128
   offset: 0, 0
@@ -356,7 +356,7 @@ repeat: none
   index: -1
 铲子_0
   rotate: false
-  xy: 726, 350
+  xy: 765, 263
   size: 86, 84
   orig: 86, 84
   offset: 0, 0
@@ -384,7 +384,7 @@ repeat: none
   index: -1
 胳膊1_1
   rotate: false
-  xy: 947, 226
+  xy: 947, 320
   size: 67, 92
   orig: 67, 92
   offset: 0, 0
@@ -417,18 +417,18 @@ repeat: none
   orig: 7, 5
   offset: 0, 0
   index: -1
-高兴眼睛1
-  rotate: false
-  xy: 487, 649
-  size: 38, 22
-  orig: 38, 22
-  offset: 0, 0
-  index: -1
 加速眼睛1
   rotate: false
   xy: 726, 436
   size: 36, 36
   orig: 36, 36
+  offset: 0, 0
+  index: -1
+高兴眼睛1
+  rotate: false
+  xy: 487, 649
+  size: 38, 22
+  orig: 38, 22
   offset: 0, 0
   index: -1
 眼睛2_0
@@ -445,13 +445,6 @@ repeat: none
   orig: 39, 28
   offset: 0, 0
   index: -1
-完成眼睛2
-  rotate: false
-  xy: 765, 226
-  size: 40, 28
-  orig: 40, 28
-  offset: 0, 0
-  index: -1
 加速眼睛2
   rotate: false
   xy: 159, 803
@@ -464,6 +457,13 @@ repeat: none
   xy: 300, 180
   size: 48, 49
   orig: 48, 49
+  offset: 0, 0
+  index: -1
+完成眼睛2
+  rotate: false
+  xy: 765, 226
+  size: 40, 28
+  orig: 40, 28
   offset: 0, 0
   index: -1
 高兴眼睛2

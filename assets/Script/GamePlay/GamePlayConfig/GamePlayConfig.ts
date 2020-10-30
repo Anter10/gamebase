@@ -31,7 +31,11 @@ const GamePlayConfig = {
     chat_exist_time: 2,
     //厨娘接菜位置
     cook_woman_get_menu_position: [4, 29],
-    //厨娘初始
-    cook_woman_init_position: [9, 30],
+    //厨娘闲逛
+    cook_woman_stroll_position: { 0: [1, 29], 1: [17, 29] },
+    //厨娘做饭位置
+    cook_woman_cook_position: { 0: [3, 30], 1: [7, 30], 2: [11, 30], 3: [14, 30] },
+    //主界面厨娘移动的速度
+    cook_woman_speed: 80,
 }
 export default GamePlayConfig;

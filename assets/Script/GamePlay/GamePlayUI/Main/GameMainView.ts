@@ -3,8 +3,11 @@ import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
+import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
+import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
+import OrderMenuData from "../../../GameLocalData/OrderMenuData";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import { AStar } from "../../AStar/AStar";
@@ -13,6 +16,7 @@ import LinkGameBase from "../../LinkGameBase";
 import StoreIconItem from "../Common/StoreIconItem/StoreIconItem";
 import GameMainDecorationItem from "./GameMainDecorationItem";
 import GameMainTableItem from "./GameMainTableItem";
+import OrderMenuItem from "./OrderMenuItem";
 import PlotItem from "./PlotItem";
 
 const { ccclass, property } = cc._decorator;
@@ -68,8 +72,15 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     pot_array: cc.Node = null;
 
+    @property(cc.Node)
+    menu_content: cc.Node = null;
+
+    private _order_menu_number = 0;
+
     onLoad() {
         this.flush_view();
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.order_menu, this, this.add_order_menu);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.receiving_menu, this, this.reduce_order_menu_number);
     }
 
     start() {
@@ -78,6 +89,49 @@ export default class GameMainView extends BaseUI {
         this.load_decoration_item();
         this.load_store();
         this.load_plot_item();
+        this.load_order_menu();
+    }
+
+    reduce_order_menu_number() {
+        this._order_menu_number--;
+        this.set_order_menu_layout();
+    }
+
+    add_order_menu(event, order_menu_config_id: number) {
+        const order_menu_data = GameLocalData.get_instance().get_data<OrderMenuData>(OrderMenuData);
+        console.log("order_menu_config_id", order_menu_config_id);
+        let order_data_number = order_menu_data.add_new_order_data(order_menu_config_id);
+        const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", order_menu_config_id);
+        this._order_menu_number = this._order_menu_number + 1;
+        this.set_order_menu_layout();
+        Loader.load_prefab("/GamePlay/GamePlayUI/Main/OrderMenuItem", (prefab: cc.Prefab) => {
+            const order_menu_item = cc.instantiate(prefab);
+            order_menu_item.getComponent(OrderMenuItem).set_order_menu_item_config(order_data_number, menu_config);
+            order_menu_item.parent = this.menu_content;
+        });
+    }
+
+    set_order_menu_layout() {
+        const layout = this.menu_content.getComponent(cc.Layout);
+        if (this._order_menu_number > 10) {
+            layout.resizeMode = cc.Layout.ResizeMode.CHILDREN;
+        } else {
+            layout.resizeMode = cc.Layout.ResizeMode.NONE;
+        }
+    }
+
+    load_order_menu() {
+        const order_menu_data = GameLocalData.get_instance().get_data<OrderMenuData>(OrderMenuData);
+        this._order_menu_number = order_menu_data.get_order_menu().length;
+        this.set_order_menu_layout();
+        Loader.load_prefab("/GamePlay/GamePlayUI/Main/OrderMenuItem", (prefab: cc.Prefab) => {
+            for (let i = 0; i < order_menu_data.get_order_menu().length; i++) {
+                const order_menu_item = cc.instantiate(prefab);
+                const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", order_menu_data.get_order_menu()[i].menuConfigId);
+                order_menu_item.getComponent(OrderMenuItem).set_order_menu_item_config(order_menu_data.get_order_menu()[i].menuConfigId, menu_config);
+                order_menu_item.parent = this.menu_content;
+            }
+        });
     }
 
     load_plot_item() {

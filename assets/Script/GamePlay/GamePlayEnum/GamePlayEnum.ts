@@ -25,7 +25,7 @@ enum CustomerState {
     /**@description 坐座位 */
     sit_seat = 2,
     /**@description 点菜中 */
-    oder_menu = 3,
+    order_menu = 3,
     /**@description 等菜 */
     wait_menu = 4,
     /**@description 吃饭中 */

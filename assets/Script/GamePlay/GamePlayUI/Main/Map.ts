@@ -40,7 +40,7 @@ export default class Map extends cc.Component {
 
     onLoad() {
         this.init_map();
-        this.set_guide();
+        // this.set_guide();
     }
 
     start() {
@@ -125,14 +125,14 @@ export default class Map extends cc.Component {
         //地图四周不能走
         for (let i = 0; i < this.line_number; i++) {
             for (let j = 0; j < this.vertical_number; j++) {
-                if (j == 0 || j >= 30 || i == 0 || i == this.vertical_number - 1) {
+                if (j == 0 || j > 30 || i == 0 || i == this.vertical_number - 1) {
                     Map.map_grid.set_walk_able(i, j, false);
                 }
             }
         }
         for (let i = 0; i < this.line_number; i++) {
             for (let j = 0; j < this.vertical_number; j++) {
-                if (j == 0 || j >= 30 || i == 0 || i == this.vertical_number - 1) {
+                if (j == 0 || j > 30 || i == 0 || i == this.vertical_number - 1) {
                     Map.map_grid.set_walk_able(i, j, false);
                 }
             }
@@ -171,9 +171,9 @@ export default class Map extends cc.Component {
             Map.walk_unable_node_y.push(node_y);
             if (i == this.walk_abel_array.length - 1) {
                 for (let point_x = 0; point_x < 15; point_x++) {
-                    for (let point_y = 0; point_y < 3; point_y++) {
-                        Map.map_grid.set_walk_able(node_x + point_x - 7, node_y - point_y + 1, false);
-                        // console.log("大红色柱子", node_x + point_x - 7, node_y - point_y + 1);
+                    for (let point_y = 0; point_y < 2; point_y++) {
+                        Map.map_grid.set_walk_able(node_x + point_x - 7, node_y - point_y, false);
+                        // console.log("大红色柱子", node_x + point_x - 7, node_y - point_y);
                     }
                 }
             }

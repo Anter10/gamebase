@@ -174,7 +174,7 @@ repeat: none
   index: -1
 厨师帽
   rotate: false
-  xy: 281, 515
+  xy: 657, 941
   size: 78, 77
   orig: 78, 77
   offset: 0, 0
@@ -202,7 +202,7 @@ repeat: none
   index: -1
 腿2_0
   rotate: false
-  xy: 530, 545
+  xy: 569, 430
   size: 37, 128
   orig: 37, 128
   offset: 0, 0
@@ -223,14 +223,14 @@ repeat: none
   index: -1
 裙摆2_0
   rotate: false
-  xy: 513, 675
+  xy: 490, 675
   size: 21, 81
   orig: 21, 81
   offset: 0, 0
   index: -1
 裙摆1_0
   rotate: false
-  xy: 711, 135
+  xy: 513, 675
   size: 21, 81
   orig: 21, 81
   offset: 0, 0
@@ -293,7 +293,7 @@ repeat: none
   index: -1
 厨师帽_0
   rotate: false
-  xy: 737, 941
+  xy: 281, 515
   size: 78, 77
   orig: 78, 77
   offset: 0, 0
@@ -349,7 +349,7 @@ repeat: none
   index: -1
 腿1_1
   rotate: false
-  xy: 569, 430
+  xy: 530, 545
   size: 37, 128
   orig: 37, 128
   offset: 0, 0
@@ -363,7 +363,7 @@ repeat: none
   index: -1
 裙摆2_1
   rotate: false
-  xy: 490, 675
+  xy: 711, 135
   size: 21, 81
   orig: 21, 81
   offset: 0, 0
@@ -445,6 +445,13 @@ repeat: none
   orig: 5, 7
   offset: 0, 0
   index: -1
+完成眼睛1
+  rotate: false
+  xy: 281, 483
+  size: 41, 28
+  orig: 41, 28
+  offset: 0, 0
+  index: -1
 高兴眼睛2
   rotate: false
   xy: 970, 1000
@@ -452,11 +459,11 @@ repeat: none
   orig: 38, 23
   offset: 0, 0
   index: -1
-完成眼睛1
+眼睛2_0
   rotate: false
-  xy: 281, 483
-  size: 41, 28
-  orig: 41, 28
+  xy: 1, 977
+  size: 47, 45
+  orig: 47, 45
   offset: 0, 0
   index: -1
 加速眼睛2
@@ -466,7 +473,21 @@ repeat: none
   orig: 36, 36
   offset: 0, 0
   index: -1
-眼睛2_0
+完成眼睛2
+  rotate: false
+  xy: 414, 575
+  size: 39, 28
+  orig: 39, 28
+  offset: 0, 0
+  index: -1
+高兴眼睛1
+  rotate: false
+  xy: 186, 746
+  size: 38, 22
+  orig: 38, 22
+  offset: 0, 0
+  index: -1
+眼睛1_0
   rotate: false
   xy: 50, 977
   size: 47, 45
@@ -478,27 +499,6 @@ repeat: none
   xy: 751, 94
   size: 36, 36
   orig: 36, 36
-  offset: 0, 0
-  index: -1
-眼睛1_0
-  rotate: false
-  xy: 1, 977
-  size: 47, 45
-  orig: 47, 45
-  offset: 0, 0
-  index: -1
-高兴眼睛1
-  rotate: false
-  xy: 186, 746
-  size: 38, 22
-  orig: 38, 22
-  offset: 0, 0
-  index: -1
-完成眼睛2
-  rotate: false
-  xy: 414, 575
-  size: 39, 28
-  orig: 39, 28
   offset: 0, 0
   index: -1
 眉毛2_0
@@ -524,7 +524,7 @@ repeat: none
   index: -1
 厨师帽_1
   rotate: false
-  xy: 657, 941
+  xy: 737, 941
   size: 78, 77
   orig: 78, 77
   offset: 0, 0

@@ -19,9 +19,9 @@ export interface PeopleInterface {
     //顾客座位号,厨娘走到座位号
     seatNumber?: number;
     //顾客点餐菜品配置id
-    customerOderConfig?: number;
+    customerOrderConfig?: number;
     //顾客点餐顺序id
-    customerOderNumber?: number;
+    customerOrderNumber?: number;
     //顾客每次状态改变时间
     changeStateTime?: number;
     //顾客状态
@@ -41,14 +41,14 @@ class PeopleData extends BaseRecord {
     static _name = "PeopleData";
     base_name = "PeopleData";
 
-    private people_data: Array<PeopleInterface> = [{ peopleDataNumber: 1, peopleConfigId: 2, peopleLevel: 1 }];
+    private people_data: Array<PeopleInterface> = [{ peopleDataNumber: 1, peopleConfigId: 2, peopleLevel: 1, cookWomanState: CookWomanState.Null }];
 
     constructor() {
         super();
         this.apply_auto_update();
     }
 
-    change_cook_woman_data(cook_woman: { peopleConfigId: number, cookWomanState?: CookWomanState, walkToSeatNumber: number, seatNumber: number, changeStateTime?: number, cookWomanMenuConfigId: number }) {
+    change_cook_woman_data(cook_woman: { peopleConfigId: number, cookWomanState?: CookWomanState, walkToSeatNumber?: number, seatNumber?: number, changeStateTime?: number, cookWomanMenuConfigId?: number }) {
         for (let i = 0; i < this.people_data.length; i++) {
             if (cook_woman.peopleConfigId == this.people_data[i].peopleConfigId) {
                 if (cook_woman.cookWomanState) {
@@ -99,7 +99,7 @@ class PeopleData extends BaseRecord {
 
     get_people_data_by_people_config_id(people_config_id: number): PeopleInterface {
         let max_people_data_number = -1;
-        if(people_config_id == 0){
+        if (people_config_id == 0) {
             console.log("?");
         }
         for (let i = 0; i < this.people_data.length; i++) {
@@ -183,17 +183,17 @@ class PeopleData extends BaseRecord {
         return max_line_up + 1;
     }
 
-    get_oder_number_max(): number {
-        let max_oder_number = 0;
+    get_order_number_max(): number {
+        let max_order_number = 0;
         for (let i = 0; i < this.people_data.length; i++) {
-            if (this.people_data[i].customerOderNumber > max_oder_number) {
-                max_oder_number = this.people_data[i].lineUp;
+            if (this.people_data[i].customerOrderNumber > max_order_number) {
+                max_order_number = this.people_data[i].lineUp;
             }
         }
-        return max_oder_number + 1;
+        return max_order_number + 1;
     }
 
-    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOderNumber?: number, customerOderConfig?: number, walkToSeatNumber?: number }) {
+    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOrderNumber?: number, customerOrderConfig?: number, walkToSeatNumber?: number }) {
         for (let i = 0; i < this.people_data.length; i++) {
             if (customer.peopleDataNumber == this.people_data[i].peopleDataNumber) {
                 if (customer.lineUp) {
@@ -212,11 +212,11 @@ class PeopleData extends BaseRecord {
                 if (customer.walkNode) {
                     this.people_data[i].walkNode = customer.walkNode;
                 }
-                if (customer.customerOderNumber) {
-                    this.people_data[i].customerOderNumber = customer.customerOderNumber;
+                if (customer.customerOrderNumber) {
+                    this.people_data[i].customerOrderNumber = customer.customerOrderNumber;
                 }
-                if (customer.customerOderConfig) {
-                    this.people_data[i].customerOderConfig = customer.customerOderConfig;
+                if (customer.customerOrderConfig) {
+                    this.people_data[i].customerOrderConfig = customer.customerOrderConfig;
                 }
                 if (customer.walkToSeatNumber) {
                     this.people_data[i].walkToSeatNumber = customer.walkToSeatNumber;

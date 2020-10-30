@@ -41,7 +41,7 @@ repeat: none
   index: -1
 腿1
   rotate: false
-  xy: 688, 708
+  xy: 812, 681
   size: 36, 127
   orig: 36, 127
   offset: 0, 0
@@ -76,7 +76,7 @@ repeat: none
   index: -1
 胳膊1
   rotate: false
-  xy: 500, 503
+  xy: 425, 496
   size: 73, 94
   orig: 73, 94
   offset: 0, 0
@@ -104,7 +104,7 @@ repeat: none
   index: -1
 辫子1
   rotate: false
-  xy: 608, 323
+  xy: 1, 576
   size: 89, 169
   orig: 89, 169
   offset: 0, 0
@@ -286,7 +286,7 @@ repeat: none
   index: -1
 腿2_1
   rotate: false
-  xy: 812, 681
+  xy: 688, 708
   size: 36, 127
   orig: 36, 127
   offset: 0, 0
@@ -328,7 +328,7 @@ repeat: none
   index: -1
 胳膊1_1
   rotate: false
-  xy: 425, 496
+  xy: 500, 503
   size: 73, 94
   orig: 73, 94
   offset: 0, 0
@@ -361,6 +361,20 @@ repeat: none
   orig: 4, 7
   offset: 0, 0
   index: -1
+加速眼睛2
+  rotate: false
+  xy: 825, 986
+  size: 37, 36
+  orig: 37, 36
+  offset: 0, 0
+  index: -1
+高兴眼睛1
+  rotate: false
+  xy: 812, 896
+  size: 46, 23
+  orig: 46, 23
+  offset: 0, 0
+  index: -1
 眼睛2_0
   rotate: false
   xy: 738, 942
@@ -375,32 +389,11 @@ repeat: none
   orig: 40, 30
   offset: 0, 0
   index: -1
-高兴眼睛1
-  rotate: false
-  xy: 812, 896
-  size: 46, 23
-  orig: 46, 23
-  offset: 0, 0
-  index: -1
-加速眼睛2
+加速眼睛1
   rotate: false
   xy: 786, 986
   size: 37, 36
   orig: 37, 36
-  offset: 0, 0
-  index: -1
-高兴眼睛2
-  rotate: false
-  xy: 853, 852
-  size: 38, 24
-  orig: 38, 24
-  offset: 0, 0
-  index: -1
-眼睛1_0
-  rotate: false
-  xy: 786, 942
-  size: 47, 42
-  orig: 47, 42
   offset: 0, 0
   index: -1
 完成眼睛1
@@ -410,11 +403,18 @@ repeat: none
   orig: 39, 29
   offset: 0, 0
   index: -1
-加速眼睛1
+眼睛1_0
   rotate: false
-  xy: 825, 986
-  size: 37, 36
-  orig: 37, 36
+  xy: 786, 942
+  size: 47, 42
+  orig: 47, 42
+  offset: 0, 0
+  index: -1
+高兴眼睛2
+  rotate: false
+  xy: 853, 852
+  size: 38, 24
+  orig: 38, 24
   offset: 0, 0
   index: -1
 眉毛2_0
@@ -454,7 +454,7 @@ repeat: none
   index: -1
 辫子1_1
   rotate: false
-  xy: 1, 576
+  xy: 608, 323
   size: 89, 169
   orig: 89, 169
   offset: 0, 0
