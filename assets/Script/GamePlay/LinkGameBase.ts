@@ -27,6 +27,12 @@ class LinkGameBase{
              end : "end",
              /**@description 刷新玩家排的显示逻辑 */
              flush_player_show_cards: "flush_player_show_cards",
+
+             // 游戏中的事件
+             /**@description 叫地主的事件 */
+             call_lord: "call_lord",
+             /**@description 不叫地主的事件 */
+             no_call_lord: "no_call_lord",
       }
 
       /**

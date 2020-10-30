@@ -1,7 +1,8 @@
 import { gamebase } from "../Boot";
 import EventManager from "../EventManager/EventManager";
 import { CellUi } from "./CellUi";
-import { DealCardInterface } from "./GamePlayInterface";
+import { PeopleIdentityType } from "./GamePlayEnum";
+import { CallLordDataInterface, DealCardInterface } from "./GamePlayInterface";
 import { GamePalyServer } from "./GamePlayServer";
 import LinkGameBase from "./LinkGameBase";
 import LordGameLogic from "./LordGameLogic";
@@ -30,12 +31,10 @@ class GamePlay extends cc.Component {
     public _players: Array<Player> = [];
     public deal_cards: DealCardInterface = null;
     public card_pool:cc.NodePool = new cc.NodePool();
-
   
     
     
     onLoad () {
-        console.log(`进入游戏的game_play了`)
         gamebase.game_play = this;
         gamebase.lord_util = LordUtils;
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.start_waiting, this, this.start_waiting.bind(this));
@@ -46,6 +45,10 @@ class GamePlay extends cc.Component {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.reveal_the_ins_and_outs, this, this.reveal_the_ins_and_outs.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.gameing, this, this.gameing.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.end, this, this.end.bind(this));
+        
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.call_lord, this, this.call_lord.bind(this));
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.no_call_lord, this, this.no_call_lord.bind(this));
+        
         this.game_logic = new LordGameLogic();
         this.game_logic.game_play = this;
         CellUi.cell_parent_node = this.node;
@@ -110,10 +113,18 @@ class GamePlay extends cc.Component {
             const cards_data = this.deal_cards.every_pos_cards[pos];
             this._players[pos].deal_cards(cards_data);
         }
+
+        this.scheduleOnce(() => {
+            this.unscheduleAllCallbacks();
+            this.game_logic.deal_call_lord_logic();
+        }, 1.5);
     }
+
+
     lording(){
 
     }
+
     reveal_the_ins_and_outs(){
 
     }
@@ -126,6 +137,36 @@ class GamePlay extends cc.Component {
 
     start () {
 
+    }
+
+    // 叫地主的调用
+    show_call_lord(){
+        CellUi.show_call_lord_button_node();
+        CellUi.show_lord_bottom_card_node();
+    }
+
+    // 叫地主 玩家和机器人都会触发叫地主的逻辑
+    call_lord(event: any, call_lord_interface: CallLordDataInterface){
+        call_lord_interface.pos = 0;
+        console.log("叫地主的数据 = ", call_lord_interface);
+        const cur_node = this._players[call_lord_interface.pos].node;
+        const target_pos = cur_node.position;
+        let target_node_pos = cur_node.parent.convertToNodeSpaceAR(target_pos);
+        const world_pos = this.node.convertToWorldSpaceAR(target_node_pos);
+        let offset = cc.v3(0,0,0);
+        if(call_lord_interface.pos == 0){
+            offset = cc.v3(-80, 110, 0);
+        }else if(call_lord_interface.pos == 1){
+            offset = cc.v3(50, 170, 0);
+        }else if(call_lord_interface.pos == 2){
+            offset = cc.v3(-30, 170, 0);
+        }
+        CellUi.show_call_lord_effect_node(world_pos.add(offset));      
+    }
+
+    // 不叫地主 只有玩家自己会触发
+    no_call_lord(event: any){
+        this.game_logic.deal_no_call_lord();
     }
 
     // update (dt) {}

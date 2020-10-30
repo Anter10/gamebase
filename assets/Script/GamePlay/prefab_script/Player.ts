@@ -1,6 +1,6 @@
 import Loader from "../../Common/Loader";
 import EventManager from "../../EventManager/EventManager";
-import { PeopleType } from "../GamePlayEnum";
+import { PeopleIdentityType, PeopleType } from "../GamePlayEnum";
 import { LordCardInterface, LordPeopleInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
 
@@ -61,6 +61,21 @@ export default class Player extends cc.Component {
     start () {
 
     }
+
+    card_total_point(){
+        let all_point = 0;
+
+        for(let card of this.player_interface.cards){
+            all_point = all_point + card.id;
+        }
+
+        return all_point;
+    }
+
+    set_identified(identified: PeopleIdentityType){
+        this.player_interface.people_identity_type = identified;
+    }
+
 
     // update (dt) {}
 }

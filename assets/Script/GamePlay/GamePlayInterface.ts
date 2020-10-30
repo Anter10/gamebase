@@ -50,3 +50,11 @@ export interface DealCardInterface{
     every_pos_cards: {[position: number]: Array<LordCardInterface>};
 }
 
+
+/**@description 叫地主的数据接口 */
+export interface CallLordDataInterface{
+   /**@description 叫地主的位置 */
+   pos: number;
+   /**@description 叫地主的分数 */
+   score: number;
+}
