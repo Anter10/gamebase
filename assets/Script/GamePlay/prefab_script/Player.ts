@@ -3,6 +3,7 @@ import EventManager from "../../EventManager/EventManager";
 import { PeopleIdentityType, PeopleType } from "../GamePlayEnum";
 import { LordCardInterface, LordPeopleInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
+import { LordUtils } from "../LordUtils";
 
 const {ccclass, property} = cc._decorator;
 
@@ -93,6 +94,17 @@ export default class Player extends cc.Component {
                 this.call_or_no_call_lord_mesage_sprite.node.active = false;
             }, 3);
         });
+    }
+
+    add_cards(cards: Array<LordCardInterface>){
+        for(const card of cards){
+            this.player_interface.cards.push(card);
+        }
+
+        this.player_interface.cards.sort(LordUtils.sort_cards);
+        if(this.car_number_label){
+            this.car_number_label.string = `${this.player_interface.cards.length}`;
+        }
     }
 
 

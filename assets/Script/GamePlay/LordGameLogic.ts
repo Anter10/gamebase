@@ -6,49 +6,25 @@ import { LordGameConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import GamePlay from "./GamePlay";
 import { LordCardType, LordDealCardsType, LordGameState, PeopleIdentityType } from "./GamePlayEnum";
-import { CallLordDataInterface, LordCardInterface } from "./GamePlayInterface";
+import { CallLordDataInterface, LordCardInterface, LordSendCardInterface } from "./GamePlayInterface";
 import LinkGameBase from "./LinkGameBase";
 import { LordUtils } from "./LordUtils";
 class LordGameLogic{
     private _game_state: LordGameState = LordGameState.start_waiting;
 
     public game_play: GamePlay = null;
+    /**@description 当前的游戏状态 */
+    public cur_game_statue: LordGameState = null;
+    /**@description 当前轮到某个位置的人出牌了 */
+    public cur_send_card_pos: number = 0;
+    /**@description 当前出牌的剩余时间 */
+    public 
 
     constructor(){
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.start_waiting, this, this.start_waiting.bind(this));
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.waiting, this, this.waiting.bind(this));
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.mating, this, this.mating.bind(this));
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.carding, this, this.carding.bind(this));
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.lording, this, this.lording.bind(this));
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.reveal_the_ins_and_outs, this, this.reveal_the_ins_and_outs.bind(this));
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.gameing, this, this.gameing.bind(this));
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.end, this, this.end.bind(this));
-    }
-
-    start_waiting(){
 
     }
-    waiting(){
 
-    }
-    mating(){
-
-    }
-    carding(){
-
-    }
-    lording(){
-
-    }
-    reveal_the_ins_and_outs(){
-
-    }
-    gameing(){
-
-    }
-    end(){
-
-    }
+  
      
 
     public set game_state(game_state: LordGameState){
@@ -125,6 +101,8 @@ class LordGameLogic{
             pos: pos,
             score: random_number < 0.5 ? base_score[0] : base_score[1],
         }
+
+        
         // 这里可以确定机器人为地主 玩家为农民
         for(const player of this.game_play._players){
             if(player.player_interface.position == pos){
@@ -135,6 +113,21 @@ class LordGameLogic{
         }
 
         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.call_lord, call_lord_interface);
+    }
+
+    /**@description 设置当前出牌的位置 */
+    set_cur_send_card_pos(pos: number){
+        this.cur_send_card_pos = pos;
+    }
+
+    /**@description 游戏开始的时候调用 */
+    gaming(){
+       this.cur_game_statue = LordGameState.gameing;
+    }
+
+    /**@description 轮到机器人出牌规则 */
+    machine_people_out_cards(){
+        
     }
 
 }

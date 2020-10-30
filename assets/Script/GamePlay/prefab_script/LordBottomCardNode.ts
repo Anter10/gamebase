@@ -97,6 +97,8 @@ export default class LordBottomCardNode extends cc.Component {
                 fly_index ++;
                 if(fly_index < this.convert_cards.length){
                     start_fly_card();
+                }else{
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.gameing);
                 }
             }
 

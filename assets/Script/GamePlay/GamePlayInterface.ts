@@ -37,7 +37,7 @@ export interface LordPeopleInterface{
 /**@description 出牌数据接口 */
 export interface LordSendCardInterface{
     /**@description 这次所出的牌 */
-    send_card: LordCardInterface,
+    send_card: Array<LordCardInterface>,
     /**@description 出牌的人的信息 */
     lord_people_interface: LordPeopleInterface,
 }
