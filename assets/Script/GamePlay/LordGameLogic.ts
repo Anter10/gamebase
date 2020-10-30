@@ -18,13 +18,11 @@ class LordGameLogic{
     /**@description 当前轮到某个位置的人出牌了 */
     public cur_send_card_pos: number = 0;
     /**@description 当前出牌的剩余时间 */
-    public 
+    public cur_game_pass_time: number = 0;
 
     constructor(){
 
     }
-
-  
      
 
     public set game_state(game_state: LordGameState){
@@ -127,8 +125,14 @@ class LordGameLogic{
 
     /**@description 轮到机器人出牌规则 */
     machine_people_out_cards(){
-        
+        // 找到
     }
+
+    update(dt: number){
+        if(this.cur_game_statue == LordGameState.gameing){
+           this.cur_game_pass_time = this.cur_game_pass_time + dt;
+        }
+    }   
 
 }
 

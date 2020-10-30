@@ -58,3 +58,9 @@ export interface CallLordDataInterface{
    /**@description 叫地主的分数 */
    score: number;
 }
+
+/**@description AI的牌型 */
+export interface AICardType {
+       val : number;
+       cardList: Array<LordCardInterface>;
+};

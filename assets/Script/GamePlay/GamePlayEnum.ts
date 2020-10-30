@@ -39,6 +39,10 @@ export enum LordSendCardType{
     plane_with_one = "plane_with_one",
     /**@description 飞机带二 */
     plane_with_two = "plane_with_two",
+    /**@description 四带二 */
+    four_with_two = "four_with_two",
+    /**@description 四带两对 */
+    four_withe_tow_pairs = "four_withe_tow_pairs",
     /**@description 顺子 */
     scroll = "scroll",
     /**@description 连对 */
@@ -103,9 +107,9 @@ export enum CardTypeNumber{
      /**@description A [14]*/
     "A" = 14,
      /**@description 小王 [15]*/
-    "w" = 15,
+    "w" = 16,
      /**@description 大王 [16]*/
-    "W" = 16,
+    "W" = 17,
 }
 
 /**@description 牌的状态 */

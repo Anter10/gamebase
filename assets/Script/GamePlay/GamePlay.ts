@@ -1,5 +1,6 @@
 import { gamebase } from "../Boot";
 import EventManager from "../EventManager/EventManager";
+import { CardRule } from "./CardRule";
 import { CellUi } from "./CellUi";
 import { LordGameState, PeopleIdentityType } from "./GamePlayEnum";
 import { CallLordDataInterface, DealCardInterface } from "./GamePlayInterface";
@@ -40,6 +41,8 @@ class GamePlay extends cc.Component {
     onLoad () {
         gamebase.game_play = this;
         gamebase.lord_util = LordUtils;
+        gamebase.card_rule = new CardRule();
+        
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.start_waiting, this, this.start_waiting.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.waiting, this, this.waiting.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.mating, this, this.mating.bind(this));

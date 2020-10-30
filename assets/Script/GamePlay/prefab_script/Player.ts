@@ -3,7 +3,7 @@ import EventManager from "../../EventManager/EventManager";
 import { PeopleIdentityType, PeopleType } from "../GamePlayEnum";
 import { LordCardInterface, LordPeopleInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
-import { LordUtils } from "../LordUtils";
+import { card_list, LordUtils } from "../LordUtils";
 
 const {ccclass, property} = cc._decorator;
 
@@ -109,4 +109,5 @@ export default class Player extends cc.Component {
 
 
     // update (dt) {}
+
 }
