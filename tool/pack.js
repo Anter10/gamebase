@@ -10,7 +10,7 @@ const build_argv = {};
 
 // 构建参数
 function build_parameters() {
-    // 打包类型
+    // 打包分支
     build_argv.branch = process.env.pack_type;
     // 打包的包名
     build_argv.bundle_identifier = process.env.bundle_identifier;
@@ -36,8 +36,8 @@ function build_game() {
     console.log("构建参数 = ",build_argv);
 
     // 编译项目
-    execute(`cd ../ && /Applications/CocosCreator/Creator/2.4.3/CocosCreator.app/Contents/MacOS/CocosCreator --path ./ --build "orientation={'portrait': true};platform=android;apiLevel=30;apilevel=30;debug=true;previewWidth=750;previewHeight=1134"`)
-    console.log("build game succeed.");
+    // execute(`cd ../ && /Applications/CocosCreator/Creator/2.4.3/CocosCreator.app/Contents/MacOS/CocosCreator --path ./ --build "orientation={'portrait': true};platform=android;apiLevel=30;apilevel=30;debug=true;previewWidth=750;previewHeight=1134"`)
+    // console.log("build game succeed.");
 
     // 加密图片资源
     // const entry_png = "python en.py 1 2 3";
