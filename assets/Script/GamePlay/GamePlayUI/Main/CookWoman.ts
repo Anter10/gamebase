@@ -256,38 +256,38 @@ export default class CookWoman extends BaseNode {
     set_node_direction_animation() {
         //行走中的动画
         if (this.cook_woman_data.cookWomanState != CookWomanState.CompleteCook) {
-            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != -0.3)) {
+            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != -0.4)) {
                 this.cook_woman_animation.animation = "cemian_walk";
-                this.cook_woman_node.scaleX = -0.3;
+                this.cook_woman_node.scaleX = -0.4;
             }
-            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != 0.3)) {
+            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != 0.4)) {
                 this.cook_woman_animation.animation = "cemian_walk";
-                this.cook_woman_node.scaleX = 0.3;
+                this.cook_woman_node.scaleX = 0.4;
             }
             if (this._move_direction.y < 0 && this.cook_woman_animation.animation != "zhengmian_walk") {
                 this.cook_woman_animation.animation = "zhengmian_walk";
-                this.cook_woman_node.scaleX = 0.3;
+                this.cook_woman_node.scaleX = 0.4;
             }
             if (this._move_direction.y > 0 && this.cook_woman_animation.animation != "beimian_walk") {
                 this.cook_woman_animation.animation = "beimian_walk";
-                this.cook_woman_node.scaleX = 0.3;
+                this.cook_woman_node.scaleX = 0.4;
             }
         } else {
             if (this._move_direction.y < 0 && this.cook_woman_animation.animation != "zhengmian_duancai") {
                 this.cook_woman_animation.animation = "zhengmian_duancai";
-                this.cook_woman_node.scaleX = 0.3;
+                this.cook_woman_node.scaleX = 0.4;
             }
             if (this._move_direction.y > 0 && this.cook_woman_animation.animation != "beimian_duancai") {
                 this.cook_woman_animation.animation = "beimian_duancai";
-                this.cook_woman_node.scaleX = -0.3;
+                this.cook_woman_node.scaleX = -0.4;
             }
-            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_duancai" || this.cook_woman_node.scaleX != -0.3)) {
+            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_duancai" || this.cook_woman_node.scaleX != -0.4)) {
                 this.cook_woman_animation.animation = "cemian_duancai";
-                this.cook_woman_node.scaleX = -0.3;
+                this.cook_woman_node.scaleX = -0.4;
             }
-            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "cemian_duancai" || this.cook_woman_node.scaleX != 0.3)) {
+            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "cemian_duancai" || this.cook_woman_node.scaleX != 0.4)) {
                 this.cook_woman_animation.animation = "cemian_duancai";
-                this.cook_woman_node.scaleX = 0.3;
+                this.cook_woman_node.scaleX = 0.4;
             }
         }
 
