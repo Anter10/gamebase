@@ -1,4 +1,7 @@
 import Loader from "../Common/Loader";
+import GameConfig from "../GameConfig";
+import BI from "../Sdk/BI";
+import { BiInterface } from "../Sdk/SdkInterface";
 import BaseScene from "./BaseScene";
 
  
@@ -10,6 +13,17 @@ class GameScene extends BaseScene {
     onLoad () {
         super.onLoad();
         this.game_play_init();
+        this.bi();
+    }
+
+    bi(){
+        const bi_data : BiInterface = {
+            eventId: `${GameConfig.timeId}`,
+            eventName: "into_game_scene",
+            eventParam: "into gamescene start",
+            ts:`${(new Date()).getTime()}`,
+        } 
+        BI.bi(bi_data);
     }
 
     start () {

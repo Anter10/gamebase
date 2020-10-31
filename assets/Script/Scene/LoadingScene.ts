@@ -4,6 +4,10 @@ import { UIParamInterface } from "../Common/CommonInterface";
 import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
 import Utils from "../Common/Utils";
+import GameConfig from "../GameConfig";
+import BI from "../Sdk/BI";
+import { BiInterface } from "../Sdk/SdkInterface";
+import { SdkModule } from "../Sdk/SdkModule";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import BaseScene from "./BaseScene";
@@ -66,6 +70,17 @@ class LoadingScene extends BaseScene {
         super.onLoad();
         Boot.init();
         this.flush_view();
+        this.bi();
+    }
+
+    bi(){
+        const bi_data : BiInterface = {
+            eventId: `${GameConfig.timeId}`,
+            eventName: "into_loading_scene",
+            eventParam: "into gamescene start",
+            ts:`${(new Date()).getTime()}`,
+        } 
+        BI.bi(bi_data);
     }
 
     special_set_sprite(){
@@ -102,6 +117,8 @@ class LoadingScene extends BaseScene {
     /**@description 点击开始游戏的按钮的调用逻辑 */
     start_game_callback(){
         console.log("点击开始游戏的按钮");
+        SdkModule.test();
+
         if(this.user_toggle.isChecked){
             this.start_game_success_callback();
         }else{
