@@ -9,3 +9,16 @@
 三: 投放版本(针对应用宝)
 1: 有无pay都可以
 2: 去掉视频的二次弹窗
+
+
+// 之前打包流程
+1: web游戏包放在android下面
+2: 将游戏的ICON用图标放在图标工厂导出替换掉工程里面对应路径的ICON
+3: 替换包名(xxx.xx.com)
+4: 替换应用名称
+5: versionName: "游戏版本名称"(string)
+6: versionCode: "游戏的版本号"(number)
+7: apk加固(360ci)
+
+
+

@@ -6,7 +6,7 @@ const GameConfig = {
       appId: 44,
       // 包ID
       pkgId: 67,
-      // 设备的ID
+      // 设备的ID Android
       deviceId: "bff1979e4c6c74141414310680bdb547fc671844e483b95c7e4e7ac050462ae0",
       // brand名称
       brand:"Xiaomi",
@@ -23,7 +23,7 @@ const GameConfig = {
       /**@description os 版本信息 */
       osVersion: "9",
       oaid: "default",
-      /**@description accessKey */
+      /**@description accessKey Android端 */
       accessKey: "8e7332d189c6b5229fb6afd561dd57fc_19619",
       /**@description 请求地址的类型 apiType:0 测试地址  1：正式地址  */
       apiType: 0,
@@ -31,26 +31,7 @@ const GameConfig = {
       productName: "g3_zlzdd",
       /**@description 游戏包的名 */
       packageName:"com.hainanliangyou.zlzdd",
-    
-      /**@description 当前游戏是debug 还是release 模式 debug | release */
-      branch: "debug", 
-      /**@description 显示debug 按钮 */
-      show_debug: true,
-
-      /**@description posId */
-      posId: 1000191,
-
-      /**description remoteName mvp | test  */
-      remoteName: "mvp",
-
-      /**@description 通用API的根地址 */
-      api_root_path: "g3-odyssey",
-      /**@description 专用API的地址 */
-      game_api_root_path: "",
-
-      get is_debug(){
-          return GameConfig.branch == "debug";
-      },
+     
 
       // 用户协议的网页链接
       user_protocol_url:"http://waqqq.hainanliangyou.com/user.html",
@@ -68,7 +49,26 @@ const GameConfig = {
            return serverUrl;
       },
 
+      // debug-version .// release-version
       timeId: 20201028,
+      // preddefine
+      versionCode: "",
+      versionName: "",
+      /**@description 当前游戏是debug 还是release 模式 debug | release */
+      branch: "debug", 
+      /**@description 通用API的根地址 */
+      api_root_path: "g3-odyssey",
+      /**@description 专用API的地址 */
+      game_api_root_path: "",
+  
+      get is_debug(){
+          return GameConfig.branch == "debug";
+      },
+      /**@description 显示debug 按钮 */
+      show_debug: true,
+      remoteName: "mvp",
+
+  
 } 
 
 

@@ -42,18 +42,20 @@ export interface WechatLoginInterface{
 
 /**@description 微信分享的接口 */
 export interface ShareInterface{
-    /**@description 分享的title */
-    title: string;
-    /**@description 分享的描述信息 */
-    message: string;
-    /**@description 分享的图片链接 */
+    /**@description 玩家头像地址 */
     image_url: string;
-    /**@description 分享的额外参数 */
-    query: string;
+    /**@description 玩家微信名字 */
+    nick_name: string;
+    /**@description 分享的描述信息 */
+    message?: string;  
+    /**@description 分享的title */
+    title?: string;
+    /**@description 分享的额外参数[用二维码代替] */
+    query?: string;
     /**@description 分享的成功回调*/
-    success: (res: any) =>{};
+    success?: (res: any) =>{};
     /**@description 分享的失败回调*/
-    fail: (res: any) =>{};
+    fail?: (res: any) =>{};
 }
 
 /**@description 复制内容的接口 */
