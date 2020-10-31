@@ -6,6 +6,8 @@ import Player from "./Player";
 
 
 type AICardTypeList = Array<AICardType>;
+type SendCardTypeList = Array<SendCardInterface>;
+
 
 export class Ai {
     public _ai_player: Player;
@@ -19,7 +21,7 @@ export class Ai {
     /**@description 炸弹 */
     private _boom: AICardTypeList = [];
     /**@description 飞机 */
-    private _plane = [];
+    private _plane: AICardTypeList = [];
     /**@description 顺子*/
     private _progression: AICardTypeList = [];
     /**@description 连对 */
@@ -79,7 +81,7 @@ export class Ai {
         target_wobp = target_wobt.slice(0);
         this.judge_progression(target_wobp);
         // 判定连对
-        this.judge_progression_pairs(target_wobp);
+        this.judge_progression_pair(target_wobp);
         // 判定三顺子
         this.judge_three(target_wobp);
         //除去顺子、炸弹、三根后判断对子、单牌
@@ -157,7 +159,7 @@ export class Ai {
         }
     };
 
-    set_card_kind(obj: SendCardInterface, kind: LordSendCardType) {
+    set_card_kind(obj, kind: LordSendCardType) {
         obj.card_kind = kind;
         obj.size = obj.cards.length;
         return obj;
@@ -170,30 +172,29 @@ export class Ai {
  * @param  {[array]} list 出牌列表
  * @return {[number]}      牌型
  * @param  {object} winc 当前牌面最大牌
- * @param  {boolean} isWinnerIsLandlord 当前最大是否是地主
+ * @param  {boolean} isWinneris_lord 当前最大是否是地主
  * @return {number} winnerCardCount 当前最大那家剩余手牌数
  */
-    match_cards(list, kind, winc, isWinnerIsLandlord, winnerCardCount) {
-        var self = this;
-        if (self.player.isLandlord) {//坐庄打法
-            if (self.player.nextPlayer.cardList.length < 3 || self.player.nextPlayer.nextPlayer.cardList.length < 3)
-                return self.max_cards(list, kind, winc.val);
+    match_cards(list, kind, winc, isWinneris_lord, winnerCardCount) {
+        if (this._ai_player.is_lord) {//坐庄打法
+            if (this._ai_player.next_player.player_interface.cards.length < 3 || this._ai_player.next_player.next_player.player_interface.cards.length < 3)
+                return this.max_cards(list, kind, winc.val);
             else
-                return self.min_cards(list, kind, winc.val);
+                return this.min_cards(list, kind, winc.val);
         } else {//偏家打法
-            if (isWinnerIsLandlord) {//地主大时
+            if (isWinneris_lord) {//地主大时
                 if (winnerCardCount < 3) {
-                    return self.max_cards(list, kind, winc.val);
+                    return this.max_cards(list, kind, winc.val);
                 } else {
-                    return self.min_cards(list, kind, winc.val);
+                    return this.min_cards(list, kind, winc.val);
                 }
             } else {
                 var c = null;
-                if (self.player.nextPlayer.isLandlord && self.player.nextPlayer.cardList.length < 3) {
-                    return self.max_cards(list, kind, winc.val);
+                if (this._ai_player.next_player.is_lord && this._ai_player.next_player.player_interface.cards.length < 3) {
+                    return this.max_cards(list, kind, winc.val);
                 } else {
-                    c = self.min_cards(list, kind, winc.val);
-                    return c ? (c.val < 14 || self.play_times() <= 2 ? c : null) : null;
+                    c = this.min_cards(list, kind, winc.val);
+                    return c ? (c.val < 14 || this.play_times() <= 2 ? c : null) : null;
                 }
             }
         }
@@ -206,7 +207,7 @@ export class Ai {
  * @param  {number} v    要大过的值
  * @return
  */
-    max_cards(list, kind, v) {
+    max_cards(list, kind, v?) {
         var self = this,
             max = null;
         if (list.length > 0) {
@@ -215,7 +216,7 @@ export class Ai {
                     max = list[i];
                 }
             }
-            return v ? (max.val > v ? self.set_card_kind(max, kind) : null) : self.set_card_kind(max, kind);
+            return v ? (max.val > v ? this.set_card_kind(max, kind) : null) : this.set_card_kind(max, kind);
         }
         return null;
     };
@@ -228,17 +229,17 @@ export class Ai {
  * @param  {number} v    要大过的值
  * @return
  */
-    min_cards(list, kind, v) {
+    min_cards(list, kind, v?: number) {
         v = v ? v : 2;
         if (list.length > 0) {
             for (var i = list.length - 1; i >= 0; i--) {//从小值开始判断
-                if (v < list[i].val) {
+                if (v < list[i].id) {
                     return this.set_card_kind(list[i], kind);
                 }
             }
         }
         return null;
-    };
+    }
 
 
     /**
@@ -246,25 +247,25 @@ export class Ai {
 * 指定牌张数
 * @return
 */
-    min_plane(len, winc) {
+    min_plane(len: number, winc: SendCardInterface) {
         if (this._plane.length > 0) {
             for (var i = this._plane.length - 1; i >= 0; i--) {//从小值开始判断
-                if (winc.val < this._plane[i].val && len <= this._plane[i].cardList.length) {
-                    if (len === this._plane[i].cardList.length) {
+                if (winc.id < this._plane[i].type_value && len <= this._plane[i].cards.length) {
+                    if (len === this._plane[i].cards.length) {
                         return this.set_card_kind(this._plane[i], LordSendCardType.plane);
                     } else {
-                        var valDiff = this._plane[i].val - winc.val,
-                            sizeDiff = (this._plane[i].cardList.length - len) / 3;
+                        var valDiff = this._plane[i].type_value - winc.id,
+                            sizeDiff = (this._plane[i].cards.length - len) / 3;
                         for (var j = 0; j < sizeDiff; j++) {//拆顺
                             if (valDiff > 1) {
                                 for (var k = 0; k < 3; k++) {
-                                    this._plane[i].cardList.shift();
+                                    this._plane[i].cards.shift();
                                 }
                                 valDiff--;
                                 continue;
                             }
                             for (var k = 0; k < 3; k++) {
-                                this._plane[i].cardList.pop();
+                                this._plane[i].cards.pop();
                             }
                         }
                         return this.set_card_kind(this._plane[i], LordSendCardType.plane);
@@ -276,379 +277,416 @@ export class Ai {
     };
 
     /**
+     * 从对子或者单牌中获取一张牌
+     * @param  {array} list [description]
+     * @param  {number} v    需要大过的值
+     * * @param  {number} notEq    对子中不允许出现的值
+     * @return
+     */
+    min_one(v, notEq) {
+        let one = this.min_cards(this._one, LordSendCardType.one, v);
+        let oneFromPairs = this.off_pairs(v, notEq);
+        if (!one) {//没有单根，找对
+            if (oneFromPairs) {
+                this.delete_one(oneFromPairs);
+                return oneFromPairs;
+            } else {
+                return null;
+            }
+        } else {
+            if (one.val > 14) {//保留2和大小王
+                if (oneFromPairs) {
+                    this.delete_one(oneFromPairs);
+                    return oneFromPairs;
+                } else
+                    return null;
+            } else {
+                return one.cards[0];
+            }
+        }
+    };
+
+    /**
  * 跟牌,AI根据上家牌出牌
  * @method function
  * @param  {object} winc 当前牌面最大牌
- * @param  {boolean} isWinnerIsLandlord 当前最大是否是地主
+ * @param  {boolean} isWinneris_lord 当前最大是否是地主
  * @return {number} winnerCardCount 当前最大那家剩余手牌数
  */
-follow (winc, isWinnerIsLandlord, winnerCardCount) {
-    var self = this;
-    self.log();
-    var result = (function () {
-      switch (winc.cardKind) {//判断牌型
-        case G.gameRule.ONE://单牌
-          var one = self.matchCards(self._one, G.gameRule.ONE, winc, isWinnerIsLandlord, winnerCardCount);
-          if (!one) {
-            if (isWinnerIsLandlord || self.player.isLandlord) {
-              for (var i = 0; i < self.cards.length; i++) {
-                if (self.cards[i].val <= 15 && self.cards[i].val > winc.val) {
-                  return {
-                    cardList: self.cards.slice(i, i + 1),
-                    cardKind: G.gameRule.ONE,
-                    size: 1,
-                    val: self.cards[i].val
-                  };
-                }
-              }
-            }
-            if (self.times <= 1 && self._pairs.length > 0 && self._pairs[0].val > 10) {//剩下一对大于10拆牌
-              var c = self.cards.slice(0, 1);
-              if (c[0].val > winc.val) {
-                return {
-                  cardList: c,
-                  cardKind: G.gameRule.ONE,
-                  size: 1,
-                  val: c[0].val
-                };
-              } else {
-                return null;
-              }
-            }
-          }
-          return one;
-        case G.gameRule.PAIRS://对子
-          var pairs = self._pairs.length > 0 ? self.matchCards(self._pairs, G.gameRule.PAIRS, winc, isWinnerIsLandlord, winnerCardCount) : null;
-          if (pairs == null && (isWinnerIsLandlord || self.player.isLandlord)) {//对手需要拆牌大之
-            //从连对中拿对
-            if (self._progressionPairs.length > 0) {
-              for (var i = self._progressionPairs.length - 1; i >= 0; i--) {
-                if (winc.val >= self._progressionPairs[i].val) continue;
-                for (var j = self._progressionPairs[i].cardList.length - 1; j >= 0; j -= 2) {
-                  if (self._progressionPairs[i].cardList[j].val > winc.val) {
-                    var pairsFromPP = self._progressionPairs[i].cardList.splice(j - 1, 2);
-                    return {
-                      cardList: pairsFromPP,
-                      cardKind: G.gameRule.PAIRS,
-                      size: 2,
-                      val: pairsFromPP[0].val
-                    };
-                  }
-                }
-              }
-            } else if (self._three.length > 0) {
-              for (var i = self._three.length - 1; i >= 0; i--) {
-                if (self._three[i].val > winc.val) {
-                  return {
-                    cardList: self._three[i].cardList.slice(0, 2),
-                    cardKind: G.gameRule.PAIRS,
-                    size: 2,
-                    val: self._three[i].val
-                  };
-                }
-              }
-            }
-          }
-          return pairs;
-        case G.gameRule.THREE://三根
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {
-            return null;
-          }
-          return self.matchCards(self._three, G.gameRule.THREE, winc, isWinnerIsLandlord, winnerCardCount);
-  
-        case G.gameRule.THREE_WITH_ONE://三带一
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {
-            return null;
-          }
-          var three = self.minCards(self._three, G.gameRule.THREE, winc.val);
-          if (three) {
-            var one = self.minOne(2, three.val);
-            if (!one) {
-              return null;
-            } else {
-              three.cardList.push(one);
-            }
-            three.cardKind = G.gameRule.THREE_WITH_ONE;
-            three.size = 4;
-          }
-          return three;
-  
-        case G.gameRule.THREE_WITH_PAIRS: //三带一对
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {
-            return null;
-          }
-          var three = self.min_cards(self._three, G.gameRule.THREE, winc.val);
-          if (three) {
-            var pairs = self.minCards(self._pairs, G.gameRule.PAIRS);
-            while (true) {//避免对子三根重叠
-              if (pairs.cardList[0].val === three.val) {
-                pairs = self.minCards(self._pairs, G.gameRule.PAIRS, pairs.cardList[0].val);
-              } else {
-                break;
-              }
-            }
-            if (pairs) {
-              three.cardList = three.cardList.concat(pairs.cardList);
-            } else {
-              return null;
-            }
-            three.cardKind = G.gameRule.THREE_WITH_PAIRS;
-            three.size = 5;
-          }
-          return three;
-  
-        case G.gameRule.PROGRESSION://顺子
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {
-            return null;
-          }
-          if (self._progression.length > 0) {
-            for (var i = self._progression.length - 1; i >= 0; i--) {//从小值开始判断
-              if (winc.val < self._progression[i].val && winc.size <= self._progression[i].cardList.length) {
-                if (winc.size === self._progression[i].cardList.length) {
-                  return self.setCardKind(self._progression[i], G.gameRule.PROGRESSION);
-                } else {
-                  if (self.player.isLandlord || isWinnerIsLandlord) {
-                    var valDiff = self._progression[i].val - winc.val,
-                      sizeDiff = self._progression[i].cardList.length - winc.size;
-                    for (var j = 0; j < sizeDiff; j++) {//拆顺
-                      if (valDiff > 1) {
-                        self._progression[i].cardList.shift();
-                        self._progression[i].val--;
-                        valDiff--;
-                        continue;
-                      }
-                      self._progression[i].cardList.pop();
+    follow(winc: SendCardInterface, isWinneris_lord, winnerCardCount) {
+        const cards = this._ai_player.player_interface.cards;
+        var result = () => {
+            switch (winc.card_kind) {//判断牌型
+                case LordSendCardType.one://单牌
+                    var one = this.match_cards(this._one, LordSendCardType.one, winc, isWinneris_lord, winnerCardCount);
+                    if (!one) {
+                        if (isWinneris_lord || this._ai_player.is_lord) {
+                            for (var i = 0; i < cards.length; i++) {
+                                if (cards[i].id <= 15 && cards[i].id > winc.id) {
+                                    const send_card: SendCardInterface = {
+                                        cards: cards.slice(i, i + 1),
+                                        card_kind: LordSendCardType.one,
+                                        size: 1,
+                                        id: cards[i].id
+                                    };
+                                    return send_card;
+                                }
+                            }
+                        }
+                        if (this.play_times() <= 1 && this._pairs.length > 0 && this._pairs[0].type_value > 10) {//剩下一对大于10拆牌
+                            var c = cards.slice(0, 1);
+                            if (c[0].id > winc.id) {
+                                const send_card: SendCardInterface = {
+                                    cards: c,
+                                    card_kind: LordSendCardType.one,
+                                    size: 1,
+                                    id: cards[i].id
+                                };
+
+                                return send_card;
+                            } else {
+                                return null;
+                            }
+                        }
                     }
-                    return self.setCardKind(self._progression[i], G.gameRule.PROGRESSION);
-                  } else {
-                    return null;
-                  }
-                }
-              }
-            }
-          }
-          return null;
-  
-        case G.gameRule.PROGRESSION_PAIRS://连对
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {
-            return null;
-          }
-          if (self._progressionPairs.length > 0) {
-            for (var i = self._progressionPairs.length - 1; i >= 0; i--) {//从小值开始判断
-              if (winc.val < self._progressionPairs[i].val && winc.size <= self._progressionPairs[i].cardList.length) {
-                if (winc.size === self._progressionPairs[i].cardList.length) {
-                  return self.setCardKind(self._progressionPairs[i], G.gameRule.PROGRESSION_PAIRS);
-                } else {
-                  if (self.player.isLandlord || isWinnerIsLandlord) {
-                    var valDiff = self._progressionPairs[i].val - winc.val,
-                      sizeDiff = (self._progressionPairs[i].cardList.length - winc.size) / 2;
-                    for (var j = 0; j < sizeDiff; j++) {//拆顺
-                      if (valDiff > 1) {
-                        self._progressionPairs[i].cardList.shift();
-                        self._progressionPairs[i].cardList.shift();
-                        valDiff--;
-                        continue;
-                      }
-                      self._progressionPairs[i].cardList.pop();
-                      self._progressionPairs[i].cardList.pop();
+                    return one;
+                case LordSendCardType.double://对子
+                    var pairs = this._pairs.length > 0 ? this.match_cards(this._pairs, LordSendCardType.double, winc, isWinneris_lord, winnerCardCount) : null;
+                    if (pairs == null && (isWinneris_lord || this._ai_player.is_lord)) {//对手需要拆牌大之
+                        //从连对中拿对
+                        if (this._progress_pair.length > 0) {
+                            for (var i = this._progress_pair.length - 1; i >= 0; i--) {
+                                if (winc.id >= this._progress_pair[i].type_value) continue;
+                                for (var j = this._progress_pair[i].cards.length - 1; j >= 0; j -= 2) {
+                                    if (this._progress_pair[i].cards[j].id > winc.id) {
+                                        var pairsFromPP = this._progress_pair[i].cards.splice(j - 1, 2);
+                                        return {
+                                            cards: pairsFromPP,
+                                            cardKind: LordSendCardType.double,
+                                            size: 2,
+                                            val: pairsFromPP[0].id
+                                        };
+                                    }
+                                }
+                            }
+                        } else if (this._three.length > 0) {
+                            for (var i = this._three.length - 1; i >= 0; i--) {
+                                if (this._three[i].type_value > winc.id) {
+                                    const send_card: SendCardInterface = {
+                                        cards: this._three[i].cards.slice(0, 2),
+                                        card_kind: LordSendCardType.double,
+                                        size: 2,
+                                        id: this._three[i].type_value
+                                    };
+
+                                    return send_card;
+                                }
+                            }
+                        }
                     }
-                    return self.setCardKind(self._progressionPairs[i], G.gameRule.PROGRESSION_PAIRS);
-                  } else {
+                    return pairs;
+                case LordSendCardType.three://三根
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {
+                        return null;
+                    }
+                    return this.match_cards(this._three, LordSendCardType.three, winc, isWinneris_lord, winnerCardCount);
+
+                case LordSendCardType.three_with_one://三带一
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {
+                        return null;
+                    }
+                    var three = this.min_cards(this._three, LordSendCardType.three_with_one, winc.id);
+                    if (three) {
+                        var one = this.min_one(2, three.val);
+                        if (!one) {
+                            return null;
+                        } else {
+                            three.cards.push(one);
+                        }
+                        three.cardKind = LordSendCardType.three_with_one;
+                        three.size = 4;
+                    }
+                    return three;
+
+                case LordSendCardType.three_withe_two: //三带一对
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {
+                        return null;
+                    }
+                    var three = this.min_cards(this._three, LordSendCardType.three, winc.id);
+                    if (three) {
+                        var pairs = this.min_cards(this._pairs, LordSendCardType.double);
+                        while (true) {//避免对子三根重叠
+                            if (pairs.cards[0].val === three.val) {
+                                pairs = this.min_cards(this._pairs, LordSendCardType.double, pairs.cards[0].id);
+                            } else {
+                                break;
+                            }
+                        }
+                        if (pairs) {
+                            three.cards = three.cards.concat(pairs.cards);
+                        } else {
+                            return null;
+                        }
+                        three.cardKind = LordSendCardType.three_withe_two;
+                        three.size = 5;
+                    }
+                    return three;
+
+                case LordSendCardType.progression://顺子
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {
+                        return null;
+                    }
+                    if (this._progression.length > 0) {
+                        for (var i = this._progression.length - 1; i >= 0; i--) {//从小值开始判断
+                            if (winc.id < this._progression[i].type_value && winc.size <= this._progression[i].cards.length) {
+                                if (winc.size === this._progression[i].cards.length) {
+                                    return this.set_card_kind(this._progression[i], LordSendCardType.progression);
+                                } else {
+                                    if (this._ai_player.is_lord || isWinneris_lord) {
+                                        var valDiff = this._progression[i].type_value - winc.id,
+                                            sizeDiff = this._progression[i].cards.length - winc.size;
+                                        for (var j = 0; j < sizeDiff; j++) {//拆顺
+                                            if (valDiff > 1) {
+                                                this._progression[i].cards.shift();
+                                                this._progression[i].type_value--;
+                                                valDiff--;
+                                                continue;
+                                            }
+                                            this._progression[i].cards.pop();
+                                        }
+                                        return this.set_card_kind(this._progression[i], LordSendCardType.progression);
+                                    } else {
+                                        return null;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     return null;
-                  }
+
+                case LordSendCardType.progression_pair://连对
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {
+                        return null;
+                    }
+                    if (this._progress_pair.length > 0) {
+                        for (var i = this._progress_pair.length - 1; i >= 0; i--) {//从小值开始判断
+                            if (winc.id < this._progress_pair[i].type_value && winc.size <= this._progress_pair[i].cards.length) {
+                                if (winc.size === this._progress_pair[i].cards.length) {
+                                    return this.set_card_kind(this._progress_pair[i], LordSendCardType.progression_pair);
+                                } else {
+                                    if (this._ai_player.is_lord || isWinneris_lord) {
+                                        var valDiff = this._progress_pair[i].type_value - winc.id,
+                                            sizeDiff = (this._progress_pair[i].cards.length - winc.size) / 2;
+                                        for (var j = 0; j < sizeDiff; j++) {//拆顺
+                                            if (valDiff > 1) {
+                                                this._progress_pair[i].cards.shift();
+                                                this._progress_pair[i].cards.shift();
+                                                valDiff--;
+                                                continue;
+                                            }
+                                            this._progress_pair[i].cards.pop();
+                                            this._progress_pair[i].cards.pop();
+                                        }
+                                        return this.set_card_kind(this._progress_pair[i], LordSendCardType.progression_pair);
+                                    } else {
+                                        return null;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    return null;
+
+                case LordSendCardType.plane://三顺
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {
+                        return null;
+                    }
+                    return this.min_cards(winc.size, winc);
+                case LordSendCardType.plane_with_one: //飞机带单
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {
+                        return null;
+                    }
+                    var cnt = winc.size / 4,
+                        plane = this.min_plane(cnt * 3, winc);
+                    if (plane) {
+                        var currOneVal = 2;
+                        for (var i = 0; i < cnt; i++) {
+                            var one = this.min_one(currOneVal, plane.val);//拿一张单牌
+                            if (one) {
+                                plane.cards.push(one);
+                                currOneVal = one.val;
+                            } else {
+                                return null;
+                            }
+                        }
+                        plane.cardKind = LordSendCardType.plane_with_one;
+                        plane.size = plane.cards.length;
+                    }
+                    return plane;
+                case LordSendCardType.plane_with_two://飞机带对
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {
+                        return null;
+                    }
+                    var cnt = winc.size / 5,
+                        plane = this.min_plane(cnt * 3, winc);
+                    if (plane) {
+                        var currPairsVal = 2;
+                        for (var i = 0; i < cnt; i++) {
+                            var pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
+                            if (pairs) {
+                                plane.cards = plane.cards.concat(pairs.cards);
+                                currPairsVal = pairs.val;
+                            } else {
+                                return null;
+                            }
+                        }
+                        plane.cardKind = LordSendCardType.plane_with_two;
+                        plane.size = plane.cards.length;
+                    }
+                    return plane;
+
+                case LordSendCardType.boom://炸弹
+                    if (!isWinneris_lord && !this._ai_player.is_lord) {//同是农民不压炸弹
+                        return null;
+                    }
+                    var bomb = this.min_cards(this._boom, LordSendCardType.boom, winc.id);
+                    if (bomb) {
+                        return bomb;
+                    } else {
+                        if (this._king_bomb.length > 0) {
+                            if ((isWinneris_lord && winnerCardCount < 6)
+                                || (this._ai_player.is_lord && this._ai_player.player_interface.cards.length < 6)) {
+                                return this.set_card_kind(this._king_bomb[0], LordSendCardType.king_boom);
+                            }
+                        }
+                        return null;
+                    }
+                case LordSendCardType.four_with_two:
+                    return this.min_cards(this._boom, LordSendCardType.boom, winc.id);
+                case LordSendCardType.four_withe_tow_pairs:
+                    return this.min_cards(this._boom, LordSendCardType.boom, winc.id);
+                case LordSendCardType.king_boom:
+                    return null;
+                default:
+                    return null;
+            }
+        };
+
+        result();
+
+        //如果有炸弹，根据牌数量确定是否出
+        if (result) {
+            return result;
+        } else if (winc.card_kind != LordSendCardType.boom && winc.card_kind != LordSendCardType.king_boom
+            && (this._boom.length > 0 || this._king_bomb.length > 0)) {
+            if ((isWinneris_lord && winnerCardCount < 5)
+                || (this._ai_player.is_lord && (this._ai_player.player_interface.cards.length < 5 || (this._ai_player.next_player.player_interface.cards.length < 5 || this._ai_player.next_player.next_player.player_interface.cards.length < 6)))
+                || this.play_times() <= 2) {//自己只有两手牌或只有炸弹必出炸弹
+                if (this._boom.length > 0) {
+                    return this.min_cards(this._boom, LordSendCardType.boom);
+                } else {
+                    return this.set_card_kind(this._king_bomb[0], LordSendCardType.king_boom);
                 }
-              }
             }
-          }
-          return null;
-  
-        case G.gameRule.PLANE://三顺
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {
-            return null;
-          }
-          return self.minPlane(winc.size, winc);
-        case G.gameRule.PLANE_WITH_ONE: //飞机带单
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {
-            return null;
-          }
-          var cnt = winc.size / 4,
-            plane = self.minPlane(cnt * 3, winc);
-          if (plane) {
-            var currOneVal = 2;
-            for (var i = 0; i < cnt; i++) {
-              var one = self.minOne(currOneVal, plane.val);//拿一张单牌
-              if (one) {
-                plane.cardList.push(one);
-                currOneVal = one.val;
-              } else {
-                return null;
-              }
-            }
-            plane.cardKind = G.gameRule.PLANE_WITH_ONE;
-            plane.size = plane.cardList.length;
-          }
-          return plane;
-        case G.gameRule.PLANE_WITH_PAIRS://飞机带对
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {
-            return null;
-          }
-          var cnt = winc.size / 5,
-            plane = self.minPlane(cnt * 3, winc);
-          if (plane) {
-            var currPairsVal = 2;
-            for (var i = 0; i < cnt; i++) {
-              var pairs = self.minCards(self._pairs, G.gameRule.PAIRS, currPairsVal);//拿一对
-              if (pairs) {
-                plane.cardList = plane.cardList.concat(pairs.cardList);
-                currPairsVal = pairs.val;
-              } else {
-                return null;
-              }
-            }
-            plane.cardKind = G.gameRule.PLANE_WITH_PAIRS;
-            plane.size = plane.cardList.length;
-          }
-          return plane;
-  
-        case G.gameRule.BOMB://炸弹
-          if (!isWinnerIsLandlord && !self.player.isLandlord) {//同是农民不压炸弹
-            return null;
-          }
-          var bomb = self.minCards(self._bomb, G.gameRule.BOMB, winc.val);
-          if (bomb) {
-            return bomb;
-          } else {
-            if (self._kingBomb.length > 0) {
-              if ((isWinnerIsLandlord && winnerCardCount < 6)
-                || (self.player.isLandlord && self.player.cardList.length < 6)) {
-                return self.setCardKind(self._kingBomb[0], G.gameRule.KING_BOMB);
-              }
-            }
-            return null;
-          }
-        case G.gameRule.FOUR_WITH_TWO:
-          return self.minCards(self._bomb, G.gameRule.BOMB, winc.val);
-        case G.gameRule.FOUR_WITH_TWO_PAIRS:
-          return self.minCards(self._bomb, G.gameRule.BOMB, winc.val);
-        case G.gameRule.KING_BOMB:
-          return null;
-        default:
-          return null;
-      }
-    })();
-  
-    //如果有炸弹，根据牌数量确定是否出
-    if (result) {
-      return result;
-    } else if (winc.cardKind != G.gameRule.BOMB && winc.cardKind != G.gameRule.KING_BOMB
-      && (self._bomb.length > 0 || self._kingBomb.length > 0)) {
-      if ((isWinnerIsLandlord && winnerCardCount < 5)
-        || (self.player.isLandlord && (self.player.cardList.length < 5 || (self.player.nextPlayer.cardList.length < 5 || self.player.nextPlayer.nextPlayer.cardList.length < 6)))
-        || self.times() <= 2) {//自己只有两手牌或只有炸弹必出炸弹
-        if (self._bomb.length > 0) {
-          return self.minCards(self._bomb, G.gameRule.BOMB);
         } else {
-          return self.setCardKind(self._kingBomb[0], G.gameRule.KING_BOMB);
+            return null;
         }
-      }
-    } else {
-      return null;
-    }
-  };
+    };
 
     //出牌将单根放最后出牌
-   play_one_at_the_end(landlordCardsCnt) {
-    var self = this;
-    if (self._progression.length > 0) {//出顺子
-      return self.minCards(self._progression, G.gameRule.PROGRESSION);
-    }
-    else if (self._plane.length > 0) {//三顺
-      var plane = self.minCards(self._plane, G.gameRule.PLANE);
-      var len = plane.cardList.length / 3;
-      if (self._one.length > len && self._pairs.length > len) {
-        if (self._one.length >= self._pairs.length) {//单根多带单
-          var currOneVal = 2;
-          for (var i = 0; i < len; i++) {
-            var one = self.minOne(currOneVal, plane.val);//拿一张单牌
-            plane.cardList.push(one);
-            currOneVal = one.val;
-          }
-          return self.setCardKind(plane, G.gameRule.PLANE_WITH_ONE);
-        } else {
-          var currPairsVal = 2;
-          for (var i = 0; i < len; i++) {
-            var pairs = self.minCards(self._pairs, G.gameRule.PAIRS, currPairsVal);//拿一对
-            plane.cardList = plane.cardList.concat(pairs.cardList);
-            currPairsVal = pairs.val;
-          }
-          return self.setCardKind(plane, G.gameRule.PLANE_WITH_PAIRS);
+    play_one_at_the_end(landlordCardsCnt) {
+        const cards = this._ai_player.player_interface.cards;
+        var self = this;
+        if (this._progression.length > 0) {//出顺子
+            return this.min_cards(this._progression, LordSendCardType.progression);
         }
-      } else if (self._pairs.length > len) {
-        var currPairsVal = 2;
-        for (var i = 0; i < len; i++) {
-          var pairs = self.minCards(self._pairs, G.gameRule.PAIRS, currPairsVal);//拿一对
-          plane.cardList = plane.cardList.concat(pairs.cardList);
-          currPairsVal = pairs.val;
+        else if (this._plane.length > 0) {//三顺
+            var plane = this.min_cards(this._plane, LordSendCardType.plane);
+            var len = plane.cards.length / 3;
+            if (this._one.length > len && this._pairs.length > len) {
+                if (this._one.length >= this._pairs.length) {//单根多带单
+                    var currOneVal = 2;
+                    for (var i = 0; i < len; i++) {
+                        var one = this.min_one(currOneVal, plane.val);//拿一张单牌
+                        plane.cards.push(one);
+                        currOneVal = one.val;
+                    }
+                    return this.set_card_kind(plane, LordSendCardType.plane_with_one);
+                } else {
+                    var currPairsVal = 2;
+                    for (var i = 0; i < len; i++) {
+                        var pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
+                        plane.cards = plane.cards.concat(pairs.cards);
+                        currPairsVal = pairs.val;
+                    }
+                    return this.set_card_kind(plane, LordSendCardType.plane_with_two);
+                }
+            } else if (this._pairs.length > len) {
+                var currPairsVal = 2;
+                for (var i = 0; i < len; i++) {
+                    var pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
+                    plane.cards = plane.cards.concat(pairs.cards);
+                    currPairsVal = pairs.val;
+                }
+                return this.set_card_kind(plane, LordSendCardType.plane_with_two);
+            } else if (this._one.length > len) {
+                var currOneVal = 2;
+                for (var i = 0; i < len; i++) {
+                    var one = this.min_one(currOneVal, plane.val);//拿一张单牌
+                    plane.cards.push(one);
+                    currOneVal = one.val;
+                }
+                return this.set_card_kind(plane, LordSendCardType.plane_with_one);
+            } else {
+                return this.set_card_kind(plane, LordSendCardType.plane);
+            }
         }
-        return self.setCardKind(plane, G.gameRule.PLANE_WITH_PAIRS);
-      } else if (self._one.length > len) {
-        var currOneVal = 2;
-        for (var i = 0; i < len; i++) {
-          var one = self.minOne(currOneVal, plane.val);//拿一张单牌
-          plane.cardList.push(one);
-          currOneVal = one.val;
+        else if (this._progress_pair.length > 0) {//出连对
+            return this.min_cards(this._progress_pair, LordSendCardType.progression_pair);
         }
-        return self.setCardKind(plane, G.gameRule.PLANE_WITH_ONE);
-      } else {
-        return self.setCardKind(plane, G.gameRule.PLANE);
-      }
-    }
-    else if (self._progressionPairs.length > 0) {//出连对
-      return self.minCards(self._progressionPairs, G.gameRule.PROGRESSION_PAIRS);
-    }
-    else if (self._three.length > 0) {//三根、三带一、三带对
-      var three = self.minCards(self._three, G.gameRule.THREE);
-      var len = three.cardList.length / 3;
-      if (self._one.length >= 0) {//单根多带单
-        var one = self.minOne(currOneVal, three.val);//拿一张单牌
-        three.cardList.push(one);
-        return self.setCardKind(three, G.gameRule.THREE_WITH_ONE);
-      } else if (self._pairs.length > 0) {
-        var pairs = self.minCards(self._pairs, G.gameRule.PAIRS, currPairsVal);//拿一对
-        three.cardList = three.cardList.concat(pairs.cardList);
-        return self.setCardKind(three, G.gameRule.THREE_WITH_PAIRS);
-      } else {
-        return self.setCardKind(three, G.gameRule.THREE);
-      }
-    }
-    else if (self._pairs.length > 0) {//对子
-      if ((self.player.isLandlord && (self.player.nextPlayer.cardList.length === 2 || self.player.nextPlayer.nextPlayer.cardList.length === 2))
-        || (!self.player.isLandlord && landlordCardsCnt === 2))
-        return self.maxCards(self._pairs, G.gameRule.PAIRS);
-      else
-        return self.minCards(self._pairs, G.gameRule.PAIRS);
-    }
-    else if (self._one.length > 0) {//出单牌
-      if ((self.player.isLandlord && (self.player.nextPlayer.cardList.length <= 2 || self.player.nextPlayer.nextPlayer.cardList.length <= 2))
-        || (!self.player.isLandlord && landlordCardsCnt <= 2))
-        return self.maxCards(self._one, G.gameRule.ONE);
-      else
-        return self.minCards(self._one, G.gameRule.ONE);
-    } else {//都计算无结果出最小的那张牌
-      var one = null;
-      if ((self.player.isLandlord && (self.player.nextPlayer.cardList.length <= 2 || self.player.nextPlayer.nextPlayer.cardList.length <= 2))
-        || (!self.player.isLandlord && landlordCardsCnt <= 2))
-        one = self.cards.slice(-1);
-      else
-        one = self.cards.slice(0, 1);
-      return {
-        size: 1,
-        cardKind: G.gameRule.ONE,
-        cardList: one,
-        val: one[0].val
-      };
-    }
-  };
+        else if (this._three.length > 0) {//三根、三带一、三带对
+            var three = this.min_cards(this._three, LordSendCardType.three);
+            var len = three.cards.length / 3;
+            if (this._one.length >= 0) {//单根多带单
+                var one = this.min_one(currOneVal, three.val);//拿一张单牌
+                three.cards.push(one);
+                return this.set_card_kind(three, LordSendCardType.three_with_one);
+            } else if (this._pairs.length > 0) {
+                var pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
+                three.cards = three.cards.concat(pairs.cards);
+                return this.set_card_kind(three, LordSendCardType.three_withe_two);
+            } else {
+                return this.set_card_kind(three, LordSendCardType.three);
+            }
+        }
+        else if (this._pairs.length > 0) {//对子
+            if ((this._ai_player.is_lord && (this._ai_player.next_player.player_interface.cards.length === 2 || this._ai_player.next_player.next_player.player_interface.cards.length === 2))
+                || (!this._ai_player.is_lord && landlordCardsCnt === 2))
+                return this.max_cards(this._pairs, LordSendCardType.double);
+            else
+                return this.min_cards(this._pairs, LordSendCardType.double);
+        }
+        else if (this._one.length > 0) {//出单牌
+            if ((this._ai_player.is_lord && (this._ai_player.next_player.player_interface.cards.length <= 2 || this._ai_player.next_player.next_player.player_interface.cards.length <= 2))
+                || (!this._ai_player.is_lord && landlordCardsCnt <= 2))
+                return this.max_cards(this._one, LordSendCardType.one);
+            else
+                return this.min_cards(this._one, LordSendCardType.one);
+        } else {//都计算无结果出最小的那张牌
+            var one = null;
+            if ((this._ai_player.is_lord && (this._ai_player.next_player.player_interface.cards.length <= 2 || this._ai_player.next_player.next_player.player_interface.cards.length <= 2))
+                || (!this._ai_player.is_lord && landlordCardsCnt <= 2))
+                one = cards.slice(-1);
+            else
+                one = cards.slice(0, 1);
+            return {
+                size: 1,
+                cardKind: LordSendCardType.one,
+                cards: one,
+                val: one[0].val
+            };
+        }
+    };
 
     /**
     * 出牌,默认出包含最小牌的牌
@@ -657,155 +695,154 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
     * @return {array} [description]
     */
     play(landlordCardsCnt) {
-
         const cards = this._ai_player.player_interface.cards;
         var cardsWithMin = (idx) => {
             var minCard = cards[idx];
             //在单根里找
             for (var i = 0; i < this._one.length; i++) {
-                if (this._one[i].id === minCard.id) {
-                    return this.minCards(this._one, G.gameRule.ONE);
+                if (this._one[i].type_value === minCard.id) {
+                    return this.min_cards(this._one, LordSendCardType.one);
                 }
             }
             //对子里找
             for (let i = 0; i < this._pairs.length; i++) {
-                if (this._pairs[i].id === minCard.id) {
-                    return self.minCards(this._pairs, G.gameRule.PAIRS);
+                if (this._pairs[i].type_value === minCard.id) {
+                    return this.min_cards(this._pairs, LordSendCardType.double);
                 }
             }
             //三根里找
             for (let i = 0; i < this._three.length; i++) {
-                if (this._three[i].id === minCard.id) {
-                    return self.minCards(this._three, G.gameRule.THREE);
+                if (this._three[i].type_value === minCard.id) {
+                    return this.min_cards(this._three, LordSendCardType.three);
                 }
             }
             //炸弹里找
-            for (let i = 0; i < self._bomb.length; i++) {
-                if (self._bomb[i].val === minCard.val) {
-                    return self.minCards(self._bomb, G.gameRule.BOMB);
+            for (let i = 0; i < this._boom.length; i++) {
+                if (this._boom[i].type_value === minCard.id) {
+                    return this.min_cards(this._boom, LordSendCardType.boom);
                 }
             }
             //三顺里找
-            for (let i = 0; i < self._plane.length; i++) {
-                for (var j = 0; j < self._plane[i].cardList.length; j++) {
-                    if (self._plane[i].cardList[j].val === minCard.val && self._plane[i].cardList[j].shape === minCard.shape) {
-                        return self.minCards(self._plane, G.gameRule.PLANE);
+            for (let i = 0; i < this._plane.length; i++) {
+                for (var j = 0; j < this._plane[i].cards.length; j++) {
+                    if (this._plane[i].cards[j].id === minCard.id && this._plane[i].cards[j].card_type === minCard.card_type) {
+                        return this.min_cards(this._plane, LordSendCardType.plane);
                     }
                 }
             }
             //顺子里找
-            for (let i = 0; i < self._progression.length; i++) {
-                for (var j = 0; j < self._progression[i].cardList.length; j++) {
-                    if (self._progression[i].cardList[j].val === minCard.val && self._progression[i].cardList[j].shape === minCard.shape) {
-                        return self.minCards(self._progression, G.gameRule.PROGRESSION);
+            for (let i = 0; i < this._progression.length; i++) {
+                for (var j = 0; j < this._progression[i].cards.length; j++) {
+                    if (this._progression[i].cards[j].id === minCard.id && this._progression[i].cards[j].card_type === minCard.card_type) {
+                        return this.min_cards(this._progression, LordSendCardType.progression);
                     }
                 }
             }
             //连对里找
-            for (let i = 0; i < self._progressionPairs.length; i++) {
-                for (var j = 0; j < self._progressionPairs[i].cardList.length; j++) {
-                    if (self._progressionPairs[i].cardList[j].val === minCard.val && self._progressionPairs[i].cardList[j].shape === minCard.shape) {
-                        return self.minCards(self._progressionPairs, G.gameRule.PROGRESSION_PAIRS);
+            for (let i = 0; i < this._progress_pair.length; i++) {
+                for (var j = 0; j < this._progress_pair[i].cards.length; j++) {
+                    if (this._progress_pair[i].cards[j].id === minCard.id && this._progress_pair[i].cards[j].card_type === minCard.card_type) {
+                        return this.min_cards(this._progress_pair, LordSendCardType.progression_pair);
                     }
                 }
             }
-            if (self._kingBomb.length > 0) {
-                return self.minCards(self._kingBomb, G.gameRule.KING_BOMB);
+            if (this._king_bomb.length > 0) {
+                return this.min_cards(this._king_bomb, LordSendCardType.king_boom);
             }
         };
 
-        for (var i = self.cards.length - 1; i >= 0; i--) {
+        for (var i = cards.length - 1; i >= 0; i--) {
             var r = cardsWithMin(i);
-            if (r.cardKind === G.gameRule.ONE) {
-                if (self._plane.length > 0) {//三顺
-                    var plane = self.minCards(self._plane, G.gameRule.PLANE);
-                    var len = plane.cardList.length / 3;
+            if (r.cardKind === LordSendCardType.one) {
+                if (this._plane.length > 0) {//三顺
+                    var plane = this.min_cards(this._plane, LordSendCardType.plane);
+                    var len = plane.cards.length / 3;
                     var currOneVal = 2;
                     for (var i = 0; i < len; i++) {
-                        var one = self.minOne(currOneVal, plane.val);//拿一张单牌
-                        plane.cardList.push(one);
+                        var one = this.min_one(currOneVal, plane.val);//拿一张单牌
+                        plane.cards.push(one);
                         currOneVal = one.val;
                     }
-                    return self.setCardKind(plane, G.gameRule.PLANE_WITH_ONE);
+                    return this.set_card_kind(plane, LordSendCardType.plane_with_one);
                 }
-                else if (self._three.length > 0) {//三带一
-                    var three = self.minCards(self._three, G.gameRule.THREE);
-                    var len = three.cardList.length / 3;
-                    var one = self.minOne(currOneVal, three.val);//拿一张单牌
-                    three.cardList.push(one);
+                else if (this._three.length > 0) {//三带一
+                    var three = this.min_cards(this._three, LordSendCardType.three);
+                    var len = three.cards.length / 3;
+                    var one = this.min_one(currOneVal, three.val);//拿一张单牌
+                    three.cards.push(one);
                     if (three.val < 14)
-                        return self.setCardKind(three, G.gameRule.THREE_WITH_ONE);
+                        return this.set_card_kind(three, LordSendCardType.three_with_one);
                 }
-                if (self.player.isLandlord) {//坐庄打法
-                    if (self.player.isLandlord) {//坐庄打法
-                        if (self.player.nextPlayer.cardList.length <= 2 || self.player.nextPlayer.nextPlayer.cardList.length <= 2)
-                            return self.playOneAtTheEnd(landlordCardsCnt);
+                if (this._ai_player.is_lord) {//坐庄打法
+                    if (this._ai_player.is_lord) {//坐庄打法
+                        if (this._ai_player.next_player.player_interface.cards.length <= 2 || this._ai_player.next_player.next_player.player_interface.cards.length <= 2)
+                            return this.play_one_at_the_end(landlordCardsCnt);
                         else
-                            return self.minCards(self._one, G.gameRule.ONE);
+                            return this.min_cards(this._one, LordSendCardType.one);
                     }
                 } else {//偏家打法
                     if (landlordCardsCnt <= 2)
-                        return self.playOneAtTheEnd(landlordCardsCnt);
+                        return this.play_one_at_the_end(landlordCardsCnt);
                     else
-                        return self.minCards(self._one, G.gameRule.ONE);
+                        return this.min_cards(this._one, LordSendCardType.one);
                 }
-            } else if (r.cardKind === G.gameRule.THREE) {
-                var three = self.minCards(self._three, G.gameRule.THREE);
-                var len = three.cardList.length / 3;
-                if (self._one.length > 0) {//单根多带单
-                    var one = self.minOne(currOneVal, three.val);//拿一张单牌
-                    three.cardList.push(one);
-                    return self.setCardKind(three, G.gameRule.THREE_WITH_ONE);
-                } else if (self._pairs.length > 0) {
-                    var pairs = self.minCards(self._pairs, G.gameRule.PAIRS, currPairsVal);//拿一对
-                    three.cardList = three.cardList.concat(pairs.cardList);
-                    return self.setCardKind(three, G.gameRule.THREE_WITH_PAIRS);
+            } else if (r.cardKind === LordSendCardType.three) {
+                var three = this.min_cards(this._three, LordSendCardType.three);
+                var len = three.cards.length / 3;
+                if (this._one.length > 0) {//单根多带单
+                    var one = this.min_one(currOneVal, three.val);//拿一张单牌
+                    three.cards.push(one);
+                    return this.set_card_kind(three, LordSendCardType.three_with_one);
+                } else if (this._pairs.length > 0) {
+                    var pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
+                    three.cards = three.cards.concat(pairs.cards);
+                    return this.set_card_kind(three, LordSendCardType.three_withe_two);
                 } else {
-                    return self.setCardKind(three, G.gameRule.THREE);
+                    return this.set_card_kind(three, LordSendCardType.three);
                 }
-            } else if (r.cardKind === G.gameRule.PLANE) {
-                var plane = self.minCards(self._plane, G.gameRule.PLANE);
-                var len = plane.cardList.length / 3;
-                if (self._one.length > len && self._pairs.length > len) {
-                    if (self._one.length >= self._pairs.length) {//单根多带单
+            } else if (r.card_kind === LordSendCardType.plane) {
+                var plane = this.min_cards(this._plane, LordSendCardType.plane);
+                var len = plane.cards.length / 3;
+                if (this._one.length > len && this._pairs.length > len) {
+                    if (this._one.length >= this._pairs.length) {//单根多带单
                         var currOneVal = 2;
                         for (var i = 0; i < len; i++) {
-                            var one = self.minOne(currOneVal, plane.val);//拿一张单牌
-                            plane.cardList.push(one);
-                            currOneVal = one.val;
+                            var one = this.min_one(currOneVal, plane.id);//拿一张单牌
+                            plane.cards.push(one);
+                            currOneVal = one.id;
                         }
-                        return self.setCardKind(plane, G.gameRule.PLANE_WITH_ONE);
+                        return this.set_card_kind(plane,  LordSendCardType.plane_with_two);
                     } else {
                         var currPairsVal = 2;
                         for (var i = 0; i < len; i++) {
-                            var pairs = self.minCards(self._pairs, G.gameRule.PAIRS, currPairsVal);//拿一对
-                            plane.cardList = plane.cardList.concat(pairs.cardList);
-                            currPairsVal = pairs.val;
+                            var pairs = this.min_cards(this._pairs, LordSendCardType.plane_with_two, currPairsVal);//拿一对
+                            plane.cards = plane.cards.concat(pairs.cards);
+                            currPairsVal = pairs.id;
                         }
-                        return self.setCardKind(plane, G.gameRule.PLANE_WITH_PAIRS);
+                        return this.set_card_kind(plane,  LordSendCardType.plane_with_two);
                     }
-                } else if (self._pairs.length > len) {
+                } else if (this._pairs.length > len) {
                     var currPairsVal = 2;
                     for (var i = 0; i < len; i++) {
-                        var pairs = self.minCards(self._pairs, G.gameRule.PAIRS, currPairsVal);//拿一对
-                        plane.cardList = plane.cardList.concat(pairs.cardList);
-                        currPairsVal = pairs.val;
+                        var pairs = this.min_cards(this._pairs, LordSendCardType.plane_with_two, currPairsVal);//拿一对
+                        plane.cards = plane.cards.concat(pairs.cards);
+                        currPairsVal = pairs.id;
                     }
-                    return self.setCardKind(plane, G.gameRule.PLANE_WITH_PAIRS);
-                } else if (self._one.length > len) {
+                    return this.set_card_kind(plane,  LordSendCardType.plane_with_two);
+                } else if (this._one.length > len) {
                     var currOneVal = 2;
                     for (var i = 0; i < len; i++) {
-                        var one = self.minOne(currOneVal, plane.val);//拿一张单牌
-                        plane.cardList.push(one);
-                        currOneVal = one.val;
+                        var one = this.min_one(currOneVal, plane.id);//拿一张单牌
+                        plane.cards.push(one);
+                        currOneVal = one.id;
                     }
-                    return self.setCardKind(plane, G.gameRule.PLANE_WITH_ONE);
+                    return this.set_card_kind(plane, LordSendCardType.plane_with_one);
                 } else {
-                    return self.setCardKind(plane, G.gameRule.PLANE);
+                    return this.set_card_kind(plane, LordSendCardType.plane);
                 }
-            } else if (r.cardKind === G.gameRule.BOMB && self.times() === 1) {
+            } else if (r.card_kind === LordSendCardType.boom && this.play_times() === 1) {
                 return r;
-            } else if (r.cardKind === G.gameRule.BOMB && self.times() != 1) {
+            } else if (r.card_kind === LordSendCardType.boom && this.play_times() != 1) {
                 continue;
             } else {
                 return r;
@@ -822,7 +859,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
     prompt(winc: SendCardInterface) {
         const cards = this._ai_player.player_interface.cards;
         let stat = this.card_rule.val_count(cards);
-        // self.log();
+        // this.log();
         if (winc) {//跟牌
             var promptList = [];
             /**
@@ -841,21 +878,22 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                     }
                 }
                 st.sort(this.prompt_sort);
+
                 //加入各个符合值的单牌
                 for (let i = 0; i < st.length; i++) {
                     const val = st[i].val
-                    const cards = []
-                    const cardList = cards;
-                    for (let j = cardList.length - 1; j >= 0; j--) {
-                        if (cardList[j].val === val) {
-                            if (cards.length < c) {
-                                cards.push(cardList[j])
+                    const t_cards = []
+                  
+                    for (let j = cards.length - 1; j >= 0; j--) {
+                        if (cards[j].id === val) {
+                            if (t_cards.length < c) {
+                                t_cards.push(cards[j])
                             } else {
                                 break
                             }
                         }
                     }
-                    cards.length && result.push(cards)
+                    t_cards.length && result.push(t_cards)
                 }
                 return result;
             };
@@ -1026,7 +1064,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
             }
             return promptList;
         } else {//出牌
-            var promptList = [
+            let promptList = [
                 ...this._one, // 单牌
                 ...this._pairs, // 对子
                 ...this._progress_pair, // 连对
@@ -1035,21 +1073,15 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                 ...this._three, // 三根
                 ...this._boom, // 炸弹
                 ...this._king_bomb // 王炸
-            ].map(a => a.cardList && a.cardList).filter(a => a);
-            // for (var i = stat.length - 1; i >= 0; i--) {
-            //   if (i != 0) {
-            //     promptList.push(self.cards.splice(self.cards.length - stat[i].count, self.cards.length - 1));
-            //   } else {
-            //     promptList.push(self.cards);
-            //   }
-            // }
+            ].map(a => a.cards && a.cards).filter(a => a);
+           
             return promptList;
         }
     };
 
 
 
-    
+
     /**
      * 拆对
      * @param  {number} v 要大过的值
@@ -1058,18 +1090,18 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
      */
     off_pairs(v, notEq) {
         var self = this,
-            pairs = self.minCards(self._pairs, G.gameRule.PAIRS, v);
+            pairs = this.min_cards(this._pairs,LordSendCardType.double, v);
         if (pairs) {
             while (true) {
-                if (pairs.cardList[0].val === notEq) {
-                    pairs = self.minCards(self._pairs, G.gameRule.PAIRS, pairs.cardList[0].val);
+                if (pairs.cards[0].id === notEq) {
+                    pairs = this.min_cards(this._pairs, LordSendCardType.double, pairs.cards[0].id);
                 } else {
                     break;
                 }
             }
         }
 
-        return pairs ? pairs.cardList[0] : null;
+        return pairs ? pairs.cards[0] : null;
     };
 
     //出牌排序
@@ -1110,11 +1142,11 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
 
     /**
     * 判断给定牌中的连对
-    * @method judgeProgressionPairs
+    * @method judgeprogressionPairs
     * @param  {[array]}         cards 指定的牌
     */
-    judge_progression_pairs(cards: card_list) {
-        var save_progression_pairs = (proList) => {
+    judge_progression_pair(cards: card_list) {
+        var save_progression_pair = (proList) => {
             var progressionPairs = [];
             for (var i = proList.length - 1; i >= 0; i--) {//除去已经被取走的牌
                 for (var j = 0; j < cards.length; j++) {
@@ -1147,7 +1179,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                     proList.push(stat[i].id);
                 } else {
                     if (proList.length >= 3) {//已经有连对，先保存
-                        //saveProgressionPairs(proList);
+                        //saveprogressionPairs(proList);
                         //proList = [];
                         break;
                     } else {
@@ -1158,8 +1190,8 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                 }
             }
             if (proList.length >= 3) {//有顺子，保存
-                save_progression_pairs(proList);
-                this.judge_progression_pairs(cards);
+                save_progression_pair(proList);
+                this.judge_progression_pair(cards);
             }
         }
     };
@@ -1167,13 +1199,13 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
 
     /**
     * 判断给定牌中的顺子(五连)
-    * @method judgeProgression
+    * @method judgeprogression
     * @param  {[array]}         cards 指定的牌
     */
     judge_progression(cards: card_list) {
         var self = this;
 
-        var saveProgression = function (proList) {
+        var saveprogression = function (proList) {
             var progression = [];
             for (var j = 0; j < proList.length; j++) {
                 progression.push(proList[j].obj);
@@ -1184,7 +1216,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                 cards: progression,
             }
 
-            self._progression.push(ai_card_type);
+            this._progression.push(ai_card_type);
             for (var k = proList.length - 1; k >= 0; k--) {//除去已经被取走的牌
                 cards.splice(proList[k].fromIndex, 1);
             }
@@ -1207,7 +1239,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                     continue;
                 } else {
                     if (proList.length >= 5) {//已经有顺子，先保存
-                        //saveProgression(proList);
+                        //saveprogression(proList);
                         //proList = [];
                         break;
                     } else {
@@ -1218,7 +1250,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                 }
             }
             if (proList.length === 5) {//有顺子，保存
-                saveProgression(proList);
+                saveprogression(proList);
                 this.judge_progression(cards);//再次判断顺子
             } else {
                 this.judge_progression(cards);
@@ -1241,7 +1273,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                     type_value: list[0].type_value,
                     cards: list,
                 }
-                self._three.push(ai_card_type);
+                this._three.push(ai_card_type);
             }
         }
     };
@@ -1267,7 +1299,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
                     if (proList.length > 1) {//已经有三顺，先保存
                         var planeCards = [];
                         for (var j = 0; j < proList.length; j++) {
-                            planeCards = planeCards.concat(proList[j].obj.cardList);
+                            planeCards = planeCards.concat(proList[j].obj.cards);
                         }
                         const ai_card_type: AICardType = {
                             type_value: proList[0].obj.type_value,
@@ -1289,7 +1321,7 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
             if (proList.length > 1) {
                 var planeCards = [];
                 for (var j = 0; j < proList.length; j++) {
-                    planeCards = planeCards.concat(proList[j].obj.cardList);
+                    planeCards = planeCards.concat(proList[j].obj.cards);
                 }
                 const ai_card_type: AICardType = {
                     type_value: proList[0].obj.type_value,
@@ -1319,10 +1351,11 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
     /*
     删掉一张牌并重新分析
  */
-    delete_one(card) {
+    delete_one(card: LordCardInterface) {
+        const cards = this._ai_player.player_interface.cards;
         for (var i = 0; i < this._ai_player.player_interface.cards.length; i++) {
-            if (this.cards[i].val === card.val && this.cards[i].shape === card.shape) {
-                this.cards.splice(i, 1);
+            if (cards[i].id === card.id && cards[i].card_type === card.card_type) {
+                cards.splice(i, 1);
             }
         }
         this.analyse();
@@ -1334,24 +1367,24 @@ follow (winc, isWinnerIsLandlord, winnerCardCount) {
    * @return {[nmber]} 所评得分
    */
     judge_score() {
-        var self = this,
-            score = 0;
-        score += self._bomb.length * 6;//有炸弹加六分
-        if (self._kingBomb.length > 0) {//王炸8分
+        const cards = this._ai_player.player_interface.cards;
+        var score = 0;
+        score += this._boom.length * 6;//有炸弹加六分
+        if (this._king_bomb.length > 0) {//王炸8分
             score += 8;
         } else {
-            if (self.cards[0].val === 17) {
+            if (cards[0].id === 17) {
                 score += 4;
-            } else if (self.cards[0].val === 16) {
+            } else if (cards[0].id === 16) {
                 score += 3;
             }
         }
-        for (var i = 0; i < self.cards.length; i++) {
-            if (self.cards[i].val === 15) {
+        for (var i = 0; i < cards.length; i++) {
+            if (cards[i].id === 15) {
                 score += 2;
             }
         }
-        console.info(self.player.userId + "手牌评分：" + score);
+        console.info(this._ai_player.player_interface.id + "手牌评分：" + score);
         if (score >= 7) {
             return 3;
         } else if (score >= 5) {

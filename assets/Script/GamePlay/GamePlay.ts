@@ -83,6 +83,9 @@ class GamePlay extends cc.Component {
         this._players[0] = player;
         this._players[1] = second_player;
         this._players[2] = third_player;
+        player.next_player = second_player;
+        second_player.next_player = third_player;
+        third_player.next_player = player;
 
         this.SecondPeople.active = false;
         this.ThirdPeople.active = false;

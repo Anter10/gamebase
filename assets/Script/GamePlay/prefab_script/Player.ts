@@ -27,6 +27,7 @@ export default class Player extends cc.Component {
     call_or_no_call_lord_mesage_sprite: cc.Sprite = null;
 
     public player_interface: LordPeopleInterface = null;
+    private _next_player: Player = null;
     
     set_player_interface(player_interface: LordPeopleInterface){
         this.player_interface = player_interface;
@@ -107,8 +108,16 @@ export default class Player extends cc.Component {
         }
     }
 
-    is_lord(): boolean {
+    get is_lord(): boolean {
         return this.player_interface.people_identity_type == PeopleIdentityType.lord;
+    }
+
+    get next_player(){
+        return this._next_player;
+    }
+
+    set next_player(_next_player: Player){
+        this._next_player = _next_player;
     }
 
 
