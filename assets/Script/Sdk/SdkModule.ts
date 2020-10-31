@@ -204,6 +204,11 @@ export module SdkModule {
         }
     }
 
+    /**@description 设置accesssKey */
+    export function set_access_key(access_key){
+        
+    }
+
 
     
 }
