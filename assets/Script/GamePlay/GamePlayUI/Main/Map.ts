@@ -140,7 +140,7 @@ export default class Map extends cc.Component {
         //设置装饰层级
         for (let i = 0; i < this.decoration_array.length; i++) {
             let node_y = Math.floor(this.cell_position(this.decoration_array[i].x, this.decoration_array[i].y).n);
-            Map.walk_unable_node_y.push(node_y);
+            Map.walk_unable_node_y.push(node_y - 1);
         }
 
         // //中间的道路留给灶王爷
@@ -171,9 +171,9 @@ export default class Map extends cc.Component {
             Map.walk_unable_node_y.push(node_y);
             if (i == this.walk_abel_array.length - 1) {
                 for (let point_x = 0; point_x < 15; point_x++) {
-                    for (let point_y = 0; point_y < 3; point_y++) {
+                    for (let point_y = 0; point_y < 4; point_y++) {
                         Map.map_grid.set_walk_able(node_x + point_x - 7, node_y - point_y, false);
-                        // console.log("大红色柱子", node_x + point_x - 7, node_y - point_y);
+                        console.log("大红色柱子", node_x + point_x - 7, node_y - point_y);
                     }
                 }
             }
@@ -194,10 +194,25 @@ export default class Map extends cc.Component {
                     }
                 }
             } else {
-                for (let point_x = 0; point_x < 2; point_x++) {
-                    for (let point_y = 0; point_y < 2; point_y++) {
-                        Map.map_grid.set_walk_able(node_x + point_x - 1, node_y - point_y, false);
-                        // console.log("8个桌子", node_x + point_x - 1, node_y - point_y);
+                if (i % 2 == 0) {
+                    for (let point_x = 0; point_x < 3; point_x++) {
+                        for (let point_y = 0; point_y < 2; point_y++) {
+                            Map.map_grid.set_walk_able(node_x + point_x - 1, node_y - point_y, false);
+                            // console.log("8个桌子", node_x + point_x - 1, node_y - point_y);
+                        }
+                    }
+                } else {
+                    for (let point_x = 0; point_x < 2; point_x++) {
+                        for (let point_y = 0; point_y < 2; point_y++) {
+                            Map.map_grid.set_walk_able(node_x + point_x - 1, node_y - point_y, false);
+                            // console.log("8个桌子", node_x + point_x - 1, node_y - point_y);
+                        }
+                    }
+                }
+                if (i == 0 || i == 1) {
+                    for (let point_x = 0; point_x < 2; point_x++) {
+                        Map.map_grid.set_walk_able(node_x + point_x - 1, 12, false);
+                        // console.log("封住桌子和屏障直接的缝隙", node_x + point_x - 1, 12);
                     }
                 }
             }

@@ -124,12 +124,12 @@ export default class CookWomanDescriptionView extends BaseUI {
         for (let i = 1; i <= GamePlayConfig.cook_woman_max_level; i++) {
             if (i == this.cook_woman_level) {
                 this.level_rich_text.string = this.level_rich_text.string + `LV.${i}  `;
-                this.coin_upgrade_rich_text.string = this.coin_upgrade_rich_text.string + `${this.cook_woman_config.cook_accelerate[i - 1]}%  `;
-                this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `${this.cook_woman_config.heart_accelerate[i - 1]}%  `;
+                this.coin_upgrade_rich_text.string = this.coin_upgrade_rich_text.string + `${this.cook_woman_config.cook_speed_accelerate[i - 1]}%  `;
+                this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `${this.cook_woman_config.cook_gold_accelerate[i - 1]}%  `;
             } else {
                 this.level_rich_text.string = this.level_rich_text.string + `<color=#460B0D>LV.${i}  </c>`;
-                this.coin_upgrade_rich_text.string = this.coin_upgrade_rich_text.string + `<color=#460B0D>${this.cook_woman_config.cook_accelerate[i - 1]}%  </c>`;
-                this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `<color=#460B0D>${this.cook_woman_config.heart_accelerate[i - 1]}%  </c>`;
+                this.coin_upgrade_rich_text.string = this.coin_upgrade_rich_text.string + `<color=#460B0D>${this.cook_woman_config.cook_speed_accelerate[i - 1]}%  </c>`;
+                this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `<color=#460B0D>${this.cook_woman_config.cook_gold_accelerate[i - 1]}%  </c>`;
             }
         }
     }

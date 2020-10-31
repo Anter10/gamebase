@@ -1406,7 +1406,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "0bOmf+8nNPN6NUlv8lXlpy",
+    "fileId": "dfKjAN9HlCEqL+oMP6i5vp",
     "sync": false
   },
   {
@@ -1615,7 +1615,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "9dtCAaSrFOfq/o/67xT7wr",
+    "fileId": "88AF8XWxVAjqoAeVMvtqBh",
     "sync": false
   },
   {
@@ -1824,7 +1824,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "cfk42/i61NcZMqR90cd0dA",
+    "fileId": "barqfVxe5IRLehyGSDi97L",
     "sync": false
   },
   {
@@ -2046,8 +2046,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "红心加成",
-    "_N$string": "红心加成",
+    "_string": "金币加成",
+    "_N$string": "金币加成",
     "_fontSize": 26,
     "_lineHeight": 40,
     "_enableWrapText": true,

@@ -299,7 +299,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "Hello world",
     "_N$string": "Hello world",
     "_fontSize": 45,
@@ -374,7 +373,7 @@
     "asset": {
       "__uuid__": "7acdef29-2b51-4185-8e75-475eb3528837"
     },
-    "fileId": "d1etJZlzBIxLyXQUJN01MM",
+    "fileId": "",
     "sync": false
   }
 ]
