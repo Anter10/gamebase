@@ -6,9 +6,10 @@ import { LordGameConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import GamePlay from "./GamePlay";
 import { LordCardType, LordDealCardsType, LordGameState, PeopleIdentityType } from "./GamePlayEnum";
-import { CallLordDataInterface, LordCardInterface, LordSendCardInterface } from "./GamePlayInterface";
+import { CallLordDataInterface, LordCardInterface, LordSendCardInterface, NoSendCardInterface } from "./GamePlayInterface";
 import LinkGameBase from "./LinkGameBase";
 import { LordUtils } from "./LordUtils";
+import Player from "./prefab_script/Player";
 class LordGameLogic{
     private _game_state: LordGameState = LordGameState.start_waiting;
 
@@ -19,9 +20,13 @@ class LordGameLogic{
     public cur_send_card_pos: number = 0;
     /**@description 当前出牌的剩余时间 */
     public cur_game_pass_time: number = 0;
+    
+    public current_send_card_data: LordSendCardInterface = null;
+
 
     constructor(){
-
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.send_card, this, this.send_card_callback.bind(this));
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.no_send_card, this, this.no_send_card_callback.bind(this));
     }
      
 
@@ -118,9 +123,43 @@ class LordGameLogic{
         this.cur_send_card_pos = pos;
     }
 
+    /**@description 出牌触发的事件 */
+    send_card_callback(event: any,send_card_data: LordSendCardInterface){
+        this.current_send_card_data = send_card_data;
+        // 判断当前的出牌是否是AI出牌 如果是AI出牌的话 如果下一家是AI的话
+        if(this.current_send_card_data.lord_people_interface.position == 2){
+           EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
+        }else{
+           const player = this.game_play.player_by_position(send_card_data.lord_people_interface.position);
+           player.follow_card();
+        }
+    }
+
+    /**@description 要不起 / 不出 的事件 */
+    no_send_card_callback(event: any, no_send_card_interface: NoSendCardInterface){
+        this.game_play.show_no_send_card_message(no_send_card_interface.position);
+        const player: Player = this.game_play.player_by_position(no_send_card_interface.position);
+        if(no_send_card_interface.position == 2){
+           EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
+        }else{
+           // 得到当前位置的下一个位置的player 出牌
+           const player = this.game_play.player_by_position(no_send_card_interface.position);
+           if(player.next_player.player_interface.position == this.current_send_card_data.lord_people_interface.position){
+              player.next_player.play_card(0);
+           }else{
+              player.next_player.follow_card();
+           }
+        }
+    }
+
+
     /**@description 游戏开始的时候调用 */
     gaming(){
        this.cur_game_statue = LordGameState.gameing;
+       const cur_lord_player = this.game_play.current_lord_player();
+       if(cur_lord_player.player_interface.position == 0){
+          EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
+       }
     }
 
     /**@description 轮到机器人出牌规则 */

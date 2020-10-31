@@ -17,7 +17,21 @@ export class CellUi{
     public static game_logic_button_node: cc.Node = null;
     public static lord_bottom_card_node: cc.Node = null;
     public static call_lord_effect_node: cc.Node = null;
+    
 
+    static show_game_logic_node(){
+        if(!this.game_logic_button_node){
+            Loader.load_prefab(`./GamePlay/prefab/cells/GameLogicButton`,(prefab: cc.Prefab)=>{
+                const start_button_node = cc.instantiate(prefab);
+                this.game_logic_button_node = start_button_node;
+                this.game_logic_button_node.parent = this.cell_parent_node;
+                this.game_logic_button_node.active = true;
+                this.game_logic_button_node.zIndex = cc.macro.MAX_ZINDEX - 100;
+            });
+        }else{
+            this.game_logic_button_node.active = true;
+        }
+    }
 
     /**@description 显示叫地主的特效 */
     static show_call_lord_effect_node(target_pos: cc.Vec3){

@@ -1,3 +1,7 @@
+import TouchButton from "../../Common/TouchButton";
+import EventManager from "../../EventManager/EventManager";
+import LinkGameBase from "../LinkGameBase";
+
  
 const {ccclass, property} = cc._decorator;
 
@@ -27,7 +31,16 @@ export default class GameLogicButton extends cc.Component {
     @property(cc.Node)
     no_more_btn: cc.Node = null;
    
-    // onLoad () {}
+    onLoad () {
+        this.no_more_btn.addComponent(TouchButton).register_touch(()=> {
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.no_send_card, {position: 0});
+        });
+
+        this.no_out_btn.addComponent(TouchButton).register_touch(()=> {
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.no_send_card, {position: 0});
+        });
+
+    }
 
     start () {
 

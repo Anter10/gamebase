@@ -37,7 +37,7 @@ export interface LordPeopleInterface{
 /**@description 出牌数据接口 */
 export interface LordSendCardInterface{
     /**@description 这次所出的牌 */
-    send_card: Array<LordCardInterface>,
+    send_card: SendCardInterface,
     /**@description 出牌的人的信息 */
     lord_people_interface: LordPeopleInterface,
 }
@@ -86,4 +86,11 @@ export interface SendCardInterface{
     size: number;
     /**@description 出牌的ID */
     id: number;
+}
+
+
+/**@description 要不起的数据接口 */
+export interface NoSendCardInterface{
+    /**@description 要不起的位置 */
+    position: number;
 }

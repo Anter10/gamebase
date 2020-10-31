@@ -55,6 +55,9 @@ class GamePlay extends cc.Component {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.call_lord, this, this.call_lord.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.no_call_lord, this, this.no_call_lord.bind(this));
         
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.show_player_play_buttons, this, this.show_player_play_buttons_callback.bind(this));
+
+        
         this.game_logic = new LordGameLogic();
         this.game_logic.game_play = this;
         CellUi.cell_parent_node = this.node;
@@ -63,6 +66,7 @@ class GamePlay extends cc.Component {
     }
 
     remove_card(card: cc.Node){
+        card.scale = 1;
         this.card_pool.put(card);
     }
 
@@ -87,8 +91,17 @@ class GamePlay extends cc.Component {
         second_player.next_player = third_player;
         third_player.next_player = player;
 
+        player.upper_player = third_player;
+        second_player.upper_player = player;
+        third_player.upper_player = second_player;
+
         this.SecondPeople.active = false;
         this.ThirdPeople.active = false;
+    }
+
+    /**@description 获得指定位置的人的信息 */
+    player_by_position(position: number): Player{   
+        return this._players[position];
     }
 
     player(){
@@ -144,10 +157,15 @@ class GamePlay extends cc.Component {
 
     }
 
+    show_player_play_buttons_callback(){
+        CellUi.show_game_logic_node();
+    }
+
     gameing(){
        console.log("可以开始游戏了");
        this._players[this.call_lord_interface.pos].add_cards(this.deal_cards.in_bottom_cards);
        this.game_logic.gaming();
+     
        console.log("当前出牌的位置 = ",this.game_logic.cur_send_card_pos);
     }
 
@@ -166,6 +184,7 @@ class GamePlay extends cc.Component {
 
     // 叫地主 玩家和机器人都会触发叫地主的逻辑
     call_lord(event: any, call_lord_interface: CallLordDataInterface){
+        
         this.call_lord_interface = call_lord_interface;
         this.game_logic.set_cur_send_card_pos(call_lord_interface.pos);
         const cur_node = this._players[call_lord_interface.pos].node;
@@ -173,7 +192,14 @@ class GamePlay extends cc.Component {
         let target_node_pos = cur_node.parent.convertToNodeSpaceAR(target_pos);
         const world_pos = this.node.convertToWorldSpaceAR(target_node_pos);
         let offset = cc.v3(0,0,0);
-
+         // 这里可以确定机器人为地主 玩家为农民
+         for(const player of this._players){
+            if(player.player_interface.position == call_lord_interface.pos){
+                player.set_identified(PeopleIdentityType.lord);
+            }else{
+                player.set_identified(PeopleIdentityType.farmer);
+            }
+        }
         if(call_lord_interface.pos == 0){
             offset = cc.v3(-80, 110, 0);
         }else if(call_lord_interface.pos == 1){
@@ -193,6 +219,19 @@ class GamePlay extends cc.Component {
 
     update (dt: number) {
 
+    }
+
+    /**@description 显示要不起的提示信息 */
+    show_no_send_card_message(position: number){
+        
+    }
+
+    current_lord_player(): Player{
+        for(let player of this._players){
+            if(player.player_interface.people_identity_type == PeopleIdentityType.lord){
+                return player;
+            }
+        }
     }
 }
 

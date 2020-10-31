@@ -1,10 +1,12 @@
+import { gamebase } from "../../Boot";
 import Loader from "../../Common/Loader";
 import EventManager from "../../EventManager/EventManager";
 import { LordCardType, PeopleIdentityType, PeopleType } from "../GamePlayEnum";
-import { LordCardInterface, LordPeopleInterface } from "../GamePlayInterface";
+import { LordCardInterface, LordPeopleInterface, LordSendCardInterface, SendCardInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
 import { card_list, LordUtils } from "../LordUtils";
 import { Ai } from "./Ai";
+import LordCard from "./LordCard";
 
 const {ccclass, property} = cc._decorator;
 
@@ -29,7 +31,10 @@ export default class Player extends cc.Component {
 
     public player_interface: LordPeopleInterface = null;
     private _next_player: Player = null;
+    private _upper_player: Player = null;
+
     private _ai: Ai = null;
+    public send_card: SendCardInterface = null;
 
 
     onLoad() {
@@ -100,6 +105,46 @@ export default class Player extends cc.Component {
         this.show_call_or_no_call_lord_message();
     }
 
+    /**@description 出牌 */
+    play_card(lord_card_number: number): SendCardInterface{
+       const play_card: SendCardInterface = this.ai.play(lord_card_number);
+       this.show_cards(play_card.cards);
+       this.send_card = play_card;
+       const send_data: LordSendCardInterface = {
+             send_card: play_card,
+             lord_people_interface:this.player_interface
+       }
+       
+       EventManager.get_instance().emit(LinkGameBase.game_play_event_config.send_card, send_data);
+       return play_card;
+    }
+
+    follow_card(){
+        console.log("请下一家跟牌");
+    }
+
+    show_cards(cards: Array<LordCardInterface>){
+        const container = this.player_interface.position == 0 ? gamebase.game_play.player_play_card_container : this.card_container;
+        const chidren = container.children;
+        for(const card of chidren){
+            gamebase.game_play.remove_card(card);
+        }
+
+        let card_index = 0;
+        for(const card_data of cards){
+            const card2 = gamebase.game_play.create_card();
+            card2.scale = 0.6;
+            card2.getComponent(LordCard).flush_data(card_data);
+            card2.parent = container;
+            if(this.player_interface.position == 0){
+               card2.x = (card_index * card2.width) + card2.width / 2 - container.width / 2;
+            }else{
+               card2.x = (card_index * card2.width) + card2.width / 2;
+            }
+            card_index ++;
+        }
+    }
+
     show_call_or_no_call_lord_message(){
         this.call_or_no_call_lord_mesage_sprite.node.active = false;
         let show_msg_image_path = "main_bujiao";
@@ -137,6 +182,14 @@ export default class Player extends cc.Component {
 
     set next_player(_next_player: Player){
         this._next_player = _next_player;
+    }
+
+    get upper_player(){
+        return this._upper_player;
+    }
+
+    set upper_player(_upper_player: Player){
+        this._upper_player = _upper_player;
     }
 
 

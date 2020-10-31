@@ -27,7 +27,6 @@ class LinkGameBase{
              end : "end",
              /**@description 刷新玩家排的显示逻辑 */
              flush_player_show_cards: "flush_player_show_cards",
-
              // 游戏中的事件
              /**@description 叫地主的事件 */
              call_lord: "call_lord",
@@ -35,6 +34,12 @@ class LinkGameBase{
              no_call_lord: "no_call_lord",
              /**@description 翻牌 */
              convert_card: "convert_card",
+             /**@description 玩家出牌的事件 */
+             send_card: "send_card",
+             /**@description 不要的事件 */
+             no_send_card:"no_send_card",
+             /**@description 显示玩家的操作按钮的信息 */
+             show_player_play_buttons: "show_player_play_buttons",
       }
 
       /**
