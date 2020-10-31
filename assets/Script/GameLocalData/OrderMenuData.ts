@@ -1,11 +1,15 @@
 import BaseRecord from "./BaseRecord";
 
 
-interface OrderMenuInterface {
+export interface OrderMenuInterface {
     //菜谱编号
     menuNumber: number;
     //菜谱配置
     menuConfigId: number;
+    //上菜椅子
+    menuSeatId: number;
+    //哪位厨娘选定了
+    CookWomanConfigId: number;
 }
 
 // 菜谱数据
@@ -17,24 +21,23 @@ class OrderMenuData extends BaseRecord {
         super();
         this.apply_auto_update();
     }
-    
+
     private order_menu_data: Array<OrderMenuInterface> = [];
 
     get_order_menu(): Array<OrderMenuInterface> {
         return this.order_menu_data;
     }
 
-    add_new_order_data(menuConfigId: number): number {
+    add_new_order_data(menuConfigId: number, order_seat_id: number): number {
         let menu_number = 0;
         for (let i = 0; i < this.order_menu_data.length; i++) {
             if (this.order_menu_data[i].menuNumber > menu_number) {
                 menu_number = this.order_menu_data[i].menuNumber;
             }
         }
-        this.order_menu_data.push({ menuNumber: menu_number + 1, menuConfigId: menuConfigId });
-        console.log(this.order_menu_data);
+        this.order_menu_data.push({ menuNumber: menu_number + 1, menuConfigId: menuConfigId, menuSeatId: order_seat_id, CookWomanConfigId: 0 });
         this.store_order_menu_data(this.order_menu_data);
-        return menu_number;
+        return menu_number + 1;
     }
 
     store_order_menu_data(order_menu_data: Array<OrderMenuInterface>) {
@@ -52,6 +55,24 @@ class OrderMenuData extends BaseRecord {
         this.store_order_menu_data(this.order_menu_data);
     }
 
+    change_have_cook_woman(menu_number: number, cook_woman_config_id: number) {
+        for (let i = 0; i < this.order_menu_data.length; i++) {
+            if (this.order_menu_data[i].menuNumber == menu_number) {
+                this.order_menu_data[i].CookWomanConfigId = cook_woman_config_id;
+                this.store_order_menu_data(this.order_menu_data);
+                return;
+            }
+        }
+    }
+
+    get_menu_by_cook_woman_config_id(cook_woman_config_id: number): OrderMenuInterface {
+        for (let i = 0; i < this.order_menu_data.length; i++) {
+            if (this.order_menu_data[i].CookWomanConfigId == cook_woman_config_id) {
+                return this.order_menu_data[i];
+            }
+        }
+    }
+    
 }
 
 export default OrderMenuData;

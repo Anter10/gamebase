@@ -2580,8 +2580,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 309.27,
-      "height": 477
+      "width": 282.79,
+      "height": 493.31
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2599,8 +2599,8 @@
         0,
         0,
         1,
-        0.3,
-        0.3,
+        0.4,
+        0.4,
         1
       ]
     },
@@ -2632,7 +2632,7 @@
     ],
     "paused": false,
     "defaultSkin": "default",
-    "defaultAnimation": "zhengmian_walk",
+    "defaultAnimation": "newAnimation",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "loop": true,
@@ -2643,13 +2643,13 @@
     "_frameCache": null,
     "_curFrame": null,
     "_skeletonCache": null,
-    "_animationName": "zhengmian_walk",
+    "_animationName": "newAnimation",
     "_animationQueue": [],
     "_headAniInfo": null,
     "_playTimes": 0,
     "_isAniComplete": true,
     "_N$skeletonData": {
-      "__uuid__": "39d6375a-033c-4f9a-bb97-340aaa03711b"
+      "__uuid__": "11ded4f9-1732-4c5a-b32d-32864c28f377"
     },
     "_N$_defaultCacheMode": 0,
     "_N$debugSlots": false,
@@ -2678,7 +2678,6 @@
       "__id__": 66
     },
     "_enabled": true,
-    "label": null,
     "_id": ""
   },
   {

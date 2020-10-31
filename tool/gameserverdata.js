@@ -2,6 +2,8 @@
 
 const server_data_config =[
       "AudioConfig",
+      "PeopleConfig",
+      "StoreUpgradeConfig",
 ];
 
 

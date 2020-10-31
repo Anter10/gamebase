@@ -9,9 +9,11 @@ import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import Map from "./Map";
 import { PeopleInterface } from "../../../GameLocalData/PeopleData";
 import { CookWomanState } from "../../GamePlayEnum/GamePlayEnum";
-import OrderMenuData from "../../../GameLocalData/OrderMenuData";
+import OrderMenuData, { OrderMenuInterface } from "../../../GameLocalData/OrderMenuData";
 import EventManager from "../../../EventManager/EventManager";
 import LinkGameBase from "../../LinkGameBase";
+import Time from "../../../Common/Time";
+import GameConfig from "../../../GameConfig";
 
 const { ccclass, property } = cc._decorator;
 
@@ -35,6 +37,9 @@ export default class CookWoman extends BaseNode {
 
     /**@description 开始移动 */
     _start_move: boolean = false;
+
+    /**@description 结束移动 */
+    _end_move: boolean = false;
 
     /**@description 移动长度 */
     _move_length: number = 0;
@@ -84,6 +89,7 @@ export default class CookWoman extends BaseNode {
         const all_path = star.find(grid);
         console.log("当前的路径1 = ", star.path);
         this._go_path = star.path;
+        this._end_move = false;
         this._move_index = 1;
         this._move_length = 0;
         this._total_length = 0;
@@ -96,13 +102,13 @@ export default class CookWoman extends BaseNode {
     set_child_position(move_y: number) {
         let insert_number = 0;
         for (let i = 0; i < Map.walk_unable_node_y.length; i++) {
-            if (Map.walk_unable_node_y[i] && Map.walk_unable_node_y[i] < move_y + 2) {
+            if (Map.walk_unable_node_y[i] && Map.walk_unable_node_y[i] < move_y + 1) {
                 insert_number++;
             }
         }
         Map.walk_people_y[this.cook_woman_data.peopleDataNumber] = move_y;
         for (let i = 0; i < Map.walk_people_y.length; i++) {
-            if (Map.walk_people_y[i] && Map.walk_people_y[i] < move_y + 2) {
+            if (Map.walk_people_y[i] && Map.walk_people_y[i] < move_y + 1) {
                 insert_number++;
             }
         }
@@ -134,27 +140,47 @@ export default class CookWoman extends BaseNode {
                 this._move_index++;
             }
         } else {
-            if (this._total_length > this._move_length) {
-                this.node.setPosition(cc.v2(this.node.getPosition().add(move_dt_length)));
-                this._move_length = this._move_length + move_dt_length.len();
-            } else {
-                if (this._move_index == this._go_path.length) {
-                    this.walk_end_set_next_state();
+            if (!this._end_move) {
+                if (this._total_length > this._move_length) {
+                    this.node.setPosition(cc.v2(this.node.getPosition().add(move_dt_length)));
+                    this._move_length = this._move_length + move_dt_length.len();
+                } else {
+                    if (this._move_index == this._go_path.length) {
+                        this.walk_end_set_next_state();
+                    }
                 }
             }
+        }
+        this.change_cook_state();
+    }
+
+    change_cook_state() {
+        if (this.cook_woman_data.cookWomanState == CookWomanState.Cook && Time.get_second_time() - this.cook_woman_data.changeStateTime > GamePlayConfig.cook_woman_cook_spend) {
+            this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.CompleteCook })
+            this.set_cook_woman();
         }
     }
 
     have_order_menu() {
         if (this.cook_woman_data.cookWomanState == CookWomanState.Stroll) {
-            if (this.order_menu_data.get_order_menu().length != 0) {
-                this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GetOrder });
-                this.set_cook_woman();
+            let menu_array = this.order_menu_data.get_order_menu()
+            if (menu_array.length != 0) {
+                for (let i = 0; i < menu_array.length; i++) {
+                    if (menu_array[i].CookWomanConfigId == 0) {
+                        this.order_menu_data.change_have_cook_woman(menu_array[i].menuNumber, this.cook_woman_config_id);
+                        this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GetOrder });
+                        this.set_cook_woman();
+                        console.log("this.cook_woman_config_id", this.cook_woman_config_id);
+                        break;
+                    }
+                }
+
             }
         }
     }
 
     walk_end_set_next_state() {
+        this._end_move = true;
         if (this.cook_woman_data.cookWomanState == CookWomanState.Stroll) {
             if (this._go_path[this._move_index - 1].x == GamePlayConfig.cook_woman_stroll_position[0][0]) {
                 this.walk_simple({ x: GamePlayConfig.cook_woman_stroll_position[0][0], y: GamePlayConfig.cook_woman_stroll_position[0][1] }, { x: GamePlayConfig.cook_woman_stroll_position[1][0], y: GamePlayConfig.cook_woman_stroll_position[1][1] });
@@ -162,18 +188,33 @@ export default class CookWoman extends BaseNode {
                 this.walk_simple({ x: GamePlayConfig.cook_woman_stroll_position[1][0], y: GamePlayConfig.cook_woman_stroll_position[1][1] }, { x: GamePlayConfig.cook_woman_stroll_position[0][0], y: GamePlayConfig.cook_woman_stroll_position[0][1] });
             }
         } else if (this.cook_woman_data.cookWomanState == CookWomanState.GetOrder) {
-            const cook_menu_data = this.order_menu_data.get_order_menu()[0];
-            this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Cook, cookWomanMenuConfigId: cook_menu_data.menuConfigId });
+            const cook_menu_data: OrderMenuInterface = this.order_menu_data.get_menu_by_cook_woman_config_id(this.cook_woman_config_id);
+            this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GoCook, cookWomanMenuNumberId: cook_menu_data.menuNumber, seatNumber: cook_menu_data.menuSeatId });
+            this.cook_woman_animation.animation = "liulangcaidan";
             this.order_menu_data.complete_order_menu_data(cook_menu_data.menuNumber);
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.receiving_menu);
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.receiving_menu, cook_menu_data.menuNumber);
+            this.scheduleOnce(() => {
+                this.set_cook_woman();
+            }, 1);
+        } else if (this.cook_woman_data.cookWomanState == CookWomanState.GoCook) {
+            this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Cook });
             this.set_cook_woman();
         } else if (this.cook_woman_data.cookWomanState == CookWomanState.Cook) {
-            this.cook_woman_animation.animation = "cook_woman_node";
+            this.cook_woman_animation.animation = "chaocai";
+        } else if (this.cook_woman_data.cookWomanState == CookWomanState.CompleteCook) {
+            this.cook_woman_animation.animation = "beimian_shangcai";
+            this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.SendMenu });
+            this.scheduleOnce(() => {
+                this.set_cook_woman();
+            }, 1);
+        } else if (this.cook_woman_data.cookWomanState == CookWomanState.SendMenu) {
+            this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.CompleteSendMenu });
+            this.set_cook_woman();
         }
     }
 
     set_cook_woman() {
-        console.log(this.cook_woman_data.cookWomanState);
+        let seat_number: number;
         switch (this.cook_woman_data.cookWomanState) {
             case CookWomanState.Null:
                 this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Stroll });
@@ -189,12 +230,24 @@ export default class CookWoman extends BaseNode {
                     this.walk_simple({ x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] }, { x: GamePlayConfig.cook_woman_get_menu_position[0], y: GamePlayConfig.cook_woman_get_menu_position[1] });
                 }
                 break;
+            case CookWomanState.GoCook:
+                this.walk_simple({ x: GamePlayConfig.cook_woman_get_menu_position[0], y: GamePlayConfig.cook_woman_get_menu_position[1] }, { x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] });
+                break;
             case CookWomanState.Cook:
-                if (this._go_path.length != 0 && this._go_path[this._move_index - 1].x == GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0] && this._go_path[this._move_index - 1].y == GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1]) {
-                    this.walk_simple({ x: GamePlayConfig.cook_woman_get_menu_position[0], y: GamePlayConfig.cook_woman_get_menu_position[1] }, { x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] });
-                } else {
-                    this.cook_woman_animation.animation = "chaocai";
-                }
+                this.cook_woman_animation.animation = "chaocai";
+                break;
+            case CookWomanState.CompleteCook:
+                seat_number = this.cook_woman_data.seatNumber;
+                this.walk_simple({ x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] }, { x: GamePlayConfig.chair_position[seat_number - 1][0], y: GamePlayConfig.chair_position[seat_number - 1][1] });
+                break;
+            case CookWomanState.SendMenu:
+                seat_number = this.cook_woman_data.seatNumber;
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.finish_menu, seat_number);
+                this.walk_simple({ x: GamePlayConfig.chair_position[seat_number - 1][0], y: GamePlayConfig.chair_position[seat_number - 1][1] }, { x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] });
+                break;
+            case CookWomanState.CompleteSendMenu:
+                this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Stroll });
+                this.set_cook_woman();
                 break;
         }
 
@@ -202,7 +255,7 @@ export default class CookWoman extends BaseNode {
 
     set_node_direction_animation() {
         //行走中的动画
-        if (this.cook_woman_data.cookWomanState != CookWomanState.SendMenu) {
+        if (this.cook_woman_data.cookWomanState != CookWomanState.CompleteCook) {
             if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != -0.3)) {
                 this.cook_woman_animation.animation = "cemian_walk";
                 this.cook_woman_node.scaleX = -0.3;
@@ -215,7 +268,7 @@ export default class CookWoman extends BaseNode {
                 this.cook_woman_animation.animation = "zhengmian_walk";
                 this.cook_woman_node.scaleX = 0.3;
             }
-            if (this._move_direction.y < 0 && this.cook_woman_animation.animation != "beimian_walk") {
+            if (this._move_direction.y > 0 && this.cook_woman_animation.animation != "beimian_walk") {
                 this.cook_woman_animation.animation = "beimian_walk";
                 this.cook_woman_node.scaleX = 0.3;
             }

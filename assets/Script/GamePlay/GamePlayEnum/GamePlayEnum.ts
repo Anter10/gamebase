@@ -70,14 +70,16 @@ enum CookWomanState {
     Stroll = 1,
     /**@description 获得订单*/
     GetOrder = 2,
+    /**@description 走去做饭*/
+    GoCook = 3,
     /**@description 做饭 */
-    Cook = 3,
+    Cook = 4,
     /**@description 完成做饭 */
-    CompleteCook = 4,
+    CompleteCook = 5,
     /**@description 送餐 */
-    SendMenu = 5,
+    SendMenu = 6,
     /**@description 送完回灶台 */
-    CompleteSendMenu = 6,
+    CompleteSendMenu = 7,
 }
 
 export { ExtensionTypeButton, PeopleType, UnlockMenuRewardType, MenuType, StoreUpgradeConditionType, CustomerState, CookWomanState };

@@ -21,6 +21,7 @@ export default class OrderMenuItem extends BaseNode {
     set_order_menu_item_config(menu_data_number: number, menu_config: MenuConfig) {
         this.menu_config = menu_config;
         this.menu_data_number = menu_data_number;
+        console.log("menu_data_number", menu_data_number);
     }
 
     start() {
@@ -35,8 +36,10 @@ export default class OrderMenuItem extends BaseNode {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.receiving_menu, this, this.destroy_this_node);
     }
 
-    destroy_this_node() {
-        this.node.destroy();
+    destroy_this_node(event, menu_data_number: number) {
+        if (this.menu_data_number == menu_data_number) {
+            this.node.destroy();
+        }
     }
 
     set_order_menu_item() {

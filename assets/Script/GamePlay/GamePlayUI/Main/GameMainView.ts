@@ -97,11 +97,10 @@ export default class GameMainView extends BaseUI {
         this.set_order_menu_layout();
     }
 
-    add_order_menu(event, order_menu_config_id: number) {
+    add_order_menu(event, config: { order_menu_config_id: number, order_seat_id: number }) {
         const order_menu_data = GameLocalData.get_instance().get_data<OrderMenuData>(OrderMenuData);
-        console.log("order_menu_config_id", order_menu_config_id);
-        let order_data_number = order_menu_data.add_new_order_data(order_menu_config_id);
-        const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", order_menu_config_id);
+        let order_data_number = order_menu_data.add_new_order_data(config.order_menu_config_id, config.order_seat_id);
+        const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", config.order_menu_config_id);
         this._order_menu_number = this._order_menu_number + 1;
         this.set_order_menu_layout();
         Loader.load_prefab("/GamePlay/GamePlayUI/Main/OrderMenuItem", (prefab: cc.Prefab) => {
@@ -128,7 +127,7 @@ export default class GameMainView extends BaseUI {
             for (let i = 0; i < order_menu_data.get_order_menu().length; i++) {
                 const order_menu_item = cc.instantiate(prefab);
                 const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", order_menu_data.get_order_menu()[i].menuConfigId);
-                order_menu_item.getComponent(OrderMenuItem).set_order_menu_item_config(order_menu_data.get_order_menu()[i].menuConfigId, menu_config);
+                order_menu_item.getComponent(OrderMenuItem).set_order_menu_item_config(order_menu_data.get_order_menu()[i].menuNumber, menu_config);
                 order_menu_item.parent = this.menu_content;
             }
         });
@@ -150,6 +149,10 @@ export default class GameMainView extends BaseUI {
             game_store_icon_item.getComponent(StoreIconItem).open_refresh_icon();
             game_store_icon_item.parent = this.store_upgrade_node;
         });
+    }
+
+    click_cash_out_button() {
+
     }
 
     flush_view() {
@@ -219,10 +222,6 @@ export default class GameMainView extends BaseUI {
                 game_main_table_item.parent = this.decoration_array[i];
             });
         }
-    }
-
-    click_cash_out_button() {
-        console.log(AStar.Test());
     }
 
     click_cook_woman_button() {

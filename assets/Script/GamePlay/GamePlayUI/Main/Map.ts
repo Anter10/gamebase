@@ -171,7 +171,7 @@ export default class Map extends cc.Component {
             Map.walk_unable_node_y.push(node_y);
             if (i == this.walk_abel_array.length - 1) {
                 for (let point_x = 0; point_x < 15; point_x++) {
-                    for (let point_y = 0; point_y < 2; point_y++) {
+                    for (let point_y = 0; point_y < 3; point_y++) {
                         Map.map_grid.set_walk_able(node_x + point_x - 7, node_y - point_y, false);
                         // console.log("大红色柱子", node_x + point_x - 7, node_y - point_y);
                     }

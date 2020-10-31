@@ -56,6 +56,9 @@ export default class Customer extends BaseNode {
     /**@description 开始移动 */
     _start_move: boolean = false;
 
+    /**@description 结束移动 */
+    _end_move: boolean = false;
+
     /**@description 移动长度 */
     _move_length: number = 0;
 
@@ -71,13 +74,16 @@ export default class Customer extends BaseNode {
     chair_number: number = 0;
 
     onLoad() {
-        //点击顾客头上的菜
-        const menu_sprite_button: TouchButton = this.menu_sprite.addComponent(TouchButton);
-        menu_sprite_button.register_touch(this.click_customer_menu.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.finish_menu, this, this.get_menu);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.new_seat, this, this.have_new_seat);
     }
 
+    start(){
+        //点击顾客头上的菜
+        const menu_sprite_button: TouchButton = this.menu_sprite.addComponent(TouchButton);
+        menu_sprite_button.register_touch(this.click_customer_menu.bind(this));
+    }
+    
     init(customer_data_id: number) {
         this.customer_data_id = customer_data_id;
         this.people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
@@ -110,28 +116,31 @@ export default class Customer extends BaseNode {
             }
         }
         if (have_unlock_table) {
-            if (customer_data.lineUp == 1) {
-                this.chair_number = unlock_chair_number;
-                seat_data.change_seat_data(unlock_chair_number, true);
-                this.people_data.refresh_line_up_number();
-                this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, walkToSeatNumber: unlock_chair_number })
-                this.walk_simple({ x: GamePlayConfig.line_up_position[0][0], y: GamePlayConfig.line_up_position[0][1] }, { x: GamePlayConfig.chair_position[unlock_chair_number - 1][0], y: GamePlayConfig.chair_position[unlock_chair_number - 1][1] });
-            }
-            else if (customer_data.lineUp == 2) {
-                this.walk_simple({ x: GamePlayConfig.line_up_position[1][0], y: GamePlayConfig.line_up_position[1][1] }, { x: GamePlayConfig.line_up_position[0][0], y: GamePlayConfig.line_up_position[0][1] });
-            }
-            else if (customer_data.lineUp == 3) {
-                this.node.setPosition(this.cell_position({ x: GamePlayConfig.line_up_position[1][0], y: GamePlayConfig.line_up_position[1][1] }));
-                this.set_child_position(GamePlayConfig.line_up_position[1][1]);
-                this.node.active = true;
+            if (customer_data && customer_data.lineUp) {
+                if (customer_data.lineUp == 1) {
+                    this.chair_number = unlock_chair_number;
+                    seat_data.change_seat_data(unlock_chair_number, true);
+                    this.people_data.refresh_line_up_number();
+                    this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, walkToSeatNumber: unlock_chair_number })
+                    this.walk_simple({ x: GamePlayConfig.line_up_position[0][0], y: GamePlayConfig.line_up_position[0][1] }, { x: GamePlayConfig.chair_position[unlock_chair_number - 1][0], y: GamePlayConfig.chair_position[unlock_chair_number - 1][1] });
+                }
+                else if (customer_data.lineUp == 2) {
+                    this.walk_simple({ x: GamePlayConfig.line_up_position[1][0], y: GamePlayConfig.line_up_position[1][1] }, { x: GamePlayConfig.line_up_position[0][0], y: GamePlayConfig.line_up_position[0][1] });
+                }
+                else if (customer_data.lineUp == 3) {
+                    this.node.setPosition(this.cell_position({ x: GamePlayConfig.line_up_position[1][0], y: GamePlayConfig.line_up_position[1][1] }));
+                    this.set_child_position(GamePlayConfig.line_up_position[1][1]);
+                    this.node.active = true;
+                }
             }
         }
     }
 
-    get_menu(event, menu_order_number: number) {
+    get_menu(event, seat_number: number) {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
-        if (customer_data.customerOrderNumber && menu_order_number == customer_data.customerOrderNumber) {
+        if (customer_data && customer_data.seatNumber && seat_number == customer_data.seatNumber) {
             this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.eat });
+            this.set_customer();
         }
     }
 
@@ -152,11 +161,16 @@ export default class Customer extends BaseNode {
             this.customer_node.scaleX = 0.3;
         }
         this.dialogue.active = false;
-        if (customer_data.customerState == CustomerState.wait_menu) {
+        if (customer_data.customerState && customer_data.customerState == CustomerState.wait_menu) {
             this.random_animation();
             this.walk_animation.setCompleteListener((a, b, c) => {
                 this.random_animation();
             });
+        } else {
+            if (customer_data.customerState) {
+                this.walk_animation.setCompleteListener(() => {
+                })
+            }
         }
         switch (customer_data.customerState) {
             case CustomerState.line_up:
@@ -192,12 +206,13 @@ export default class Customer extends BaseNode {
                 }
                 break;
             case CustomerState.eat:
-                this.walk_animation.animation = "chifai";
+                this.walk_animation.animation = "chifan";
                 break;
             case CustomerState.exit:
                 this.node.active = false;
-                seat_data.change_seat_data(customer_data.seatNumber, true);
+                seat_data.change_seat_data(customer_data.seatNumber, false);
                 this.people_data.delete_people_by_people_data_number(this.customer_data_id);
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.new_seat);
                 //清除这个垃圾数据
                 break;
         }
@@ -283,14 +298,15 @@ export default class Customer extends BaseNode {
         this._move_length = 0;
         this._total_length = 0;
         this._start_move = true;
+        this._end_move = false;
     }
 
     //点击接单
     click_customer_menu() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
         if (customer_data.customerState == CustomerState.order_menu) {
-            this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.wait_menu, customerOrderNumber: this.people_data.get_order_number_max() });
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.order_menu, customer_data.customerOrderConfig);
+            this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.wait_menu });
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.order_menu, { order_menu_config_id: customer_data.customerOrderConfig, order_seat_id: this.chair_number });
             this.set_customer();
         }
     }
@@ -298,7 +314,7 @@ export default class Customer extends BaseNode {
     //自动接单
     automatic_customer_menu() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
-        if (customer_data.customerState == CustomerState.order_menu) {
+        if (customer_data && customer_data.customerState && customer_data.customerState == CustomerState.order_menu) {
             if (Time.get_second_time() - customer_data.changeStateTime >= GamePlayConfig.automatic_menu_time) {
                 this.click_customer_menu();
             }
@@ -308,7 +324,7 @@ export default class Customer extends BaseNode {
     //顾客是不是吃完了
     is_eat_end() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
-        if (customer_data.customerState == CustomerState.eat) {
+        if (customer_data && customer_data.customerState && customer_data.customerState == CustomerState.eat) {
             if (Time.get_second_time() - customer_data.changeStateTime >= GamePlayConfig.customer_eat_menu) {
                 this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.exit });
                 this.walk_simple({ x: GamePlayConfig.chair_position[customer_data.seatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.seatNumber - 1][1] }, { x: 8, y: 5 });
@@ -339,12 +355,14 @@ export default class Customer extends BaseNode {
                 this._move_index++;
             }
         } else {
-            if (this._total_length > this._move_length) {
-                this.node.setPosition(cc.v2(this.node.getPosition().add(move_dt_length)));
-                this._move_length = this._move_length + move_dt_length.len();
-            } else {
-                if (this._move_index == this._go_path.length) {
-                    this.walk_end_set_next_state();
+            if (!this._end_move) {
+                if (this._total_length > this._move_length) {
+                    this.node.setPosition(cc.v2(this.node.getPosition().add(move_dt_length)));
+                    this._move_length = this._move_length + move_dt_length.len();
+                } else {
+                    if (this._move_index == this._go_path.length) {
+                        this.walk_end_set_next_state();
+                    }
                 }
             }
         }
@@ -353,6 +371,7 @@ export default class Customer extends BaseNode {
     }
 
     walk_end_set_next_state() {
+        this._end_move = true;
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
         if (customer_data.customerState == CustomerState.line_up && customer_data.lineUp == 0) {
             this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.sit_seat, seatNumber: this.chair_number, walkToSeatNumber: 0 });
@@ -394,13 +413,13 @@ export default class Customer extends BaseNode {
     set_child_position(move_y: number) {
         let insert_number = 0;
         for (let i = 0; i < Map.walk_unable_node_y.length; i++) {
-            if (Map.walk_unable_node_y[i] && Map.walk_unable_node_y[i] < move_y + 2) {
+            if (Map.walk_unable_node_y[i] && Map.walk_unable_node_y[i] < move_y + 1) {
                 insert_number++;
             }
         }
         Map.walk_people_y[this.customer_data_id] = move_y;
         for (let i = 0; i < Map.walk_people_y.length; i++) {
-            if (Map.walk_people_y[i] && Map.walk_people_y[i] < move_y + 2) {
+            if (Map.walk_people_y[i] && Map.walk_people_y[i] < move_y + 1) {
                 insert_number++;
             }
         }

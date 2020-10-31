@@ -12,8 +12,8 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class PeopleItem extends BaseNode {
 
-    @property(cc.Label)
-    label: cc.Label = null;
+    // @property(cc.Label)
+    // label: cc.Label = null;
 
     private people_data: PeopleData = null;
     private people_config: PeopleConfig = null;
@@ -42,7 +42,7 @@ export default class PeopleItem extends BaseNode {
                         this.node.y = 30 * (time_difference/1000) - 1000;
                     }
                 } else {
-                    this.node.y = 900;
+                    this.node.y = 1000;
                 }
 
                 break;

@@ -20,8 +20,8 @@ export interface PeopleInterface {
     seatNumber?: number;
     //顾客点餐菜品配置id
     customerOrderConfig?: number;
-    //顾客点餐顺序id
-    customerOrderNumber?: number;
+    // //顾客点餐顺序id
+    // customerOrderNumber?: number;
     //顾客每次状态改变时间
     changeStateTime?: number;
     //顾客状态
@@ -33,7 +33,7 @@ export interface PeopleInterface {
     //厨娘状态
     cookWomanState?: CookWomanState;
     //厨娘做的菜
-    cookWomanMenuConfigId?: number;
+    cookWomanMenuNumberId?: number;
 }
 
 // 游戏中人物的数据
@@ -48,12 +48,13 @@ class PeopleData extends BaseRecord {
         this.apply_auto_update();
     }
 
-    change_cook_woman_data(cook_woman: { peopleConfigId: number, cookWomanState?: CookWomanState, walkToSeatNumber?: number, seatNumber?: number, changeStateTime?: number, cookWomanMenuConfigId?: number }) {
+    change_cook_woman_data(cook_woman: { peopleConfigId: number, cookWomanState?: CookWomanState, walkToSeatNumber?: number, seatNumber?: number, changeStateTime?: number, cookWomanMenuNumberId?: number }) {
         for (let i = 0; i < this.people_data.length; i++) {
             if (cook_woman.peopleConfigId == this.people_data[i].peopleConfigId) {
                 if (cook_woman.cookWomanState) {
                     this.people_data[i].cookWomanState = cook_woman.cookWomanState;
                     this.people_data[i].changeStateTime = Time.get_second_time();
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_cook_woman_state);
                 }
                 if (cook_woman.walkToSeatNumber) {
                     this.people_data[i].walkToSeatNumber = cook_woman.walkToSeatNumber;
@@ -61,8 +62,8 @@ class PeopleData extends BaseRecord {
                 if (cook_woman.seatNumber) {
                     this.people_data[i].seatNumber = cook_woman.seatNumber;
                 }
-                if (cook_woman.cookWomanMenuConfigId) {
-                    this.people_data[i].cookWomanMenuConfigId = cook_woman.cookWomanMenuConfigId;
+                if (cook_woman.cookWomanMenuNumberId) {
+                    this.people_data[i].cookWomanMenuNumberId = cook_woman.cookWomanMenuNumberId;
                 }
                 this.store_people_data(this.people_data);
             }
@@ -135,10 +136,10 @@ class PeopleData extends BaseRecord {
     change_cook_woman_level(people_config_id: number, people_level: number) {
         for (let i = 0; i < this.people_data.length; i++) {
             if (this.people_data[i].peopleConfigId == people_config_id) {
-                this.people_data[i].peopleLevel = people_level;
-                if (people_level == 1) {
+                if (people_level == 1 && this.people_data[i].peopleLevel != 1) {
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_cook_woman, people_config_id);
                 }
+                this.people_data[i].peopleLevel = people_level;
                 this.store_people_data(this.people_data);
                 return;
             }
@@ -183,17 +184,7 @@ class PeopleData extends BaseRecord {
         return max_line_up + 1;
     }
 
-    get_order_number_max(): number {
-        let max_order_number = 0;
-        for (let i = 0; i < this.people_data.length; i++) {
-            if (this.people_data[i].customerOrderNumber > max_order_number) {
-                max_order_number = this.people_data[i].lineUp;
-            }
-        }
-        return max_order_number + 1;
-    }
-
-    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOrderNumber?: number, customerOrderConfig?: number, walkToSeatNumber?: number }) {
+    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOrderConfig?: number, walkToSeatNumber?: number }) {
         for (let i = 0; i < this.people_data.length; i++) {
             if (customer.peopleDataNumber == this.people_data[i].peopleDataNumber) {
                 if (customer.lineUp) {
@@ -211,9 +202,6 @@ class PeopleData extends BaseRecord {
                 }
                 if (customer.walkNode) {
                     this.people_data[i].walkNode = customer.walkNode;
-                }
-                if (customer.customerOrderNumber) {
-                    this.people_data[i].customerOrderNumber = customer.customerOrderNumber;
                 }
                 if (customer.customerOrderConfig) {
                     this.people_data[i].customerOrderConfig = customer.customerOrderConfig;

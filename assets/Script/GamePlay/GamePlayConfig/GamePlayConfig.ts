@@ -37,5 +37,7 @@ const GamePlayConfig = {
     cook_woman_cook_position: { 0: [3, 30], 1: [7, 30], 2: [11, 30], 3: [14, 30] },
     //主界面厨娘移动的速度
     cook_woman_speed: 80,
+    //做饭时间
+    cook_woman_cook_spend: 5,
 }
 export default GamePlayConfig;
