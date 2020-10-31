@@ -107,6 +107,10 @@ export default class Player extends cc.Component {
         }
     }
 
+    is_lord(): boolean {
+        return this.player_interface.people_identity_type == PeopleIdentityType.lord;
+    }
+
 
     // update (dt) {}
 

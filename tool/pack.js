@@ -6,11 +6,6 @@ function execute(cmd) {
 }
 
 
-<<<<<<< HEAD
-function build_game() {
-    // 编译项目
-    execute(`/Applications/CocosCreator/Creator/2.4.3/CocosCreator.app/Contents/MacOS/CocosCreator --path ./ --build "platform=android;apiLevel=30;apilevel=30;debug=true;previewWidth=750;previewHeight=1134"`)
-=======
 const build_argv = {};
 
 // 构建参数
@@ -42,7 +37,6 @@ function build_game() {
 
     // 编译项目
     execute(`cd ../ && /Applications/CocosCreator/Creator/2.4.3/CocosCreator.app/Contents/MacOS/CocosCreator --path ./ --build "orientation={'portrait': true};platform=android;apiLevel=30;apilevel=30;debug=true;previewWidth=750;previewHeight=1134"`)
->>>>>>> master
     console.log("build game succeed.");
 
     // 加密图片资源
@@ -50,14 +44,6 @@ function build_game() {
     // execute(entry_png);
 
     // // 打包APK
-<<<<<<< HEAD
-    const pack_apk = "cd ./build/jsb-link/frameworks/runtime-src/proj.android-studio && ./gradlew assembleDebug";
-    execute(pack_apk);
-}
-
-function main() {
-    console.log("当前Jenkins的构建参数 = ",process.env.debug);
-=======
     const pack_apk = "cd ./../build/jsb-link/frameworks/runtime-src/proj.android-studio && ./gradlew assembleDebug";
     execute(pack_apk);
 
@@ -65,7 +51,6 @@ function main() {
 }
 
 function main() {
->>>>>>> master
     build_game();
 }
 

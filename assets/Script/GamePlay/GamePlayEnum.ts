@@ -44,9 +44,9 @@ export enum LordSendCardType{
     /**@description 四带两对 */
     four_withe_tow_pairs = "four_withe_tow_pairs",
     /**@description 顺子 */
-    scroll = "scroll",
+    progression = "progression",
     /**@description 连对 */
-    double_scroll = "double_scroll",
+    progression_pair = "progression_pair",
     /**@description 王炸 */
     king_boom = "king_boom",
 }
@@ -123,7 +123,6 @@ export enum LordCardStatue{
     /**@description 作为亮牌显示 */
     in_bottom_showing = "in_bottom_showing"
 }
-
 
 export enum CardStatue{
     STANDUP = "STANDUP",

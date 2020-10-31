@@ -61,6 +61,29 @@ export interface CallLordDataInterface{
 
 /**@description AI的牌型 */
 export interface AICardType {
-       val : number;
-       cardList: Array<LordCardInterface>;
-};
+    /**@description AI 的牌的类型 */
+    type_value : number;
+    /**@description 这组类型的牌的信息 */
+    cards: Array<LordCardInterface>;
+}
+
+
+/**@description 统计牌的信息接口 */
+export interface CardValCountInterface{
+    /**@description 牌的ID */
+    id: number;
+    /**@description 牌的数量 */
+    count: number;
+}
+
+/**@description 出牌的信息 */
+export interface SendCardInterface{
+    /**@description 出牌的信息 */
+    cards: Array<LordCardInterface>;
+    /**@description 出牌的类型 */
+    card_kind: string;
+    /**@description 出牌的数量 */
+    size: number;
+    /**@description 出牌的ID */
+    id: number;
+}
