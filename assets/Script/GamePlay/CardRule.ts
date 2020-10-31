@@ -925,7 +925,7 @@ export class CardRule {
      */
     val_count(cards: card_list) : CardValCountInterface[]{
         var result: CardValCountInterface[] = [];
-        var addCount = function (result: CardValCountInterface[], id: number) {
+        var addCount =  (result: CardValCountInterface[], id: number) => {
             for (var i = 0; i < result.length; i++) {
                 if (result[i].id == id) {
                     result[i].count++;
@@ -934,10 +934,8 @@ export class CardRule {
             }
             result.push({ 'id': id, 'count': 1 });
         };
-        console.log("cards = ", cards);
-
+       
         for (var i = 0; i < cards.length; i++) {
-            console.log("i = ", i);
             addCount(result, cards[i].id);
         }
 

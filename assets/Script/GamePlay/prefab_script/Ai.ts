@@ -13,26 +13,39 @@ export class Ai {
     public _ai_player: Player;
 
     /**@description 单张 */
-    private _one: AICardTypeList = [];
+    public _one: AICardTypeList = [];
     /**@description 对子 */
-    private _pairs: AICardTypeList = [];
+    public _pairs: AICardTypeList = [];
     /**@description 三张 */
-    private _three: AICardTypeList = [];
+    public _three: AICardTypeList = [];
     /**@description 炸弹 */
-    private _boom: AICardTypeList = [];
+    public _boom: AICardTypeList = [];
     /**@description 飞机 */
-    private _plane: AICardTypeList = [];
+    public _plane: AICardTypeList = [];
     /**@description 顺子*/
-    private _progression: AICardTypeList = [];
+    public _progression: AICardTypeList = [];
     /**@description 连对 */
-    private _progress_pair: AICardTypeList = [];
+    public _progress_pair: AICardTypeList = [];
     /**@description 王炸 */
-    private _king_bomb: AICardTypeList = [];
+    public _king_bomb: AICardTypeList = [];
+
     /**@description 排的规则信息 */
     public card_rule: CardRule = new CardRule();
 
+    public clear(){
+        this._one = [];
+        this._pairs = [];
+        this._three = [];
+        this._boom = [];
+        this._plane = [];
+        this._progression = [];
+        this._progress_pair = [];
+        this._king_bomb = [];
+    }
+
     /**@description 分析牌型 */
     public analyse() {
+        this.clear();
         let target = this._ai_player.player_interface.cards.slice(0);
         let stat = null;
         let target_wob = null;
@@ -811,7 +824,7 @@ export class Ai {
                             plane.cards.push(one);
                             currOneVal = one.id;
                         }
-                        return this.set_card_kind(plane,  LordSendCardType.plane_with_two);
+                        return this.set_card_kind(plane, LordSendCardType.plane_with_two);
                     } else {
                         var currPairsVal = 2;
                         for (var i = 0; i < len; i++) {
@@ -819,7 +832,7 @@ export class Ai {
                             plane.cards = plane.cards.concat(pairs.cards);
                             currPairsVal = pairs.id;
                         }
-                        return this.set_card_kind(plane,  LordSendCardType.plane_with_two);
+                        return this.set_card_kind(plane, LordSendCardType.plane_with_two);
                     }
                 } else if (this._pairs.length > len) {
                     var currPairsVal = 2;
@@ -828,7 +841,7 @@ export class Ai {
                         plane.cards = plane.cards.concat(pairs.cards);
                         currPairsVal = pairs.id;
                     }
-                    return this.set_card_kind(plane,  LordSendCardType.plane_with_two);
+                    return this.set_card_kind(plane, LordSendCardType.plane_with_two);
                 } else if (this._one.length > len) {
                     var currOneVal = 2;
                     for (var i = 0; i < len; i++) {
@@ -883,7 +896,7 @@ export class Ai {
                 for (let i = 0; i < st.length; i++) {
                     const val = st[i].val
                     const t_cards = []
-                  
+
                     for (let j = cards.length - 1; j >= 0; j--) {
                         if (cards[j].id === val) {
                             if (t_cards.length < c) {
@@ -1074,7 +1087,7 @@ export class Ai {
                 ...this._boom, // 炸弹
                 ...this._king_bomb // 王炸
             ].map(a => a.cards && a.cards).filter(a => a);
-           
+
             return promptList;
         }
     };
@@ -1090,7 +1103,7 @@ export class Ai {
      */
     off_pairs(v, notEq) {
         var self = this,
-            pairs = this.min_cards(this._pairs,LordSendCardType.double, v);
+            pairs = this.min_cards(this._pairs, LordSendCardType.double, v);
         if (pairs) {
             while (true) {
                 if (pairs.cards[0].id === notEq) {
@@ -1203,16 +1216,14 @@ export class Ai {
     * @param  {[array]}         cards 指定的牌
     */
     judge_progression(cards: card_list) {
-        var self = this;
-
-        var saveprogression = function (proList) {
+        var saveprogression =  (proList) => {
             var progression = [];
             for (var j = 0; j < proList.length; j++) {
                 progression.push(proList[j].obj);
             }
 
             const ai_card_type: AICardType = {
-                type_value: proList[0].obj.type_value,
+                type_value: proList[0].obj.id,
                 cards: progression,
             }
 
@@ -1232,10 +1243,10 @@ export class Ai {
                     proList.push({ 'obj': cards[i], 'fromIndex': i });
                     continue;
                 }
-                if (proList[proList.length - 1].obj.type_value - 1 === cards[i].id) {//判定递减
+                if (proList[proList.length - 1].obj.id - 1 === cards[i].id) {//判定递减
                     proList.push({ 'obj': cards[i], 'fromIndex': i });
                     if (proList.length === 5) break;
-                } else if (proList[proList.length - 1].obj.type_value === cards[i].id) {//相等跳出本轮
+                } else if (proList[proList.length - 1].obj.id === cards[i].id) {//相等跳出本轮
                     continue;
                 } else {
                     if (proList.length >= 5) {//已经有顺子，先保存
@@ -1253,24 +1264,48 @@ export class Ai {
                 saveprogression(proList);
                 this.judge_progression(cards);//再次判断顺子
             } else {
-                this.judge_progression(cards);
+                this.join_progression(cards);
             }
         }
     };
+
+     /**
+     * 将顺子与剩下的牌进行拼接，组成更大的顺子
+     * @param {*} cards 
+     */
+    join_progression(cards: card_list) {
+        var self = this;
+        for (var i = 0; i < this._progression.length; i++) {//拼接其他散牌
+            for (var j = 0; j < cards.length; j++) {
+                if (this._progression[i].type_value != 14 && this._progression[i].type_value === cards[j].id - 1) {
+                    this._progression[i].cards.unshift(cards.splice(j, 1)[0]);
+                } else if (cards[j].id === this._progression[i].type_value - this._progression[i].cards.length) {
+                    this._progression[i].cards.push(cards.splice(j, 1)[0]);
+                }
+            }
+        }
+        var temp = this._progression.slice(0);
+        for (i = 0; i < temp.length; i++) {//连接顺子
+            if (i < temp.length - 1 && temp[i].type_value - temp[i].cards.length === temp[i + 1].type_value) {
+                this._progression[i].cards = this._progression[i].cards.concat(this._progression[i + 1].cards);
+                this._progression.splice(++i, 1);
+            }
+        }
+    }
 
     /**
     * 判断给定牌中的三根
     * @method judgeThree
     */
     judge_three(cards: card_list) {
-        var self = this,
-            stat = this.card_rule.val_count(cards);
+        let stat = this.card_rule.val_count(cards);
+        console.log(this._ai_player.player_interface.position, "三对的数据 = ", stat);
         for (let i = 0; i < stat.length; i++) {
             if (stat[i].count === 3) {
                 var list = [];
                 this.move_item(cards, list, stat[i].id);
                 const ai_card_type: AICardType = {
-                    type_value: list[0].type_value,
+                    type_value: list[0].id,
                     cards: list,
                 }
                 this._three.push(ai_card_type);

@@ -91,6 +91,10 @@ class GamePlay extends cc.Component {
         this.ThirdPeople.active = false;
     }
 
+    player(){
+        return this._players[0];
+    }
+
     /**@description 刷新玩家的信息 */
     flush_players(){
         this.SecondPeople.active = true;
