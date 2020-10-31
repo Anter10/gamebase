@@ -62,7 +62,7 @@ export interface CallLordDataInterface{
 /**@description AI的牌型 */
 export interface AICardType {
     /**@description AI 的牌的类型 */
-    type_value : number;
+    id : number;
     /**@description 这组类型的牌的信息 */
     cards: Array<LordCardInterface>;
 }

@@ -8,7 +8,6 @@ import Player from "./Player";
 type AICardTypeList = Array<AICardType>;
 type SendCardTypeList = Array<SendCardInterface>;
 
-
 export class Ai {
     public _ai_player: Player;
 
@@ -58,7 +57,7 @@ export class Ai {
         // 确定王炸
         if (this.card_rule.is_king_boom(target.slice(0, 2))) {
             const ai_card_type: AICardType = {
-                type_value: target.slice(0, 2)[0].id,
+                id: target.slice(0, 2)[0].id,
                 cards: target.splice(0, 2),
             }
             this._king_bomb.push(ai_card_type)
@@ -71,7 +70,7 @@ export class Ai {
                 var list: card_list = [];
                 this.move_item(target, list, stat[i].id);
                 const ai_card_type: AICardType = {
-                    type_value: list[0].id,
+                    id: list[0].id,
                     cards: list,
                 }
                 this._boom.push(ai_card_type);
@@ -104,7 +103,7 @@ export class Ai {
                 for (var j = 0; j < target_wobp.length; j++) {
                     if (target_wobp[j].id === stat[i].id) {
                         const ai_card_type: AICardType = {
-                            type_value: stat[i].id,
+                            id: stat[i].id,
                             cards: target_wobp.splice(j, 1),
                         }
                         this._one.push(ai_card_type);
@@ -114,7 +113,7 @@ export class Ai {
                 for (var j = 0; j < target_wobp.length; j++) {
                     if (target_wobp[j].id === stat[i].id) {
                         const ai_card_type: AICardType = {
-                            type_value: stat[i].id,
+                            id: stat[i].id,
                             cards: target_wobp.splice(j, 2),
                         }
                         this._pairs.push(ai_card_type);
@@ -124,14 +123,14 @@ export class Ai {
         }
 
         // 排序
-        this._one.sort((a, b) => b.type_value - a.type_value)
-        this._pairs.sort((a, b) => b.type_value - a.type_value)
-        this._king_bomb.sort((a, b) => b.type_value - a.type_value)
-        this._boom.sort((a, b) => b.type_value - a.type_value)
-        this._three.sort((a, b) => b.type_value - a.type_value)
-        this._plane.sort((a, b) => b.type_value - a.type_value)
-        this._progression.sort((a, b) => b.type_value - a.type_value)
-        this._progress_pair.sort((a, b) => b.type_value - a.type_value)
+        this._one.sort((a, b) => b.id - a.id)
+        this._pairs.sort((a, b) => b.id - a.id)
+        this._king_bomb.sort((a, b) => b.id - a.id)
+        this._boom.sort((a, b) => b.id - a.id)
+        this._three.sort((a, b) => b.id - a.id)
+        this._plane.sort((a, b) => b.id - a.id)
+        this._progression.sort((a, b) => b.id - a.id)
+        this._progress_pair.sort((a, b) => b.id - a.id)
 
     }
 
@@ -207,7 +206,7 @@ export class Ai {
                     return this.max_cards(list, kind, winc.val);
                 } else {
                     c = this.min_cards(list, kind, winc.val);
-                    return c ? (c.val < 14 || this.play_times() <= 2 ? c : null) : null;
+                    return c ? (c.id < 14 || this.play_times() <= 2 ? c : null) : null;
                 }
             }
         }
@@ -225,11 +224,11 @@ export class Ai {
             max = null;
         if (list.length > 0) {
             for (var i = 0; i < list.length; i++) {//从小值开始判断
-                if ((max && list[i].val > max.val) || !max) {
+                if ((max && list[i].id > max.val) || !max) {
                     max = list[i];
                 }
             }
-            return v ? (max.val > v ? this.set_card_kind(max, kind) : null) : this.set_card_kind(max, kind);
+            return v ? (max.id > v ? this.set_card_kind(max, kind) : null) : this.set_card_kind(max, kind);
         }
         return null;
     };
@@ -242,7 +241,7 @@ export class Ai {
  * @param  {number} v    要大过的值
  * @return
  */
-    min_cards(list, kind, v?: number) {
+    min_cards(list, kind, v?: number):SendCardInterface {
         v = v ? v : 2;
         if (list.length > 0) {
             for (var i = list.length - 1; i >= 0; i--) {//从小值开始判断
@@ -263,11 +262,11 @@ export class Ai {
     min_plane(len: number, winc: SendCardInterface) {
         if (this._plane.length > 0) {
             for (var i = this._plane.length - 1; i >= 0; i--) {//从小值开始判断
-                if (winc.id < this._plane[i].type_value && len <= this._plane[i].cards.length) {
+                if (winc.id < this._plane[i].id && len <= this._plane[i].cards.length) {
                     if (len === this._plane[i].cards.length) {
                         return this.set_card_kind(this._plane[i], LordSendCardType.plane);
                     } else {
-                        var valDiff = this._plane[i].type_value - winc.id,
+                        var valDiff = this._plane[i].id - winc.id,
                             sizeDiff = (this._plane[i].cards.length - len) / 3;
                         for (var j = 0; j < sizeDiff; j++) {//拆顺
                             if (valDiff > 1) {
@@ -307,7 +306,7 @@ export class Ai {
                 return null;
             }
         } else {
-            if (one.val > 14) {//保留2和大小王
+            if (one.id > 14) {//保留2和大小王
                 if (oneFromPairs) {
                     this.delete_one(oneFromPairs);
                     return oneFromPairs;
@@ -320,12 +319,12 @@ export class Ai {
     };
 
     /**
- * 跟牌,AI根据上家牌出牌
- * @method function
- * @param  {object} winc 当前牌面最大牌
- * @param  {boolean} isWinneris_lord 当前最大是否是地主
- * @return {number} winnerCardCount 当前最大那家剩余手牌数
- */
+    * 跟牌,AI根据上家牌出牌
+    * @method function
+    * @param  {object} winc 当前牌面最大牌
+    * @param  {boolean} isWinneris_lord 当前最大是否是地主
+    * @return {number} winnerCardCount 当前最大那家剩余手牌数
+    */
     follow(winc: SendCardInterface, isWinneris_lord, winnerCardCount) {
         const cards = this._ai_player.player_interface.cards;
         var result = () => {
@@ -346,7 +345,7 @@ export class Ai {
                                 }
                             }
                         }
-                        if (this.play_times() <= 1 && this._pairs.length > 0 && this._pairs[0].type_value > 10) {//剩下一对大于10拆牌
+                        if (this.play_times() <= 1 && this._pairs.length > 0 && this._pairs[0].id > 10) {//剩下一对大于10拆牌
                             var c = cards.slice(0, 1);
                             if (c[0].id > winc.id) {
                                 const send_card: SendCardInterface = {
@@ -369,7 +368,7 @@ export class Ai {
                         //从连对中拿对
                         if (this._progress_pair.length > 0) {
                             for (var i = this._progress_pair.length - 1; i >= 0; i--) {
-                                if (winc.id >= this._progress_pair[i].type_value) continue;
+                                if (winc.id >= this._progress_pair[i].id) continue;
                                 for (var j = this._progress_pair[i].cards.length - 1; j >= 0; j -= 2) {
                                     if (this._progress_pair[i].cards[j].id > winc.id) {
                                         var pairsFromPP = this._progress_pair[i].cards.splice(j - 1, 2);
@@ -384,12 +383,12 @@ export class Ai {
                             }
                         } else if (this._three.length > 0) {
                             for (var i = this._three.length - 1; i >= 0; i--) {
-                                if (this._three[i].type_value > winc.id) {
+                                if (this._three[i].id > winc.id) {
                                     const send_card: SendCardInterface = {
                                         cards: this._three[i].cards.slice(0, 2),
                                         card_kind: LordSendCardType.double,
                                         size: 2,
-                                        id: this._three[i].type_value
+                                        id: this._three[i].id
                                     };
 
                                     return send_card;
@@ -410,13 +409,13 @@ export class Ai {
                     }
                     var three = this.min_cards(this._three, LordSendCardType.three_with_one, winc.id);
                     if (three) {
-                        var one = this.min_one(2, three.val);
+                        let one = this.min_one(2, three.id);
                         if (!one) {
                             return null;
                         } else {
                             three.cards.push(one);
                         }
-                        three.cardKind = LordSendCardType.three_with_one;
+                        three.card_kind = LordSendCardType.three_with_one;
                         three.size = 4;
                     }
                     return three;
@@ -427,9 +426,9 @@ export class Ai {
                     }
                     var three = this.min_cards(this._three, LordSendCardType.three, winc.id);
                     if (three) {
-                        var pairs = this.min_cards(this._pairs, LordSendCardType.double);
+                        let pairs = this.min_cards(this._pairs, LordSendCardType.double);
                         while (true) {//避免对子三根重叠
-                            if (pairs.cards[0].val === three.val) {
+                            if (pairs.cards[0].id === three.id) {
                                 pairs = this.min_cards(this._pairs, LordSendCardType.double, pairs.cards[0].id);
                             } else {
                                 break;
@@ -440,7 +439,7 @@ export class Ai {
                         } else {
                             return null;
                         }
-                        three.cardKind = LordSendCardType.three_withe_two;
+                        three.card_kind = LordSendCardType.three_withe_two;
                         three.size = 5;
                     }
                     return three;
@@ -451,17 +450,17 @@ export class Ai {
                     }
                     if (this._progression.length > 0) {
                         for (var i = this._progression.length - 1; i >= 0; i--) {//从小值开始判断
-                            if (winc.id < this._progression[i].type_value && winc.size <= this._progression[i].cards.length) {
+                            if (winc.id < this._progression[i].id && winc.size <= this._progression[i].cards.length) {
                                 if (winc.size === this._progression[i].cards.length) {
                                     return this.set_card_kind(this._progression[i], LordSendCardType.progression);
                                 } else {
                                     if (this._ai_player.is_lord || isWinneris_lord) {
-                                        var valDiff = this._progression[i].type_value - winc.id,
+                                        var valDiff = this._progression[i].id - winc.id,
                                             sizeDiff = this._progression[i].cards.length - winc.size;
                                         for (var j = 0; j < sizeDiff; j++) {//拆顺
                                             if (valDiff > 1) {
                                                 this._progression[i].cards.shift();
-                                                this._progression[i].type_value--;
+                                                this._progression[i].id--;
                                                 valDiff--;
                                                 continue;
                                             }
@@ -483,12 +482,12 @@ export class Ai {
                     }
                     if (this._progress_pair.length > 0) {
                         for (var i = this._progress_pair.length - 1; i >= 0; i--) {//从小值开始判断
-                            if (winc.id < this._progress_pair[i].type_value && winc.size <= this._progress_pair[i].cards.length) {
+                            if (winc.id < this._progress_pair[i].id && winc.size <= this._progress_pair[i].cards.length) {
                                 if (winc.size === this._progress_pair[i].cards.length) {
                                     return this.set_card_kind(this._progress_pair[i], LordSendCardType.progression_pair);
                                 } else {
                                     if (this._ai_player.is_lord || isWinneris_lord) {
-                                        var valDiff = this._progress_pair[i].type_value - winc.id,
+                                        var valDiff = this._progress_pair[i].id - winc.id,
                                             sizeDiff = (this._progress_pair[i].cards.length - winc.size) / 2;
                                         for (var j = 0; j < sizeDiff; j++) {//拆顺
                                             if (valDiff > 1) {
@@ -524,10 +523,10 @@ export class Ai {
                     if (plane) {
                         var currOneVal = 2;
                         for (var i = 0; i < cnt; i++) {
-                            var one = this.min_one(currOneVal, plane.val);//拿一张单牌
+                            let one = this.min_one(currOneVal, plane.val);//拿一张单牌
                             if (one) {
                                 plane.cards.push(one);
-                                currOneVal = one.val;
+                                currOneVal = one.id;
                             } else {
                                 return null;
                             }
@@ -545,10 +544,10 @@ export class Ai {
                     if (plane) {
                         var currPairsVal = 2;
                         for (var i = 0; i < cnt; i++) {
-                            var pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
+                            let pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
                             if (pairs) {
                                 plane.cards = plane.cards.concat(pairs.cards);
-                                currPairsVal = pairs.val;
+                                currPairsVal = pairs.id;
                             } else {
                                 return null;
                             }
@@ -620,9 +619,9 @@ export class Ai {
                 if (this._one.length >= this._pairs.length) {//单根多带单
                     var currOneVal = 2;
                     for (var i = 0; i < len; i++) {
-                        var one = this.min_one(currOneVal, plane.val);//拿一张单牌
+                        var one = this.min_one(currOneVal, plane.id);//拿一张单牌
                         plane.cards.push(one);
-                        currOneVal = one.val;
+                        currOneVal = one.id;
                     }
                     return this.set_card_kind(plane, LordSendCardType.plane_with_one);
                 } else {
@@ -630,7 +629,7 @@ export class Ai {
                     for (var i = 0; i < len; i++) {
                         var pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
                         plane.cards = plane.cards.concat(pairs.cards);
-                        currPairsVal = pairs.val;
+                        currPairsVal = pairs.id;
                     }
                     return this.set_card_kind(plane, LordSendCardType.plane_with_two);
                 }
@@ -639,15 +638,15 @@ export class Ai {
                 for (var i = 0; i < len; i++) {
                     var pairs = this.min_cards(this._pairs, LordSendCardType.double, currPairsVal);//拿一对
                     plane.cards = plane.cards.concat(pairs.cards);
-                    currPairsVal = pairs.val;
+                    currPairsVal = pairs.id;
                 }
                 return this.set_card_kind(plane, LordSendCardType.plane_with_two);
             } else if (this._one.length > len) {
                 var currOneVal = 2;
                 for (var i = 0; i < len; i++) {
-                    var one = this.min_one(currOneVal, plane.val);//拿一张单牌
+                    var one = this.min_one(currOneVal, plane.id);//拿一张单牌
                     plane.cards.push(one);
-                    currOneVal = one.val;
+                    currOneVal = one.id;
                 }
                 return this.set_card_kind(plane, LordSendCardType.plane_with_one);
             } else {
@@ -661,7 +660,7 @@ export class Ai {
             var three = this.min_cards(this._three, LordSendCardType.three);
             var len = three.cards.length / 3;
             if (this._one.length >= 0) {//单根多带单
-                var one = this.min_one(currOneVal, three.val);//拿一张单牌
+                var one = this.min_one(currOneVal, three.id);//拿一张单牌
                 three.cards.push(one);
                 return this.set_card_kind(three, LordSendCardType.three_with_one);
             } else if (this._pairs.length > 0) {
@@ -686,7 +685,7 @@ export class Ai {
             else
                 return this.min_cards(this._one, LordSendCardType.one);
         } else {//都计算无结果出最小的那张牌
-            var one = null;
+            let one = null;
             if ((this._ai_player.is_lord && (this._ai_player.next_player.player_interface.cards.length <= 2 || this._ai_player.next_player.next_player.player_interface.cards.length <= 2))
                 || (!this._ai_player.is_lord && landlordCardsCnt <= 2))
                 one = cards.slice(-1);
@@ -713,25 +712,25 @@ export class Ai {
             var minCard = cards[idx];
             //在单根里找
             for (var i = 0; i < this._one.length; i++) {
-                if (this._one[i].type_value === minCard.id) {
+                if (this._one[i].id === minCard.id) {
                     return this.min_cards(this._one, LordSendCardType.one);
                 }
             }
             //对子里找
             for (let i = 0; i < this._pairs.length; i++) {
-                if (this._pairs[i].type_value === minCard.id) {
+                if (this._pairs[i].id === minCard.id) {
                     return this.min_cards(this._pairs, LordSendCardType.double);
                 }
             }
             //三根里找
             for (let i = 0; i < this._three.length; i++) {
-                if (this._three[i].type_value === minCard.id) {
+                if (this._three[i].id === minCard.id) {
                     return this.min_cards(this._three, LordSendCardType.three);
                 }
             }
             //炸弹里找
             for (let i = 0; i < this._boom.length; i++) {
-                if (this._boom[i].type_value === minCard.id) {
+                if (this._boom[i].id === minCard.id) {
                     return this.min_cards(this._boom, LordSendCardType.boom);
                 }
             }
@@ -766,24 +765,24 @@ export class Ai {
 
         for (var i = cards.length - 1; i >= 0; i--) {
             var r = cardsWithMin(i);
-            if (r.cardKind === LordSendCardType.one) {
+            if (r.card_kind === LordSendCardType.one) {
                 if (this._plane.length > 0) {//三顺
                     var plane = this.min_cards(this._plane, LordSendCardType.plane);
                     var len = plane.cards.length / 3;
                     var currOneVal = 2;
                     for (var i = 0; i < len; i++) {
-                        var one = this.min_one(currOneVal, plane.val);//拿一张单牌
+                        var one = this.min_one(currOneVal, plane.id);//拿一张单牌
                         plane.cards.push(one);
-                        currOneVal = one.val;
+                        currOneVal = one.id;
                     }
                     return this.set_card_kind(plane, LordSendCardType.plane_with_one);
                 }
                 else if (this._three.length > 0) {//三带一
                     var three = this.min_cards(this._three, LordSendCardType.three);
                     var len = three.cards.length / 3;
-                    var one = this.min_one(currOneVal, three.val);//拿一张单牌
+                    var one = this.min_one(currOneVal, three.id);//拿一张单牌
                     three.cards.push(one);
-                    if (three.val < 14)
+                    if (three.id < 14)
                         return this.set_card_kind(three, LordSendCardType.three_with_one);
                 }
                 if (this._ai_player.is_lord) {//坐庄打法
@@ -799,11 +798,11 @@ export class Ai {
                     else
                         return this.min_cards(this._one, LordSendCardType.one);
                 }
-            } else if (r.cardKind === LordSendCardType.three) {
+            } else if (r.card_kind === LordSendCardType.three) {
                 var three = this.min_cards(this._three, LordSendCardType.three);
                 var len = three.cards.length / 3;
                 if (this._one.length > 0) {//单根多带单
-                    var one = this.min_one(currOneVal, three.val);//拿一张单牌
+                    var one = this.min_one(currOneVal, three.id);//拿一张单牌
                     three.cards.push(one);
                     return this.set_card_kind(three, LordSendCardType.three_with_one);
                 } else if (this._pairs.length > 0) {
@@ -886,7 +885,7 @@ export class Ai {
                 var result = [];
                 //除去不能大过当前的牌
                 for (let i = st.length - 1; i >= 0; i--) {
-                    if (st[i].count < c || st[i].val <= winVal) {
+                    if (st[i].count < c || st[i].id <= winVal) {
                         st.splice(i, 1);
                     }
                 }
@@ -969,7 +968,7 @@ export class Ai {
                         onePrompt = setPrompt(1, 2, stat.slice(0));
                     for (var i = 0; i < threePrompt.length; i++) {
                         for (var j = 0; j < onePrompt.length; j++) {
-                            if (onePrompt[j][0].val != threePrompt[i][0].val) {
+                            if (onePrompt[j][0].id != threePrompt[i][0].val) {
                                 promptList.push(threePrompt[i].concat(onePrompt[j]));
                             }
                         }
@@ -980,7 +979,7 @@ export class Ai {
                         pairsPrompt = setPrompt(2, 2, stat.slice(0));
                     for (var i = 0; i < threePrompt.length; i++) {
                         for (var j = 0; j < pairsPrompt.length; j++) {
-                            if (pairsPrompt[j][0].val != threePrompt[i][0].val) {
+                            if (pairsPrompt[j][0].id != threePrompt[i][0].val) {
                                 promptList.push(threePrompt[i].concat(pairsPrompt[j]));
                             }
                         }
@@ -999,7 +998,7 @@ export class Ai {
                                     proList.push(cards.slice(j, j + 1)[0]);
                                     continue;
                                 }
-                                if (proList[proList.length - 1].val - 1 === cards[j].id) {//判定递减
+                                if (proList[proList.length - 1].id - 1 === cards[j].id) {//判定递减
                                     proList.push(cards.slice(j, j + 1)[0]);
                                     if (proList.length === winc.size) {
                                         promptList.push(proList);
@@ -1025,9 +1024,9 @@ export class Ai {
                                     continue;
                                 }
                                 if (proList.length > 0
-                                    && proList[proList.length - 1].val - 1 === cards[j].id
+                                    && proList[proList.length - 1].id - 1 === cards[j].id
                                     && cards[j + 1]
-                                    && proList[proList.length - 1].val - 1 === cards[j + 1].id) {//判定递减
+                                    && proList[proList.length - 1].id - 1 === cards[j + 1].id) {//判定递减
                                     proList = proList.concat(cards.slice(j, j + 2));
                                     j++;
                                     if (proList.length === winc.size) {
@@ -1171,7 +1170,7 @@ export class Ai {
             }
             progressionPairs.sort(LordUtils.sort_cards);
             const ai_card_type: AICardType = {
-                type_value: proList[0],
+                id: proList[0],
                 cards: progressionPairs,
             }
             this._progress_pair.push(ai_card_type);
@@ -1223,7 +1222,7 @@ export class Ai {
             }
 
             const ai_card_type: AICardType = {
-                type_value: proList[0].obj.id,
+                id: proList[0].obj.id,
                 cards: progression,
             }
 
@@ -1277,16 +1276,16 @@ export class Ai {
         var self = this;
         for (var i = 0; i < this._progression.length; i++) {//拼接其他散牌
             for (var j = 0; j < cards.length; j++) {
-                if (this._progression[i].type_value != 14 && this._progression[i].type_value === cards[j].id - 1) {
+                if (this._progression[i].id != 14 && this._progression[i].id === cards[j].id - 1) {
                     this._progression[i].cards.unshift(cards.splice(j, 1)[0]);
-                } else if (cards[j].id === this._progression[i].type_value - this._progression[i].cards.length) {
+                } else if (cards[j].id === this._progression[i].id - this._progression[i].cards.length) {
                     this._progression[i].cards.push(cards.splice(j, 1)[0]);
                 }
             }
         }
         var temp = this._progression.slice(0);
         for (i = 0; i < temp.length; i++) {//连接顺子
-            if (i < temp.length - 1 && temp[i].type_value - temp[i].cards.length === temp[i + 1].type_value) {
+            if (i < temp.length - 1 && temp[i].id - temp[i].cards.length === temp[i + 1].id) {
                 this._progression[i].cards = this._progression[i].cards.concat(this._progression[i + 1].cards);
                 this._progression.splice(++i, 1);
             }
@@ -1305,7 +1304,7 @@ export class Ai {
                 var list = [];
                 this.move_item(cards, list, stat[i].id);
                 const ai_card_type: AICardType = {
-                    type_value: list[0].id,
+                    id: list[0].id,
                     cards: list,
                 }
                 this._three.push(ai_card_type);
@@ -1321,14 +1320,14 @@ export class Ai {
         if (this._three.length > 1) {
             var proList = [];
             for (let i = 0; i < this._three.length; i++) {//遍历统计结果
-                if (this._three[i].type_value >= 15) {
+                if (this._three[i].id >= 15) {
                     continue;//三顺必须小于2
                 }
                 if (proList.length == 0) {
                     proList.push({ 'obj': this._three[i], 'fromIndex': i });
                     continue;
                 }
-                if (proList[proList.length - 1].obj.type_value - 1 == this._three[i].type_value) {//判定递减
+                if (proList[proList.length - 1].obj.id - 1 == this._three[i].id) {//判定递减
                     proList.push({ 'obj': this._three[i], 'fromIndex': i });
                 } else {
                     if (proList.length > 1) {//已经有三顺，先保存
@@ -1337,7 +1336,7 @@ export class Ai {
                             planeCards = planeCards.concat(proList[j].obj.cards);
                         }
                         const ai_card_type: AICardType = {
-                            type_value: proList[0].obj.type_value,
+                            id: proList[0].obj.id,
                             cards: planeCards,
                         }
 
@@ -1359,7 +1358,7 @@ export class Ai {
                     planeCards = planeCards.concat(proList[j].obj.cards);
                 }
                 const ai_card_type: AICardType = {
-                    type_value: proList[0].obj.type_value,
+                    id: proList[0].obj.id,
                     cards: planeCards,
                 }
 
