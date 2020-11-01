@@ -6,7 +6,7 @@ import { BiInterface } from "./SdkInterface";
 class BI{
     static bi(bi_data: BiInterface, callback?: Function){
         ServerData.get_instance().bi_data(`/${GameConfig.bi_root_path}/api/event?eventId=${bi_data.eventId}&eventName=${bi_data.eventName}&ts=${bi_data.ts}`, callback);
-   } 
+   }  
 }
 
 export default BI;
