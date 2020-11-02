@@ -69,7 +69,7 @@ class Ad{
       /**@description 播放直客广告  */
       static play_zhi_ke_video(zhi_ke_data:ZhiKeAdInterface){
           if(gamebase.WebViewJavascriptBridge){
-             const callback = (play_duration: number) =>{
+             const callback = (s: number) =>{
                 zhi_ke_data.callback && (zhi_ke_data.callback(play_duration));
              }
 
