@@ -17,8 +17,15 @@ class NoBanlanceCashOutView extends BaseUI {
     @property(cc.Prefab)
     no_banlance_view_item_prefab: cc.Prefab = null;
 
+    public cash_out_view_items_interface: Array<CashOutViewItemInterface> = [
+
+    ];
+
     onLoad () {
         super.onLoad();
+        this.cash_out_view_items_interface = [
+
+        ];
         this.add_nagivator([{action_title: "提现记录",action: () =>{
             const ui_param_interface: UIParamInterface = {
                 ui_config_path: UIConfig.CashOutOrderView,

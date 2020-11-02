@@ -1,9 +1,11 @@
 import { gamebase } from "../Boot";
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import CashOutController from "../UI/CashOut/CashOutController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";
+import { CashOutRouterPath } from "./CommonEnum";
 import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
@@ -40,6 +42,7 @@ class Test{
 
     /**@description 测试提现功能 */
     static cash_out(){
+        CashOutController.open(CashOutRouterPath.no_balance);
     }
 
 

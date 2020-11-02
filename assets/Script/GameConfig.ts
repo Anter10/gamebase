@@ -28,15 +28,15 @@ const GameConfig = {
       /**@description 请求地址的类型 apiType:0 测试地址  1：正式地址  */
       apiType: 0,
       /**@description 产品名称 */
-      productName: "g3_zlzdd",
+      productName: "g3_wdct",
       /**@description 游戏包的名 */
-      packageName:"com.hainanliangyou.zlzdd",
+      packageName:"com.hainanliangyou.wdct",
       post_id: 20010001,
 
       // 用户协议的网页链接
-      user_protocol_url:"http://waqqq.hainanliangyou.com/user.html",
+      user_protocol_url:"http://wdct.hainanliangyou.com/wdct/private.html",
       // 隐私声明的网页链接
-      user_privacy_url:"http://waqqq.hainanliangyou.com/private.html",
+      user_privacy_url:"http://wdct.hainanliangyou.com/wdct/user.html",
 
       /**@description BI的根地址 */
       bi_root_path:"g3-ocpc",
@@ -67,7 +67,8 @@ const GameConfig = {
       /**@description 显示debug 按钮 */
       show_debug: true,
       remoteName: "mvp",
-
+      wx_appid: "wxc5fb17eb4bc6ba96",
+      app_secret: "3285b60cb0035501714c90ad1a3e0e9d",
   
 } 
 

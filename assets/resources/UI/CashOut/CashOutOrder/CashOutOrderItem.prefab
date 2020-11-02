@@ -230,7 +230,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "0.3元",
     "_N$string": "0.3元",
     "_fontSize": 40,
@@ -339,7 +338,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "2020-10-15",
     "_N$string": "2020-10-15",
     "_fontSize": 40,
@@ -448,7 +446,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "提现成功",
     "_N$string": "提现成功",
     "_fontSize": 30,
@@ -551,7 +548,7 @@
     "asset": {
       "__uuid__": "cf60afc2-6817-49f8-aa67-27685bae661e"
     },
-    "fileId": "937lnVOL9EILIetGK82eDw",
+    "fileId": "",
     "sync": false
   }
 ]
