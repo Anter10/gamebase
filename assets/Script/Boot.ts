@@ -27,6 +27,12 @@ class Boot{
         GameLocalData.get_instance().init();
         ServerData.get_instance().init();
         GameDataConfig.init();
+
+        //  CommonServerData.request_accesskey((response: any) => {
+        //         console.log("用户注册的信息 = ",response);
+              
+        // })
+            
         // SdkModule.test();
     }
 }

@@ -165,9 +165,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "659664bf-4964-431a-8f84-7840d061bc94"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -664,6 +662,7 @@
     "container": {
       "__id__": 8
     },
+    "order_prefab": null,
     "_id": ""
   },
   {
@@ -674,7 +673,7 @@
     "asset": {
       "__uuid__": "f60ddadd-9c02-43cc-8018-cffc1abe6517"
     },
-    "fileId": "937lnVOL9EILIetGK82eDw",
+    "fileId": "",
     "sync": false
   }
 ]

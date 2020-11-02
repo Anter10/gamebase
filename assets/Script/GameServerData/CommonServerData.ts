@@ -62,6 +62,12 @@ class CommonServerData{
         ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/share`, callback);
     }
 
+    /**@description 用户注册 获取accessKey */
+    static request_accesskey(callback: Function){
+        let url = "/bp/user/register?appId="+GameConfig.appId+"&pkgId="+GameConfig.pkgId+"&oaid=";
+        ServerData.get_instance().get_data(url, callback);
+    }
+
 
 }
 

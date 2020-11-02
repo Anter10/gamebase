@@ -2,7 +2,7 @@
 import { BaseUIInterface, RouterInterface, UIParamInterface } from "../../Common/CommonInterface";
 import Controller from "../../Common/Controller";
 import CashOutView from "./CashOutView";
-import { UserMoneyModel, CashOutViewItemInterface, CashOutInterface } from "./CashOutInterface";
+import { UserMoneyModel, CashOutViewItemInterface, CashOutInterface, CashInterface } from "./CashOutInterface";
 import { CashOutRouterPath } from "../../Common/CommonEnum";
 import UIManager from "../UIManager/UIManager";
 import Loader from "../../Common/Loader";
@@ -59,7 +59,7 @@ class CashOutController implements Controller {
     update_cash_out_view(){
         CommonServerData.get_withdraw((with_draw_data_interface: CashOutInterface)=>{
             console.log("当前的体现数据  = ", with_draw_data_interface);
-            console.log("this.view",this.view.ui_param_interface.router.path);
+            // console.log("this.view",this.view.ui_param_interface.router.path);
             // 现金类型的提现模块
             if(this.view.ui_param_interface.router.path == CashOutRouterPath.no_balance){
                 if(this.no_balance_cash_out_view){
@@ -68,12 +68,7 @@ class CashOutController implements Controller {
             }
         })
     }
-    
-    cash_out(){
-        // 提现的逻辑
-
-    }
-
+  
 }
 
 

@@ -3,9 +3,9 @@ const GameConfig = {
       /**@description 游戏的AB版本 */
       gameExamine : false,
       /**description 游戏的APPID */
-      appId: 44,
+      appId: 93,
       // 包ID
-      pkgId: 67,
+      pkgId: 118,
       // 设备的ID Android
       deviceId: "bff1979e4c6c74141414310680bdb547fc671844e483b95c7e4e7ac050462ae0",
       // brand名称
@@ -24,7 +24,7 @@ const GameConfig = {
       osVersion: "9",
       oaid: "default",
       /**@description accessKey Android端 */
-      accessKey: "8e7332d189c6b5229fb6afd561dd57fc_19619",
+      accessKey: "8a7bb4323159138e7b49d835f81a0f3f_27260",
       /**@description 请求地址的类型 apiType:0 测试地址  1：正式地址  */
       apiType: 0,
       /**@description 产品名称 */

@@ -10,7 +10,7 @@ interface GoodsDataInterface{
     name: string;
     content: string;
     image: string;
-    money: string;
+    money: number;
 }
 
 /**@description 用户的现金数据 */

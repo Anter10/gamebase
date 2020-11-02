@@ -1,4 +1,5 @@
 import BaseUI from "../../../Common/BaseUI";
+import { CashOutRouterPath } from "../../../Common/CommonEnum";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
@@ -8,6 +9,7 @@ import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import OrderMenuData from "../../../GameLocalData/OrderMenuData";
+import CashOutController from "../../../UI/CashOut/CashOutController";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import { AStar } from "../../AStar/AStar";
@@ -152,7 +154,7 @@ export default class GameMainView extends BaseUI {
     }
 
     click_cash_out_button() {
-
+        CashOutController.open(CashOutRouterPath.no_balance);
     }
 
     flush_view() {

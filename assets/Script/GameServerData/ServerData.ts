@@ -1,8 +1,11 @@
 import { gamebase } from "../Boot";
+import { UIParamInterface } from "../Common/CommonInterface";
 import GameConfig from "../GameConfig";
 import GameRecord from "../GameLocalData/GameRecord";
 import { HttpClient } from "../NetWork/HttpClient";
 import { hexMD5 } from "../NetWork/Md5";
+import UIConfig from "../UI/UIManager/UIConfig";
+import UIManager from "../UI/UIManager/UIManager";
 
 class ServerData{
     public static game_server_data_instance:ServerData = null;
@@ -108,7 +111,18 @@ class ServerData{
       http.post(uri, 5000, JSON.stringify(data), content_type, this.headers).then((res) => {
           console.log( `post 请求得到的游戏的数据 ${res}`);
           const response = JSON.parse(res as string);
-          call_back && call_back(response.result);
+          if(response.code == 0){
+             call_back && call_back(response.result);
+          }else{
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: `${response.message?response.message : `$网络请求返回的code ${response.code}`}`
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
+          }
       });
     }
    
