@@ -92,6 +92,7 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
             Loader.load_texture("assets/UI/CashOut/texture/NoBalance/common-button_grey", (texture2d: cc.Texture2D) => {
                 this.cash_out_button.spriteFrame = new cc.SpriteFrame(texture2d);
             });
+            this.cash_out_button_text_label.string = "已完成";
         }
     }
 
@@ -130,7 +131,6 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
         CommonServerData.post_withdraw(post_draw_data, (res: CashInterface) => {
             success && success(res);
         })
-
     }
 
 
