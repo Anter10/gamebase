@@ -1,5 +1,6 @@
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
+import GamePlayConfig from "../GamePlay/GamePlayConfig/GamePlayConfig";
 import LinkGameBase from "../GamePlay/LinkGameBase";
 import BaseRecord from "./BaseRecord";
 
@@ -33,9 +34,13 @@ class GamePlayBaseData extends BaseRecord {
 
     change_red_heart_number(change_red_heart_number: number): boolean {
         if (change_red_heart_number + this.red_heart_number >= 0) {
-            this.red_heart_number = change_red_heart_number + this.red_heart_number;
-            this.store_gold_coin_number(this.red_heart_number);
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_red_heart_number);
+            if (change_red_heart_number + this.red_heart_number >= GamePlayConfig.red_heart_max) {
+                this.red_heart_number = GamePlayConfig.red_heart_max;
+            } else {
+                this.red_heart_number = change_red_heart_number + this.red_heart_number;
+                this.store_gold_coin_number(this.red_heart_number);
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_red_heart_number);
+            }
             return true;
         } else {
             return false;

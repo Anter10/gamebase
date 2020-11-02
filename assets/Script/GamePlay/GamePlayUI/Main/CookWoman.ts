@@ -14,6 +14,7 @@ import EventManager from "../../../EventManager/EventManager";
 import LinkGameBase from "../../LinkGameBase";
 import Time from "../../../Common/Time";
 import GameConfig from "../../../GameConfig";
+import Random from "../../../Common/Random";
 
 const { ccclass, property } = cc._decorator;
 
@@ -155,6 +156,7 @@ export default class CookWoman extends BaseNode {
                 this.set_node_direction_animation();
                 this.set_child_position(this._go_path[this._move_index].y);
                 this.have_order_menu();
+                this.cute();
                 this._move_index++;
             }
         } else {
@@ -170,6 +172,20 @@ export default class CookWoman extends BaseNode {
             }
         }
         this.change_cook_state();
+    }
+
+    cute() {
+        if (this.cook_woman_data.cookWomanState == CookWomanState.Stroll) {
+            let random_index = Random.rangeInt(0, 10);
+            if (random_index == 1) {
+                this.cook_woman_animation.animation = "maimeng";
+                this._start_move = false;
+                this._end_move = true;
+                this.scheduleOnce(() => {
+                    this.walk_simple({ x: this._go_path[this._move_index - 2].x, y: this._go_path[this._move_index - 2].y }, { x: this._go_path[this._go_path.length - 1].x, y: this._go_path[this._go_path.length - 1].y });
+                }, 1);
+            }
+        }
     }
 
     change_cook_state() {

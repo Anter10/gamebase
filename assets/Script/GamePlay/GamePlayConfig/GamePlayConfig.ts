@@ -41,5 +41,7 @@ const GamePlayConfig = {
     cook_woman_send_menu_speed: 500,
     //做饭时间
     cook_woman_cook_spend: 5,
+    //红心上限
+    red_heart_max: 24800,
 }
 export default GamePlayConfig;
