@@ -96,8 +96,8 @@ export default class NativeDebug extends BaseUI {
                 // wx_id
                 wx_id: "xxxxxx2",
             },
-            success:()=>{
-                console.log("游戏初始化");
+            success:(res: any)=>{
+                console.log("游戏初始化 成功后的参数 = ", res);
             }
         }
 
