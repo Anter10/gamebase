@@ -1,9 +1,11 @@
 import { gamebase } from "../Boot";
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import InviteFriendViewController from "../UI/InviteFriend/InviteFriendViewController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";
+import { InviteFriendPath } from "./CommonEnum";
 import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
@@ -62,8 +64,9 @@ class Test{
     static rank_view(){
     }
 
-     /**@description 测试邀请好友的功能 */
-     static invite_view(){
+    /**@description 测试邀请好友的功能 */
+    static invite_view(){
+        InviteFriendViewController.open(InviteFriendPath.normal);
     }
 
     /**@description 测试邀请好友的功能 */
