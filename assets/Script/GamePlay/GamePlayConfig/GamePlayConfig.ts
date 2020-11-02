@@ -35,10 +35,10 @@ const GamePlayConfig = {
     cook_woman_stroll_position: { 0: [1, 29], 1: [17, 29] },
     //厨娘做饭位置
     cook_woman_cook_position: { 0: [3, 31], 1: [7, 31], 2: [11, 31], 3: [14, 31] },
-    //主界面厨娘溜达的速度   30 100 
+    //主界面厨娘溜达的速度   30 500 
     cook_woman_stroll_speed: 30,
-    //主界面厨娘送菜的速度   30 100 
-    cook_woman_send_menu_speed: 100,
+    //主界面厨娘送菜的速度   30 500 
+    cook_woman_send_menu_speed: 500,
     //做饭时间
     cook_woman_cook_spend: 5,
 }

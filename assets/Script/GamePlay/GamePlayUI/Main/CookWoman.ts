@@ -29,6 +29,9 @@ export default class CookWoman extends BaseNode {
     @property(sp.SkeletonData)
     cook_woman_skeleton_array: Array<sp.SkeletonData> = [];
 
+    @property(cc.Node)
+    yanwu: cc.Node = null;
+
     /**@description 当前行走的路径 */
     _go_path: Array<ANode> = [];
 
@@ -49,6 +52,9 @@ export default class CookWoman extends BaseNode {
 
     /**@description 两个节点之间需要移动的总长度 */
     _total_length: number = 0;
+
+    /**@description 移动速度 */
+    _move_speed: number = 0;
 
     private cook_woman_config_id: number = 0;
     customer_config: PeopleConfig = null;
@@ -83,20 +89,25 @@ export default class CookWoman extends BaseNode {
 
     walk_simple(start: { x: number, y: number }, end: { x: number, y: number }) {
         let grid = Map.map_grid;
-        grid.set_start_node(start.x, start.y);
-        grid.set_end_node(end.x, end.y);
-        const star = new AStar();
-        const all_path = star.find(grid);
-        console.log("当前的路径1 = ", star.path);
-        this._go_path = star.path;
-        this._end_move = false;
-        this._move_index = 1;
-        this._move_length = 0;
-        this._total_length = 0;
-        if (!this._go_path) {
-            console.log(start, end);
+        if (start.x == end.x && start.y == end.y) {
+            console.log("起点和终点相同容错处理");
+            this.walk_end_set_next_state();
+        } else {
+            grid.set_start_node(start.x, start.y);
+            grid.set_end_node(end.x, end.y);
+            const star = new AStar();
+            const all_path = star.find(grid);
+            console.log("当前的路径1 = ", star.path);
+            this._go_path = star.path;
+            this._end_move = false;
+            this._move_index = 1;
+            this._move_length = 0;
+            this._total_length = 0;
+            if (!this._go_path) {
+                console.log(start, end);
+            }
+            this._start_move = true;
         }
-        this._start_move = true;
     }
 
     set_child_position(move_y: number) {
@@ -122,10 +133,17 @@ export default class CookWoman extends BaseNode {
         let sub_vector = cc.v2(end_node.x, end_node.y).sub(cc.v2(start_node.x, start_node.y));
         this._move_direction = sub_vector.normalize();
         this._total_length = sub_vector.len();
+        if (this.cook_woman_data.cookWomanState == CookWomanState.Stroll) {
+            this._move_speed = GamePlayConfig.cook_woman_stroll_speed;
+            this.yanwu.active = false;
+        } else {
+            this._move_speed = GamePlayConfig.cook_woman_send_menu_speed;
+            this.yanwu.active = true;
+        }
     }
 
     update(dt) {
-        let move_dt_length = this._move_direction.mul(GamePlayConfig.cook_woman_stroll_speed).mul(dt);
+        let move_dt_length = this._move_direction.mul(this._move_speed).mul(dt);
         if (this._start_move && this._go_path[this._move_index]) {
             this.node.setPosition(cc.v2(this.node.getPosition().add(move_dt_length)));
             if (this._total_length > this._move_length) {
@@ -157,28 +175,28 @@ export default class CookWoman extends BaseNode {
     change_cook_state() {
         if (this.cook_woman_data.cookWomanState == CookWomanState.Cook && Time.get_second_time() - this.cook_woman_data.changeStateTime > GamePlayConfig.cook_woman_cook_spend) {
             this.cook_woman_animation.animation = "chaocaiwancheng";
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.complete_cook_menu, this.cook_woman_config_id);
             this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.CompleteCook });
             this.cook_woman_node.scaleX = 0.35;
             this.scheduleOnce(() => {
                 this.set_cook_woman();
-            }, 2.5);
+            }, 1.5);
         }
     }
 
     have_order_menu() {
         if (this.cook_woman_data.cookWomanState == CookWomanState.Stroll) {
-            let menu_array = this.order_menu_data.get_order_menu()
+            let menu_array = this.order_menu_data.get_order_menu();
             if (menu_array.length != 0) {
                 for (let i = 0; i < menu_array.length; i++) {
                     if (menu_array[i].CookWomanConfigId == 0) {
                         this.order_menu_data.change_have_cook_woman(menu_array[i].menuNumber, this.cook_woman_config_id);
                         this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GetOrder });
                         this.set_cook_woman();
-                        console.log("this.cook_woman_config_id", this.cook_woman_config_id);
+                        console.log("this.cook_woman_config_id", menu_array[i].menuNumber);
                         break;
                     }
                 }
-
             }
         }
     }
@@ -194,9 +212,8 @@ export default class CookWoman extends BaseNode {
         } else if (this.cook_woman_data.cookWomanState == CookWomanState.GetOrder) {
             const cook_menu_data: OrderMenuInterface = this.order_menu_data.get_menu_by_cook_woman_config_id(this.cook_woman_config_id);
             this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GoCook, cookWomanMenuNumberId: cook_menu_data.menuNumber, seatNumber: cook_menu_data.menuSeatId });
-            this.cook_woman_animation.animation = "liulangcaidan";
+            this.cook_woman_animation.animation = "liulancaidan";
             this.cook_woman_node.scaleX = 0.35;
-
             this.order_menu_data.complete_order_menu_data(cook_menu_data.menuNumber);
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.receiving_menu, cook_menu_data.menuNumber);
             this.scheduleOnce(() => {

@@ -209,10 +209,11 @@ export default class Customer extends BaseNode {
                 this.walk_animation.animation = "chifan";
                 break;
             case CustomerState.exit:
-                this.node.active = false;
                 seat_data.change_seat_data(customer_data.seatNumber, false);
                 this.people_data.delete_people_by_people_data_number(this.customer_data_id);
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.new_seat);
+                Map.walk_people_y[this.customer_data_id] = undefined;
+                this.node.destroy();
                 //清除这个垃圾数据
                 break;
         }

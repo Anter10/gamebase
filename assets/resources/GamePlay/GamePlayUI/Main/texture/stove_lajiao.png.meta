@@ -1,6 +1,6 @@
 {
   "ver": "2.3.5",
-  "uuid": "3fccbf72-eb01-4dfa-ba26-8d761db9a3b6",
+  "uuid": "29f2f785-f814-4966-b504-6f4eba455803",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "stove_lajiao": {
       "ver": "1.0.4",
-      "uuid": "f3ea73f8-e838-49dd-9db8-83513f74fd4d",
-      "rawTextureUuid": "3fccbf72-eb01-4dfa-ba26-8d761db9a3b6",
+      "uuid": "1f16546f-48f6-4467-8676-fb9d31a71bf9",
+      "rawTextureUuid": "29f2f785-f814-4966-b504-6f4eba455803",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

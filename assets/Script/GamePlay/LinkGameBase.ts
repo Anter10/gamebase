@@ -43,6 +43,8 @@ class LinkGameBase{
          "order_menu": "order_menu",
          //接单
          "receiving_menu": "receiving_menu",
+         //炒菜完成
+         "complete_cook_menu": "complete_cook_menu",
       }
 
       /**

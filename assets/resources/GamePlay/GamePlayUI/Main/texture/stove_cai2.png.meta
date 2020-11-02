@@ -1,6 +1,6 @@
 {
   "ver": "2.3.5",
-  "uuid": "5dfe4a85-4090-417c-802b-6f274599451b",
+  "uuid": "542cd73d-ebd9-4c99-819a-f4cffbaba296",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "stove_cai2": {
       "ver": "1.0.4",
-      "uuid": "cfe61edc-8a01-45b4-a120-ad6ae5a37687",
-      "rawTextureUuid": "5dfe4a85-4090-417c-802b-6f274599451b",
+      "uuid": "6d808133-c0fb-42e8-9ff5-54e12f20624f",
+      "rawTextureUuid": "542cd73d-ebd9-4c99-819a-f4cffbaba296",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
