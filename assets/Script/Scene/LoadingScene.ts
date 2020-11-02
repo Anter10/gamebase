@@ -114,12 +114,7 @@ class LoadingScene extends BaseScene {
         // 给用户声明注册事件 
         const privacy_button: TouchButton = this.privacy_node.addComponent(TouchButton);
         privacy_button.register_touch(this.user_privacy_callback.bind(this));
-
         gamebase.start_game_button_node = this.start_game_button_node;
-
-        this.debug_node.addComponent(TouchButton).register_touch(()=> {
-            this.native_debug_callback();
-        })
     }
 
     /**@description 点击开始游戏的按钮的调用逻辑 */
