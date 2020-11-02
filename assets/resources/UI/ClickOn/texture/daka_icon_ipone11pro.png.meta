@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "38afaa1a-85a6-48ff-85cf-baf9851989a8",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 197,
+  "height": 153,
+  "platformSettings": {},
+  "subMetas": {
+    "daka_icon_ipone11pro": {
+      "ver": "1.0.4",
+      "uuid": "aabb96ae-da45-4971-8e95-ffea76d48ca3",
+      "rawTextureUuid": "38afaa1a-85a6-48ff-85cf-baf9851989a8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 197,
+      "height": 153,
+      "rawWidth": 197,
+      "rawHeight": 153,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
