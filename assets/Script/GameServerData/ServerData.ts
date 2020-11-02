@@ -94,7 +94,7 @@ class ServerData{
             romVersion: this.headers.romVersion, // sdk版本号
             osVersion: this.headers.osVersion, // 系统版本号
             appId: this.headers.appId, // app的id
-            posId: GameConfig.posId,
+            posId: GameConfig.post_id,
             pkgId: this.headers.pkgId,
             // pageName: DATA_ARRANGE.clickTargetEnter,//数据布点
             remoteName: GameConfig.remoteName

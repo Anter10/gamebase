@@ -31,7 +31,7 @@ const GameConfig = {
       productName: "g3_zlzdd",
       /**@description 游戏包的名 */
       packageName:"com.hainanliangyou.zlzdd",
-     
+      post_id: 20010001,
 
       // 用户协议的网页链接
       user_protocol_url:"http://waqqq.hainanliangyou.com/user.html",
