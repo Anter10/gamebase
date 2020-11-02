@@ -32,7 +32,7 @@ const GameConfig = {
       /**@description 游戏包的名 */
       packageName:"com.hainanliangyou.wdct",
       post_id: 20010001,
-
+      version: "1.0.0",
       // 用户协议的网页链接
       user_protocol_url:"http://wdct.hainanliangyou.com/wdct/private.html",
       // 隐私声明的网页链接

@@ -1,7 +1,7 @@
 import EventManager from "../EventManager/EventManager";
 import SystemEvent from "../EventManager/SystemEvent";
 import { ShareType } from "./SdkEnum";
-import { CopyMessageInterface, OSAdinterface, RewardedAdInterface, SdkModuleInterface, ShareInterface, WechatLoginInterface, ZhikeAdInterface } from "./SdkInterface";
+import { CopyMessageInterface, GameInitInterface, OSAdinterface, RewardedAdInterface, SdkModuleInterface, ShareInterface, WechatLoginInterface, ZhikeAdInterface } from "./SdkInterface";
 
 export module SdkModule {
     const android_class_name = "org/cocos2dx/javascript/InstantAppActivity";
@@ -56,10 +56,10 @@ export module SdkModule {
     }
 
     /**@description 游戏的初始化 */
-    export function game_init(success:(res) => {}){
-        sdk_module_interface.init_success_callback = success;
+    export function game_init(game_init_interface: GameInitInterface){
+        sdk_module_interface.init_success_callback = game_init_interface.success;
         if(SdkModule.isAndroid()){
-            jsb.reflection.callStaticMethod(android_class_name, "init", "()V");
+            jsb.reflection.callStaticMethod(android_class_name, "init", `(${S})V`,JSON.stringify(game_init_interface.param));
         }
     }
 
@@ -204,8 +204,10 @@ export module SdkModule {
         }
     }
 
-
-    
+    /**@description 设置accesssKey */
+    export function set_access_key(access_key){
+        
+    }
 }
 
 window["SdkModule"] = SdkModule;
