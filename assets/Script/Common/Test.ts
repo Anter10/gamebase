@@ -1,9 +1,11 @@
 import { gamebase } from "../Boot";
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import ClickOnController from "../UI/ClickOn/ClickOnController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";
+import { ClickOnRouterPath } from "./CommonEnum";
 import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
@@ -56,6 +58,7 @@ class Test{
 
     /**@description 测试提现功能 */
     static click_on_view(){
+        ClickOnController.open(ClickOnRouterPath.normal);
     }
 
     /**@description 测试提现功能 */
