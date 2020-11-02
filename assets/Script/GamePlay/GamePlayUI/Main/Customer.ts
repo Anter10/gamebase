@@ -78,12 +78,12 @@ export default class Customer extends BaseNode {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.new_seat, this, this.have_new_seat);
     }
 
-    start(){
+    start() {
         //点击顾客头上的菜
         const menu_sprite_button: TouchButton = this.menu_sprite.addComponent(TouchButton);
         menu_sprite_button.register_touch(this.click_customer_menu.bind(this));
     }
-    
+
     init(customer_data_id: number) {
         this.customer_data_id = customer_data_id;
         this.people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
@@ -418,11 +418,11 @@ export default class Customer extends BaseNode {
             }
         }
         Map.walk_people_y[this.customer_data_id] = move_y;
-        for (let i = 0; i < Map.walk_people_y.length; i++) {
-            if (Map.walk_people_y[i] && Map.walk_people_y[i] < move_y + 1) {
+        Map.walk_people_y.forEach((value, id) => {
+            if (Map.walk_people_y[id] && Map.walk_people_y[id] < move_y + 1) {
                 insert_number++;
             }
-        }
+        })
         this.node.parent.insertChild(this.node, insert_number);
     }
 

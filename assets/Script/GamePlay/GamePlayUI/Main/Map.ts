@@ -125,14 +125,14 @@ export default class Map extends cc.Component {
         //地图四周不能走
         for (let i = 0; i < this.line_number; i++) {
             for (let j = 0; j < this.vertical_number; j++) {
-                if (j == 0 || j > 30 || i == 0 || i == this.vertical_number - 1) {
+                if (j == 0 || j > 31 || i == 0 || i == this.vertical_number - 1) {
                     Map.map_grid.set_walk_able(i, j, false);
                 }
             }
         }
         for (let i = 0; i < this.line_number; i++) {
             for (let j = 0; j < this.vertical_number; j++) {
-                if (j == 0 || j > 30 || i == 0 || i == this.vertical_number - 1) {
+                if (j == 0 || j > 31 || i == 0 || i == this.vertical_number - 1) {
                     Map.map_grid.set_walk_able(i, j, false);
                 }
             }
@@ -173,7 +173,7 @@ export default class Map extends cc.Component {
                 for (let point_x = 0; point_x < 15; point_x++) {
                     for (let point_y = 0; point_y < 4; point_y++) {
                         Map.map_grid.set_walk_able(node_x + point_x - 7, node_y - point_y, false);
-                        console.log("大红色柱子", node_x + point_x - 7, node_y - point_y);
+                        // console.log("大红色柱子", node_x + point_x - 7, node_y - point_y);
                     }
                 }
             }

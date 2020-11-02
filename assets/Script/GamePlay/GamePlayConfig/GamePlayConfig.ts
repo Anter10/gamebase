@@ -16,7 +16,7 @@ const GamePlayConfig = {
     //每日最多解锁菜品数量
     daily_unlock_menu_limit: 10,
     //主界面客人移动的速度
-    customer_speed: 80,
+    customer_speed: 200,
     //椅子位置,每个椅子占用四个位置[0,0],[0,1],[1,0],[1,1]
     chair_position: { 0: [3, 24], 1: [6, 24], 2: [11, 24], 3: [15, 24], 4: [3, 19], 5: [6, 19], 6: [11, 19], 7: [15, 19], 8: [3, 17], 9: [6, 17], 10: [11, 17], 11: [15, 17], 12: [3, 11], 13: [6, 11], 14: [11, 11], 15: [15, 11], },
     //排队位置 8 10 . 4  2 
@@ -34,9 +34,11 @@ const GamePlayConfig = {
     //厨娘闲逛
     cook_woman_stroll_position: { 0: [1, 29], 1: [17, 29] },
     //厨娘做饭位置
-    cook_woman_cook_position: { 0: [3, 30], 1: [7, 30], 2: [11, 30], 3: [14, 30] },
-    //主界面厨娘移动的速度
-    cook_woman_speed: 80,
+    cook_woman_cook_position: { 0: [3, 31], 1: [7, 31], 2: [11, 31], 3: [14, 31] },
+    //主界面厨娘溜达的速度   30 100 
+    cook_woman_stroll_speed: 30,
+    //主界面厨娘送菜的速度   30 100 
+    cook_woman_send_menu_speed: 100,
     //做饭时间
     cook_woman_cook_spend: 5,
 }

@@ -49,25 +49,25 @@ class PeopleData extends BaseRecord {
     }
 
     change_cook_woman_data(cook_woman: { peopleConfigId: number, cookWomanState?: CookWomanState, walkToSeatNumber?: number, seatNumber?: number, changeStateTime?: number, cookWomanMenuNumberId?: number }) {
-        for (let i = 0; i < this.people_data.length; i++) {
-            if (cook_woman.peopleConfigId == this.people_data[i].peopleConfigId) {
+        this.people_data.forEach((value, id) => {
+            if (cook_woman.peopleConfigId == this.people_data[id].peopleConfigId) {
                 if (cook_woman.cookWomanState) {
-                    this.people_data[i].cookWomanState = cook_woman.cookWomanState;
-                    this.people_data[i].changeStateTime = Time.get_second_time();
+                    this.people_data[id].cookWomanState = cook_woman.cookWomanState;
+                    this.people_data[id].changeStateTime = Time.get_second_time();
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_cook_woman_state);
                 }
                 if (cook_woman.walkToSeatNumber) {
-                    this.people_data[i].walkToSeatNumber = cook_woman.walkToSeatNumber;
+                    this.people_data[id].walkToSeatNumber = cook_woman.walkToSeatNumber;
                 }
                 if (cook_woman.seatNumber) {
-                    this.people_data[i].seatNumber = cook_woman.seatNumber;
+                    this.people_data[id].seatNumber = cook_woman.seatNumber;
                 }
                 if (cook_woman.cookWomanMenuNumberId) {
-                    this.people_data[i].cookWomanMenuNumberId = cook_woman.cookWomanMenuNumberId;
+                    this.people_data[id].cookWomanMenuNumberId = cook_woman.cookWomanMenuNumberId;
                 }
                 this.store_people_data(this.people_data);
             }
-        }
+        })
     }
 
     get_people_data(): Array<PeopleInterface> {

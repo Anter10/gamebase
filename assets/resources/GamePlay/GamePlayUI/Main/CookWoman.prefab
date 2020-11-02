@@ -107,8 +107,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 392.77,
-      "height": 511.74
+      "width": 354.71,
+      "height": 487.57
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -120,14 +120,14 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        30,
+        20,
         0,
         0,
         0,
         0,
         1,
-        0.4,
-        0.4,
+        0.35,
+        0.35,
         1
       ]
     },
@@ -159,7 +159,7 @@
     ],
     "paused": false,
     "defaultSkin": "default",
-    "defaultAnimation": "chaocaiwancheng",
+    "defaultAnimation": "liuda",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "loop": true,
@@ -170,13 +170,13 @@
     "_frameCache": null,
     "_curFrame": null,
     "_skeletonCache": null,
-    "_animationName": "chaocaiwancheng",
+    "_animationName": "liuda",
     "_animationQueue": [],
     "_headAniInfo": null,
     "_playTimes": 0,
     "_isAniComplete": true,
     "_N$skeletonData": {
-      "__uuid__": "6992a95c-1e5c-4b30-a931-d64b9d2fb212"
+      "__uuid__": "c92bf81c-4e3a-4cce-aacf-9a0d9af4a37e"
     },
     "_N$_defaultCacheMode": 0,
     "_N$debugSlots": false,

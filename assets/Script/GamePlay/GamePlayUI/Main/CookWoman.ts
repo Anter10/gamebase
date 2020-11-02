@@ -107,11 +107,11 @@ export default class CookWoman extends BaseNode {
             }
         }
         Map.walk_people_y[this.cook_woman_data.peopleDataNumber] = move_y;
-        for (let i = 0; i < Map.walk_people_y.length; i++) {
-            if (Map.walk_people_y[i] && Map.walk_people_y[i] < move_y + 1) {
+        Map.walk_people_y.forEach((value, id) => {
+            if (Map.walk_people_y[id] && Map.walk_people_y[id] < move_y + 1) {
                 insert_number++;
             }
-        }
+        })
         this.node.parent.insertChild(this.node, insert_number);
     }
 
@@ -125,7 +125,7 @@ export default class CookWoman extends BaseNode {
     }
 
     update(dt) {
-        let move_dt_length = this._move_direction.mul(GamePlayConfig.cook_woman_speed).mul(dt);
+        let move_dt_length = this._move_direction.mul(GamePlayConfig.cook_woman_stroll_speed).mul(dt);
         if (this._start_move && this._go_path[this._move_index]) {
             this.node.setPosition(cc.v2(this.node.getPosition().add(move_dt_length)));
             if (this._total_length > this._move_length) {
@@ -157,10 +157,11 @@ export default class CookWoman extends BaseNode {
     change_cook_state() {
         if (this.cook_woman_data.cookWomanState == CookWomanState.Cook && Time.get_second_time() - this.cook_woman_data.changeStateTime > GamePlayConfig.cook_woman_cook_spend) {
             this.cook_woman_animation.animation = "chaocaiwancheng";
+            this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.CompleteCook });
+            this.cook_woman_node.scaleX = 0.35;
             this.scheduleOnce(() => {
-                this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.CompleteCook });
                 this.set_cook_woman();
-            }, 1)
+            }, 2.5);
         }
     }
 
@@ -194,6 +195,8 @@ export default class CookWoman extends BaseNode {
             const cook_menu_data: OrderMenuInterface = this.order_menu_data.get_menu_by_cook_woman_config_id(this.cook_woman_config_id);
             this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GoCook, cookWomanMenuNumberId: cook_menu_data.menuNumber, seatNumber: cook_menu_data.menuSeatId });
             this.cook_woman_animation.animation = "liulangcaidan";
+            this.cook_woman_node.scaleX = 0.35;
+
             this.order_menu_data.complete_order_menu_data(cook_menu_data.menuNumber);
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.receiving_menu, cook_menu_data.menuNumber);
             this.scheduleOnce(() => {
@@ -204,8 +207,12 @@ export default class CookWoman extends BaseNode {
             this.set_cook_woman();
         } else if (this.cook_woman_data.cookWomanState == CookWomanState.Cook) {
             this.cook_woman_animation.animation = "chaocai";
+            this.cook_woman_node.scaleX = 0.35;
+
         } else if (this.cook_woman_data.cookWomanState == CookWomanState.CompleteCook) {
             this.cook_woman_animation.animation = "beimian_shangcai";
+            this.cook_woman_node.scaleX = 0.35;
+
             this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.SendMenu });
             this.scheduleOnce(() => {
                 this.set_cook_woman();
@@ -238,6 +245,7 @@ export default class CookWoman extends BaseNode {
                 break;
             case CookWomanState.Cook:
                 this.cook_woman_animation.animation = "chaocai";
+                this.cook_woman_node.scaleX = 0.35;
                 break;
             case CookWomanState.CompleteCook:
                 seat_number = this.cook_woman_data.seatNumber;
@@ -258,41 +266,57 @@ export default class CookWoman extends BaseNode {
 
     set_node_direction_animation() {
         //行走中的动画
-        if (this.cook_woman_data.cookWomanState != CookWomanState.CompleteCook) {
-            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != -0.4)) {
-                this.cook_woman_animation.animation = "cemian_walk";
-                this.cook_woman_node.scaleX = -0.4;
+        if (this.cook_woman_data.cookWomanState == CookWomanState.Stroll) {
+            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "liuda" || this.cook_woman_node.scaleX != -0.35)) {
+                this.cook_woman_animation.animation = "liuda";
+                this.cook_woman_node.scaleX = -0.35;
             }
-            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != 0.4)) {
-                this.cook_woman_animation.animation = "cemian_walk";
-                this.cook_woman_node.scaleX = 0.4;
+            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "liuda" || this.cook_woman_node.scaleX != 0.35)) {
+                this.cook_woman_animation.animation = "liuda";
+                this.cook_woman_node.scaleX = 0.35;
             }
             if (this._move_direction.y < 0 && this.cook_woman_animation.animation != "zhengmian_walk") {
                 this.cook_woman_animation.animation = "zhengmian_walk";
-                this.cook_woman_node.scaleX = 0.4;
+                this.cook_woman_node.scaleX = 0.35;
             }
             if (this._move_direction.y > 0 && this.cook_woman_animation.animation != "beimian_walk") {
                 this.cook_woman_animation.animation = "beimian_walk";
-                this.cook_woman_node.scaleX = 0.4;
+                this.cook_woman_node.scaleX = 0.35;
             }
-        } else {
+        } else if (this.cook_woman_data.cookWomanState == CookWomanState.CompleteCook) {
             if (this._move_direction.y < 0 && this.cook_woman_animation.animation != "zhengmian_duancai") {
                 this.cook_woman_animation.animation = "zhengmian_duancai";
-                this.cook_woman_node.scaleX = 0.4;
+                this.cook_woman_node.scaleX = 0.35;
             }
             if (this._move_direction.y > 0 && this.cook_woman_animation.animation != "beimian_duancai") {
                 this.cook_woman_animation.animation = "beimian_duancai";
-                this.cook_woman_node.scaleX = -0.4;
+                this.cook_woman_node.scaleX = -0.35;
             }
-            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_duancai" || this.cook_woman_node.scaleX != -0.4)) {
+            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_duancai" || this.cook_woman_node.scaleX != -0.35)) {
                 this.cook_woman_animation.animation = "cemian_duancai";
-                this.cook_woman_node.scaleX = -0.4;
+                this.cook_woman_node.scaleX = -0.35;
             }
-            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "cemian_duancai" || this.cook_woman_node.scaleX != 0.4)) {
+            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "cemian_duancai" || this.cook_woman_node.scaleX != 0.35)) {
                 this.cook_woman_animation.animation = "cemian_duancai";
-                this.cook_woman_node.scaleX = 0.4;
+                this.cook_woman_node.scaleX = 0.35;
+            }
+        } else {
+            if (this._move_direction.x > 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != -0.35)) {
+                this.cook_woman_animation.animation = "cemian_walk";
+                this.cook_woman_node.scaleX = -0.35;
+            }
+            if (this._move_direction.x < 0 && (this.cook_woman_animation.animation != "cemian_walk" || this.cook_woman_node.scaleX != 0.35)) {
+                this.cook_woman_animation.animation = "cemian_walk";
+                this.cook_woman_node.scaleX = 0.35;
+            }
+            if (this._move_direction.y < 0 && this.cook_woman_animation.animation != "zhengmian_walk") {
+                this.cook_woman_animation.animation = "zhengmian_walk";
+                this.cook_woman_node.scaleX = 0.35;
+            }
+            if (this._move_direction.y > 0 && this.cook_woman_animation.animation != "beimian_walk") {
+                this.cook_woman_animation.animation = "beimian_walk";
+                this.cook_woman_node.scaleX = 0.35;
             }
         }
-
     }
 }
