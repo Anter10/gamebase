@@ -5,6 +5,9 @@ const UIConfig:{[key: string]: string} = {
       Modal: "./UI/Common/Modal",
       Nagivator: "./UI/Common/Nagivator",
       ActionNode: "./UI/Common/ActionNode",
+
+      NativeDebug: "./NativeDebug/NativeDebug",
+
       // 用户声明界面
       UserPrivacyView:"./UI/UserProtocolAndPrivacy/UserPrivacyView",
       UserProtocolView:"./UI/UserProtocolAndPrivacy/UserProtocolView",

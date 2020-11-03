@@ -49,6 +49,7 @@ class LoadingScene extends BaseScene {
 
     @property(cc.Node)
     privacy_node: cc.Node = null;
+ 
 
     @property(cc.Node)
     protocol_and_privacy_node: cc.Node = null;
@@ -110,7 +111,6 @@ class LoadingScene extends BaseScene {
         // 给用户声明注册事件 
         const privacy_button: TouchButton = this.privacy_node.addComponent(TouchButton);
         privacy_button.register_touch(this.user_privacy_callback.bind(this));
-
         gamebase.start_game_button_node = this.start_game_button_node;
     }
 
@@ -157,6 +157,15 @@ class LoadingScene extends BaseScene {
 
     start () {
         super.start();
+    }
+
+     /**@description 用户协议的调用 */
+     native_debug_callback(){
+        const ui_param_interface: UIParamInterface = {
+               ui_config_path: UIConfig.NativeDebug,
+               ui_config_name: "NativeDebug",
+        }
+        UIManager.show_ui(ui_param_interface);
     }
     
 
