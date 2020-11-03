@@ -27,6 +27,12 @@ interface MenuConfig {
     ad_number : number; 
 } 
 
+interface OfflineConfig { 
+    id : number; 
+    gold : number; 
+    heart : number; 
+} 
+
 interface PeopleConfig { 
     id : number; 
     picture_name : string; 
@@ -66,4 +72,4 @@ interface UnlockMenuRewardConfig {
  
   
 
- export { AudioConfig,ChatConfig,DecorationConfig,MenuConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };
+ export { AudioConfig,ChatConfig,DecorationConfig,MenuConfig,OfflineConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };

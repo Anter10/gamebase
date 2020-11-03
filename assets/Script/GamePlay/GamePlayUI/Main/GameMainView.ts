@@ -3,6 +3,7 @@ import { CashOutRouterPath } from "../../../Common/CommonEnum";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import Random from "../../../Common/Random";
+import Time from "../../../Common/Time";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
 import { DecorationConfig, MenuConfig, PeopleConfig, TableConfig } from "../../../GameDataConfig/ConfigInterface";
@@ -11,6 +12,7 @@ import DecorationData from "../../../GameLocalData/DecorationData";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import MenuData from "../../../GameLocalData/MenuData";
+import OfflineData from "../../../GameLocalData/OfflineData";
 import OrderMenuData from "../../../GameLocalData/OrderMenuData";
 import PeopleData, { CustomerPayInterface } from "../../../GameLocalData/PeopleData";
 import SeatData from "../../../GameLocalData/SeatData";
@@ -96,13 +98,40 @@ export default class GameMainView extends BaseUI {
 
     start() {
         this.fix_people_data_by_time();
+        this.fix_play_base_data();
         this.load_gold_and_heart_item();
         this.load_table_item();
         this.load_decoration_item();
         this.load_store();
         this.load_plot_item();
         this.load_order_menu();
+        this.show_offline_view();
         this.add_customer();
+    }
+
+    fix_play_base_data() {
+        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        game_play_base_data.attract_customer_number = 0;
+    }
+
+    show_offline_view() {
+        const offline_data: OfflineData = GameLocalData.get_instance().get_data(OfflineData);
+        let offline_data_time = offline_data.get_all_data();
+        if (offline_data_time == 0) {
+            offline_data.set_offline_data(Time.get_second_time());
+        } else {
+            let differ_time = Time.get_second_time() - offline_data.get_all_data();
+            if (differ_time >= 3600) {
+                const ui_offline_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.OfflineView,
+                    ui_config_name: "OfflineView",
+                    param: differ_time,
+                }
+                UIManager.show_ui(ui_offline_param_interface);
+            } else {
+                offline_data.set_offline_data(Time.get_second_time());
+            }
+        }
     }
 
     add_customer() {
@@ -111,6 +140,10 @@ export default class GameMainView extends BaseUI {
             this.scheduleOnce(() => {
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
             }, 0.5);
+
+            //刷新离线收益。暂时放这儿
+            const offline_data: OfflineData = GameLocalData.get_instance().get_data(OfflineData);
+            offline_data.set_offline_data(Time.get_second_time());
         }, GamePlayConfig.add_customer_time * 100);
     }
 

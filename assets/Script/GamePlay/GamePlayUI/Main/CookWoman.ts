@@ -91,7 +91,7 @@ export default class CookWoman extends BaseNode {
     walk_simple(start: { x: number, y: number }, end: { x: number, y: number }) {
         let grid = Map.map_grid;
         if (start.x == end.x && start.y == end.y) {
-            console.log("起点和终点相同容错处理");
+            // console.log("起点和终点相同容错处理");
             this.walk_end_set_next_state();
         } else {
             grid.set_start_node(start.x, start.y);

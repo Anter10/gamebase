@@ -1,10 +1,13 @@
 import BaseNode from "../../../Common/BaseNode";
+import { UIParamInterface } from "../../../Common/CommonInterface";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
 import { UnlockMenuRewardConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import UnlockMenuRewardData from "../../../GameLocalData/UnlockMenuRewardData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 import { UnlockMenuRewardType } from "../../GamePlayEnum/GamePlayEnum";
 import LinkGameBase from "../../LinkGameBase";
 
@@ -74,10 +77,26 @@ export default class UnlockRewardItem extends BaseNode {
     click_get_reward_button() {
         switch (this.unlock_menu_reward_data.get_unlock_menu_reward_data(this.reward_config.id).unlockMenuRewardType) {
             case UnlockMenuRewardType.get:
-                console.log("您已经领取过了");
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "您已经领取过了"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+                // console.log("您已经领取过了");
                 break;
             case UnlockMenuRewardType.lock:
-                console.log("您还未解锁哦");
+                const ui_jie_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "您还未解锁哦"
+                    }
+                }
+                UIManager.show_ui(ui_jie_param_interface);
+                // console.log("您还未解锁哦");
                 break;
             case UnlockMenuRewardType.unlock:
                 const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);

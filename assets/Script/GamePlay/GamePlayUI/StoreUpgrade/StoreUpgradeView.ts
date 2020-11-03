@@ -1,4 +1,5 @@
 import BaseUI from "../../../Common/BaseUI";
+import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
@@ -10,6 +11,8 @@ import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import PeopleData from "../../../GameLocalData/PeopleData";
 import StoreUpgradeData from "../../../GameLocalData/StoreUpgradeData";
 import TableData from "../../../GameLocalData/TableData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 import { StoreUpgradeConditionType } from "../../GamePlayEnum/GamePlayEnum";
 import LinkGameBase from "../../LinkGameBase";
 import StoreIconItem from "../Common/StoreIconItem/StoreIconItem";
@@ -123,12 +126,36 @@ export default class StoreUpgradeView extends BaseUI {
                 this.store_upgrade_data.change_store_level_data(this.click_store_level + 1);
                 this.store_upgrade_data_level = this.store_upgrade_data.get_store_level_data();
                 this.refresh_ui(0, this.click_store_level);
-                console.log("解锁成功", this.store_upgrade_data_level);
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "解锁成功"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+                // console.log("解锁成功", this.store_upgrade_data_level);
             } else {
-                console.log("红心不足，快去营业赚金币吧");
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "红心不足，快去营业赚金币吧"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+                // console.log("红心不足，快去营业赚金币吧");
             }
         } else {
-            console.log("必须达成所有条件哦");
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: "必须达成所有条件哦"
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
+            // console.log("必须达成所有条件哦");
         }
     }
 

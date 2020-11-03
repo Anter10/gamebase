@@ -1,9 +1,12 @@
 import BaseNode from "../../../Common/BaseNode";
+import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 import { MenuType } from "../../GamePlayEnum/GamePlayEnum";
 
 const { ccclass, property } = cc._decorator;
@@ -77,7 +80,15 @@ export default class MenuItem extends BaseNode {
                 //播放广告。如果看完。
                 this.unlock_new_menu();
             } else {
-                console.log("请先解锁上一个菜品", this.menu_config.id);
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "请先解锁上一个菜品"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+                // console.log("请先解锁上一个菜品", this.menu_config.id);
             }
         }
     }
@@ -86,6 +97,15 @@ export default class MenuItem extends BaseNode {
         let menu_ad_data = this.menu_data.get_menu_data_by_id(this.menu_config.id);
         if (menu_ad_data.menuAdTime + 1 == this.menu_config.ad_number) {
             this.menu_data.change_menu_data(this.menu_config.id, MenuType.unlock, menu_ad_data.menuAdTime + 1);
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: "解锁成功"
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
+            // console.log("解锁成功);
             this.need_refresh_node();
         } else {
             this.menu_data.change_menu_data(this.menu_config.id, menu_ad_data.menuType, menu_ad_data.menuAdTime + 1);

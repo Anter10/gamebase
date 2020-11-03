@@ -8,6 +8,8 @@ import { PeopleConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import PeopleData from "../../../GameLocalData/PeopleData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import LinkGameBase from "../../LinkGameBase";
 
@@ -69,16 +71,40 @@ export default class CookWomanDescriptionView extends BaseUI {
 
     click_upgrade_woman() {
         if (GamePlayConfig.cook_woman_max_level == this.cook_woman_level) {
-            console.log("您已经达到最大等级");
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: "您已经达到最大等级"
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
+            // console.log("您已经达到最大等级");
         } else {
             const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
             if (game_play_base_data.change_gold_coin_number(-this.cook_woman_config.upgrade_need_coin[this.cook_woman_level])) {
                 this.people_data.change_cook_woman_level(this.cook_woman_config.id, this.cook_woman_level + 1);
                 this.refresh_cook_woman_description();
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_cook_woman_level);
-                console.log("解锁成功");
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "解锁成功"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+                // console.log("解锁成功");
             } else {
-                console.log("金币不足，快去营业赚金币吧");
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "金币不足，快去营业赚金币吧"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+                // console.log("金币不足，快去营业赚金币吧");
             }
         }
     }
