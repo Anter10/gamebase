@@ -87,15 +87,13 @@ export default class Map extends cc.Component {
             }
         }
         for (let i = 0; i < customer_data_array.length; i++) {
-            if (customer_data_array[i].customerState != CustomerState.null && customer_data_array[i].customerState != CustomerState.exit) {
-                Loader.load_prefab("GamePlay/GamePlayUI/Main/Customer", (customer: cc.Prefab) => {
-                    const customer_node = cc.instantiate(customer);
-                    const customer_script = customer_node.getComponent(Customer);
-                    customer_node.parent = this.node;
-                    customer_script.init(customer_data_array[i].peopleDataNumber);
-                    customer_script.set_customer();
-                })
-            }
+            Loader.load_prefab("GamePlay/GamePlayUI/Main/Customer", (customer: cc.Prefab) => {
+                const customer_node = cc.instantiate(customer);
+                const customer_script = customer_node.getComponent(Customer);
+                customer_node.parent = this.node;
+                customer_script.init(customer_data_array[i].peopleDataNumber);
+                customer_script.set_customer();
+            })
         }
     }
 

@@ -150,6 +150,7 @@ export default class GameMainView extends BaseUI {
                 max = menu_data.get_unlock_number();
             }
             customer_order_config = Random.rangeInt(min, max);
+            console.log("随机一个菜品", customer_order_config);
         } else {
             customer_order_config = pay.customerOrderConfig;
         }
@@ -163,7 +164,10 @@ export default class GameMainView extends BaseUI {
         } else {
             seat_number = pay.seatNumber;
         }
-        const order_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", customer_order_config);
+        let order_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", customer_order_config);
+        if (!order_config) {
+            order_config = GameDataConfig.get_config_by_id("MenuConfig", 1);
+        }
         const cook_woman_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", 2);
         const table_level = GameLocalData.get_instance().get_data(TableData).get_table_data(Math.floor((seat_number + 1) / 2) - 1).tableLevel;
         const table_config: TableConfig = GameDataConfig.get_config_by_id("TableConfig", table_level);
@@ -203,7 +207,7 @@ export default class GameMainView extends BaseUI {
             });
         }
         else {
-            
+
         }
     }
 

@@ -22,6 +22,9 @@ export default class PlotItem extends BaseNode {
     @property(cc.Animation)
     complete_cook_animation: cc.Animation = null;
 
+    @property(cc.Animation)
+    home_tool_pot: cc.Animation = null;
+
     @property(cc.ParticleSystem)
     part_system: Array<cc.ParticleSystem> = [];
 
@@ -67,6 +70,7 @@ export default class PlotItem extends BaseNode {
             this.fire.active = true;
             this.wait_node.active = false;
             this.cooking.active = true;
+            this.home_tool_pot.play();
         } else {
             this.fire.active = false;
             this.wait_node.active = true;

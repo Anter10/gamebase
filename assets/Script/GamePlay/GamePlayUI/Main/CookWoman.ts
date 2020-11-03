@@ -98,7 +98,7 @@ export default class CookWoman extends BaseNode {
             grid.set_end_node(end.x, end.y);
             const star = new AStar();
             const all_path = star.find(grid);
-            console.log("当前的路径1 = ", star.path);
+            // console.log("当前的路径1 = ", star.path);
             this._go_path = star.path;
             this._end_move = false;
             this._move_index = 1;

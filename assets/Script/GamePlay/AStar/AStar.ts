@@ -127,7 +127,7 @@ import { ANode } from "./ANode";
             }
             
             const time = (new Date()).getTime() - start_time;
-            console.log('当前寻找花费的时间 = ', time);
+            // console.log('当前寻找花费的时间 = ', time);
             this.build_path();
             return true;
         }

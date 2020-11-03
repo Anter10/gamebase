@@ -1631,7 +1631,7 @@
         "__uuid__": "3c89e9d2-f65c-480e-a3e5-030b5cb3ca3c"
       }
     ],
-    "playOnLoad": true,
+    "playOnLoad": false,
     "_id": ""
   },
   {
@@ -2593,6 +2593,9 @@
     },
     "complete_cook_animation": {
       "__id__": 61
+    },
+    "home_tool_pot": {
+      "__id__": 43
     },
     "part_system": [
       {

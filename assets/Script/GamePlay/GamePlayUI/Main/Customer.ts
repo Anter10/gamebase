@@ -20,6 +20,9 @@ import Map from "./Map";
 import { ChatConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameConfig from "../../../GameConfig";
 import Loader from "../../../Common/Loader";
+import { UIParamInterface } from "../../../Common/CommonInterface";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -85,6 +88,7 @@ export default class Customer extends BaseNode {
         //点击顾客头上的菜
         const menu_sprite_button: TouchButton = this.menu_sprite.addComponent(TouchButton);
         menu_sprite_button.register_touch(this.click_customer_menu.bind(this));
+        this.set_customer();
     }
 
     init(customer_data_id: number) {
@@ -304,7 +308,7 @@ export default class Customer extends BaseNode {
         grid.set_end_node(end.x, end.y);
         const star = new AStar();
         const all_path = star.find(grid);
-        console.log("当前的路径1 = ", star.path);
+        // console.log("当前的路径1 = ", star.path);
         this._go_path = star.path;
         this._move_index = 1;
         this._move_length = 0;
@@ -317,9 +321,20 @@ export default class Customer extends BaseNode {
     click_customer_menu() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
         if (customer_data.customerState == CustomerState.order_menu) {
+            // const menu_data: MenuData = GameLocalData.get_instance().get_data(MenuData);
+            // if (customer_data.customerOrderConfig <= menu_data.get_unlock_number()) {
             this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.wait_menu });
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.order_menu, { order_menu_config_id: customer_data.customerOrderConfig, order_seat_id: this.chair_number, customer_number: this.customer_data_id });
             this.set_customer();
+            // } else {
+            // const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", menu_data.get_unlock_number());
+            // const ui_chicken_god_interface: UIParamInterface = {
+            //     ui_config_path: UIConfig.UnlockMenuView,
+            //     ui_config_name: "UnlockMenuView",
+            //     param: { title_label: "菜品未解锁", menu_config: menu_config }
+            // }
+            // UIManager.show_ui(ui_chicken_god_interface);
+            // }
         }
     }
 

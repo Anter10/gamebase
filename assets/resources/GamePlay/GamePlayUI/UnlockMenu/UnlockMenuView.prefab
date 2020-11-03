@@ -55,10 +55,16 @@
     "_components": [
       {
         "__id__": 55
+      },
+      {
+        "__id__": 56
+      },
+      {
+        "__id__": 57
       }
     ],
     "_prefab": {
-      "__id__": 56
+      "__id__": 58
     },
     "_opacity": 255,
     "_color": {
@@ -866,9 +872,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "ab7329bc-203a-4870-a09b-f8e45e477dad"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -2030,6 +2034,47 @@
     "_isAbsVerticalCenter": true,
     "_originalWidth": 0,
     "_originalHeight": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "5e7ccPaaaBMJ4aH5aImOd2L",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "title_label": {
+      "__id__": 14
+    },
+    "menu_sprite": {
+      "__id__": 21
+    },
+    "menu_label": {
+      "__id__": 24
+    },
+    "sell_label": {
+      "__id__": 29
+    },
+    "close_button": {
+      "__id__": 37
+    },
+    "give_up_button": {
+      "__id__": 50
+    },
+    "get_button": {
+      "__id__": 40
+    },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.BlockInputEvents",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
     "_id": ""
   },
   {
