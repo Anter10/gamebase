@@ -43,5 +43,9 @@ const GamePlayConfig = {
     cook_woman_cook_spend: 5,
     //红心上限
     red_heart_max: 24800,
+    //每照顾一个客人得到红心
+    get_red_heart: 1,
+    //自动加客人时长
+    add_customer_time: 120,
 }
 export default GamePlayConfig;

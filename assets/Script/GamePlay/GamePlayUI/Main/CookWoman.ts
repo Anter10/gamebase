@@ -209,7 +209,7 @@ export default class CookWoman extends BaseNode {
                         this.order_menu_data.change_have_cook_woman(menu_array[i].menuNumber, this.cook_woman_config_id);
                         this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GetOrder });
                         this.set_cook_woman();
-                        console.log("this.cook_woman_config_id", menu_array[i].menuNumber);
+                        // console.log("this.cook_woman_config_id", menu_array[i].menuNumber);
                         break;
                     }
                 }
@@ -228,6 +228,7 @@ export default class CookWoman extends BaseNode {
         } else if (this.cook_woman_data.cookWomanState == CookWomanState.GetOrder) {
             const cook_menu_data: OrderMenuInterface = this.order_menu_data.get_menu_by_cook_woman_config_id(this.cook_woman_config_id);
             this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GoCook, cookWomanMenuNumberId: cook_menu_data.menuNumber, seatNumber: cook_menu_data.menuSeatId });
+            this.people_data.change_customer_data({ peopleDataNumber: cook_menu_data.customerNumber, CookWomanConfigId: this.cook_woman_config_id });
             this.cook_woman_animation.animation = "liulancaidan";
             this.cook_woman_node.scaleX = 0.35;
             this.order_menu_data.complete_order_menu_data(cook_menu_data.menuNumber);

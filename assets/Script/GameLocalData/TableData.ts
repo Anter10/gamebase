@@ -22,6 +22,10 @@ class TableData extends BaseRecord {
         this.apply_auto_update();
     }
 
+    get_all_data() {
+        return this.table_data;
+    }
+
     get_table_data(table_number: number): TableInterface {
         for (let i = 0; i < this.table_data.length; i++) {
             if (this.table_data[i].tableNumber == table_number) {

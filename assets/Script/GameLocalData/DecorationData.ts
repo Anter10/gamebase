@@ -8,7 +8,6 @@ interface DecorationInterface {
     decorationLevel: number;
 }
 
-// 游戏中八张桌子的数据
 class DecorationData extends BaseRecord {
     static _name = "DecorationData";
     base_name = "DecorationData";
@@ -18,6 +17,10 @@ class DecorationData extends BaseRecord {
     constructor() {
         super();
         this.apply_auto_update();
+    }
+
+    get_all_data() {
+        return this.decoration_data;
     }
 
     get_decoration_data(decoration_number: number): DecorationInterface {

@@ -1,8 +1,14 @@
 import Time from "../Common/Time";
 import EventManager from "../EventManager/EventManager";
-import { CookWomanState, CustomerState } from "../GamePlay/GamePlayEnum/GamePlayEnum";
+import GameConfig from "../GameConfig";
+import { PeopleConfig } from "../GameDataConfig/ConfigInterface";
+import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import { CookWomanState, CustomerState, PeopleType } from "../GamePlay/GamePlayEnum/GamePlayEnum";
 import LinkGameBase from "../GamePlay/LinkGameBase";
 import BaseRecord from "./BaseRecord";
+import GameLocalData from "./GameLocalData";
+import OrderMenuData from "./OrderMenuData";
+import SeatData from "./SeatData";
 
 
 export interface PeopleInterface {
@@ -34,6 +40,17 @@ export interface PeopleInterface {
     cookWomanState?: CookWomanState;
     //厨娘做的菜
     cookWomanMenuNumberId?: number;
+    //哪位厨娘选定了
+    CookWomanConfigId?: number;
+}
+
+export interface CustomerPayInterface {
+    //厨娘等级
+    cookWomanLevel: number;
+    //顾客座位号
+    seatNumber: number;
+    //顾客点餐菜品配置id
+    customerOrderConfig: number;
 }
 
 // 游戏中人物的数据
@@ -184,7 +201,7 @@ class PeopleData extends BaseRecord {
         return max_line_up + 1;
     }
 
-    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOrderConfig?: number, walkToSeatNumber?: number }) {
+    change_customer_data(customer: { peopleDataNumber: number, lineUp?: number, seatNumber?: number, changeStateTime?: number, customerState?: CustomerState, walkNode?: number, customerOrderConfig?: number, walkToSeatNumber?: number, CookWomanConfigId?: number }) {
         for (let i = 0; i < this.people_data.length; i++) {
             if (customer.peopleDataNumber == this.people_data[i].peopleDataNumber) {
                 if (customer.lineUp) {
@@ -209,6 +226,9 @@ class PeopleData extends BaseRecord {
                 if (customer.walkToSeatNumber) {
                     this.people_data[i].walkToSeatNumber = customer.walkToSeatNumber;
                 }
+                if (customer.CookWomanConfigId) {
+                    this.people_data[i].CookWomanConfigId = customer.CookWomanConfigId;
+                }
                 this.store_people_data(this.people_data);
             }
         }
@@ -221,6 +241,70 @@ class PeopleData extends BaseRecord {
                 this.store_people_data(this.people_data);
             }
         }
+    }
+
+    fix_people_data_by_time() {
+        for (let i = 0; i < this.people_data.length; i++) {
+            let people = this.people_data[i];
+            let differ_time = Time.get_second_time() - people.changeStateTime;
+            const people_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", people.peopleConfigId);
+            if (people_config.type == PeopleType.customer) {
+                if (differ_time > 40) {
+                    if (people.customerState == CustomerState.line_up) {
+                        let need_time = people.lineUp * 40 + 40;
+                        if (differ_time > need_time) {
+                            people.customerState = CustomerState.exit;
+                            this.refresh_line_up_number();
+                            //获得收益
+                            const pay: CustomerPayInterface = {
+                                //厨娘等级
+                                cookWomanLevel: 0,
+                                //顾客座位号
+                                seatNumber: 0,
+                                //顾客点餐菜品配置id
+                                customerOrderConfig: 0,
+                            }
+                            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
+                        }
+                    } else {
+                        this.refresh_line_up_number();
+                        let cook_woman_level = 0;
+                        if (people.CookWomanConfigId) {
+                            cook_woman_level = GameLocalData.get_instance().get_data(PeopleData).get_people_data_by_people_config_id(people.CookWomanConfigId).peopleLevel;
+                        }
+                        //获得收益
+                        const pay: CustomerPayInterface = {
+                            //厨娘等级
+                            cookWomanLevel: cook_woman_level,
+                            //顾客座位号
+                            seatNumber: people.walkToSeatNumber,
+                            //顾客点餐菜品配置id
+                            customerOrderConfig: people.customerOrderConfig ? people.customerOrderConfig : 0,
+                        }
+                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
+                        people.customerState = CustomerState.exit;
+                        const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
+                        seat_data.change_seat_data(people.walkToSeatNumber, false);
+                    }
+                } else if (differ_time <= 40) {
+                    people.changeStateTime = Time.get_second_time();
+                }
+            }
+        }
+
+        for (let i = 0; i < this.people_data.length; i++) {
+            let people = this.people_data[i];
+            let differ_time = Time.get_second_time() - people.changeStateTime;
+            const people_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", people.peopleConfigId);
+            if (people_config.type == PeopleType.cook_woman) {
+                if (differ_time > 40) {
+                    people.cookWomanState = CookWomanState.Stroll;
+                } else if (differ_time <= 40) {
+                    people.changeStateTime = Time.get_second_time();
+                }
+            }
+        }
+
     }
 
 }

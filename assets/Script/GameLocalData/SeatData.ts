@@ -22,6 +22,10 @@ class SeatData extends BaseRecord {
         this.apply_auto_update();
     }
 
+    get_all_data() {
+        return this.seat_data;
+    }
+
     get_seat_data(seat_number: number): SeatInterface {
         for (let i = 0; i < this.seat_data.length; i++) {
             if (this.seat_data[i].seatNumber == seat_number) {

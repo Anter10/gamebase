@@ -8,6 +8,8 @@ export interface OrderMenuInterface {
     menuConfigId: number;
     //上菜椅子
     menuSeatId: number;
+    //客人number
+    customerNumber: number;
     //哪位厨娘选定了
     CookWomanConfigId: number;
 }
@@ -28,14 +30,14 @@ class OrderMenuData extends BaseRecord {
         return this.order_menu_data;
     }
 
-    add_new_order_data(menuConfigId: number, order_seat_id: number): number {
+    add_new_order_data(menuConfigId: number, order_seat_id: number, customerNumber: number): number {
         let menu_number = 0;
         for (let i = 0; i < this.order_menu_data.length; i++) {
             if (this.order_menu_data[i].menuNumber > menu_number) {
                 menu_number = this.order_menu_data[i].menuNumber;
             }
         }
-        this.order_menu_data.push({ menuNumber: menu_number + 1, menuConfigId: menuConfigId, menuSeatId: order_seat_id, CookWomanConfigId: 0 });
+        this.order_menu_data.push({ menuNumber: menu_number + 1, customerNumber: customerNumber, menuConfigId: menuConfigId, menuSeatId: order_seat_id, CookWomanConfigId: 0 });
         this.store_order_menu_data(this.order_menu_data);
         return menu_number + 1;
     }
@@ -72,7 +74,7 @@ class OrderMenuData extends BaseRecord {
             }
         }
     }
-    
+
 }
 
 export default OrderMenuData;

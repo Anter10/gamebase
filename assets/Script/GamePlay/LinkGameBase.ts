@@ -45,6 +45,8 @@ class LinkGameBase{
          "receiving_menu": "receiving_menu",
          //炒菜完成
          "complete_cook_menu": "complete_cook_menu",
+         //顾客付钱
+         "customer_pay":"customer_pay",
       }
 
       /**

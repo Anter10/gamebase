@@ -1,3 +1,16 @@
+interface AudioConfig { 
+    id : number; 
+    name : string; 
+    time : number; 
+    loop : boolean; 
+    info : string; 
+} 
+
+interface ChatConfig { 
+    id : number; 
+    text : string; 
+} 
+
 interface DecorationConfig { 
     id : number; 
     name : string; 
@@ -7,12 +20,11 @@ interface DecorationConfig {
     description : string; 
 } 
 
-interface AudioConfig { 
+interface MenuConfig { 
     id : number; 
-    name : string; 
-    time : number; 
-    loop : boolean; 
-    info : string; 
+    chinese_name : string; 
+    sell_price : number; 
+    ad_number : number; 
 } 
 
 interface PeopleConfig { 
@@ -35,18 +47,6 @@ interface StoreUpgradeConfig {
     upgrade_need_cook_woman : Array<number>; 
 } 
 
-interface MenuConfig { 
-    id : number; 
-    chinese_name : string; 
-    sell_price : number; 
-    ad_number : number; 
-} 
-
-interface ChatConfig { 
-    id : number; 
-    text : string; 
-} 
-
 interface TableConfig { 
     id : number; 
     name : string; 
@@ -66,4 +66,4 @@ interface UnlockMenuRewardConfig {
  
   
 
- export { DecorationConfig,AudioConfig,PeopleConfig,StoreUpgradeConfig,MenuConfig,ChatConfig,TableConfig,UnlockMenuRewardConfig, };
+ export { AudioConfig,ChatConfig,DecorationConfig,MenuConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };

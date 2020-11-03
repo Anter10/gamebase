@@ -7,7 +7,7 @@ import { MenuConfig, PeopleConfig, TableConfig } from "../../../GameDataConfig/C
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
-import PeopleData from "../../../GameLocalData/PeopleData";
+import PeopleData, { CustomerPayInterface } from "../../../GameLocalData/PeopleData";
 import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
 import { AMap } from "../../AStar/AMap";
@@ -46,6 +46,9 @@ export default class Customer extends BaseNode {
 
     @property(sp.SkeletonData)
     customer_animation: Array<sp.SkeletonData> = [];
+
+    @property(cc.Sprite)
+    eat_menu: cc.Sprite = null;
 
     /**@description 当前行走的路径 */
     _go_path: Array<ANode> = [];
@@ -207,8 +210,15 @@ export default class Customer extends BaseNode {
                 break;
             case CustomerState.eat:
                 this.walk_animation.animation = "chifan";
+                let eat_menu_x = 50;
+                if (this.customer_node.scaleX > 0) {
+                    eat_menu_x = -eat_menu_x;
+                }
+                this.eat_menu.node.active = true;
+                this.eat_menu.node.x = eat_menu_x;
                 break;
             case CustomerState.exit:
+                this.eat_menu.node.active = false;
                 seat_data.change_seat_data(customer_data.seatNumber, false);
                 this.people_data.delete_people_by_people_data_number(this.customer_data_id);
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.new_seat);
@@ -245,6 +255,7 @@ export default class Customer extends BaseNode {
         } else {
             this.menu.active = false;
         }
+
     }
 
     add_new_customer() {
@@ -307,7 +318,7 @@ export default class Customer extends BaseNode {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
         if (customer_data.customerState == CustomerState.order_menu) {
             this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.wait_menu });
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.order_menu, { order_menu_config_id: customer_data.customerOrderConfig, order_seat_id: this.chair_number });
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.order_menu, { order_menu_config_id: customer_data.customerOrderConfig, order_seat_id: this.chair_number, customer_number: this.customer_data_id });
             this.set_customer();
         }
     }
@@ -328,7 +339,19 @@ export default class Customer extends BaseNode {
         if (customer_data && customer_data.customerState && customer_data.customerState == CustomerState.eat) {
             if (Time.get_second_time() - customer_data.changeStateTime >= GamePlayConfig.customer_eat_menu) {
                 this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.exit });
+                this.eat_menu.node.active = false;
                 this.walk_simple({ x: GamePlayConfig.chair_position[customer_data.seatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.seatNumber - 1][1] }, { x: 8, y: 5 });
+                //吃完给钱
+                const cook_woman_level = GameLocalData.get_instance().get_data(PeopleData).get_people_data_by_people_config_id(customer_data.CookWomanConfigId).peopleLevel;
+                const pay: CustomerPayInterface = {
+                    //厨娘等级
+                    cookWomanLevel: cook_woman_level,
+                    //顾客座位号
+                    seatNumber: customer_data.seatNumber,
+                    //顾客点餐菜品配置id
+                    customerOrderConfig: customer_data.customerOrderConfig,
+                }
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
             }
         }
     }
@@ -407,6 +430,7 @@ export default class Customer extends BaseNode {
         let random_menu = Random.rangeInt(min, max);
         Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${menu_config[random_menu - 1].id}`, (texture2d: cc.Texture2D) => {
             this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
+            this.eat_menu.spriteFrame = new cc.SpriteFrame(texture2d);
         })
         this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.order_menu, customerOrderConfig: random_menu });
     }
