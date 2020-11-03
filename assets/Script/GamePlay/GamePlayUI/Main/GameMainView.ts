@@ -193,22 +193,22 @@ export default class GameMainView extends BaseUI {
     }
 
     add_order_menu(event, config: { order_menu_config_id: number, order_seat_id: number, customer_number: number }) {
-        const menu_data: MenuData = GameLocalData.get_instance().get_data(MenuData);
-        if (config.order_menu_config_id <= menu_data.get_unlock_number()) {
-            const order_menu_data = GameLocalData.get_instance().get_data<OrderMenuData>(OrderMenuData);
-            let order_data_number = order_menu_data.add_new_order_data(config.order_menu_config_id, config.order_seat_id, config.customer_number);
-            const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", config.order_menu_config_id);
-            this._order_menu_number = this._order_menu_number + 1;
-            this.set_order_menu_layout();
-            Loader.load_prefab("/GamePlay/GamePlayUI/Main/OrderMenuItem", (prefab: cc.Prefab) => {
-                const order_menu_item = cc.instantiate(prefab);
-                order_menu_item.getComponent(OrderMenuItem).set_order_menu_item_config(order_data_number, menu_config);
-                order_menu_item.parent = this.menu_content;
-            });
-        }
-        else {
+        // const menu_data: MenuData = GameLocalData.get_instance().get_data(MenuData);
+        // if (config.order_menu_config_id <= menu_data.get_unlock_number()) {
+        const order_menu_data = GameLocalData.get_instance().get_data<OrderMenuData>(OrderMenuData);
+        let order_data_number = order_menu_data.add_new_order_data(config.order_menu_config_id, config.order_seat_id, config.customer_number);
+        const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", config.order_menu_config_id);
+        this._order_menu_number = this._order_menu_number + 1;
+        this.set_order_menu_layout();
+        Loader.load_prefab("/GamePlay/GamePlayUI/Main/OrderMenuItem", (prefab: cc.Prefab) => {
+            const order_menu_item = cc.instantiate(prefab);
+            order_menu_item.getComponent(OrderMenuItem).set_order_menu_item_config(order_data_number, menu_config);
+            order_menu_item.parent = this.menu_content;
+        });
+        // }
+        // else {
 
-        }
+        // }
     }
 
     set_order_menu_layout() {
