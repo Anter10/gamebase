@@ -24,8 +24,76 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 5
+        "__id__": 8
       },
+      {
+        "__id__": 9
+      }
+    ],
+    "_prefab": {
+      "__id__": 10
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 147,
+      "height": 48
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "sprite_bg",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [
+      {
+        "__id__": 3
+      }
+    ],
+    "_active": true,
+    "_components": [
       {
         "__id__": 6
       }
@@ -43,8 +111,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
-      "height": 48
+      "width": 147,
+      "height": 46
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -85,29 +153,29 @@
     "_name": "rank_type_node_value_label",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 1
+      "__id__": 2
     },
     "_children": [],
     "_active": true,
     "_components": [
       {
-        "__id__": 3
+        "__id__": 4
       }
     ],
     "_prefab": {
-      "__id__": 4
+      "__id__": 5
     },
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 81,
-      "g": 91,
-      "b": 161,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 56,
       "height": 42.84
     },
     "_anchorPoint": {
@@ -149,7 +217,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 2
+      "__id__": 3
     },
     "_enabled": true,
     "_materials": [
@@ -161,11 +229,13 @@
     "_dstBlendFactor": 771,
     "_string": "奖金",
     "_N$string": "奖金",
-    "_fontSize": 30,
+    "_fontSize": 28,
     "_lineHeight": 34,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "a284e2dd-6737-4b2b-b9df-647b152dc048"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -185,7 +255,50 @@
     "asset": {
       "__uuid__": "a4bc5a37-52fb-44e4-99d3-1f794b3c9abd"
     },
-    "fileId": "f4FZ1u4kRJT7UI79Vc9FmF",
+    "fileId": "caiXIXlr9PzrYnUufTvo54",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": {
+      "__uuid__": "dc1d27ee-b775-4d7e-8bdc-b0a5b7f47eda"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_atlas": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "a4bc5a37-52fb-44e4-99d3-1f794b3c9abd"
+    },
+    "fileId": "84vwHatGZLlITbBDb06vG9",
     "sync": false
   },
   {
@@ -198,7 +311,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 60,
+      "width": 147,
       "height": 48
     },
     "_resize": 1,
@@ -229,7 +342,7 @@
     },
     "_enabled": true,
     "rank_type_node_value_label": {
-      "__id__": 3
+      "__id__": 4
     },
     "_id": ""
   },

@@ -1,11 +1,18 @@
 import { gamebase } from "../Boot";
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import CashOutController from "../UI/CashOut/CashOutController";
+import ClickOnController from "../UI/ClickOn/ClickOnController";
+import InviteFriendViewController from "../UI/InviteFriend/InviteFriendViewController";
+import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "../UI/NewPlayerGuide/NewPlayerGuideEnum";
+import NewPlayerGuideView from "../UI/NewPlayerGuide/NewPlayerGuideView";
+import OpenRedEnvelopeViewController from "../UI/OpenRedEnvelope/OpenRedEnvelopeViewController";
+import { RankCurrentShowUIType } from "../UI/Rank/RankTypeEnum";
 import RankViewController from "../UI/Rank/RankViewController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";
-import { RankRouterPath } from "./CommonEnum";
+import { CashOutRouterPath, ClickOnRouterPath,InviteFriendPath, OpenRedEnvelopePath, RankRouterPath } from "./CommonEnum";
 import { ModalInterface, UIParamInterface } from "./CommonInterface";
 
 class Test{
@@ -42,6 +49,7 @@ class Test{
 
     /**@description 测试提现功能 */
     static cash_out(){
+        CashOutController.open(CashOutRouterPath.balance);
     }
 
 
@@ -58,19 +66,22 @@ class Test{
 
     /**@description 测试提现功能 */
     static click_on_view(){
+        ClickOnController.open(ClickOnRouterPath.normal);
     }
 
     /**@description 测试提现功能 */
     static rank_view(){
-        RankViewController.open(RankRouterPath.normal);
+        RankViewController.open(RankRouterPath.normal ,RankCurrentShowUIType.green);
     }
 
      /**@description 测试邀请好友的功能 */
      static invite_view(){
+        InviteFriendViewController.open(InviteFriendPath.normal);
     }
 
     /**@description 测试邀请好友的功能 */
     static open_red_envelope_view(){
+        OpenRedEnvelopeViewController.open(OpenRedEnvelopePath.normal);
     }
 
     static open_red_envelope_success_view(){
@@ -85,16 +96,16 @@ class Test{
 
     /**@description 显示新手引导 */
     static guide_view(start_game_button_node:cc.Node){
-        // NewPlayerGuideView.show_guide(
-        //     1,
-        //     GuideType.normal,
-        //     start_game_button_node,
-        //     ()=>{console.log()},
-        //     {},//{show_help_msg:true, help_message:"这是一个测试的新手引导",horizonal_align_mode:GuideMsgAlignHorizontalMode.left, horizonal_align:120, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 320},
-        //     {},//{show_mask:true,mask_size:cc.size(300,300), mask_animation:true,guide_mask_type: GuideMaskType.circle},
-        //     {},//{show_hand: true, hand_finger_dir: GuideFingerDirection.right, hand_position_offset: cc.v3(-260,0,0), hand_angle: 45},
-        //     {},//{npc_direction:GuideNpcDirection.left,show_npc: true,horizonal_align_mode:GuideNpcAlignHorizontalMode.left,horizonal_align:120, verticle_align_mode:GuideNpcAlignVerticleMode.bottom, verticle_align: 300}
-        // )
+        NewPlayerGuideView.show_guide(
+            1,
+            GuideType.normal,
+            start_game_button_node,
+            ()=>{console.log()},
+            {},//{show_help_msg:true, help_message:"这是一个测试的新手引导",horizonal_align_mode:GuideMsgAlignHorizontalMode.left, horizonal_align:120, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 320},
+            {},//{show_mask:true,mask_size:cc.size(300,300), mask_animation:true,guide_mask_type: GuideMaskType.circle},
+            {},//{show_hand: true, hand_finger_dir: GuideFingerDirection.right, hand_position_offset: cc.v3(-260,0,0), hand_angle: 45},
+            {},//{npc_direction:GuideNpcDirection.left,show_npc: true,horizonal_align_mode:GuideNpcAlignHorizontalMode.left,horizonal_align:120, verticle_align_mode:GuideNpcAlignVerticleMode.bottom, verticle_align: 300}
+        )
     }
 }
 

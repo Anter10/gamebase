@@ -1,3 +1,4 @@
+import { RankCurrentShowUIType } from "../UI/Rank/RankTypeEnum";
 import UIConfig from "../UI/UIManager/UIConfig";
 import ActionNode from "./ActionNode";
 import BaseNode from "./BaseNode";
@@ -31,9 +32,9 @@ export default class Nagivator extends BaseNode {
     
 
     public nagivator_ui_interface: NagivatorUIInterface = {
-        nagivator_bottom:"nagivator_bottom",
-        nagivator_back_bottom:"nagivator_back_bottom", 
-        nagivator_back_button: "nagivator_back_button",
+        nagivator_bottom: `common_title_bg`,
+        nagivator_back_bottom: null, 
+        nagivator_back_button: "common_icon_return",
     }
 
     onLoad(){
@@ -44,7 +45,7 @@ export default class Nagivator extends BaseNode {
         this.flush_ui_image(this.nagivator_ui_interface, "./UI/Common/texture/")
     }
 
-    init_actions(actions: Array<NagivatorActionInterface> ){
+    init_actions(actions: Array<NagivatorActionInterface>){
         this.actions = actions;
         if(this.actions.length > 0){
             let action_index: number = 0;
@@ -71,9 +72,19 @@ export default class Nagivator extends BaseNode {
         touch_button.register_touch(back_call_back);
     }
     
-    set_nagivator_interface(nagivator_interface: NagivatorInterface){
+    set_nagivator_interface(nagivator_interface: NagivatorInterface ,current_show_ui_type?: RankCurrentShowUIType){
         this.nagivator_interface = nagivator_interface;
         this.set_title(this.nagivator_interface.title);
+        if (current_show_ui_type) {
+            const color_list = {
+                wathet: cc.color(30 ,105 ,80 ,255) ,
+                blue: cc.color(62 ,75 ,137 ,255),
+                green: cc.color(29 ,134 ,125 ,255) ,   
+                pink: cc.color(232 ,77 ,110 ,255) ,
+                white: cc.color(255 ,255 ,255 ,255) ,   
+            };
+            this.set_color(color_list[current_show_ui_type]);
+        }
         const touch_button: TouchButton = this.back_button_node.addComponent(TouchButton);
         touch_button.register_touch(this.nagivator_interface.back_callback);
         this.set_nagivator_back_bottom_left_widget(this.nagivator_interface.widget_left);
@@ -82,6 +93,11 @@ export default class Nagivator extends BaseNode {
 
     set_title(title: string){
         this.title_label.string = title;
+    }
+
+    set_color (color: cc.Color) {
+        this.title_label.node.color = color;
+        this.nagivator_back_button.node.color = color;
     }
 
     /**@description 设置返回按钮底部条的widget 左对齐的像素点 */

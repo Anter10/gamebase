@@ -104,8 +104,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80,
-      "height": 50.4
+      "width": 140,
+      "height": 44.1
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -156,14 +156,15 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": true,
-    "_string": "排名",
-    "_N$string": "排名",
-    "_fontSize": 40,
-    "_lineHeight": 40,
+    "_string": "奖励积分",
+    "_N$string": "奖励积分",
+    "_fontSize": 35,
+    "_lineHeight": 35,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "a284e2dd-6737-4b2b-b9df-647b152dc048"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -207,7 +208,7 @@
     "asset": {
       "__uuid__": "03387c3b-c0a0-4794-9089-a0f975435ebc"
     },
-    "fileId": "84WLg7FKtN56+Cr/I48c/i",
+    "fileId": "",
     "sync": false
   }
 ]

@@ -1,4 +1,3 @@
- 
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -20,6 +19,10 @@ export default class RanTypeNode extends cc.Component {
 
     set_width(width: number){
         this.node.width = width;
+    }
+
+    set_color (color: cc.Color) {
+        this.rank_type_node_value_label.node.color = color;
     }
 
     // update (dt) {}
