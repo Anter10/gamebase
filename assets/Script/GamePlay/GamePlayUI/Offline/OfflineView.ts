@@ -1,9 +1,11 @@
 import BaseUI from "../../../Common/BaseUI";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Time from "../../../Common/Time";
+import TouchButton from "../../../Common/TouchButton";
 import { OfflineConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
+import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import OfflineData from "../../../GameLocalData/OfflineData";
 
 const { ccclass, property } = cc._decorator;
@@ -20,8 +22,37 @@ export default class OfflineView extends BaseUI {
     @property(cc.Label)
     offline_time_label: cc.Label = null;
 
+    @property(cc.Node)
+    unlock_button: cc.Node = null;
+
+    @property(cc.Node)
+    give_up_button: cc.Node = null;
+
+    @property(cc.Node)
+    close_button: cc.Node = null;
+
     offline_config: OfflineConfig = null;
     config_id: number = 0;
+
+    onLoad() {
+        //点击领取
+        const unlock_button_button: TouchButton = this.unlock_button.addComponent(TouchButton);
+        unlock_button_button.register_touch(this.click_unlock_button_button.bind(this));
+
+        //关闭
+        const give_up_button: TouchButton = this.give_up_button.addComponent(TouchButton);
+        give_up_button.register_touch(this.on_close_call.bind(this));
+
+        //放弃
+        const close_button: TouchButton = this.close_button.addComponent(TouchButton);
+        close_button.register_touch(this.on_close_call.bind(this));
+    }
+
+    click_unlock_button_button() {
+        const game_base_data: GamePlayBaseData = GameLocalData.get_instance().get_data(GamePlayBaseData);
+        game_base_data.change_gold_coin_number(this.offline_config.gold);
+        game_base_data.change_red_heart_number(this.offline_config.heart);
+    }
 
     set_offline_view(differ_time: number) {
         const offline_configs: Array<OfflineConfig> = GameDataConfig.get_config_array("OfflineConfig");

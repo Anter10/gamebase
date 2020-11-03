@@ -2277,9 +2277,24 @@
       "__id__": 1
     },
     "_enabled": true,
-    "gold_label": null,
-    "heart_label": null,
-    "offline_time_label": null,
+    "gold_label": {
+      "__id__": 24
+    },
+    "heart_label": {
+      "__id__": 33
+    },
+    "offline_time_label": {
+      "__id__": 39
+    },
+    "unlock_button": {
+      "__id__": 46
+    },
+    "give_up_button": {
+      "__id__": 56
+    },
+    "close_button": {
+      "__id__": 43
+    },
     "_id": ""
   },
   {
