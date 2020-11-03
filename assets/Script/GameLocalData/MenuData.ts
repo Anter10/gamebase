@@ -20,7 +20,7 @@ class MenuData extends BaseRecord {
     static _name = "MenuData";
     base_name = "MenuData";
 
-    private menu_data: Array<MenuInterface> = [{ menuNumber: 1, menuType: MenuType.unlock, menuAdTime: 0 }];
+    private menu_data: Array<MenuInterface> = [{ menuNumber: 1, menuType: MenuType.unlock, menuAdTime: 0 }, { menuNumber: 2, menuType: MenuType.unlock, menuAdTime: 0 }];
 
     constructor() {
         super();

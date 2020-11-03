@@ -252,6 +252,7 @@ class PeopleData extends BaseRecord {
                 if (differ_time > 40) {
                     if (people.customerState == CustomerState.line_up) {
                         let need_time = people.lineUp * 40 + 40;
+                        // console.log("people.lineUp need_time", people.lineUp,need_time);
                         if (differ_time > need_time) {
                             people.customerState = CustomerState.exit;
                             this.refresh_line_up_number();

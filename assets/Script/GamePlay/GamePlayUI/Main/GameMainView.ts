@@ -373,7 +373,9 @@ export default class GameMainView extends BaseUI {
     }
 
     click_batch_attract_customer_button() {
-
+        for (let i = 0; i < GamePlayConfig.batch_add_customer; i++) {
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+        }
     }
 
     set_attract_customer_progress(progress_number: number) {

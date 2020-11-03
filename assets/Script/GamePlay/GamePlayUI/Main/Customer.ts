@@ -10,7 +10,6 @@ import MenuData from "../../../GameLocalData/MenuData";
 import PeopleData, { CustomerPayInterface } from "../../../GameLocalData/PeopleData";
 import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
-import { AMap } from "../../AStar/AMap";
 import { ANode } from "../../AStar/ANode";
 import { AStar } from "../../AStar/AStar";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
@@ -18,11 +17,7 @@ import { CustomerState } from "../../GamePlayEnum/GamePlayEnum";
 import LinkGameBase from "../../LinkGameBase";
 import Map from "./Map";
 import { ChatConfig } from "../../../GameDataConfig/ConfigInterface";
-import GameConfig from "../../../GameConfig";
 import Loader from "../../../Common/Loader";
-import { UIParamInterface } from "../../../Common/CommonInterface";
-import UIConfig from "../../../UI/UIManager/UIConfig";
-import UIManager from "../../../UI/UIManager/UIManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -197,6 +192,7 @@ export default class Customer extends BaseNode {
                 this.walk_animation.animation = "wanshouji";
                 break;
             case CustomerState.order_menu:
+                this.load_menu_script();
                 this.walk_animation.animation = "diancai";
                 break;
             case CustomerState.wait_menu:
@@ -213,6 +209,7 @@ export default class Customer extends BaseNode {
                 }
                 break;
             case CustomerState.eat:
+                this.load_menu_script();
                 this.walk_animation.animation = "chifan";
                 let eat_menu_x = 50;
                 if (this.customer_node.scaleX > 0) {
@@ -443,11 +440,16 @@ export default class Customer extends BaseNode {
             max = menu_data.get_unlock_number();
         }
         let random_menu = Random.rangeInt(min, max);
-        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${menu_config[random_menu - 1].id}`, (texture2d: cc.Texture2D) => {
+        this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.order_menu, customerOrderConfig: random_menu });
+        this.load_menu_script();
+    }
+
+    load_menu_script() {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${customer_data.customerOrderConfig}`, (texture2d: cc.Texture2D) => {
             this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
             this.eat_menu.spriteFrame = new cc.SpriteFrame(texture2d);
         })
-        this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.order_menu, customerOrderConfig: random_menu });
     }
 
     set_child_position(move_y: number) {

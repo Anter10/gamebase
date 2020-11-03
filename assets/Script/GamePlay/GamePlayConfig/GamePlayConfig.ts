@@ -47,5 +47,7 @@ const GamePlayConfig = {
     get_red_heart: 1,
     //自动加客人时长
     add_customer_time: 120,
+    //批量加入客人数量
+    batch_add_customer: 10,
 }
 export default GamePlayConfig;
