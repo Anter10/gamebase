@@ -55,20 +55,21 @@ const GameConfig = {
       versionCode: "",
       versionName: "",
       /**@description 当前游戏是debug 还是release 模式 debug | release */
-      branch: "debug", 
+      branch: "Restaurant", 
       /**@description 通用API的根地址 */
       api_root_path: "g3-odyssey",
       /**@description 专用API的地址 */
       game_api_root_path: "",
-  
+      /**@description 打包类型 */
+      pack_type: "debug",
       get is_debug(){
           return GameConfig.branch == "debug";
       },
       /**@description 显示debug 按钮 */
       show_debug: true,
       remoteName: "mvp",
-
-  
+      // 自己定义的渠道 company tencent 
+      s_channel:"company",
 } 
 
 

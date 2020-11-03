@@ -3,6 +3,7 @@ import { Boot, gamebase } from "../Boot";
 import { UIParamInterface } from "../Common/CommonInterface";
 import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
+import { UpdateManagerComponent } from "../Common/UpdateManagerComponent";
 import Utils from "../Common/Utils";
 import GameConfig from "../GameConfig";
 import BI from "../Sdk/BI";
@@ -59,6 +60,11 @@ class LoadingScene extends BaseScene {
 
     @property(cc.Toggle)
     user_toggle: cc.Toggle = null;
+
+    @property(cc.Asset)
+    asset: cc.Asset = null;
+
+    public assets_manager: UpdateManagerComponent = null;
     
     public loading_scene_interface: LoadingSceneInterface = {
         game_logo_iamge : "",
@@ -73,8 +79,21 @@ class LoadingScene extends BaseScene {
     onLoad () {
         super.onLoad();
         Boot.init();
+        this.init_update_manager();
         this.flush_view();
         this.bi();
+    }
+
+    init_update_manager(){
+        this.assets_manager = this.node.addComponent(UpdateManagerComponent);
+        this.assets_manager.update_complete_callback = () => {
+            this.into_game_scene();
+        }
+
+        this.assets_manager.asset = this.asset;
+        this.assets_manager.update_callback = (progress: number)=> {
+            console.log("当前热更新的进度信息 = ", progress);
+        }
     }
 
     bi(){
@@ -136,6 +155,10 @@ class LoadingScene extends BaseScene {
         }
     }
 
+    into_game_scene(){
+        cc.director.loadScene("GameScene");
+    }
+
     /**@description 开始游戏成功后的回调 */
     start_game_success_callback(){
         this.start_game_button_image.node.active = false;
@@ -149,7 +172,7 @@ class LoadingScene extends BaseScene {
         }, (error: Error)=>{
             if(!error){
                setTimeout(()=>{
-                 cc.director.loadScene("GameScene");
+                this.assets_manager.init_assets_manager();
                }, 300);
             }else{
                 console.log("进入游戏主场景失败了");
