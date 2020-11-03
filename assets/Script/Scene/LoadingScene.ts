@@ -46,10 +46,7 @@ class LoadingScene extends BaseScene {
 
     @property(cc.Node)
     privacy_node: cc.Node = null;
-
-    @property(cc.Node)
-    debug_node: cc.Node = null;
-    
+ 
 
     @property(cc.Node)
     protocol_and_privacy_node: cc.Node = null;

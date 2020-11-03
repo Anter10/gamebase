@@ -63,16 +63,6 @@ class UIManager{
             UIManager.show_ui(ui_param);
       }
 
-      static test(){
-        //    const roter: RouterInterface = {
-        //          controller: CashOutController,
-        //          ui_config_name: "CashOutView",
-        //          param:{},
-        //    }
-
-        //    this.nagivate_route(roter);
-      }
-
       /**@description 清空所有界面 */
       static clear_ui(){
           const ui_config_names = Object.keys(this.all_ui);
