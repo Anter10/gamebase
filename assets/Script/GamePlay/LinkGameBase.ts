@@ -1,6 +1,7 @@
 import DecorationData from "../GameLocalData/DecorationData";
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
 import MenuData from "../GameLocalData/MenuData";
+import OfflineData from "../GameLocalData/OfflineData";
 import OrderMenuData from "../GameLocalData/OrderMenuData";
 import PeopleData from "../GameLocalData/PeopleData";
 import SeatData from "../GameLocalData/SeatData";
@@ -21,6 +22,7 @@ class LinkGameBase{
          StoreUpgradeData,
          SeatData,
          OrderMenuData,
+         OfflineData,
       ];
 
       /**@description game_play 相关的事件 */

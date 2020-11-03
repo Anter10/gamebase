@@ -150,7 +150,6 @@ export default class GameMainView extends BaseUI {
                 max = menu_data.get_unlock_number();
             }
             customer_order_config = Random.rangeInt(min, max);
-            console.log("随机一个菜品", customer_order_config);
         } else {
             customer_order_config = pay.customerOrderConfig;
         }

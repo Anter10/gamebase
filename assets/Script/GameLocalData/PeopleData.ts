@@ -244,6 +244,7 @@ class PeopleData extends BaseRecord {
     }
 
     fix_people_data_by_time() {
+        let refresh_line_up_number = 0;
         for (let i = 0; i < this.people_data.length; i++) {
             let people = this.people_data[i];
             let differ_time = Time.get_second_time() - people.changeStateTime;
@@ -252,10 +253,9 @@ class PeopleData extends BaseRecord {
                 if (differ_time > 40) {
                     if (people.customerState == CustomerState.line_up) {
                         let need_time = people.lineUp * 40 + 40;
-                        // console.log("people.lineUp need_time", people.lineUp,need_time);
                         if (differ_time > need_time) {
+                            refresh_line_up_number++;
                             people.customerState = CustomerState.exit;
-                            this.refresh_line_up_number();
                             //获得收益
                             const pay: CustomerPayInterface = {
                                 //厨娘等级
@@ -268,7 +268,6 @@ class PeopleData extends BaseRecord {
                             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
                         }
                     } else {
-                        this.refresh_line_up_number();
                         let cook_woman_level = 0;
                         if (people.CookWomanConfigId) {
                             cook_woman_level = GameLocalData.get_instance().get_data(PeopleData).get_people_data_by_people_config_id(people.CookWomanConfigId).peopleLevel;
@@ -284,6 +283,7 @@ class PeopleData extends BaseRecord {
                         }
                         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
                         people.customerState = CustomerState.exit;
+                        this.store_people_data(this.people_data);
                         const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
                         seat_data.change_seat_data(people.walkToSeatNumber, false);
                     }
@@ -293,13 +293,24 @@ class PeopleData extends BaseRecord {
             }
         }
 
+        console.log(refresh_line_up_number);
+        for (let i = 0; i < refresh_line_up_number; i++) {
+            this.refresh_line_up_number();
+        }
+
         for (let i = 0; i < this.people_data.length; i++) {
             let people = this.people_data[i];
             let differ_time = Time.get_second_time() - people.changeStateTime;
             const people_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", people.peopleConfigId);
             if (people_config.type == PeopleType.cook_woman) {
                 if (differ_time > 40) {
+                    const order_menu_data: OrderMenuData = GameLocalData.get_instance().get_data(OrderMenuData);
+                    if (order_menu_data.get_menu_by_cook_woman_config_id(people.peopleConfigId)) {
+                        let menu_number = order_menu_data.get_menu_by_cook_woman_config_id(people.peopleConfigId).menuNumber;
+                        order_menu_data.complete_order_menu_data(menu_number);
+                    }
                     people.cookWomanState = CookWomanState.Stroll;
+                    this.store_people_data(this.people_data);
                 } else if (differ_time <= 40) {
                     people.changeStateTime = Time.get_second_time();
                 }

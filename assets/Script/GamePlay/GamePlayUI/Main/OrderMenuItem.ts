@@ -21,7 +21,6 @@ export default class OrderMenuItem extends BaseNode {
     set_order_menu_item_config(menu_data_number: number, menu_config: MenuConfig) {
         this.menu_config = menu_config;
         this.menu_data_number = menu_data_number;
-        console.log("menu_data_number", menu_data_number);
     }
 
     start() {
