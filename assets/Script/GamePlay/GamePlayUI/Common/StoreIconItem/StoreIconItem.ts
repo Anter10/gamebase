@@ -70,10 +70,10 @@ export default class StoreIconItem extends BaseNode {
     open_click_this_node() {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.click_store_button, this, this.close_click_bg);
 
-        //点击商店图标
-        //TouchButton出问题。！！！！！
-        const cash_out_button: TouchButton = this.node.addComponent(TouchButton);
-        cash_out_button.register_touch(this.click_this_node.bind(this));
+        if (!this.node.getComponent(TouchButton)) {
+            const cash_out_button: TouchButton = this.node.addComponent(TouchButton);
+            cash_out_button.register_touch(this.click_this_node.bind(this));
+        }
     }
 
     click_this_node() {

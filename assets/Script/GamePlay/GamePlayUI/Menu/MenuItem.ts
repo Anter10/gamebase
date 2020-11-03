@@ -53,10 +53,10 @@ export default class MenuItem extends BaseNode {
 
             this.refresh_price_label();
 
-            //看广告解锁菜品
-            //TouchButton出问题。！！！！！
-            const price_button: TouchButton = this.price.addComponent(TouchButton);
-            price_button.register_touch(this.click_price_button.bind(this));
+            if (!this.price.getComponent(TouchButton)) {
+                const price_button: TouchButton = this.price.addComponent(TouchButton);
+                price_button.register_touch(this.click_price_button.bind(this));
+            }
         } else {
             this.menu_sprite.node.color = cc.color(255, 255, 255, 255);
             this.price.active = false;

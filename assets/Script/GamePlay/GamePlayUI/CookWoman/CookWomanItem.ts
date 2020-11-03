@@ -81,10 +81,10 @@ export default class CookWomanItem extends BaseNode {
             this.get_mark.active = false;
             this.price_label.string = this.cook_woman_config.upgrade_need_coin[0] + "金币";
 
-            //解锁人物
-            //TouchButton出问题。！！！！！
-            const buy_new_table_button: TouchButton = this.price.addComponent(TouchButton);
-            buy_new_table_button.register_touch(this.click_buy_new_table_button.bind(this));
+            if (!this.price.getComponent(TouchButton)) {
+                const buy_new_table_button: TouchButton = this.price.addComponent(TouchButton);
+                buy_new_table_button.register_touch(this.click_buy_new_table_button.bind(this));
+            }
         }
     }
 
