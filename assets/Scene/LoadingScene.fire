@@ -2011,7 +2011,9 @@
     "user_toggle": {
       "__id__": 27
     },
-    "asset": null,
+    "asset": {
+      "__uuid__": "54b0d6c0-d73d-4fa4-84f4-d6716956cf82"
+    },
     "_id": "84aeA85rRDW56R3AIch5ev"
   },
   {

@@ -91,46 +91,50 @@ export class UpdateManagerComponent extends BaseNode {
             console.log("检查更新   " + 'Checking or updating ...');
             return;
         }
-        if (this.assets_manager.getState() == jsb.AssetsManager.State.UNINITED) {
-            var url = this.asset;
-            console.log("this.manifestUrl = ", this.asset);
-            if (cc.loader.md5Pipe) {
-                url = cc.loader.md5Pipe.transformURL(url);
-            }
-            this.assets_manager.loadLocalManifest(url);
-        }
-        if (!this.assets_manager.getLocalManifest() || !this.assets_manager.getLocalManifest().isLoaded()) {
-            console.log("Failed to load local manifest ...");
-            return;
-        }
-        this.assets_manager.setEventCallback(this.check_update_callback.bind(this));
-        this.assets_manager.checkUpdate();
-        // 设置本地的资源的url 包的资源路径
-        // const branch_path = `https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/${GameConfig.s_channel}/${GameConfig.pack_type}/${GameConfig.branch}`;
-        // this.manifestUrl = branch_path + `/${GameConfig.version}/project.manifest`;
+        this.update_state = UpdateStatue.checking;
         // if (this.assets_manager.getState() == jsb.AssetsManager.State.UNINITED) {
-        //     var url = this.manifestUrl;
-        //     console.log("this.manifestUrl = ", this.manifestUrl);
-        //     Loader.request_remote_assets(this.manifestUrl, (assets: cc.Asset) => {
-        //         let tassets = assets;
-        //         console.log("当前的资源是否已经assets1111 ")
-        //         if (cc.loader.md5Pipe) {
-        //             tassets = cc.loader.md5Pipe.transformURL(assets);
-        //         }
-        //         console.log("当前的资源是否已经assets 2222")
-        //         if (!this.assets_manager.getLocalManifest() || !this.assets_manager.getLocalManifest().isLoaded()) {
-        //             console.log("Failed to load local manifest ...");
-        //             return;
-        //         }
-        //         this.assets_manager.loadLocalManifest(tassets);
-        //         this.assets_manager.setEventCallback(this.check_update_callback.bind(this));
-        //         this.assets_manager.checkUpdate();
-        //     }, () => {
-        //         this.update_complete_callback();
-        //     })
-        // }else{
-        //     this.update_complete_callback();
+        //     var url = this.asset;
+        //     console.log("this.manifestUrl = ", this.asset);
+        //     if (cc.loader.md5Pipe) {
+        //         url = cc.loader.md5Pipe.transformURL(url);
+        //     }
+        //     this.assets_manager.loadLocalManifest(url);
         // }
+        // if (!this.assets_manager.getLocalManifest() || !this.assets_manager.getLocalManifest().isLoaded()) {
+        //     console.log("Failed to load local manifest ...");
+        //     return;
+        // }
+        // this.assets_manager.setEventCallback(this.check_update_callback.bind(this));
+        // this.assets_manager.checkUpdate();
+        // 设置本地的资源的url 包的资源路径
+        const branch_path = `https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/${GameConfig.s_channel}/${GameConfig.pack_type}/${GameConfig.branch}`;
+        this.manifestUrl = branch_path + `/${GameConfig.version}/project.manifest`;
+        if (this.assets_manager.getState() == jsb.AssetsManager.State.UNINITED) {
+            var url = this.manifestUrl;
+            console.log("this.manifestUrl = ", this.manifestUrl);
+            Loader.request_remote_assets(this.manifestUrl, (assets: cc.Asset & {_nativeAsset:string}) => {
+                let tassets = assets;
+                console.log("当前的资源是否已经assets1111 ", typeof((<any>cc.assetManager).md5Pipe))
+                // if (cc.loader.md5Pipe) {
+                //     tassets = (<any>cc.assetManager).md5Pipe.transformURL(assets);
+                // }
+
+                var manifest = new jsb.Manifest(assets._nativeAsset, this.store_path);
+
+                this.assets_manager.loadLocalManifest(manifest, this.store_path);
+                console.log("当前的资源是否已经assets 2222")
+                if (!this.assets_manager.getLocalManifest() || !this.assets_manager.getLocalManifest().isLoaded()) {
+                    console.log("Failed to load local manifest ...");
+                    return;
+                }
+                this.assets_manager.setEventCallback(this.check_update_callback.bind(this));
+                this.assets_manager.checkUpdate();
+            }, () => {
+                this.update_complete_callback();
+            })
+        }else{
+            this.update_complete_callback();
+        }
     };
     /**@description 重试下载 */
     public retry() {
@@ -254,7 +258,7 @@ export class UpdateManagerComponent extends BaseNode {
                             }
 
                             // 开始热更新
-
+                            this.start_update();
                         }
                     } else {
                         this.update_complete_callback();
@@ -278,7 +282,11 @@ export class UpdateManagerComponent extends BaseNode {
     /**@description 开始初始化资源管理器 并开始更新资源 */
     public init_assets_manager() {
         console.log("初始化热更新");
-        if (!gamebase.jsb) {
+
+        if(this.update_state !== UpdateStatue.none){
+            return;
+        }
+        if (!gamebase.jsb && this.update_state == UpdateStatue.none) {
             this.update_complete_callback();
             return;
         }
@@ -288,7 +296,7 @@ export class UpdateManagerComponent extends BaseNode {
         console.log("当前的存储路径", this.store_path);
         this.assets_manager = new jsb.AssetsManager(branch_path + "/project.manifest", this.store_path, this.version_compare.bind(this));
         console.log("当前的存储路径", this.store_path);
-        this.assets_manager.setVerifyCallback(function (path, asset) {
+        this.assets_manager.setVerifyCallback( (path, asset) => {
             var compressed = asset.compressed;
             var md5 = asset.md5;
             var relative_path = asset.path;
