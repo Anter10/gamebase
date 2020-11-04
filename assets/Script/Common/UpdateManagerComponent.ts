@@ -1,5 +1,6 @@
 import { gamebase } from "../Boot";
 import GameConfig from "../GameConfig";
+import CommonServerData from "../GameServerData/CommonServerData";
 import BaseNode from "./BaseNode";
 import { UpdateStatue } from "./CommonEnum";
 import Loader from "./Loader";
@@ -34,6 +35,7 @@ export class UpdateManagerComponent extends BaseNode {
     public check_server() {
         return false;
     };
+
     /**@description 版本比较的方法 */
     public version_compare(versionA, versionB) {
         console.log("当前比较的两个版本 = ", versionA, versionB);
@@ -219,6 +221,7 @@ export class UpdateManagerComponent extends BaseNode {
             this.assets_manager.update();
         }
     };
+
     /**@description 计算本次更新的包的大小 */
     public cal_current_assets_update_size(call_back) {
         var _this = this;
@@ -278,11 +281,18 @@ export class UpdateManagerComponent extends BaseNode {
         return Math.floor(this.update_size / 1048576);
     };
 
+    check_server_update(){
+        CommonServerData.check_update((result: any) => {
+            console.log("检查服务器是否让你更新",result);
+            this.init_assets_manager();
+        }, (response: any) => {
+            this.update_complete_callback();
+            console.log("检查更新失败",response);
+        });
+    }
 
     /**@description 开始初始化资源管理器 并开始更新资源 */
     public init_assets_manager() {
-        console.log("初始化热更新");
-
         if(this.update_state !== UpdateStatue.none){
             return;
         }

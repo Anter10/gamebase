@@ -171,7 +171,7 @@ class LoadingScene extends BaseScene {
             this.loading_progress.progress = progress;
         }, (error: Error)=>{
             if(!error){
-                this.assets_manager.init_assets_manager();
+                this.assets_manager.check_server_update();
             }else{
                 console.log("进入游戏主场景失败了");
             }

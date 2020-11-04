@@ -68,6 +68,12 @@ class CommonServerData{
         ServerData.get_instance().get_data(url, callback);
     }
 
+    /**@description 检查热更新 */
+    static check_update(call_back: Function, error_callback: Function) {
+        let url =  `/${GameConfig.api_root_path}/api/version/frontend`;
+        ServerData.get_instance().get_data(url, call_back, error_callback);
+    }
+
 }
 
 

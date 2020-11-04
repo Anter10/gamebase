@@ -63,7 +63,7 @@ const GameConfig = {
       /**@description 打包类型 */
       pack_type: "debug",
       get is_debug(){
-          return GameConfig.branch == "debug";
+          return true;
       },
       /**@description 显示debug 按钮 */
       show_debug: true,
