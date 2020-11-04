@@ -57,10 +57,14 @@ export default class OfflineView extends BaseUI {
     set_offline_view(differ_time: number) {
         const offline_configs: Array<OfflineConfig> = GameDataConfig.get_config_array("OfflineConfig");
         this.config_id = 0;
-        for (let i = 0; i < offline_configs.length; i++) {
-            if (differ_time < (offline_configs[i].id + 1) * 3600) {
-                this.config_id = i;
-            }
+        if (differ_time < 3600 * 2) {
+            this.config_id = 0;
+        } else if (differ_time < 3600 * 3) {
+            this.config_id = 1;
+        } else if (differ_time < 3600 * 4) {
+            this.config_id = 2;
+        } else {
+            this.config_id = 3;
         }
         this.offline_config = offline_configs[this.config_id];
         this.refresh_view();
@@ -76,7 +80,7 @@ export default class OfflineView extends BaseUI {
         offline_data.set_offline_data(Time.get_second_time());
         this.gold_label.string = this.offline_config.gold + "";
         this.heart_label.string = this.offline_config.heart + "";
-        this.offline_time_label.string = `离线时间：${this.config_id}小时`;
+        this.offline_time_label.string = `离线时间：${this.config_id + 1}小时`;
     }
 
 }
