@@ -249,7 +249,10 @@ class PeopleData extends BaseRecord {
             let people = this.people_data[i];
             let differ_time = Time.get_second_time() - people.changeStateTime;
             const people_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", people.peopleConfigId);
-            if (people_config.type == PeopleType.customer) {
+            if (!people_config) {
+                this.delete_people_by_people_data_number(people.peopleDataNumber);
+            }
+            if (people_config && people_config.type == PeopleType.customer) {
                 if (differ_time > 40) {
                     if (people.customerState == CustomerState.line_up) {
                         let need_time = people.lineUp * 40 + 40;
@@ -302,7 +305,7 @@ class PeopleData extends BaseRecord {
             let people = this.people_data[i];
             let differ_time = Time.get_second_time() - people.changeStateTime;
             const people_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", people.peopleConfigId);
-            if (people_config.type == PeopleType.cook_woman) {
+            if (people_config && people_config.type == PeopleType.cook_woman) {
                 if (differ_time > 40) {
                     const order_menu_data: OrderMenuData = GameLocalData.get_instance().get_data(OrderMenuData);
                     if (order_menu_data.get_menu_by_cook_woman_config_id(people.peopleConfigId)) {

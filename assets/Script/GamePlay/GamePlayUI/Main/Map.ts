@@ -82,7 +82,7 @@ export default class Map extends cc.Component {
     init_customer() {
         let customer_data_array = [];
         for (let i = 0; i < this.people_data.get_people_data().length; i++) {
-            if (this.people_configs[this.people_data.get_people_data()[i].peopleConfigId - 1].type == PeopleType.customer) {
+            if (this.people_configs[this.people_data.get_people_data()[i].peopleConfigId - 1] && this.people_configs[this.people_data.get_people_data()[i].peopleConfigId - 1].type == PeopleType.customer) {
                 customer_data_array.push(this.people_data.get_people_data()[i]);
             }
         }
@@ -100,7 +100,7 @@ export default class Map extends cc.Component {
     add_customer() {
         let customer_configs: Array<PeopleConfig> = [];
         for (let i = 0; i < this.people_configs.length; i++) {
-            if (this.people_configs[i].type == PeopleType.customer) {
+            if (this.people_configs[i] && this.people_configs[i].type == PeopleType.customer) {
                 customer_configs.push(this.people_configs[i]);
             }
         }

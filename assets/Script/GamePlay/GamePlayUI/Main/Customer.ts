@@ -431,10 +431,10 @@ export default class Customer extends BaseNode {
         let max = 1;
         if (menu_data.get_unlock_number() < 5) {
             min = 1;
-            max = menu_data.get_unlock_number() + 1;
+            max = menu_data.get_unlock_number();
         } else if (menu_data.get_unlock_number() >= 5 && menu_data.get_unlock_number() != menu_config.length) {
             min = menu_data.get_unlock_number() - 4;
-            max = menu_data.get_unlock_number() + 1;
+            max = menu_data.get_unlock_number();
         } else {
             min = menu_data.get_unlock_number() - 4;
             max = menu_data.get_unlock_number();
