@@ -152,6 +152,7 @@ export class UpdateManagerComponent extends BaseNode {
             case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
                 console.log("没有本地的配置文件 跳过更新");
                 failed = true;
+                this.update_complete_callback();
                 break;
             case jsb.EventAssetsManager.UPDATE_PROGRESSION:
                 var update_percent = event.getPercent();
@@ -189,6 +190,7 @@ export class UpdateManagerComponent extends BaseNode {
             default:
                 break;
         }
+
         if (failed) {
             this.assets_manager.setEventCallback(null);
         }

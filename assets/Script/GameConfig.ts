@@ -32,7 +32,8 @@ const GameConfig = {
       /**@description 游戏包的名 */
       packageName:"com.hainanliangyou.zlzdd",
       post_id: 20010001,
-      version: "1.0.0",
+      // 版本的版本号 1.0 开始
+      version: "1.0",
       // 用户协议的网页链接
       user_protocol_url:"http://waqqq.hainanliangyou.com/user.html",
       // 隐私声明的网页链接
@@ -44,7 +45,7 @@ const GameConfig = {
       get serverUrl(){
            var serverUrl = "https://bp-api.coohua.com";
            if(GameConfig.is_debug){
-              serverUrl = "http://bp-api.coohua.top";
+              serverUrl = "https://bp-api.coohua.top";
            }
            return serverUrl;
       },
