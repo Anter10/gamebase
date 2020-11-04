@@ -53,6 +53,8 @@ interface GuideHelpMsgInterface{
       help_message?: string;
       /**@description 文本框大小 */
       size?: cc.Vec2;
+      /**@description 文本和框体之间的左右距离 */
+      set_layout?: cc.Vec2;
       /**@description 全图引导的 帮助图片的纹理 */
       picture_type_spriteframe?: cc.SpriteFrame;
       /**@description 对话框 水平方向上的对其模式 */

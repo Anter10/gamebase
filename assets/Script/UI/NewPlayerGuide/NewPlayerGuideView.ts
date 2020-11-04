@@ -28,6 +28,9 @@ class NewPlayerGuideView extends BaseUI {
     @property(cc.Node)
     click_button: cc.Node = null;
 
+    @property(cc.Layout)
+    help_message_layout: cc.Layout = null;
+
     @property(cc.Sprite)
     hand_icon: cc.Sprite = null;
     @property(cc.Sprite)
@@ -188,6 +191,10 @@ class NewPlayerGuideView extends BaseUI {
                this.help_message_bottom.width = this.new_player_guide_interface.guide_help_msg_interface.size.x;
                this.help_message_bottom.height = this.new_player_guide_interface.guide_help_msg_interface.size.y;
            }
+           if(this.new_player_guide_interface.guide_help_msg_interface.set_layout){
+            this.help_message_layout.paddingLeft = this.new_player_guide_interface.guide_help_msg_interface.set_layout.x;
+            this.help_message_layout.paddingRight = this.new_player_guide_interface.guide_help_msg_interface.set_layout.y;
+           }
 
             if(this.new_player_guide_interface.guide_help_msg_interface.horizonal_align_mode == GuideMsgAlignHorizontalMode.left){
                widget.isAlignLeft = true;
@@ -199,7 +206,7 @@ class NewPlayerGuideView extends BaseUI {
                widget.right = this.new_player_guide_interface.guide_help_msg_interface.horizonal_align;
             }
           
- 
+            
             if(this.new_player_guide_interface.guide_help_msg_interface.verticle_align_mode == GuideMsgAlignVerticleMode.top){
                widget.isAlignTop = true;
                widget.isAlignBottom = false;

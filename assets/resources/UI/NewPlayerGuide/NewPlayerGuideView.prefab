@@ -986,6 +986,9 @@
     "click_button": {
       "__id__": 21
     },
+    "help_message_layout": {
+      "__id__": 15
+    },
     "hand_icon": {
       "__id__": 18
     },
