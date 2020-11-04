@@ -318,20 +318,9 @@ export default class Customer extends BaseNode {
     click_customer_menu() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
         if (customer_data.customerState == CustomerState.order_menu) {
-            // const menu_data: MenuData = GameLocalData.get_instance().get_data(MenuData);
-            // if (customer_data.customerOrderConfig <= menu_data.get_unlock_number()) {
             this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.wait_menu });
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.order_menu, { order_menu_config_id: customer_data.customerOrderConfig, order_seat_id: this.chair_number, customer_number: this.customer_data_id });
             this.set_customer();
-            // } else {
-            // const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", menu_data.get_unlock_number());
-            // const ui_chicken_god_interface: UIParamInterface = {
-            //     ui_config_path: UIConfig.UnlockMenuView,
-            //     ui_config_name: "UnlockMenuView",
-            //     param: { title_label: "菜品未解锁", menu_config: menu_config }
-            // }
-            // UIManager.show_ui(ui_chicken_god_interface);
-            // }
         }
     }
 
@@ -404,6 +393,7 @@ export default class Customer extends BaseNode {
         }
         this.automatic_customer_menu();
         this.is_eat_end();
+        this.is_set_order_menu();
     }
 
     walk_end_set_next_state() {
@@ -413,13 +403,18 @@ export default class Customer extends BaseNode {
             this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.sit_seat, seatNumber: this.chair_number, walkToSeatNumber: 0 });
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.new_seat);
             this.set_customer();
-            this.scheduleOnce(() => {
-                this.set_order_menu();
-                this.set_customer();
-            }, 1);
         }
         if (customer_data.customerState == CustomerState.exit) {
             this.set_customer();
+        }
+    }
+
+    is_set_order_menu() {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        if (customer_data && customer_data.customerState && customer_data.customerState == CustomerState.sit_seat) {
+            if (Time.get_second_time() - customer_data.changeStateTime >= 1) {
+                this.set_order_menu();
+            }
         }
     }
 
@@ -442,6 +437,7 @@ export default class Customer extends BaseNode {
         let random_menu = Random.rangeInt(min, max);
         this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.order_menu, customerOrderConfig: random_menu });
         this.load_menu_script();
+        this.set_customer();
     }
 
     load_menu_script() {

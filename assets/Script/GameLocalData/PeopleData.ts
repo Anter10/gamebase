@@ -134,6 +134,7 @@ class PeopleData extends BaseRecord {
             peopleMoveStartTime: Time.get_second_time(),
             peopleLevel: 0,
             cookWomanState: CookWomanState.Null,
+            seatNumber: 0,
         };
         this.people_data.push(init_new_people);
         this.store_people_data(this.people_data);
