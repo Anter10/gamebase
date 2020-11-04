@@ -52,6 +52,7 @@ export default class OfflineView extends BaseUI {
         const game_base_data: GamePlayBaseData = GameLocalData.get_instance().get_data(GamePlayBaseData);
         game_base_data.change_gold_coin_number(this.offline_config.gold);
         game_base_data.change_red_heart_number(this.offline_config.heart);
+        this.on_close_call();
     }
 
     set_offline_view(differ_time: number) {

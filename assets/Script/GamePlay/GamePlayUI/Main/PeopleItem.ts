@@ -31,7 +31,7 @@ export default class PeopleItem extends BaseNode {
 
     click_chicken_god_button() {
         const menu_data: MenuData = GameLocalData.get_instance().get_data(MenuData);
-        const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", menu_data.get_unlock_number());
+        const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", menu_data.get_unlock_number() + 1);
         const ui_chicken_god_interface: UIParamInterface = {
             ui_config_path: UIConfig.UnlockMenuView,
             ui_config_name: "UnlockMenuView",

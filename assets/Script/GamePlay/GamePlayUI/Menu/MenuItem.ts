@@ -36,10 +36,13 @@ export default class MenuItem extends BaseNode {
     private menu_data: MenuData = null;
 
     start() {
-        this.need_refresh_node();
         this.un_refresh_node();
     }
 
+    onEnable() {
+        this.need_refresh_node();
+    }
+    
     set_config(menu_config: MenuConfig) {
         this.menu_config = menu_config;
     }

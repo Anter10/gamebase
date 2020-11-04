@@ -3,6 +3,11 @@ import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
+import GameLocalData from "../../../GameLocalData/GameLocalData";
+import MenuData from "../../../GameLocalData/MenuData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
+import { MenuType } from "../../GamePlayEnum/GamePlayEnum";
 
 const { ccclass, property } = cc._decorator;
 
@@ -31,6 +36,7 @@ export default class UnlockMenuView extends BaseUI {
     get_button: cc.Node = null;
 
     menu_config: MenuConfig = null;
+    menu_data: MenuData = null;
 
     onLoad() {
         //关闭
@@ -39,7 +45,7 @@ export default class UnlockMenuView extends BaseUI {
 
         //点击领取
         const get_button: TouchButton = this.get_button.addComponent(TouchButton);
-        get_button.register_touch(this.on_close_call.bind(this));
+        get_button.register_touch(this.click_get_button.bind(this));
 
         //点击放弃
         const give_up_button: TouchButton = this.give_up_button.addComponent(TouchButton);
@@ -59,6 +65,26 @@ export default class UnlockMenuView extends BaseUI {
         Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${param.menu_config.id}`, (texture2d: cc.Texture2D) => {
             this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
         })
+    }
+
+    click_get_button() {
+        this.menu_data = GameLocalData.get_instance().get_data<MenuData>(MenuData);
+        let menu_ad_data = this.menu_data.get_menu_data_by_id(this.menu_config.id);
+        if (menu_ad_data.menuAdTime + 1 == this.menu_config.ad_number) {
+            this.menu_data.change_menu_data(this.menu_config.id, MenuType.unlock, menu_ad_data.menuAdTime + 1);
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: "解锁成功"
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
+            // console.log("解锁成功);
+        } else {
+            this.menu_data.change_menu_data(this.menu_config.id, menu_ad_data.menuType, menu_ad_data.menuAdTime + 1);
+        }
+        this.on_close_call();
     }
 
 }
