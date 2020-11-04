@@ -38,7 +38,7 @@ class GamePlayBaseData extends BaseRecord {
                 this.red_heart_number = GamePlayConfig.red_heart_max;
             } else {
                 this.red_heart_number = change_red_heart_number + this.red_heart_number;
-                this.store_gold_coin_number(this.red_heart_number);
+                this.store_red_heart_number(this.red_heart_number);
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_red_heart_number);
             }
             return true;
