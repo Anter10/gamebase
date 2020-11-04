@@ -54,7 +54,7 @@ abstract class BaseUI extends cc.Component {
     }
 
     start () {
-        console.log(`界面 ${this.node.name} 花费的时间 ${new Date().getTime() - this.c_time} 秒`);
+        console.log(`界面 ${this.node.name} 花费的时间 ${new Date().getTime() - this.c_time} 毫秒`);
     }
 
     flush_ui_image(user_privacy_interface, ui_root_path: string){

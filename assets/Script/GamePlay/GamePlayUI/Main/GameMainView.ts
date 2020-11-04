@@ -132,7 +132,7 @@ export default class GameMainView extends BaseUI {
                 GuideType.pciture,
                 null,
                 () => { console.log() },
-                { show_help_msg: true, size: cc.v2(600, 187), help_message: "嗨，我是神界人见人爱的灶王爷，看你灵气冲天快来和我学做菜，成为新一代厨神。", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 700 },
+                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "嗨，我是神界人见人爱的灶王爷，看你灵气冲天快来和我学做菜，成为新一代厨神。", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 700 },
                 {},//{show_mask:true,mask_size:cc.size(300,300), mask_animation:true,guide_mask_type: GuideMaskType.circle},
                 {},//{show_hand: true, hand_finger_dir: GuideFingerDirection.right, hand_position_offset: cc.v3(-260,0,0), hand_angle: 45},
                 { npc_direction: GuideNpcDirection.right, size: cc.v2(271, 657), show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 500 }
