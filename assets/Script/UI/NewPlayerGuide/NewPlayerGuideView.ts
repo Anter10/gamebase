@@ -184,7 +184,11 @@ class NewPlayerGuideView extends BaseUI {
             this.help_message_label.string = this.new_player_guide_interface.guide_help_msg_interface.help_message;
             
             const widget: cc.Widget = this.help_message_bottom.getComponent(cc.Widget); 
-           
+           if(this.new_player_guide_interface.guide_help_msg_interface.size){
+               this.help_message_bottom.width = this.new_player_guide_interface.guide_help_msg_interface.size.x;
+               this.help_message_bottom.height = this.new_player_guide_interface.guide_help_msg_interface.size.y;
+           }
+
             if(this.new_player_guide_interface.guide_help_msg_interface.horizonal_align_mode == GuideMsgAlignHorizontalMode.left){
                widget.isAlignLeft = true;
                widget.isAlignRight = false;
@@ -227,6 +231,10 @@ class NewPlayerGuideView extends BaseUI {
               this.npc_icon.spriteFrame = this.new_player_guide_interface.guide_npc_interface.npc_sprite_frame;
            }
 
+           if(this.new_player_guide_interface.guide_npc_interface.size){
+               this.npc_icon.node.width = this.new_player_guide_interface.guide_npc_interface.size.x;
+               this.npc_icon.node.height = this.new_player_guide_interface.guide_npc_interface.size.y;
+           }
            const widget: cc.Widget = this.npc_icon.node.getComponent(cc.Widget); 
            
            if(this.new_player_guide_interface.guide_npc_interface.horizonal_align_mode == GuideNpcAlignHorizontalMode.left){

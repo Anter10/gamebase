@@ -16,6 +16,8 @@ interface GuideHandeInterface{
 interface GuideNpcInterface{
       /**@description 显示NPC */
       show_npc?:boolean;
+      /**@description NPC大小 */
+      size?: cc.Vec2;
       /**@description 引导现实的NPC ID  */
       npc_sprite_frame?: cc.SpriteFrame;
       /**@description npc scaleX 设置NPC的方向 1: 向左 -1 向右 */
@@ -49,6 +51,8 @@ interface GuideHelpMsgInterface{
       show_help_msg?: boolean;
       /**@description 引导提示文本 需要 */
       help_message?: string;
+      /**@description 文本框大小 */
+      size?: cc.Vec2;
       /**@description 全图引导的 帮助图片的纹理 */
       picture_type_spriteframe?: cc.SpriteFrame;
       /**@description 对话框 水平方向上的对其模式 */

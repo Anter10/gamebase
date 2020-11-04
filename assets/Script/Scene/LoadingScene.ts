@@ -103,7 +103,7 @@ class LoadingScene extends BaseScene {
     /**@description 点击开始游戏的按钮的调用逻辑 */
     start_game_callback(){
         console.log("点击开始游戏的按钮");
-        SdkModule.test();
+        // SdkModule.test();
 
         if(this.user_toggle.isChecked){
             this.start_game_success_callback();
