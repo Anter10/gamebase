@@ -1,5 +1,6 @@
 import DecorationData from "../GameLocalData/DecorationData";
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
+import GuideData from "../GameLocalData/GuideData";
 import MenuData from "../GameLocalData/MenuData";
 import OfflineData from "../GameLocalData/OfflineData";
 import OrderMenuData from "../GameLocalData/OrderMenuData";
@@ -23,6 +24,7 @@ class LinkGameBase{
          SeatData,
          OrderMenuData,
          OfflineData,
+         GuideData,
       ];
 
       /**@description game_play 相关的事件 */

@@ -11,6 +11,7 @@ import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import DecorationData from "../../../GameLocalData/DecorationData";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
+import GuideData from "../../../GameLocalData/GuideData";
 import MenuData from "../../../GameLocalData/MenuData";
 import OfflineData from "../../../GameLocalData/OfflineData";
 import OrderMenuData from "../../../GameLocalData/OrderMenuData";
@@ -19,6 +20,8 @@ import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
 import GameData from "../../../Sdk/UserData";
 import CashOutController from "../../../UI/CashOut/CashOutController";
+import { GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "../../../UI/NewPlayerGuide/NewPlayerGuideEnum";
+import NewPlayerGuideView from "../../../UI/NewPlayerGuide/NewPlayerGuideView";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import { AStar } from "../../AStar/AStar";
@@ -97,6 +100,7 @@ export default class GameMainView extends BaseUI {
     }
 
     start() {
+        this.new_player_guide();
         this.fix_people_data_by_time();
         this.fix_play_base_data();
         this.load_gold_and_heart_item();
@@ -108,6 +112,57 @@ export default class GameMainView extends BaseUI {
         this.show_offline_view();
         this.add_customer();
     }
+
+    //新手引导部分
+    new_player_guide() {
+        this.guide_cook_gold_speak();
+        this.guide_cook_gold_speak_two();
+        this.guide_click_add_customer();
+        this.guide_click_batch_add();
+        this.guide_click_extension();
+        this.guide_click_cook_woman();
+        this.guide_click_cash_out();
+        this.guide_click_menu();
+    }
+    guide_cook_gold_speak() {
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (!guide_data.guide_finished(1)) {
+            NewPlayerGuideView.show_guide(
+                1,
+                GuideType.pciture,
+                null,
+                () => { console.log() },
+                { show_help_msg: true, help_message: "嗨，我是神界人见人爱的灶王爷，看你灵气冲天快来和我学做菜，成为新一代厨神。", horizonal_align_mode: GuideMsgAlignHorizontalMode.left, horizonal_align: 250, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 700 },
+                {},//{show_mask:true,mask_size:cc.size(300,300), mask_animation:true,guide_mask_type: GuideMaskType.circle},
+                {},//{show_hand: true, hand_finger_dir: GuideFingerDirection.right, hand_position_offset: cc.v3(-260,0,0), hand_angle: 45},
+                { npc_direction: GuideNpcDirection.right, show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 500 }
+            )
+        }
+    }
+    guide_cook_gold_speak_two() {
+
+    }
+    guide_click_add_customer() {
+
+    }
+    guide_click_batch_add() {
+
+    }
+    guide_click_extension() {
+
+    }
+    guide_click_cook_woman() {
+
+    }
+    guide_click_cash_out() {
+
+    }
+    guide_click_menu() {
+
+    }
+    //新手引导结束
+
+
 
     fix_play_base_data() {
         const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
