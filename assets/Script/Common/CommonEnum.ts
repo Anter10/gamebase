@@ -47,6 +47,18 @@ enum AdVideoType{
      zhike = "zhike",
 }
 
+/**@description 热更新的状态 */
+enum UpdateStatue{
+    /**@description 检查更新中 */
+    none = "none",
+    /**@description 检查更新中 */
+    checking = "checking",
+    /**@description 开始更新 */
+    updating = "updating",
+    /**@description 已经更新 */
+    updated = "updated",
+}
 
 
-export {AdVideoType, TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};
+
+export {UpdateStatue, AdVideoType, TouchButtonEffectType, OpenRedEnvelopePath, InviteFriendPath, RankRouterPath,CashOutRouterPath, ClickOnRouterPath};

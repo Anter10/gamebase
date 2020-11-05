@@ -32,7 +32,8 @@ const GameConfig = {
       /**@description 游戏包的名 */
       packageName:"com.hainanliangyou.wdct",
       post_id: 20010001,
-      version: "1.0.0",
+      // 版本的版本号 1.0 开始
+      version: "1.0",
       // 用户协议的网页链接
       user_protocol_url:"http://wdct.hainanliangyou.com/wdct/private.html",
       // 隐私声明的网页链接
@@ -44,7 +45,7 @@ const GameConfig = {
       get serverUrl(){
            var serverUrl = "https://bp-api.coohua.com";
            if(GameConfig.is_debug){
-              serverUrl = "http://bp-api.coohua.top";
+              serverUrl = "https://bp-api.coohua.top";
            }
            return serverUrl;
       },
@@ -55,14 +56,15 @@ const GameConfig = {
       versionCode: "",
       versionName: "",
       /**@description 当前游戏是debug 还是release 模式 debug | release */
-      branch: "debug", 
+      branch: "Restaurant", 
       /**@description 通用API的根地址 */
       api_root_path: "g3-odyssey",
       /**@description 专用API的地址 */
       game_api_root_path: "",
-  
+      /**@description 打包类型 */
+      pack_type: "debug",
       get is_debug(){
-          return GameConfig.branch == "debug";
+          return true;
       },
       /**@description 显示debug 按钮 */
       show_debug: true,
@@ -70,6 +72,8 @@ const GameConfig = {
       wx_appid: "wxc5fb17eb4bc6ba96",
       app_secret: "3285b60cb0035501714c90ad1a3e0e9d",
   
+      // 自己定义的渠道 company tencent 
+      s_channel:"company",
 } 
 
 

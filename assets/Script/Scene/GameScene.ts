@@ -1,5 +1,6 @@
 import Loader from "../Common/Loader";
 import GameConfig from "../GameConfig";
+import GameLocalData from "../GameLocalData/GameLocalData";
 import BI from "../Sdk/BI";
 import { BiInterface } from "../Sdk/SdkInterface";
 import BaseScene from "./BaseScene";
@@ -38,7 +39,9 @@ class GameScene extends BaseScene {
         })
     }
 
-    // update (dt) {}
+    update (dt: number) {
+        GameLocalData.get_instance().tick_store_data(dt);
+    }
 }
 
 
