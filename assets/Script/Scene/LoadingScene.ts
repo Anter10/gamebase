@@ -5,6 +5,7 @@ import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
 import Utils from "../Common/Utils";
 import GameConfig from "../GameConfig";
+import ServerData from "../GameServerData/ServerData";
 import BI from "../Sdk/BI";
 import { BiInterface } from "../Sdk/SdkInterface";
 import { SdkModule } from "../Sdk/SdkModule";

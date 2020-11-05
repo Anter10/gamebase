@@ -2,6 +2,7 @@ import { gamebase } from "../Boot";
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import ClickOnController from "../UI/ClickOn/ClickOnController";
+import { ClockInTitleType } from "../UI/ClickOn/ClickOnEnum";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import Audio from "./Audio";

@@ -224,7 +224,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "金币不足",
     "_N$string": "金币不足",
     "_fontSize": 36,
@@ -321,7 +320,7 @@
     "asset": {
       "__uuid__": "33f86245-98b4-4549-b2a9-bd7a38ea8868"
     },
-    "fileId": "06BV4oaRBMMr7Yz7+bTxOw",
+    "fileId": "",
     "sync": false
   }
 ]

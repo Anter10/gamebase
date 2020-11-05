@@ -13,7 +13,7 @@ class ClickOnView extends BaseUI {
         console.log(this.controller)
         this.controller.init_view();
         const nagivator_interface: NagivatorInterface = {
-            title: "打卡赚取红星",
+            title: "",
             /**@description 返回按钮的回调*/
             back_callback: ()=>{
                 this.on_close_call();
