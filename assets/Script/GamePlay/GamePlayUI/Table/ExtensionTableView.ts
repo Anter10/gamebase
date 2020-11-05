@@ -2,8 +2,10 @@ import BaseUI from "../../../Common/BaseUI";
 import { NagivatorInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
+import EventManager from "../../../EventManager/EventManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import { ExtensionTypeButton } from "../../GamePlayEnum/GamePlayEnum";
+import LinkGameBase from "../../LinkGameBase";
 import ExtensionDecorationFrameItem from "./ExtensionDecorationFrameItem ";
 import ExtensionTableFrameItem from "./ExtensionTableFrameItem";
 
@@ -46,6 +48,10 @@ export default class ExtensionTableView extends BaseUI {
         this.flush_table_content();
     }
 
+    onDisable() {
+        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
+    }
+    
     flush_view() {
         const nagivator_interface: NagivatorInterface = {
             title: "扩建",

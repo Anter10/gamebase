@@ -65,6 +65,8 @@ enum GuideMsgAlignHorizontalMode {
      left = 1,
      // 右对齐
      right = 2,
+     // 不对齐
+     null = 3,
 }
 
 /**@description 新手引导NPC的水平方向的适配 */
@@ -73,6 +75,8 @@ enum GuideMsgAlignVerticleMode {
      top = 1,
      // 右对齐
      bottom = 2,
+     // 不对齐
+     null = 3,
 }
 
 

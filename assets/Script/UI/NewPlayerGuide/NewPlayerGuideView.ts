@@ -58,6 +58,7 @@ class NewPlayerGuideView extends BaseUI {
         guide_type: GuideType,
         guide_to_node: cc.Node,
         callback: Function,
+        close_show_next_guide?: boolean,
         click_help_msg_back?: Function,
         help_msg?: GuideHelpMsgInterface,
         help_mask?: GuideMaskInterface,
@@ -68,6 +69,7 @@ class NewPlayerGuideView extends BaseUI {
             guide_id: guide_id,
             guide_type: guide_type,
             callback: callback,
+            close_show_next_guide: close_show_next_guide,
             click_help_msg_back: click_help_msg_back,
             guide_to_node: guide_to_node,
 
@@ -99,23 +101,28 @@ class NewPlayerGuideView extends BaseUI {
     }
 
     onEnable() {
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.close_new_player_guide_view, this, this.on_close_call);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.close_new_player_guide_view, this, this.close_this_view);
     }
 
     onDisable() {
-        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.close_new_player_guide_view, this, this.on_close_call);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.close_new_player_guide_view, this, this.close_this_view);
     }
 
-    on_close_call() {
-        super.on_close_call();
-        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
+    close_this_view() {
+        this.on_close_call();
+        if (this.new_player_guide_interface.close_show_next_guide) {
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
+        }
     }
 
     click_help_msg_button() {
+        this.on_close_call();
         let new_player_guide_data: GuideData = GameLocalData.get_instance().get_data(GuideData);
         new_player_guide_data.pass_a_guide(this.new_player_guide_interface.guide_id);
         this.new_player_guide_interface.click_help_msg_back && this.new_player_guide_interface.click_help_msg_back();
-        this.on_close_call();
+        if (this.new_player_guide_interface.close_show_next_guide) {
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
+        }
     }
 
     register_touch(touch_callback: Function) {
@@ -141,7 +148,7 @@ class NewPlayerGuideView extends BaseUI {
             this.click_button.position = target_node_pos;
         }
 
-        // console.log("引导到的目标位置 = ", target_node_pos);
+        console.log("引导到的目标位置 = ", target_node_pos);
 
 
         // 处理手指的逻辑
@@ -224,6 +231,10 @@ class NewPlayerGuideView extends BaseUI {
             if (this.new_player_guide_interface.guide_help_msg_interface.label_size) {
                 this.help_message_label.fontSize = this.new_player_guide_interface.guide_help_msg_interface.label_size;
             }
+            if (this.new_player_guide_interface.guide_help_msg_interface.position) {
+                this.help_message_bottom.x = target_node_pos.x + this.new_player_guide_interface.guide_help_msg_interface.position.x;
+                this.help_message_bottom.y = target_node_pos.y + this.new_player_guide_interface.guide_help_msg_interface.position.y;
+            }
 
             if (this.new_player_guide_interface.guide_help_msg_interface.horizonal_align_mode == GuideMsgAlignHorizontalMode.left) {
                 widget.isAlignLeft = true;
@@ -233,6 +244,9 @@ class NewPlayerGuideView extends BaseUI {
                 widget.isAlignLeft = false;
                 widget.isAlignRight = true;
                 widget.right = this.new_player_guide_interface.guide_help_msg_interface.horizonal_align;
+            } else if (this.new_player_guide_interface.guide_help_msg_interface.horizonal_align_mode == GuideMsgAlignHorizontalMode.null) {
+                widget.isAlignLeft = false;
+                widget.isAlignRight = false;
             }
 
 
@@ -244,6 +258,9 @@ class NewPlayerGuideView extends BaseUI {
                 widget.isAlignTop = false;
                 widget.isAlignBottom = true;
                 widget.bottom = this.new_player_guide_interface.guide_help_msg_interface.verticle_align;
+            } else if (this.new_player_guide_interface.guide_help_msg_interface.verticle_align_mode == GuideMsgAlignVerticleMode.null) {
+                widget.isAlignTop = false;
+                widget.isAlignBottom = false;
             }
 
             widget.updateAlignment();
@@ -307,10 +324,13 @@ class NewPlayerGuideView extends BaseUI {
     }
 
     help_guide_callback() {
+        this.on_close_call();
         let new_player_guide_data: GuideData = GameLocalData.get_instance().get_data(GuideData);
         new_player_guide_data.pass_a_guide(this.new_player_guide_interface.guide_id);
         this.new_player_guide_interface.callback && this.new_player_guide_interface.callback();
-        this.on_close_call();
+        if (this.new_player_guide_interface.close_show_next_guide) {
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
+        }
     }
 
 }
