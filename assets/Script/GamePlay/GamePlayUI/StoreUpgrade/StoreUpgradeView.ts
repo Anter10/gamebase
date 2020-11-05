@@ -11,6 +11,7 @@ import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import PeopleData from "../../../GameLocalData/PeopleData";
 import StoreUpgradeData from "../../../GameLocalData/StoreUpgradeData";
 import TableData from "../../../GameLocalData/TableData";
+import CommonServerData from "../../../GameServerData/CommonServerData";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import { StoreUpgradeConditionType } from "../../GamePlayEnum/GamePlayEnum";
@@ -117,6 +118,15 @@ export default class StoreUpgradeView extends BaseUI {
         //点击升级按钮
         const upgrade_button: TouchButton = this.upgrade_button.addComponent(TouchButton);
         upgrade_button.register_touch(this.click_upgrade_button.bind(this));
+    }
+
+    // 同步商店的等级给服务器端
+    post_store_level_to_server(level: number){
+        CommonServerData.post_api_order({level: level},(res: any)=>{
+            console.log("同步商店等级成功");
+        }, () => {
+            console.log("同步商店等级失败");
+        })
     }
 
     click_upgrade_button() {
