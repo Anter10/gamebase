@@ -31,9 +31,6 @@ class ClickOnView extends BaseUI {
                 nagivator_script.nagivator_back_arrow.node.x = nagivator_script.nagivator_back_arrow.node.x + 40;
             })
         });
-        
-        this.add_nagivator([], nagivator_interface);
-
     }
 
     start() {
