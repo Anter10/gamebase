@@ -16,6 +16,8 @@ export default class Nagivator extends BaseNode {
     nagivator_back_bottom: cc.Sprite = null;
     @property(cc.Sprite)
     nagivator_back_button: cc.Sprite = null;
+    @property(cc.Sprite)
+    nagivator_back_arrow: cc.Sprite = null;
 
     @property(cc.Node)
     action_container: cc.Node = null;
@@ -33,7 +35,15 @@ export default class Nagivator extends BaseNode {
     public nagivator_ui_interface: NagivatorUIInterface = {
         nagivator_bottom:"nagivator_bottom",
         nagivator_back_bottom:"nagivator_back_bottom", 
-        nagivator_back_button: "nagivator_back_button",
+        nagivator_back_button: null,
+    }
+
+    hide_nagivator_back_bottom(){
+        this.nagivator_back_bottom.node.active = false;
+    }
+
+    show_nagivator_back_bottom(){
+        this.nagivator_back_bottom.node.active = true;
     }
 
     onLoad(){
@@ -78,6 +88,10 @@ export default class Nagivator extends BaseNode {
         touch_button.register_touch(this.nagivator_interface.back_callback);
         this.set_nagivator_back_bottom_left_widget(this.nagivator_interface.widget_left);
         this.nagivator_bottom.node.active = this.nagivator_interface.show_nagivator_bottom;
+    }
+
+    set_back_arrow_sprite_frame(spriteFrame: cc.SpriteFrame){
+        this.nagivator_back_arrow.spriteFrame = spriteFrame;
     }
 
     set_title(title: string){
