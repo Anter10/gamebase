@@ -87,6 +87,20 @@ abstract class BaseUI extends cc.Component {
             nagivator_script.set_nagivator_interface(nagivator_interface);
         })
     }
+
+    /**
+     * @description 延迟添加很多的节点
+     * @param add_counts 添加的个数
+     * @param prefab 添加的prefab
+     * @param add_finish_callback 完成后的回调方法
+     */
+    delay_add_nodes(add_counts: number , prefab: cc.Prefab, add_finish_callback: Function, add_every_duration:number = 0.1){
+        const callback = ()=> {
+            const node = cc.instantiate(prefab);
+            add_finish_callback(node);
+        }
+        this.schedule(callback, add_every_duration, add_counts, add_every_duration);
+    }
 }
 
 
