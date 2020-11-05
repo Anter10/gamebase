@@ -246,8 +246,6 @@ class NewPlayerGuideView extends BaseUI {
                 widget.bottom = this.new_player_guide_interface.guide_help_msg_interface.verticle_align;
             }
 
-            widget.isStretchWidth = false;
-            widget.isStretchHeight = false;
             widget.updateAlignment();
         }
 
@@ -294,8 +292,6 @@ class NewPlayerGuideView extends BaseUI {
                 widget.bottom = this.new_player_guide_interface.guide_npc_interface.verticle_align;
             }
 
-            widget.isStretchWidth = false;
-            widget.isStretchHeight = false;
             widget.updateAlignment();
         }
     }
