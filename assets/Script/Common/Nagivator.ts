@@ -36,6 +36,14 @@ export default class Nagivator extends BaseNode {
         nagivator_back_button: null,
     }
 
+    hide_nagivator_back_bottom(){
+        this.nagivator_back_bottom.node.active = false;
+    }
+
+    show_nagivator_back_bottom(){
+        this.nagivator_back_bottom.node.active = true;
+    }
+
     onLoad(){
         super.onLoad();
     }

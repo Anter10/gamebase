@@ -107,6 +107,8 @@ interface NagivatorInterface{
      widget_left?: number;
      /**@description 显示导航栏的底部 */
      show_nagivator_bottom?: boolean;
+     /**@description  */
+     hide_return_back_button?: boolean;
 }
 
 

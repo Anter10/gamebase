@@ -17,10 +17,12 @@ class ClickOnView extends BaseUI {
             /**@description 返回按钮的回调*/
             back_callback: ()=>{
                 this.on_close_call();
-            }
+            },
+            hide_return_back_button: true,
         };
 
         this.add_nagivator([],nagivator_interface);
+        
     }
 
     start () {
