@@ -34,13 +34,13 @@ export class HttpClient {
         this.responsePreprocessor = func;
     }
 
-    get(path: string, timeout = 5000, headers?: { [key: string]: string }) {
+    get(path: string, timeout = 5000, body?: string | ArrayBuffer, headers?: { [key: string]: string }) {
         return this._handleRequest({
             path,
             method: "GET",
             timeout,
             headers
-        });
+        } ,body);
     }
 
     post(path: string, timeout = 5000, body?: string | ArrayBuffer, contentType?: string, headers?: { [key: string]: string }) {

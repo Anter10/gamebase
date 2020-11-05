@@ -1,5 +1,5 @@
 import BaseUI from "../../../Common/BaseUI";
-import { CashOutRouterPath } from "../../../Common/CommonEnum";
+import { CashOutRouterPath, ClickOnRouterPath } from "../../../Common/CommonEnum";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import Random from "../../../Common/Random";
@@ -20,6 +20,7 @@ import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
 import GameData from "../../../Sdk/UserData";
 import CashOutController from "../../../UI/CashOut/CashOutController";
+import ClickOnController from "../../../UI/ClickOn/ClickOnController";
 import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "../../../UI/NewPlayerGuide/NewPlayerGuideEnum";
 import NewPlayerGuideView from "../../../UI/NewPlayerGuide/NewPlayerGuideView";
 import UIConfig from "../../../UI/UIManager/UIConfig";
@@ -421,6 +422,10 @@ export default class GameMainView extends BaseUI {
         CashOutController.open(CashOutRouterPath.no_balance);
     }
 
+    click_on_button() {
+        ClickOnController.open(ClickOnRouterPath.normal);
+    }
+
     flush_view() {
         //提现
         const cash_out_button: TouchButton = this.cash_out_button.addComponent(TouchButton);
@@ -444,7 +449,7 @@ export default class GameMainView extends BaseUI {
 
         //打卡
         const punch_clock_button: TouchButton = this.punch_clock_button.addComponent(TouchButton);
-        punch_clock_button.register_touch(this.click_punch_clock_button.bind(this));
+        punch_clock_button.register_touch(this.click_on_button.bind(this));
 
         //招揽顾客
         const attract_customer_button: TouchButton = this.attract_customer_button.addComponent(TouchButton);
