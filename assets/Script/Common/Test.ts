@@ -1,12 +1,6 @@
 import { gamebase } from "../Boot";
 import { AudioConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
-import CashOutController from "../UI/CashOut/CashOutController";
-import ClickOnController from "../UI/ClickOn/ClickOnController";
-import InviteFriendViewController from "../UI/InviteFriend/InviteFriendViewController";
-import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "../UI/NewPlayerGuide/NewPlayerGuideEnum";
-import NewPlayerGuideView from "../UI/NewPlayerGuide/NewPlayerGuideView";
-import OpenRedEnvelopeViewController from "../UI/OpenRedEnvelope/OpenRedEnvelopeViewController";
 import RankViewController from "../UI/Rank/RankViewController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
@@ -48,7 +42,6 @@ class Test{
 
     /**@description 测试提现功能 */
     static cash_out(){
-        CashOutController.open(CashOutRouterPath.balance);
     }
 
 
