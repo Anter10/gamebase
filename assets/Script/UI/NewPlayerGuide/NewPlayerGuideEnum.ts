@@ -1,5 +1,5 @@
 /**@description 引导手指的方向 */
-enum GuideFingerDirection{
+enum GuideFingerDirection {
      /**@description 上 */
      up = 1,
      /**@description 下 */
@@ -11,7 +11,7 @@ enum GuideFingerDirection{
 }
 
 /**@description mask的类型 */
-enum GuideMaskType{
+enum GuideMaskType {
      /**@description 方形的形状 */
      rect = 1,
      /**@description 圆形的形状 */
@@ -19,7 +19,7 @@ enum GuideMaskType{
 }
 
 /**@description 引导的类型 */
-enum GuideType{
+enum GuideType {
      /**@description 正常的类型 */
      normal = "normal",
      /**@description 图片类型 */
@@ -27,7 +27,7 @@ enum GuideType{
 }
 
 /**@description  NPC的朝向 */
-enum GuideNpcDirection{
+enum GuideNpcDirection {
      /**@description 朝左 */
      left = "left",
      /**@description 朝右 */
@@ -36,7 +36,7 @@ enum GuideNpcDirection{
 
 
 /**@description 新手引导的类型的枚举类型 */
-enum NewPlayerGuideType{
+enum NewPlayerGuideType {
      /**@description 正常模式 */
      normal = "normal",
      /**@description 图片类型的模式 */
@@ -44,7 +44,7 @@ enum NewPlayerGuideType{
 }
 
 /**@description 新手引导NPC的水平方向的适配 */
-enum GuideNpcAlignHorizontalMode{
+enum GuideNpcAlignHorizontalMode {
      // 左对齐
      left = 1,
      // 右对齐
@@ -52,29 +52,29 @@ enum GuideNpcAlignHorizontalMode{
 }
 
 /**@description 新手引导NPC的水平方向的适配 */
-enum GuideNpcAlignVerticleMode{
-    // 左对齐
-    top = 1,
-    // 右对齐
-    bottom = 2,
+enum GuideNpcAlignVerticleMode {
+     // 左对齐
+     top = 1,
+     // 右对齐
+     bottom = 2,
 }
 
 /**@description 新手引导NPC的水平方向的适配 */
-enum GuideMsgAlignHorizontalMode{
-    // 左对齐
-    left = 1,
-    // 右对齐
-    right = 2,
+enum GuideMsgAlignHorizontalMode {
+     // 左对齐
+     left = 1,
+     // 右对齐
+     right = 2,
 }
 
 /**@description 新手引导NPC的水平方向的适配 */
-enum GuideMsgAlignVerticleMode{
-   // 左对齐
-   top = 1,
-   // 右对齐
-   bottom = 2,
+enum GuideMsgAlignVerticleMode {
+     // 左对齐
+     top = 1,
+     // 右对齐
+     bottom = 2,
 }
 
 
 
-export {GuideNpcAlignHorizontalMode,GuideNpcAlignVerticleMode,GuideMsgAlignHorizontalMode,GuideMsgAlignVerticleMode,GuideNpcDirection, GuideType, GuideFingerDirection, GuideMaskType};
+export { GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcDirection, GuideType, GuideFingerDirection, GuideMaskType };

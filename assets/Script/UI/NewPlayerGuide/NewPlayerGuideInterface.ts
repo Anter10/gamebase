@@ -65,6 +65,8 @@ interface GuideHelpMsgInterface {
       verticle_align_mode?: GuideMsgAlignVerticleMode;
       /**@description 垂直方向上的偏移 */
       verticle_align?: number;
+      /**@description 字体大小 */
+      label_size?: number;
 }
 
 
@@ -79,6 +81,8 @@ interface NewPlayerGuideInterface {
       guide_to_node: cc.Node;
       /**@description 引导的回调方法 */
       callback: Function;
+      /**@description 点击帮助文本回调 */
+      click_help_msg_back: Function;
       /**@description 控制手指的接口 */
       guide_hande_interface: GuideHandeInterface;
       /**@description 控制NPC的接口 */

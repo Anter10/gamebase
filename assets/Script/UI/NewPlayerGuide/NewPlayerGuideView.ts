@@ -5,8 +5,10 @@ import BaseUI from "../../Common/BaseUI";
 import { TouchButtonEffectType } from "../../Common/CommonEnum";
 import { UIParamInterface } from "../../Common/CommonInterface";
 import TouchButton from "../../Common/TouchButton";
+import EventManager from "../../EventManager/EventManager";
 import GameLocalData from "../../GameLocalData/GameLocalData";
 import GuideData from "../../GameLocalData/GuideData";
+import LinkGameBase from "../../GamePlay/LinkGameBase";
 import UIConfig from "../UIManager/UIConfig";
 import UIManager from "../UIManager/UIManager";
 import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "./NewPlayerGuideEnum";
@@ -56,6 +58,7 @@ class NewPlayerGuideView extends BaseUI {
         guide_type: GuideType,
         guide_to_node: cc.Node,
         callback: Function,
+        click_help_msg_back?: Function,
         help_msg?: GuideHelpMsgInterface,
         help_mask?: GuideMaskInterface,
         help_hand?: GuideHandeInterface,
@@ -65,6 +68,7 @@ class NewPlayerGuideView extends BaseUI {
             guide_id: guide_id,
             guide_type: guide_type,
             callback: callback,
+            click_help_msg_back: click_help_msg_back,
             guide_to_node: guide_to_node,
 
             guide_hande_interface: help_hand,
@@ -89,6 +93,29 @@ class NewPlayerGuideView extends BaseUI {
         super.onLoad();
         const touch_button: TouchButton = this.click_button.addComponent(TouchButton);
         touch_button.register_touch(this.help_guide_callback.bind(this));
+
+        const help_message_bottom: TouchButton = this.help_message_bottom.addComponent(TouchButton);
+        help_message_bottom.register_touch(this.click_help_msg_button.bind(this), 2, null, TouchButtonEffectType.none);
+    }
+
+    onEnable() {
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.close_new_player_guide_view, this, this.on_close_call);
+    }
+
+    onDisable() {
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.close_new_player_guide_view, this, this.on_close_call);
+    }
+
+    on_close_call() {
+        super.on_close_call();
+        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
+    }
+
+    click_help_msg_button() {
+        let new_player_guide_data: GuideData = GameLocalData.get_instance().get_data(GuideData);
+        new_player_guide_data.pass_a_guide(this.new_player_guide_interface.guide_id);
+        this.new_player_guide_interface.click_help_msg_back && this.new_player_guide_interface.click_help_msg_back();
+        this.on_close_call();
     }
 
     register_touch(touch_callback: Function) {
@@ -100,7 +127,6 @@ class NewPlayerGuideView extends BaseUI {
 
     show(ui_param_interface: UIParamInterface) {
         super.show(ui_param_interface);
-        console.log("新手引导数据 ", ui_param_interface);
     }
 
     show_new_player_guide_msg(new_player_guide_interface: NewPlayerGuideInterface) {
@@ -115,7 +141,7 @@ class NewPlayerGuideView extends BaseUI {
             this.click_button.position = target_node_pos;
         }
 
-        console.log("引导到的目标位置 = ", target_node_pos);
+        // console.log("引导到的目标位置 = ", target_node_pos);
 
 
         // 处理手指的逻辑
@@ -139,7 +165,7 @@ class NewPlayerGuideView extends BaseUI {
             }
 
             if (this.new_player_guide_interface.guide_hande_interface.hand_position_offset) {
-                this.hand_icon.node.position = target_node_pos.addSelf(this.new_player_guide_interface.guide_hande_interface.hand_position_offset);
+                this.hand_icon.node.position = target_node_pos.add(this.new_player_guide_interface.guide_hande_interface.hand_position_offset);
             } else {
                 this.hand_icon.node.position = target_node_pos;
             }
@@ -194,6 +220,9 @@ class NewPlayerGuideView extends BaseUI {
             if (this.new_player_guide_interface.guide_help_msg_interface.set_layout) {
                 this.help_message_layout.paddingLeft = this.new_player_guide_interface.guide_help_msg_interface.set_layout.x;
                 this.help_message_layout.paddingRight = this.new_player_guide_interface.guide_help_msg_interface.set_layout.y;
+            }
+            if (this.new_player_guide_interface.guide_help_msg_interface.label_size) {
+                this.help_message_label.fontSize = this.new_player_guide_interface.guide_help_msg_interface.label_size;
             }
 
             if (this.new_player_guide_interface.guide_help_msg_interface.horizonal_align_mode == GuideMsgAlignHorizontalMode.left) {
@@ -282,11 +311,12 @@ class NewPlayerGuideView extends BaseUI {
     }
 
     help_guide_callback() {
-        this.on_close_call();
         let new_player_guide_data: GuideData = GameLocalData.get_instance().get_data(GuideData);
         new_player_guide_data.pass_a_guide(this.new_player_guide_interface.guide_id);
         this.new_player_guide_interface.callback && this.new_player_guide_interface.callback();
+        this.on_close_call();
     }
+
 }
 
 

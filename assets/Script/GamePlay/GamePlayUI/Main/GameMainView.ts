@@ -20,7 +20,7 @@ import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
 import GameData from "../../../Sdk/UserData";
 import CashOutController from "../../../UI/CashOut/CashOutController";
-import { GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "../../../UI/NewPlayerGuide/NewPlayerGuideEnum";
+import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "../../../UI/NewPlayerGuide/NewPlayerGuideEnum";
 import NewPlayerGuideView from "../../../UI/NewPlayerGuide/NewPlayerGuideView";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
@@ -97,6 +97,7 @@ export default class GameMainView extends BaseUI {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.order_menu, this, this.add_order_menu);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.receiving_menu, this, this.reduce_order_menu_number);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.customer_pay, this, this.customer_pay);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.open_next_player_guide, this, this.new_player_guide);
     }
 
     start() {
@@ -115,35 +116,114 @@ export default class GameMainView extends BaseUI {
 
     //新手引导部分
     new_player_guide() {
+        //1
         this.guide_cook_gold_speak();
+        //2
         this.guide_cook_gold_speak_two();
+        //3
         this.guide_click_add_customer();
+        //4
         this.guide_click_batch_add();
+        //5
         this.guide_click_extension();
+        //6
         this.guide_click_cook_woman();
+        //7
         this.guide_click_cash_out();
+        //8
         this.guide_click_menu();
     }
     guide_cook_gold_speak() {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
-        if (!guide_data.guide_finished(1)) {
+        if (guide_data.cur_guid_id == 0) {
+            this.scheduleOnce(() => {
+                if (!guide_data.guide_finished(1)) {
+                    guide_data.cur_guid_id = 1;
+                    guide_data.pass_a_guide(1);
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_new_player_guide_view);
+                }
+            }, 3);
             NewPlayerGuideView.show_guide(
                 1,
                 GuideType.pciture,
                 null,
-                () => { console.log() },
-                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "嗨，我是神界人见人爱的灶王爷，看你灵气冲天快来和我学做菜，成为新一代厨神。", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 700 },
-                {},//{show_mask:true,mask_size:cc.size(300,300), mask_animation:true,guide_mask_type: GuideMaskType.circle},
-                {},//{show_hand: true, hand_finger_dir: GuideFingerDirection.right, hand_position_offset: cc.v3(-260,0,0), hand_angle: 45},
-                { npc_direction: GuideNpcDirection.right, size: cc.v2(271, 657), show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 500 }
+                () => {
+                },
+                () => {
+                    guide_data.cur_guid_id = 1;
+                },
+                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "嗨，我是神界人见人爱的灶王爷，看你灵气冲天快来和我学做菜，成为新一代厨神。", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
+                {},
+                {},
+                { npc_direction: GuideNpcDirection.right, size: cc.v2(271, 657), show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 550 }
             )
         }
     }
     guide_cook_gold_speak_two() {
-
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 1) {
+            this.scheduleOnce(() => {
+                if (!guide_data.guide_finished(2)) {
+                    guide_data.cur_guid_id = 2;
+                    guide_data.pass_a_guide(2);
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_new_player_guide_view);
+                }
+            }, 3);
+            NewPlayerGuideView.show_guide(
+                2,
+                GuideType.pciture,
+                null,
+                () => {
+                },
+                () => {
+                    guide_data.cur_guid_id = 2;
+                },
+                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "那本神就传授你一些精湛的厨艺，咱们先开个餐馆招些厨娘吧，想把参观经营好，先试试怎么招待客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
+                {},
+                {},
+                { npc_direction: GuideNpcDirection.right, size: cc.v2(271, 657), show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 550 }
+            )
+        }
     }
     guide_click_add_customer() {
-
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 2) {
+            NewPlayerGuideView.show_guide(
+                3,
+                GuideType.normal,
+                this.attract_customer_button,
+                () => {
+                    guide_data.cur_guid_id = 3;
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                },
+                () => {
+                },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点击这里可以快速招揽客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36 },
+                {
+                    /**@description 是否显示mask */
+                    show_mask: true,
+                    /**@description 引导到的节点 */
+                    guide_to_node: this.attract_customer_button,
+                    /**@description 引导的区域大小 如果为圆类型的话 直接取宽作为半径 */
+                    mask_size: cc.size(150, 150),
+                    /**@description 新手引导是否有mask的缩放动画 */
+                    mask_animation: false,
+                    /**@description 1: 方形 2: 圆形 */
+                    guide_mask_type: GuideMaskType.circle,
+                },
+                {
+                    /**@decription  显示手指 true 显示手指 false 不显示手指 */
+                    show_hand: true,
+                    /**@description 手指的指向 */
+                    hand_finger_dir: GuideFingerDirection.down,
+                    /**@description 位置偏移 cc.Position */
+                    hand_position_offset: cc.v3(0, 200),
+                    /**@description 自定义手指的旋转 */
+                    hand_angle: 0,
+                },
+                {}
+            )
+        }
     }
     guide_click_batch_add() {
 
@@ -190,16 +270,20 @@ export default class GameMainView extends BaseUI {
     }
 
     add_customer() {
-        setInterval(() => {
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-            this.scheduleOnce(() => {
+        //如果新手引导都过了才能开始自动送人，离线收益计时;
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.guide_finished(8)) {
+            setInterval(() => {
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-            }, 0.5);
+                this.scheduleOnce(() => {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                }, 0.5);
 
-            //刷新离线收益。暂时放这儿
-            const offline_data: OfflineData = GameLocalData.get_instance().get_data(OfflineData);
-            offline_data.set_offline_data(Time.get_second_time());
-        }, GamePlayConfig.add_customer_time * 100);
+                //刷新离线收益。暂时放这儿
+                const offline_data: OfflineData = GameLocalData.get_instance().get_data(OfflineData);
+                offline_data.set_offline_data(Time.get_second_time());
+            }, GamePlayConfig.add_customer_time * 100);
+        }
     }
 
     customer_pay(event, pay: CustomerPayInterface) {

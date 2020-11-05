@@ -8,7 +8,7 @@ class UIManager{
 
       /**@description 直接显示UI */
       static show_ui(ui_param_interface:UIParamInterface){
-          console.log("显示界面的参数 = ",ui_param_interface);
+        //   console.log("显示界面的参数 = ",ui_param_interface);
          if(!this.ui_is_loading[ui_param_interface.ui_config_name]){
             this.ui_is_loading[ui_param_interface.ui_config_name] = true;
             if(!this.all_ui[ui_param_interface.ui_config_name]){
