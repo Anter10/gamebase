@@ -475,7 +475,7 @@ export default class GameMainView extends BaseUI {
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
                 this.scheduleOnce(() => {
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-                }, 0.5);
+                }, 0.8);
 
                 //刷新离线收益。暂时放这儿
                 const offline_data: OfflineData = GameLocalData.get_instance().get_data(OfflineData);
