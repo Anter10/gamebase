@@ -121,8 +121,8 @@ export default class StoreUpgradeView extends BaseUI {
     }
 
     // 同步商店的等级给服务器端
-    post_store_level_to_server(level: number){
-        CommonServerData.post_api_order({level: level},(res: any)=>{
+    post_store_level_to_server(level: number) {
+        CommonServerData.post_api_order({ level: level }, (res: any) => {
             console.log("同步商店等级成功");
         }, () => {
             console.log("同步商店等级失败");
@@ -186,7 +186,7 @@ export default class StoreUpgradeView extends BaseUI {
             return false;
         }
 
-        this.condition_config = this.store_upgrade_configs[this.click_store_level].upgrade_need_decoration;
+        this.condition_config = this.store_upgrade_configs[this.click_store_level].upgrade_need_cook_woman;
         const cook_woman_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
         let cook_woman_complete_number = 0;
         for (let i = 0; i < this.condition_config[0]; i++) {
@@ -199,7 +199,7 @@ export default class StoreUpgradeView extends BaseUI {
             return false;
         }
 
-        this.condition_config = this.store_upgrade_configs[this.click_store_level].upgrade_need_cook_woman;
+        this.condition_config = this.store_upgrade_configs[this.click_store_level].upgrade_need_decoration;
         const decoration_data = GameLocalData.get_instance().get_data<DecorationData>(DecorationData);
         let decoration_complete_number = 0;
         for (let i = 0; i < this.condition_config[0]; i++) {
