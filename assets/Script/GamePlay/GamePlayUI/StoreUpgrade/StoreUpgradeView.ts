@@ -143,6 +143,7 @@ export default class StoreUpgradeView extends BaseUI {
                         text: "解锁成功"
                     }
                 }
+                this.post_store_level_to_server(this.store_upgrade_data_level);
                 UIManager.show_ui(ui_param_interface);
                 // console.log("解锁成功", this.store_upgrade_data_level);
             } else {
