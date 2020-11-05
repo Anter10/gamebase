@@ -74,6 +74,11 @@ class CommonServerData{
         ServerData.get_instance().get_data(url, call_back, error_callback);
     }
 
+    /**@description 提交商人的订单信息 */
+    static post_api_order(post_data: {level: number, money?: number}, callback: Function, error_callback: Function){
+        ServerData.get_instance().post_data(`/${GameConfig.api_root_path}/api/order`,post_data,callback,  error_callback);
+    }
+
 }
 
 
