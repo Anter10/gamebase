@@ -62,6 +62,13 @@ class CommonServerData{
         ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/share`, callback);
     }
 
+    /**
+     * @description 得到打卡数据信息
+     * @param callback 
+     */
+    static get_clock_in(callback: Function ,showAll: boolean) {
+        ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/v2/checkIn`, callback, null, {showAll: showAll});
+    }
     /**@description 用户注册 获取accessKey */
     static request_accesskey(callback: Function){
         let url = "/bp/user/register?appId="+GameConfig.appId+"&pkgId="+GameConfig.pkgId+"&oaid=";
