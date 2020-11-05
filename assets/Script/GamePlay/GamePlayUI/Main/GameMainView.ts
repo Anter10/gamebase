@@ -117,22 +117,25 @@ export default class GameMainView extends BaseUI {
 
     //新手引导部分
     new_player_guide() {
-        //1
-        this.guide_cook_gold_speak();
-        //2
-        this.guide_cook_gold_speak_two();
-        //3
-        this.guide_click_add_customer();
-        //4
-        this.guide_click_batch_add();
-        //5
-        this.guide_click_extension();
-        //6
-        this.guide_click_cook_woman();
-        //7
-        this.guide_click_cash_out();
-        //8
-        this.guide_click_menu();
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id != 8) {
+            //1
+            this.guide_cook_gold_speak();
+            //2
+            this.guide_cook_gold_speak_two();
+            //3
+            this.guide_click_add_customer();
+            //4
+            this.guide_click_batch_add();
+            //5
+            this.guide_click_extension();
+            //6
+            this.guide_click_cook_woman();
+            //7
+            this.guide_click_cash_out();
+            //8
+            this.guide_click_menu();
+        }
     }
     guide_cook_gold_speak() {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
@@ -150,6 +153,7 @@ export default class GameMainView extends BaseUI {
                 null,
                 () => {
                 },
+                true,
                 () => {
                     guide_data.cur_guid_id = 1;
                 },
@@ -176,6 +180,7 @@ export default class GameMainView extends BaseUI {
                 null,
                 () => {
                 },
+                true,
                 () => {
                     guide_data.cur_guid_id = 2;
                 },
@@ -197,6 +202,7 @@ export default class GameMainView extends BaseUI {
                     guide_data.cur_guid_id = 3;
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
                 },
+                true,
                 () => {
                 },
                 { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点击这里可以快速招揽客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36 },
@@ -227,19 +233,211 @@ export default class GameMainView extends BaseUI {
         }
     }
     guide_click_batch_add() {
-
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 3) {
+            NewPlayerGuideView.show_guide(
+                4,
+                GuideType.normal,
+                this.batch_attract_customer_button,
+                () => {
+                    guide_data.cur_guid_id = 4;
+                    for (let i = 0; i < GamePlayConfig.batch_add_customer; i++) {
+                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                    }
+                },
+                true,
+                () => {
+                },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点击这里可以批量招揽客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36, },
+                {
+                    /**@description 是否显示mask */
+                    show_mask: true,
+                    /**@description 引导到的节点 */
+                    guide_to_node: this.batch_attract_customer_button,
+                    /**@description 引导的区域大小 如果为圆类型的话 直接取宽作为半径 */
+                    mask_size: cc.size(150, 150),
+                    /**@description 新手引导是否有mask的缩放动画 */
+                    mask_animation: false,
+                    /**@description 1: 方形 2: 圆形 */
+                    guide_mask_type: GuideMaskType.circle,
+                },
+                {
+                    /**@decription  显示手指 true 显示手指 false 不显示手指 */
+                    show_hand: true,
+                    /**@description 手指的指向 */
+                    hand_finger_dir: GuideFingerDirection.down,
+                    /**@description 位置偏移 cc.Position */
+                    hand_position_offset: cc.v3(0, 200),
+                    /**@description 自定义手指的旋转 */
+                    hand_angle: 0,
+                },
+                {}
+            )
+        }
     }
     guide_click_extension() {
-
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 4) {
+            NewPlayerGuideView.show_guide(
+                5,
+                GuideType.normal,
+                this.extension_button,
+                () => {
+                    guide_data.cur_guid_id = 5;
+                    this.click_extension_button();
+                },
+                false,
+                () => {
+                },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "桌椅太少，点这里扩建餐厅", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
+                {
+                    /**@description 是否显示mask */
+                    show_mask: true,
+                    /**@description 引导到的节点 */
+                    guide_to_node: this.extension_button,
+                    /**@description 引导的区域大小 如果为圆类型的话 直接取宽作为半径 */
+                    mask_size: cc.size(150, 150),
+                    /**@description 新手引导是否有mask的缩放动画 */
+                    mask_animation: false,
+                    /**@description 1: 方形 2: 圆形 */
+                    guide_mask_type: GuideMaskType.circle,
+                },
+                {
+                    /**@decription  显示手指 true 显示手指 false 不显示手指 */
+                    show_hand: true,
+                    /**@description 手指的指向 */
+                    hand_finger_dir: GuideFingerDirection.right,
+                    /**@description 位置偏移 cc.Position */
+                    hand_position_offset: cc.v3(-150, 0),
+                    /**@description 自定义手指的旋转 */
+                    hand_angle: 0,
+                },
+                {}
+            )
+        }
     }
     guide_click_cook_woman() {
-
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 5) {
+            NewPlayerGuideView.show_guide(
+                6,
+                GuideType.normal,
+                this.cook_woman_button,
+                () => {
+                    guide_data.cur_guid_id = 6;
+                    this.click_cook_woman_button();
+                },
+                false,
+                () => {
+                },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(30, 10), help_message: "忙不过来，点这里解锁厨娘", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
+                {
+                    /**@description 是否显示mask */
+                    show_mask: true,
+                    /**@description 引导到的节点 */
+                    guide_to_node: this.cook_woman_button,
+                    /**@description 引导的区域大小 如果为圆类型的话 直接取宽作为半径 */
+                    mask_size: cc.size(150, 150),
+                    /**@description 新手引导是否有mask的缩放动画 */
+                    mask_animation: false,
+                    /**@description 1: 方形 2: 圆形 */
+                    guide_mask_type: GuideMaskType.circle,
+                },
+                {
+                    /**@decription  显示手指 true 显示手指 false 不显示手指 */
+                    show_hand: true,
+                    /**@description 手指的指向 */
+                    hand_finger_dir: GuideFingerDirection.right,
+                    /**@description 位置偏移 cc.Position */
+                    hand_position_offset: cc.v3(-150, 0),
+                    /**@description 自定义手指的旋转 */
+                    hand_angle: 0,
+                },
+                {}
+            )
+        }
     }
     guide_click_cash_out() {
-
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 6) {
+            NewPlayerGuideView.show_guide(
+                7,
+                GuideType.normal,
+                this.cash_out_button,
+                () => {
+                    guide_data.cur_guid_id = 7;
+                    this.click_cash_out_button();
+                },
+                false,
+                () => {
+                },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点击这里可以立即提现啦", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(400, 0) },
+                {
+                    /**@description 是否显示mask */
+                    show_mask: true,
+                    /**@description 引导到的节点 */
+                    guide_to_node: this.attract_customer_button,
+                    /**@description 引导的区域大小 如果为圆类型的话 直接取宽作为半径 */
+                    mask_size: cc.size(150, 150),
+                    /**@description 新手引导是否有mask的缩放动画 */
+                    mask_animation: false,
+                    /**@description 1: 方形 2: 圆形 */
+                    guide_mask_type: GuideMaskType.circle,
+                },
+                {
+                    /**@decription  显示手指 true 显示手指 false 不显示手指 */
+                    show_hand: true,
+                    /**@description 手指的指向 */
+                    hand_finger_dir: GuideFingerDirection.left,
+                    /**@description 位置偏移 cc.Position */
+                    hand_position_offset: cc.v3(150, 0),
+                    /**@description 自定义手指的旋转 */
+                    hand_angle: 0,
+                },
+                {}
+            )
+        }
     }
     guide_click_menu() {
-
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 7) {
+            NewPlayerGuideView.show_guide(
+                8,
+                GuideType.normal,
+                this.menu_button,
+                () => {
+                    guide_data.cur_guid_id = 8;
+                    this.click_menu_button();
+                },
+                false,
+                () => {
+                },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "解锁菜品赚取更多金币啦", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
+                {
+                    /**@description 是否显示mask */
+                    show_mask: true,
+                    /**@description 引导到的节点 */
+                    guide_to_node: this.menu_button,
+                    /**@description 引导的区域大小 如果为圆类型的话 直接取宽作为半径 */
+                    mask_size: cc.size(150, 150),
+                    /**@description 新手引导是否有mask的缩放动画 */
+                    mask_animation: false,
+                    /**@description 1: 方形 2: 圆形 */
+                    guide_mask_type: GuideMaskType.circle,
+                },
+                {
+                    /**@decription  显示手指 true 显示手指 false 不显示手指 */
+                    show_hand: true,
+                    /**@description 手指的指向 */
+                    hand_finger_dir: GuideFingerDirection.right,
+                    /**@description 位置偏移 cc.Position */
+                    hand_position_offset: cc.v3(-150, 0),
+                    /**@description 自定义手指的旋转 */
+                    hand_angle: 0,
+                },
+                {}
+            )
+        }
     }
     //新手引导结束
 
@@ -278,7 +476,7 @@ export default class GameMainView extends BaseUI {
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
                 this.scheduleOnce(() => {
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-                }, 0.5);
+                }, 0.8);
 
                 //刷新离线收益。暂时放这儿
                 const offline_data: OfflineData = GameLocalData.get_instance().get_data(OfflineData);

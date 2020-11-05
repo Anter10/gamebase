@@ -1,9 +1,11 @@
 import BaseUI from "../../../Common/BaseUI";
 import { NagivatorInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
+import EventManager from "../../../EventManager/EventManager";
 import { PeopleConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import { PeopleType } from "../../GamePlayEnum/GamePlayEnum";
+import LinkGameBase from "../../LinkGameBase";
 import CookWomanItem from "./CookWomanItem";
 
 const { ccclass, property } = cc._decorator;
@@ -60,5 +62,8 @@ export default class CookWomanView extends BaseUI {
             })
         }
     }
-
+    
+    onDisable() {
+        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
+    }
 }

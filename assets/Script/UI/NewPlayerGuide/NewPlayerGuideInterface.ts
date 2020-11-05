@@ -53,8 +53,10 @@ interface GuideHelpMsgInterface {
       help_message?: string;
       /**@description 文本框大小 */
       size?: cc.Vec2;
-      /**@description 文本框大小 */
+      /**@description 文本框左右间距 */
       set_layout?: cc.Vec2;
+      /**@description 不用适配和指定节点的位置偏移 */
+      position?: cc.Vec2;
       /**@description 全图引导的 帮助图片的纹理 */
       picture_type_spriteframe?: cc.SpriteFrame;
       /**@description 对话框 水平方向上的对其模式 */
@@ -81,6 +83,8 @@ interface NewPlayerGuideInterface {
       guide_to_node: cc.Node;
       /**@description 引导的回调方法 */
       callback: Function;
+      /**@description 关闭当前新手引导直接显示下一个新手引导 */
+      close_show_next_guide: boolean;
       /**@description 点击帮助文本回调 */
       click_help_msg_back: Function;
       /**@description 控制手指的接口 */

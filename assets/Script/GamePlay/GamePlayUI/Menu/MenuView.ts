@@ -1,8 +1,10 @@
 import BaseUI from "../../../Common/BaseUI";
 import { NagivatorInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
+import EventManager from "../../../EventManager/EventManager";
 import { MenuConfig, UnlockMenuRewardConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
+import LinkGameBase from "../../LinkGameBase";
 import MenuFrameItem from "./MenuFrameItem";
 import UnlockRewardItem from "./UnlockRewardItem";
 
@@ -77,4 +79,8 @@ export default class MenuView extends BaseUI {
 
     }
 
+    onDisable() {
+        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
+    }
+    
 }
