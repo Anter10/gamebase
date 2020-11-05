@@ -1,5 +1,7 @@
 import BaseUI from "../../Common/BaseUI";
 import { NagivatorInterface } from "../../Common/CommonInterface";
+import Loader from "../../Common/Loader";
+import Nagivator from "../../Common/Nagivator";
 import ClickOnController from "./ClickOnController";
 
 const {ccclass, property} = cc._decorator;
@@ -21,7 +23,12 @@ class ClickOnView extends BaseUI {
             hide_return_back_button: true,
         };
 
-        this.add_nagivator([],nagivator_interface);
+        this.add_nagivator([],nagivator_interface,(nagivator_script: Nagivator)=> {
+            Loader.load_texture("./UI/ClickOn/Normal/res/commen_button_back",(texture: cc.Texture2D)=>{
+                nagivator_script.set_back_arrow_sprite_frame(new cc.SpriteFrame(texture));
+                nagivator_script.nagivator_back_arrow.node.x = nagivator_script.nagivator_back_arrow.node.x + 40;
+            })
+        });
         
     }
 
