@@ -3,6 +3,7 @@ import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
 import { PeopleConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import GamePlayConfig from "../GamePlay/GamePlayConfig/GamePlayConfig";
 import { CookWomanState, CustomerState, PeopleType } from "../GamePlay/GamePlayEnum/GamePlayEnum";
 import LinkGameBase from "../GamePlay/LinkGameBase";
 import BaseRecord from "./BaseRecord";
@@ -246,6 +247,7 @@ class PeopleData extends BaseRecord {
 
     fix_people_data_by_time() {
         let refresh_line_up_number = 0;
+        let seat_number: Array<number> = [];
         for (let i = 0; i < this.people_data.length; i++) {
             let people = this.people_data[i];
             let differ_time = Time.get_second_time() - people.changeStateTime;
@@ -254,6 +256,9 @@ class PeopleData extends BaseRecord {
                 this.delete_people_by_people_data_number(people.peopleDataNumber);
             }
             if (people_config && people_config.type == PeopleType.customer) {
+                if (people.lineUp == 0 && people.walkToSeatNumber == 0) {
+                    this.delete_people_by_people_data_number(people.peopleDataNumber);
+                }
                 if (differ_time > 40) {
                     if (people.customerState == CustomerState.line_up) {
                         let need_time = people.lineUp * 40 + 40;
@@ -288,11 +293,21 @@ class PeopleData extends BaseRecord {
                         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
                         people.customerState = CustomerState.exit;
                         this.store_people_data(this.people_data);
-                        const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
-                        seat_data.change_seat_data(people.walkToSeatNumber, false);
+                        // const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
+                        // seat_data.change_seat_data(people.walkToSeatNumber, false);
+                        // seat_data.change_seat_data(people.seatNumber, false);
                     }
                 } else if (differ_time <= 40) {
                     people.changeStateTime = Time.get_second_time();
+                }
+                if (people.customerState != CustomerState.exit) {
+                    if (people.walkToSeatNumber != 0 || people.seatNumber != 0) {
+                        if (people.walkToSeatNumber == people.seatNumber) {
+                            seat_number.push(people.seatNumber);
+                        } else {
+                            seat_number.push(people.walkToSeatNumber);
+                        }
+                    }
                 }
             }
         }
@@ -319,6 +334,17 @@ class PeopleData extends BaseRecord {
                     people.changeStateTime = Time.get_second_time();
                 }
             }
+        }
+
+        for (let j = 1; j <= GamePlayConfig.total_table_number; j++) {
+            let flag = false;
+            for (let i = 0; i < seat_number.length; i++) {
+                if (seat_number[i] == j) {
+                    flag = true;
+                }
+            }
+            const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
+            seat_data.change_seat_data(j, flag);
         }
 
     }

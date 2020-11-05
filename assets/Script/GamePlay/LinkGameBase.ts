@@ -55,6 +55,10 @@ class LinkGameBase {
       "close_new_player_guide_view": "close_new_player_guide_view",
       //下一个新手引导
       "open_next_player_guide": "open_next_player_guide",
+      //关闭提现界面
+      "close_cash_out": "close_cash_out",
+      //关闭打卡界面
+      "close_click_on": "close_click_on",
    }
 
    /**

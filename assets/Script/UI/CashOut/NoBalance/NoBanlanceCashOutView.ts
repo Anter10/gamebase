@@ -1,6 +1,8 @@
 import BaseUI from "../../../Common/BaseUI";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
+import EventManager from "../../../EventManager/EventManager";
+import LinkGameBase from "../../../GamePlay/LinkGameBase";
 import UIConfig from "../../UIManager/UIConfig";
 import UIManager from "../../UIManager/UIManager";
 import { CashOutViewItemInterface } from "../CashOutInterface";
@@ -104,16 +106,16 @@ class NoBanlanceCashOutView extends BaseUI {
 
         this.add_nagivator(
             [
-            // {
-            //     action_title: "提现记录", action: () => {
-            //         const ui_param_interface: UIParamInterface = {
-            //             ui_config_path: UIConfig.CashOutOrderView,
-            //             ui_config_name: "CashOutOrderView",
-            //             param: {}
-            //         }
-            //         UIManager.show_ui(ui_param_interface);
-            //     }
-            // }
+                // {
+                //     action_title: "提现记录", action: () => {
+                //         const ui_param_interface: UIParamInterface = {
+                //             ui_config_path: UIConfig.CashOutOrderView,
+                //             ui_config_name: "CashOutOrderView",
+                //             param: {}
+                //         }
+                //         UIManager.show_ui(ui_param_interface);
+                //     }
+                // }
             ],
             {
                 title: "提现",
@@ -124,7 +126,7 @@ class NoBanlanceCashOutView extends BaseUI {
     }
 
     update_view(cash_out_view_items_interface: Array<CashOutViewItemInterface>) {
-        const cashs = cash_out_view_items_interface ? cash_out_view_items_interface :  this.cash_out_view_items_interface;
+        const cashs = cash_out_view_items_interface ? cash_out_view_items_interface : this.cash_out_view_items_interface;
         this.container.removeAllChildren(true);
         for (const item of cashs) {
             const no_balance_node = cc.instantiate(this.no_banlance_view_item_prefab);
@@ -135,9 +137,11 @@ class NoBanlanceCashOutView extends BaseUI {
     }
 
     start() {
+
     }
 
     update(dt) {
+
     }
 }
 

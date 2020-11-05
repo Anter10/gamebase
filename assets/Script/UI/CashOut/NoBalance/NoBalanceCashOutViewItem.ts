@@ -1,9 +1,13 @@
 import BaseNode from "../../../Common/BaseNode";
+import { ClickOnRouterPath } from "../../../Common/CommonEnum";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import Utils from "../../../Common/Utils";
+import EventManager from "../../../EventManager/EventManager";
+import LinkGameBase from "../../../GamePlay/LinkGameBase";
 import CommonServerData from "../../../GameServerData/CommonServerData";
+import ClickOnController from "../../ClickOn/ClickOnController";
 import UIConfig from "../../UIManager/UIConfig";
 import UIManager from "../../UIManager/UIManager";
 import { CashOutItemType } from "../CashOutEnum";
@@ -38,35 +42,49 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
         const touch_button: TouchButton = this.cash_out_button.node.addComponent(TouchButton);
         touch_button.register_touch(() => {
             // 提现操作
-            console.log("点击了提现操作", this.cash_out_item_interface);
+            // console.log("点击了提现操作", this.cash_out_item_interface);
             if (this.cash_out_item_interface && !this.cash_out_item_interface.disable) {
-                if(this.cash_out_item_interface.process >= this.cash_out_item_interface.needProcess){
+                if (this.cash_out_item_interface.process >= this.cash_out_item_interface.needProcess) {
                     this.cash_out(this.cash_out_item_interface.id, 0, (res: CashInterface) => {
-                        if(res.disable){
+                        if (res.disable) {
                             this.disable_cash_out();
                         }
                     });
-                }else{
-                    console.log("提现失败");
+                } else {
+                    // console.log("提现失败");
                     let cash_out_tip_msg = "提现失败";
+                    let finish_function: Function = null;
                     if (this.cash_out_item_interface.type == CashOutItemType.new_plyaer) {
                         cash_out_tip_msg = "你已经不是新手了";
                     } else if (this.cash_out_item_interface.type == CashOutItemType.click_on) {
                         cash_out_tip_msg = "请前往打卡";
+                        finish_function = () => {
+                            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_cash_out);
+                            ClickOnController.open(ClickOnRouterPath.normal);
+                        }
                     } else if (this.cash_out_item_interface.type == CashOutItemType.pass_level) {
                         cash_out_tip_msg = `请升级店铺等级到${this.cash_out_item_interface.needProcess}`;
+                        finish_function = () => {
+                            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_cash_out);
+                            const ui_store_upgrade_param_interface: UIParamInterface = {
+                                ui_config_path: UIConfig.StoreUpgradeView,
+                                ui_config_name: "StoreUpgradeView",
+                            }
+                            UIManager.show_ui(ui_store_upgrade_param_interface);
+                        }
                     }
-
                     const ui_param_interface: UIParamInterface = {
                         ui_config_path: UIConfig.Toast,
                         ui_config_name: "Toast",
                         param: {
-                            text: `${cash_out_tip_msg}`
+                            text: `${cash_out_tip_msg}`,
+                            duration: 2,
+                            finishe_call: finish_function,
                         }
                     }
                     UIManager.show_ui(ui_param_interface);
                 }
-                
+
             } else if (this.cash_out_item_interface.disable) {
                 this.disable_cash_out();
                 const ui_param_interface: UIParamInterface = {
@@ -120,8 +138,8 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
         this.cash_out_condition_tip_label.string = `${cash_out_tip_msg}`;
     }
 
-      
-    cash_out(id: number, op: number, success: Function){
+
+    cash_out(id: number, op: number, success: Function) {
         // 提现的逻辑   
         const post_draw_data = {
             id: id,
