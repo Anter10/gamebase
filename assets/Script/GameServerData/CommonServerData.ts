@@ -67,7 +67,7 @@ class CommonServerData {
      * @param callback 
      */
     static get_clock_in(callback: Function ,showAll: boolean) {
-        ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/v2/checkIn`, {showAll: showAll}, callback);
+        ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/v2/checkIn`, callback, null, {showAll: showAll});
     }
     /**@description 用户注册 获取accessKey */
     static request_accesskey(callback: Function){
