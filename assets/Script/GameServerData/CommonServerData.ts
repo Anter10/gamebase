@@ -62,6 +62,22 @@ class CommonServerData{
         ServerData.get_instance().get_data(`/${GameConfig.api_root_path}/api/share`, callback);
     }
 
+    /**@description 用户注册 获取accessKey */
+    static request_accesskey(callback: Function){
+        let url = "/bp/user/register?appId="+GameConfig.appId+"&pkgId="+GameConfig.pkgId+"&oaid=";
+        ServerData.get_instance().get_data(url, callback);
+    }
+
+    /**@description 检查热更新 */
+    static check_update(call_back: Function, error_callback: Function) {
+        let url =  `/${GameConfig.api_root_path}/api/version/frontend`;
+        ServerData.get_instance().get_data(url, call_back, error_callback);
+    }
+
+    /**@description 提交商人的订单信息 */
+    static post_api_order(post_data: {level: number, money?: number}, callback: Function, error_callback: Function){
+        ServerData.get_instance().post_data(`/${GameConfig.api_root_path}/api/order`,post_data,callback,  error_callback);
+    }
 
 }
 
