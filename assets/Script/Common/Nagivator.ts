@@ -33,7 +33,7 @@ export default class Nagivator extends BaseNode {
     public nagivator_ui_interface: NagivatorUIInterface = {
         nagivator_bottom:"nagivator_bottom",
         nagivator_back_bottom:"nagivator_back_bottom", 
-        nagivator_back_button: "nagivator_back_button",
+        nagivator_back_button: null,
     }
 
     onLoad(){

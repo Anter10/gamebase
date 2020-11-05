@@ -14,6 +14,7 @@ class ClickOnView extends BaseUI {
         this.controller.init_view();
         const nagivator_interface: NagivatorInterface = {
             title: "",
+            show_nagivator_bottom: false ,
             /**@description 返回按钮的回调*/
             back_callback: ()=>{
                 this.on_close_call();
