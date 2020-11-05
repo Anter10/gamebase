@@ -102,7 +102,7 @@ class ServerData {
     }
 
     /**@description 发送post 请求获得 */
-    post_data(uri: string, data?: Object, call_back?: Function) {
+    post_data(uri: string, data?: Object, call_back?: Function, error_callback?: Function) {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
         const content_type = `application/json`;
         http.post(uri, 5000, JSON.stringify(data), content_type, this.headers).then((res) => {
@@ -111,20 +111,14 @@ class ServerData {
             if (response.code == 0) {
                 call_back && call_back(response.result);
             } else {
-                const ui_param_interface: UIParamInterface = {
-                    ui_config_path: UIConfig.Toast,
-                    ui_config_name: "Toast",
-                    param: {
-                        text: `${response.message ? response.message : `$网络请求返回的code ${response.code}`}`
-                    }
-                }
-                UIManager.show_ui(ui_param_interface);
+                console.log(`服务器断返回的错误信息 `, response);
+                error_callback && error_callback(response);
             }
         });
     }
 
     /**@description 发送get 请求获得 */
-    get_data(uri: string, call_back?: Function) {
+    get_data(uri: string, call_back?: Function, error_callback?: Function) {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
         console.log("当前get设置的请求地址", this.headers);
         http.get(uri, 5000, this.headers).then((res: Object) => {
@@ -133,14 +127,8 @@ class ServerData {
             if (response.code == 0) {
                 call_back && call_back(response.result);
             } else {
-                const ui_param_interface: UIParamInterface = {
-                    ui_config_path: UIConfig.Toast,
-                    ui_config_name: "Toast",
-                    param: {
-                        text: `${response.message ? response.message : `$网络请求返回的code ${response.code}`}`
-                    }
-                }
-                UIManager.show_ui(ui_param_interface);
+                console.log(`服务器断返回的错误信息 `, response);
+                error_callback && error_callback(response);
             }
         });
     }
