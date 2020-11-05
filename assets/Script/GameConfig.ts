@@ -5,7 +5,7 @@ const GameConfig = {
       /**description 游戏的APPID */
       appId: 93,
       // 包ID
-      pkgId: 67,
+      pkgId: 118,
       // 设备的ID Android
       deviceId: "bff1979e4c6c74141414310680bdb547fc671844e483b95c7e4e7ac050462ae0",
       // brand名称
@@ -24,7 +24,7 @@ const GameConfig = {
       osVersion: "9",
       oaid: "default",
       /**@description accessKey Android端 */
-      accessKey: "4fb411f4b081ab9bc7fee8acbe388253_27451",
+      accessKey: "606f86f68afd6ec0d80dceef78c2e845_27383",
       /**@description 请求地址的类型 apiType:0 测试地址  1：正式地址  */
       apiType: 0,
       /**@description 产品名称 */
@@ -32,7 +32,8 @@ const GameConfig = {
       /**@description 游戏包的名 */
       packageName:"com.hainanliangyou.zlzdd",
       post_id: 20010001,
-
+      // 版本的版本号 1.0 开始
+      version: "1.0",
       // 用户协议的网页链接
       user_protocol_url:"http://waqqq.hainanliangyou.com/user.html",
       // 隐私声明的网页链接
@@ -44,7 +45,7 @@ const GameConfig = {
       get serverUrl(){
            var serverUrl = "https://bp-api.coohua.com";
            if(GameConfig.is_debug){
-              serverUrl = "http://bp-api.coohua.top";
+              serverUrl = "https://bp-api.coohua.top";
            }
            return serverUrl;
       },
@@ -55,20 +56,21 @@ const GameConfig = {
       versionCode: "",
       versionName: "",
       /**@description 当前游戏是debug 还是release 模式 debug | release */
-      branch: "debug", 
+      branch: "Restaurant", 
       /**@description 通用API的根地址 */
       api_root_path: "g3-odyssey",
       /**@description 专用API的地址 */
       game_api_root_path: "",
-  
+      /**@description 打包类型 */
+      pack_type: "debug",
       get is_debug(){
-          return GameConfig.branch == "debug";
+          return true;
       },
       /**@description 显示debug 按钮 */
       show_debug: true,
       remoteName: "mvp",
-
-  
+      // 自己定义的渠道 company tencent 
+      s_channel:"company",
 } 
 
 

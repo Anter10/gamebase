@@ -1,8 +1,11 @@
 import { gamebase } from "../Boot";
+import { UIParamInterface } from "../Common/CommonInterface";
 import GameConfig from "../GameConfig";
 import GameRecord from "../GameLocalData/GameRecord";
 import { HttpClient } from "../NetWork/HttpClient";
 import { hexMD5 } from "../NetWork/Md5";
+import UIConfig from "../UI/UIManager/UIConfig";
+import UIManager from "../UI/UIManager/UIManager";
 
 class ServerData {
     public static game_server_data_instance: ServerData = null;
@@ -99,24 +102,34 @@ class ServerData {
     }
 
     /**@description 发送post 请求获得 */
-    post_data(uri: string, data?: Object, call_back?: Function) {
+    post_data(uri: string, data?: Object, call_back?: Function, error_callback?: Function) {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
         const content_type = `application/json`;
         http.post(uri, 5000, JSON.stringify(data), content_type, this.headers).then((res) => {
             console.log(`post 请求得到的游戏的数据 ${res}`);
             const response = JSON.parse(res as string);
-            call_back && call_back(response.result);
+            if (response.code == 0) {
+                call_back && call_back(response.result);
+            } else {
+                console.log(`服务器断返回的错误信息 `, response);
+                error_callback && error_callback(response);
+            }
         });
     }
 
     /**@description 发送get 请求获得 */
-    get_data(uri: string, data?: Object, call_back?: Function) {
+    get_data(uri: string, call_back?: Function, error_callback?: Function) {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
         console.log("当前get设置的请求地址", this.headers);
-        http.get(uri, 5000, JSON.stringify(data), this.headers).then((res: Object) => {
+        http.get(uri, 5000, this.headers).then((res: Object) => {
             console.log(`get 请求得到的游戏的数据 ${res}`);
             const response = JSON.parse(res as string);
-            call_back && call_back(response.result);
+            if (response.code == 0) {
+                call_back && call_back(response.result);
+            } else {
+                console.log(`服务器断返回的错误信息 `, response);
+                error_callback && error_callback(response);
+            }
         });
     }
 
