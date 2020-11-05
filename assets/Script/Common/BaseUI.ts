@@ -79,7 +79,7 @@ abstract class BaseUI extends cc.Component {
 
 
     /**@description 添加导航 */
-    add_nagivator(actions: Array<NagivatorActionInterface>, nagivator_interface: NagivatorInterface) {
+    add_nagivator(actions: Array<NagivatorActionInterface>, nagivator_interface: NagivatorInterface, finish_callback?:(nagivator_script: Nagivator) => void) {
         Loader.load_prefab(UIConfig.Nagivator, (prefab: cc.Prefab) => {
             const nagivator = cc.instantiate(prefab);
             nagivator.parent = this.node;
@@ -93,6 +93,7 @@ abstract class BaseUI extends cc.Component {
             }else{
                 this.show_nagivator_back_bottom();
             }
+            finish_callback && finish_callback(nagivator_script);
         })
     }
 
