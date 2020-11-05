@@ -209,7 +209,7 @@ class LoadingScene extends BaseScene {
     }
 
     update(){
-        this.loading_progress.totalLength = this.loading_progress_bottom_image.node.width;
+        this.loading_progress.totalLength = this.loading_progress_upper_image.node.width;
     }
 }
 
