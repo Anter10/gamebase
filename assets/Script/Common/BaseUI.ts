@@ -1,6 +1,5 @@
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
-import { RankCurrentShowUIType } from "../UI/Rank/RankTypeEnum";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import { NagivatorActionInterface, NagivatorInterface, UIParamInterface } from "./CommonInterface";
@@ -78,14 +77,14 @@ abstract class BaseUI extends cc.Component {
 
 
     /**@description 添加导航 */
-    add_nagivator(actions: Array<NagivatorActionInterface>, nagivator_interface: NagivatorInterface ,current_show_ui_type?: RankCurrentShowUIType){
+    add_nagivator(actions: Array<NagivatorActionInterface>, nagivator_interface: NagivatorInterface){
         Loader.load_prefab(UIConfig.Nagivator, (prefab: cc.Prefab) => {
             const nagivator = cc.instantiate(prefab);
             nagivator.parent = this.node;
             nagivator.zIndex = cc.macro.MAX_ZINDEX;
             const nagivator_script: Nagivator = nagivator.getComponent(Nagivator);
             nagivator_script.init_actions(actions);
-            nagivator_script.set_nagivator_interface(nagivator_interface ,current_show_ui_type);
+            nagivator_script.set_nagivator_interface(nagivator_interface);
         })
     }
 }

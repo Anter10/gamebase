@@ -3,8 +3,7 @@ import { NagivatorInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import ServerData from "../../../GameServerData/ServerData";
 import RankHeaderView from "../RankHeaderView";
-import { HeaderItemInterface, RankInterface, RankItemInterface, RankUiNameInterface } from "../RankInterface";
-import { RankCurrentShowUIType } from "../RankTypeEnum";
+import { HeaderItemInterface, RankInterface, RankItemInterface } from "../RankInterface";
 import RankViewItem from "../RankViewItem";
 
 const {ccclass, property} = cc._decorator;
@@ -32,50 +31,41 @@ export default class NormalRankView extends BaseUI {
 
     public self_rank_item: RankViewItem = null;
 
-    public rank_ui_name: RankUiNameInterface = {
-        backGround: `sprite_bg` ,
-    };
-
     onLoad () {
         super.onLoad();
-        // this.flush_view(RankCurrentShowUIType.blue ,`每天0点自动发放`);
+        // this.flush_view(`每天0点自动发放`);
     }
 
-    flush_view(current_show_ui_type: RankCurrentShowUIType ,title: string){
+    flush_view(title: string){
        const nagivator_interface: NagivatorInterface = {
           title: `上榜即得红包奖励，${title}`,
-          show_nagivator_bottom: current_show_ui_type != RankCurrentShowUIType.white ,
+          show_nagivator_bottom: true ,
           back_callback: ()=>{
              this.on_close_call("RankView");
           }
        }
 
-       this.add_nagivator([],nagivator_interface ,current_show_ui_type)
+       this.add_nagivator([],nagivator_interface)
     }
 
-    init_rank_list(rank_interface: RankInterface ,current_show_ui_type: RankCurrentShowUIType){
+    init_rank_list(rank_interface: RankInterface){
         this.container.removeAllChildren(true);
         for(let i = 0; i < rank_interface.itemList.length; i ++){
             const rank_item = cc.instantiate(this.rank_item_prefab);
             const rank_item_script:  RankViewItem = rank_item.getComponent(RankViewItem);
             rank_item.parent = this.container;
-            if (current_show_ui_type == RankCurrentShowUIType.white) {
-                rank_item_script.update_data_specil(rank_interface.itemList[i] ,current_show_ui_type);
-            }
-            else {
-                rank_item_script.update_data(rank_interface.itemList[i] ,current_show_ui_type);
-            }
+            rank_item_script.update_data(rank_interface.itemList[i]);
         }
     }
 
-    init_header_view(header_item_interfaces: Array<HeaderItemInterface> ,current_show_ui_type: RankCurrentShowUIType){
+    init_header_view(header_item_interfaces: Array<HeaderItemInterface>){
         const header_view = cc.instantiate(this.rank_header_prefab);
         const header_view_script = header_view.getComponent(RankHeaderView);
-        header_view_script.init_header_view(header_item_interfaces ,current_show_ui_type);
+        header_view_script.init_header_view(header_item_interfaces);
         header_view.parent = this.node;
     }
 
-    add_player_rank_view(rank_view_item_interface: RankItemInterface ,current_show_ui_type: RankCurrentShowUIType){
+    add_player_rank_view(rank_view_item_interface: RankItemInterface){
         if(!this.self_rank_item){
             const rank_item = cc.instantiate(this.rank_item_prefab);
             const widget = rank_item.addComponent(cc.Widget);
@@ -87,21 +77,7 @@ export default class NormalRankView extends BaseUI {
             rank_item.parent = this.self_rank_node;
             rank_item.y += 15;
         }
-        if (current_show_ui_type == RankCurrentShowUIType.white) {
-            this.self_rank_item.update_data_specil(rank_view_item_interface ,current_show_ui_type ,true);
-        }
-        else {
-            this.self_rank_item.update_data(rank_view_item_interface ,current_show_ui_type ,true);
-        }
-    }
-
-    update_background (uiType: RankCurrentShowUIType) {
-        if (!uiType) return;
-        let path = `./UI/Rank/Normal/rankUI/${uiType}/sprite_bg`;
-        Loader.load_texture(path, (texture2d: cc.Texture2D) =>{
-            this.rank_view_background.spriteFrame = new cc.SpriteFrame(texture2d);
-        });
-        this.rank_view_background1.node.active = uiType == RankCurrentShowUIType.white;
+        this.self_rank_item.update_data(rank_view_item_interface ,true);
     }
 
     start () {

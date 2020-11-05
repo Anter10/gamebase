@@ -7,7 +7,6 @@ import InviteFriendViewController from "../UI/InviteFriend/InviteFriendViewContr
 import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideNpcAlignHorizontalMode, GuideNpcAlignVerticleMode, GuideNpcDirection, GuideType } from "../UI/NewPlayerGuide/NewPlayerGuideEnum";
 import NewPlayerGuideView from "../UI/NewPlayerGuide/NewPlayerGuideView";
 import OpenRedEnvelopeViewController from "../UI/OpenRedEnvelope/OpenRedEnvelopeViewController";
-import { RankCurrentShowUIType } from "../UI/Rank/RankTypeEnum";
 import RankViewController from "../UI/Rank/RankViewController";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
@@ -71,7 +70,7 @@ class Test{
 
     /**@description 测试提现功能 */
     static rank_view(){
-        RankViewController.open(RankRouterPath.normal ,RankCurrentShowUIType.green);
+        RankViewController.open(RankRouterPath.normal);
     }
 
      /**@description 测试邀请好友的功能 */

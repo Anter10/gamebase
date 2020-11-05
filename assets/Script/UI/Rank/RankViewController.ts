@@ -14,12 +14,11 @@ class RankViewController implements Controller{
       public view: RankView = null;
       public normal_rank_view: NormalRankView = null;
       
-      static open(rank_route_path: RankRouterPath ,param){
+      static open(rank_route_path: RankRouterPath){
             const rank_router: RouterInterface = {
                   controller: RankViewController,
                   ui_config_name:"RankView",
                   path:rank_route_path,
-                  param: param
             }
     
             UIManager.nagivate_route(rank_router);
@@ -40,13 +39,36 @@ class RankViewController implements Controller{
       }
 
       update_rank_view(){
-          CommonServerData.get_rank((rank_data_interface: RankInterface) =>{
+        //   CommonServerData.get_rank((rank_data_interface: RankInterface) =>{
+            const rank_data_interface = {
+                "desc": "每天0点发放前一日奖励",
+                "headers": "排名         玩家名称                答题数       奖励积分",
+                "itemList": [
+                  {
+                    "key": {
+                      "name": "",
+                      "photoUrl": ""
+                    },
+                    "rank": 1,
+                    "reward": "99.00",
+                    "value": "1"
+                  }
+                ],
+                "myItem": {
+                  "key": {
+                    "name": "",
+                    "photoUrl": ""
+                  },
+                  "rank": 1,
+                  "reward": "99.00元",
+                  "value": "1"
+                }
+              }
               console.log("排行榜数据 =       ",rank_data_interface);
               if(this.view.ui_param_interface.router.path == RankRouterPath.normal){
                 if(this.normal_rank_view){
-                  this.normal_rank_view.add_player_rank_view(rank_data_interface.myItem ,this.view.ui_param_interface.param);
-                  this.normal_rank_view.init_rank_list(rank_data_interface ,this.view.ui_param_interface.param);
-                  this.normal_rank_view.update_background(this.view.ui_param_interface.param);
+                  this.normal_rank_view.add_player_rank_view(rank_data_interface.myItem);
+                  this.normal_rank_view.init_rank_list(rank_data_interface);
                   const rank_headers = [];
                   const headers = rank_data_interface.headers.split(" ");
                   for(const item_key of headers){
@@ -54,13 +76,13 @@ class RankViewController implements Controller{
                          rank_headers.push({title: item_key});
                       }
                   }
-                  this.normal_rank_view.init_header_view(rank_headers ,this.view.ui_param_interface.param);
-                  this.normal_rank_view.flush_view(this.view.ui_param_interface.param ,rank_data_interface.desc);
+                  this.normal_rank_view.init_header_view(rank_headers);
+                  this.normal_rank_view.flush_view(rank_data_interface.desc);
                 }
               }else{
                 
               }
-          });
+        //   });
           
       }
 }

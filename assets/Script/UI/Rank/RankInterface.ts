@@ -44,10 +44,4 @@ interface HeaderItemInterface{
     item_width?: number;
 }
 
-/**@description 排行榜 UI 名称 */
-interface RankUiNameInterface {
-    /**@description 最底层背景 */
-    backGround: string;
-}
-
-export {HeaderItemInterface, RankPublicInterface, RankItemInterface, RankInterface ,RankUiNameInterface}
+export {HeaderItemInterface, RankPublicInterface, RankItemInterface, RankInterface}
