@@ -95,14 +95,16 @@ export default class ExtensionTableView extends BaseUI {
         this.growth_description.string = "高等级桌椅可以获得更高金币加成哦!";
         this.content.height = this.table_content_height;
         if (this.decoration_content.childrenCount == 0) {
-            for (let i = 0; i < GamePlayConfig.total_table_number; i++) {
-                Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionTableFrameItem", (prefab: cc.Prefab) => {
-                    const extension_table_frame_item = cc.instantiate(prefab);
+            Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionTableFrameItem", (prefab: cc.Prefab) => {
+                let i = 0;
+                this.delay_add_nodes(GamePlayConfig.total_table_number - 1, prefab, (node: cc.Node) => {
+                    const extension_table_frame_item = node;
                     extension_table_frame_item.getComponent(ExtensionTableFrameItem).set_mark_number(i);
                     extension_table_frame_item.y = -130 - i * extension_table_frame_item.height;
                     extension_table_frame_item.parent = this.table_content;
+                    i ++;
                 });
-            }
+            });
         }
     }
 
@@ -112,14 +114,16 @@ export default class ExtensionTableView extends BaseUI {
         this.growth_description.string = "高等级装饰可以获得更高金币加成哦!";
         this.content.height = this.decoration_content_height;
         if (this.decoration_content.childrenCount == 0) {
-            for (let i = 0; i < GamePlayConfig.total_decoration_number; i++) {
-                Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionDecorationFrameItem", (prefab: cc.Prefab) => {
-                    const extension_table_frame_item = cc.instantiate(prefab);
+            Loader.load_prefab("/GamePlay/GamePlayUI/ExtensionTable/ExtensionDecorationFrameItem", (prefab: cc.Prefab) => {
+                let i = 0;
+                this.delay_add_nodes(GamePlayConfig.total_decoration_number - 1, prefab, (node: cc.Node) => {
+                    const extension_table_frame_item = node;
                     extension_table_frame_item.getComponent(ExtensionDecorationFrameItem).set_mark_number(i);
                     extension_table_frame_item.y = -130 - i * (extension_table_frame_item.height + 20);
                     extension_table_frame_item.parent = this.decoration_content;
-                });
-            }
+                    i++;
+                }, 0.2);
+            });
         }
     }
 

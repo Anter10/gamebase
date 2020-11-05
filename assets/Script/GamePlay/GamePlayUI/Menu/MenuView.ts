@@ -47,9 +47,10 @@ export default class MenuView extends BaseUI {
     add_content_item() {
         const menu_configs: Array<MenuConfig> = GameDataConfig.get_config_array("MenuConfig");
         const unlock_menu_reward_configs: Array<UnlockMenuRewardConfig> = GameDataConfig.get_config_array("UnlockMenuRewardConfig");
-        for (let j = 0; j < unlock_menu_reward_configs.length; j++) {
-            Loader.load_prefab("GamePlay/GamePlayUI/Menu/UnlockRewardItem", (prefab: cc.Prefab) => {
-                const unlock_reward_item = cc.instantiate(prefab);
+        Loader.load_prefab("GamePlay/GamePlayUI/Menu/UnlockRewardItem", (prefab: cc.Prefab) => {
+            let j = 0;
+            this.delay_add_nodes(unlock_menu_reward_configs.length - 1, prefab, (node: cc.Node) => {
+                const unlock_reward_item = node;
                 unlock_reward_item.getComponent(UnlockRewardItem).set_config(unlock_menu_reward_configs[j]);
                 if (j == unlock_menu_reward_configs.length - 1) {
                     unlock_reward_item.y = -1000 * (j + 1) + 400;
@@ -57,17 +58,23 @@ export default class MenuView extends BaseUI {
                     unlock_reward_item.y = -1000 * (j + 1) + 100;
                 }
                 this.content.insertChild(unlock_reward_item, 0);
-            })
-        }
-        for (let i = 0; i < menu_configs.length / 3; i++) {
-            Loader.load_prefab("GamePlay/GamePlayUI/Menu/MenuFrameItem", (prefab: cc.Prefab) => {
-                const menu_frame = cc.instantiate(prefab);
-                menu_frame.getComponent(MenuFrameItem).set_line_number(i);
-                menu_frame.y = -Math.floor(i / 3) * 1000 - (i % 3) * 280 - 100;
-                menu_frame.parent = this.content;
-            });
+                j ++;
+            },0.3);
 
-        }
+            Loader.load_prefab("GamePlay/GamePlayUI/Menu/MenuFrameItem", (prefab: cc.Prefab) => {
+                let i = 0;
+                this.delay_add_nodes(menu_configs.length / 3 - 1,prefab, (node:cc.Node)=>{
+                    const menu_frame = node;
+                    menu_frame.getComponent(MenuFrameItem).set_line_number(i);
+                    menu_frame.y = -Math.floor(i / 3) * 1000 - (i % 3) * 280 - 100;
+                    menu_frame.parent = this.content;
+                    i = i + 1;
+                },0.3);
+            });
+        })
+
+       
+
     }
 
 }
