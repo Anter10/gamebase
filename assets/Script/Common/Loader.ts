@@ -51,6 +51,18 @@ class Loader{
         });
       }
 
+      /**@description 请求远程的assets 资源 */
+      static request_remote_assets(url: string, callback: Function, errorcallback: Function){
+        cc.assetManager.loadRemote(url, (error: Error, asset: cc.Asset) => {
+            if(!error){
+                callback && callback(asset);
+            }else{
+                console.error(`当前的地址[${url}] 下载失败 ${error}`);
+                errorcallback && errorcallback();
+            }
+        });
+      }
+
 }
 
 

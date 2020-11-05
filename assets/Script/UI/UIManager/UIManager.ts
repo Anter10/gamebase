@@ -1,6 +1,5 @@
 import BaseUI from "../../Common/BaseUI";
 import { RouterInterface, UIParamInterface } from "../../Common/CommonInterface";
-import CashOutController from "../CashOut/CashOutController";
 import UIConfig from "./UIConfig";
 
 class UIManager{
@@ -65,13 +64,13 @@ class UIManager{
       }
 
       static test(){
-           const roter: RouterInterface = {
-                 controller: CashOutController,
-                 ui_config_name: "CashOutView",
-                 param:{},
-           }
+        //    const roter: RouterInterface = {
+        //          controller: CashOutController,
+        //          ui_config_name: "CashOutView",
+        //          param:{},
+        //    }
 
-           this.nagivate_route(roter);
+        //    this.nagivate_route(roter);
       }
 
       /**@description 清空所有界面 */
