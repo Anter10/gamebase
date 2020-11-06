@@ -394,6 +394,16 @@ export default class Customer extends BaseNode {
         this.automatic_customer_menu();
         this.is_eat_end();
         this.is_set_order_menu();
+        this.fix_menu_disappear();
+    }
+
+    fix_menu_disappear() {
+        const customer_data = this.people_data.get_customer_data(this.customer_data_id);
+        if (customer_data && customer_data.customerState == CustomerState.wait_menu && Time.get_second_time() - customer_data.changeStateTime > 40) {
+            this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.exit });
+            this.eat_menu.node.active = false;
+            this.walk_simple({ x: GamePlayConfig.chair_position[customer_data.seatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.seatNumber - 1][1] }, { x: 8, y: 5 });
+        }
     }
 
     walk_end_set_next_state() {
