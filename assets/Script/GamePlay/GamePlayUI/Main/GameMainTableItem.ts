@@ -61,13 +61,13 @@ export default class GameMainTableItem extends BaseNode {
             } else {
                 this.left_seat_gift.active = true;
             }
+            this.scheduleOnce(() => {
+                this.left_seat_gift.active = false;
+                this.right_seat_gift.active = false;
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.fly_coin, this.table_number);
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.fly_heart, this.table_number);
+            }, 1)
         }
-        this.scheduleOnce(() => {
-            this.left_seat_gift.active = false;
-            this.right_seat_gift.active = false;
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.fly_coin, this.table_number);
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.fly_heart, this.table_number);
-        }, 1)
     }
 
     start() {

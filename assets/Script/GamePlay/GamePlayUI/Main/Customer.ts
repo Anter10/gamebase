@@ -412,7 +412,7 @@ export default class Customer extends BaseNode {
             for (let i = 0; i < this.people_data.get_people_data().length; i++) {
                 const people = this.people_data.get_people_data()[i];
                 const people_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", people.peopleConfigId);
-                if (people_config.type == PeopleType.cook_woman) {
+                if (people_config && people_config.type && people_config.type == PeopleType.cook_woman) {
                     if (people.seatNumber == customer_data.seatNumber) {
                         flag = false;
                     }

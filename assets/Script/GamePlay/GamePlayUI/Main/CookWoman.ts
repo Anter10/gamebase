@@ -227,15 +227,17 @@ export default class CookWoman extends BaseNode {
             }
         } else if (this.cook_woman_data.cookWomanState == CookWomanState.GetOrder) {
             const cook_menu_data: OrderMenuInterface = this.order_menu_data.get_menu_by_cook_woman_config_id(this.cook_woman_config_id);
-            this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GoCook, cookWomanMenuNumberId: cook_menu_data.menuNumber, seatNumber: cook_menu_data.menuSeatId });
-            this.people_data.change_customer_data({ peopleDataNumber: cook_menu_data.customerNumber, CookWomanConfigId: this.cook_woman_config_id });
-            this.cook_woman_animation.animation = "liulancaidan";
-            this.cook_woman_node.scaleX = 0.35;
-            this.order_menu_data.complete_order_menu_data(cook_menu_data.menuNumber);
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.receiving_menu, cook_menu_data.menuNumber);
-            this.scheduleOnce(() => {
-                this.set_cook_woman();
-            }, 1);
+            if (cook_menu_data) {
+                this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GoCook, cookWomanMenuNumberId: cook_menu_data.menuNumber, seatNumber: cook_menu_data.menuSeatId });
+                this.people_data.change_customer_data({ peopleDataNumber: cook_menu_data.customerNumber, CookWomanConfigId: this.cook_woman_config_id });
+                this.cook_woman_animation.animation = "liulancaidan";
+                this.cook_woman_node.scaleX = 0.35;
+                this.order_menu_data.complete_order_menu_data(cook_menu_data.menuNumber);
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.receiving_menu, cook_menu_data.menuNumber);
+                this.scheduleOnce(() => {
+                    this.set_cook_woman();
+                }, 1);
+            }
         } else if (this.cook_woman_data.cookWomanState == CookWomanState.GoCook) {
             this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Cook });
             this.set_cook_woman();
