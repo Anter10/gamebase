@@ -471,10 +471,12 @@ export default class Customer extends BaseNode {
 
     load_menu_script() {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
-        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${customer_data.customerOrderConfig}`, (texture2d: cc.Texture2D) => {
-            this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
-            this.eat_menu.spriteFrame = new cc.SpriteFrame(texture2d);
-        })
+        if (customer_data && customer_data.customerOrderConfig) {
+            Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${customer_data.customerOrderConfig}`, (texture2d: cc.Texture2D) => {
+                this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
+                this.eat_menu.spriteFrame = new cc.SpriteFrame(texture2d);
+            })
+        }
     }
 
     set_child_position(move_y: number) {

@@ -42,7 +42,7 @@ export default class MenuItem extends BaseNode {
     onEnable() {
         this.need_refresh_node();
     }
-    
+
     set_config(menu_config: MenuConfig) {
         this.menu_config = menu_config;
     }
@@ -117,9 +117,11 @@ export default class MenuItem extends BaseNode {
     }
 
     un_refresh_node() {
-        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${this.menu_config.id}`, (texture2d: cc.Texture2D) => {
-            this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
-        })
+        if (this.menu_config && this.menu_config.id) {
+            Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${this.menu_config.id}`, (texture2d: cc.Texture2D) => {
+                this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
+            })
+        }
         this.menu_name_label.string = this.menu_config.chinese_name;
         this.profit_label.string = `利润:${this.menu_config.sell_price}金币`;
     }

@@ -58,13 +58,15 @@ export default class UnlockMenuView extends BaseUI {
     }
 
     set_unlock_menu_view(param: { title_label: string, menu_config: MenuConfig }) {
-        this.menu_config = param.menu_config;
-        this.title_label.string = param.title_label;
-        this.menu_label.string = param.menu_config.chinese_name;
-        this.sell_label.string = `售价：${param.menu_config.sell_price}金币`;
-        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${param.menu_config.id}`, (texture2d: cc.Texture2D) => {
-            this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
-        })
+        if (param && param.menu_config && param.menu_config.id) {
+            this.menu_config = param.menu_config;
+            this.title_label.string = param.title_label;
+            this.menu_label.string = param.menu_config.chinese_name;
+            this.sell_label.string = `售价：${param.menu_config.sell_price}金币`;
+            Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${param.menu_config.id}`, (texture2d: cc.Texture2D) => {
+                this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
+            })
+        }
     }
 
     click_get_button() {

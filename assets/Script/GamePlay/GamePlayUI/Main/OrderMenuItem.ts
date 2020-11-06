@@ -43,9 +43,11 @@ export default class OrderMenuItem extends BaseNode {
 
     set_order_menu_item() {
         this.coin_label.string = this.menu_config.sell_price + "金币";
-        Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${this.menu_config.id}`, (texture2d: cc.Texture2D) => {
-            this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
-        })
+        if (this.menu_config && this.menu_config.id) {
+            Loader.load_texture(`GamePlay/GamePlayUI/Menu/texture/UI_DishIcon_${this.menu_config.id}`, (texture2d: cc.Texture2D) => {
+                this.menu_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
+            })
+        }
     }
 
 }
