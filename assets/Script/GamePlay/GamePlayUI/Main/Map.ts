@@ -166,8 +166,8 @@ export default class Map extends cc.Component {
         for (let i = 0; i < this.walk_abel_array.length; i++) {
             let node_x = Math.floor(this.cell_position(this.walk_abel_array[i].x, this.walk_abel_array[i].y).m);
             let node_y = Math.floor(this.cell_position(this.walk_abel_array[i].x, this.walk_abel_array[i].y).n);
-            Map.walk_unable_node_y.push(node_y + 1);
             if (i == this.walk_abel_array.length - 1) {
+                Map.walk_unable_node_y.push(node_y + 1);
                 for (let point_x = 0; point_x < 15; point_x++) {
                     for (let point_y = 0; point_y < 4; point_y++) {
                         Map.map_grid.set_walk_able(node_x + point_x - 7, node_y - point_y, false);
@@ -176,6 +176,7 @@ export default class Map extends cc.Component {
                 }
             }
             else if (i == 2 || i == 3 || i == 8 || i == 9) {
+                Map.walk_unable_node_y.push(node_y);
                 if (node_x == 5) {
                     for (let point_x = 0; point_x < 3; point_x++) {
                         for (let point_y = 0; point_y < 2; point_y++) {
@@ -192,6 +193,7 @@ export default class Map extends cc.Component {
                     }
                 }
             } else {
+                Map.walk_unable_node_y.push(node_y);
                 if (i % 2 == 0) {
                     for (let point_x = 0; point_x < 3; point_x++) {
                         for (let point_y = 0; point_y < 2; point_y++) {
