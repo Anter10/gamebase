@@ -166,7 +166,7 @@ export default class Map extends cc.Component {
         for (let i = 0; i < this.walk_abel_array.length; i++) {
             let node_x = Math.floor(this.cell_position(this.walk_abel_array[i].x, this.walk_abel_array[i].y).m);
             let node_y = Math.floor(this.cell_position(this.walk_abel_array[i].x, this.walk_abel_array[i].y).n);
-            Map.walk_unable_node_y.push(node_y);
+            Map.walk_unable_node_y.push(node_y + 1);
             if (i == this.walk_abel_array.length - 1) {
                 for (let point_x = 0; point_x < 15; point_x++) {
                     for (let point_y = 0; point_y < 4; point_y++) {
