@@ -112,7 +112,7 @@ export class UpdateManagerComponent extends BaseNode {
         // this.assets_manager.checkUpdate();
         // 设置本地的资源的url 包的资源路径
         const branch_path = `https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/${GameConfig.s_channel}/${GameConfig.pack_type}/${GameConfig.branch}`;
-        this.manifestUrl = branch_path + `/${GameConfig.version}/project.manifest`;
+        this.manifestUrl = branch_path + `/local_manifest/${GameConfig.version}/project.manifest`;
         if (this.assets_manager.getState() == jsb.AssetsManager.State.UNINITED) {
             var url = this.manifestUrl;
             console.log("this.manifestUrl = ", this.manifestUrl);
@@ -123,6 +123,7 @@ export class UpdateManagerComponent extends BaseNode {
                 //     tassets = (<any>cc.assetManager).md5Pipe.transformURL(assets);
                 // }
 
+                console.log("assets._nativeAsset = ",JSON.stringify(assets._nativeAsset));
                 var manifest = new jsb.Manifest(assets._nativeAsset, this.store_path);
 
                 this.assets_manager.loadLocalManifest(manifest, this.store_path);
