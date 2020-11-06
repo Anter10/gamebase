@@ -26,7 +26,7 @@ export default class RedHeartFrameItem extends BaseNode {
         this.red_heart_number_label.string = game_play_base_data.red_heart_number + "";
     }
 
-    onDisable() {
+    onDestroy() {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.change_red_heart_number, this, this.refresh_red_heart_number_label);
     }
 
