@@ -59,6 +59,10 @@ class LinkGameBase {
       "close_cash_out": "close_cash_out",
       //关闭打卡界面
       "close_click_on": "close_click_on",
+      //飞金币
+      "fly_coin": "fly_coin",
+      //飞红心
+      "fly_heart": "fly_heart",
    }
 
    /**

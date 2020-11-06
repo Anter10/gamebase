@@ -91,6 +91,15 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     menu_content: cc.Node = null;
 
+    @property(cc.Node)
+    coin: cc.Node = null;
+
+    @property(cc.Node)
+    heart: cc.Node = null;
+
+    @property(cc.Node)
+    button_array: cc.Node = null;
+
     private _order_menu_number = 0;
 
     onLoad() {
@@ -99,6 +108,8 @@ export default class GameMainView extends BaseUI {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.receiving_menu, this, this.reduce_order_menu_number);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.customer_pay, this, this.customer_pay);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.open_next_player_guide, this, this.new_player_guide);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_coin, this, this.fly_coin);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_heart, this, this.fly_heart);
     }
 
     start() {
@@ -773,51 +784,34 @@ export default class GameMainView extends BaseUI {
  * @param startPos 起始点坐标
  * @param endPos 终点坐标
  */
-    flyCoin(startPos: cc.Vec2, endPos: cc.Vec2) {
-        let coin_node = cc.instantiate(this.node);
-        coin_node.setPosition(startPos);
-        cc.moveTo
+    fly_coin(event, table_number: number) {
+        let coin_node = cc.instantiate(this.coin);
+        coin_node.active = true;
+        coin_node.setPosition(this.table_node_array[table_number].getPosition());
+        coin_node.parent = this.button_array;
         // 创建一个移动动作
-        let action = cc.moveTo(0.5, endPos);
+        let finished = cc.callFunc(() => {
+            coin_node.active = false;
+            coin_node.destroy();
+        });
+        let action = cc.sequence(cc.moveTo(1, this.gold_coin_frame_node.getPosition()), finished);
         // 执行动作
-        this.node.runAction(action);
-
+        coin_node.runAction(action);
     }
 
-    // /**
-    // * @description 生成一定数量的星星飞向目标，复制金币的
-    // * @param startPos 起始点坐标
-    // * @param endPos 终点坐标
-    // * @param count 星星数量
-    // */
-    // flyStar(startPos: Laya.Point, endPos: Laya.Point, count: number) {
-    //     let arrPos = Utils.get_random_in_circle(startPos, 100, count);
-    //     for (let i = 0; i < arrPos.length; i++) {
-    //         let pos = arrPos[i];
-    //         let img: Laya.Image = new Laya.Image();
-    //         img.skin = "ui/ui_all/icon_star.png";
-    //         Laya.stage.addChild(img);
-    //         img.x = startPos.x;
-    //         img.y = startPos.y;
-    //         img.zOrder = 109;
-    //         img.scaleX = img.scaleY = 0.5;
-    //         setTimeout(() => {
-    //             if (!img.destroyed) {
-    //                 img.x = endPos.x;
-    //                 img.y = endPos.y;
-    //                 img.destroy();
-    //             }
-    //         }, 420);
-    //         Laya.Tween.to(img, { x: pos.x, y: pos.y }, 100, Laya.Ease.linearNone, Laya.Handler.create(null, () => {
-    //             Laya.Tween.to(img, { x: endPos.x, y: endPos.y }, 300, Laya.Ease.linearNone, Laya.Handler.create(null, () => {
-    //                 img.x = endPos.x;
-    //                 img.y = endPos.y;
-    //                 if (!img.destroyed) {
-    //                     img.destroy();
-    //                 }
-    //             }), 0)
-    //         }), i * 10)
-    //     }
-    // }
+    fly_heart(event, table_number: number) {
+        let coin_node = cc.instantiate(this.heart);
+        coin_node.active = true;
+        coin_node.setPosition(this.table_node_array[table_number].getPosition());
+        coin_node.parent = this.button_array;
+        // 创建一个移动动作
+        let finished = cc.callFunc(() => {
+            coin_node.active = false;
+            coin_node.destroy();
+        });
+        let action = cc.sequence(cc.moveTo(1, this.red_heart_frame_node.getPosition()), finished);
+        // 执行动作
+        coin_node.runAction(action);
+    }
 
 }
