@@ -678,6 +678,12 @@
     "table_sprite": {
       "__id__": 19
     },
+    "left_seat_gift": {
+      "__id__": 2
+    },
+    "right_seat_gift": {
+      "__id__": 10
+    },
     "_id": ""
   },
   {

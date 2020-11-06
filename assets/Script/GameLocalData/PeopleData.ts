@@ -281,6 +281,12 @@ class PeopleData extends BaseRecord {
                         if (people.CookWomanConfigId) {
                             cook_woman_level = GameLocalData.get_instance().get_data(PeopleData).get_people_data_by_people_config_id(people.CookWomanConfigId).peopleLevel;
                         }
+                        const order_menu_data: OrderMenuData = GameLocalData.get_instance().get_data(OrderMenuData);
+                        if (order_menu_data.get_menu_by_customer_number_config_id(people.peopleDataNumber)) {
+                            console.log("people.peopleDataNumber", people.peopleDataNumber);
+                            let menu_number = order_menu_data.get_menu_by_customer_number_config_id(people.peopleDataNumber).menuNumber;
+                            order_menu_data.complete_order_menu_data(menu_number);
+                        }
                         //获得收益
                         const pay: CustomerPayInterface = {
                             //厨娘等级
@@ -293,9 +299,6 @@ class PeopleData extends BaseRecord {
                         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
                         people.customerState = CustomerState.exit;
                         this.store_people_data(this.people_data);
-                        // const seat_data = GameLocalData.get_instance().get_data<SeatData>(SeatData);
-                        // seat_data.change_seat_data(people.walkToSeatNumber, false);
-                        // seat_data.change_seat_data(people.seatNumber, false);
                     }
                 } else if (differ_time <= 40) {
                     people.changeStateTime = Time.get_second_time();
@@ -312,7 +315,6 @@ class PeopleData extends BaseRecord {
             }
         }
 
-        console.log(refresh_line_up_number);
         for (let i = 0; i < refresh_line_up_number; i++) {
             this.refresh_line_up_number();
         }

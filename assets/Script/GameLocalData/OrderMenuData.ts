@@ -75,6 +75,14 @@ class OrderMenuData extends BaseRecord {
         }
     }
 
+    get_menu_by_customer_number_config_id(customer_number: number): OrderMenuInterface {
+        for (let i = 0; i < this.order_menu_data.length; i++) {
+            if (this.order_menu_data[i].customerNumber == customer_number) {
+                return this.order_menu_data[i];
+            }
+        }
+    }
+
 }
 
 export default OrderMenuData;
