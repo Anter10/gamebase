@@ -90,7 +90,7 @@ class LoadingScene extends BaseScene {
 
         this.assets_manager.asset = this.asset;
         this.assets_manager.update_callback = (progress: number)=> {
-            console.log("当前热更新的进度信息 = ", progress);
+            console.log("当前热更新的进度信息 = ", JSON.stringify(progress));
         }
     }
 

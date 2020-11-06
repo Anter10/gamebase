@@ -120,8 +120,8 @@ class ServerData {
     /**@description 发送get 请求获得 */
     get_data(uri: string, call_back?: Function, error_callback?: Function,data?: any) {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
-        console.log("当前get设置的请求地址", this.headers);
-        http.get(uri, 5000,data, this.headers).then((res: Object) => {
+        console.log(data, "当前get设置的请求地址", this.headers);
+        http.get(uri, 5000,JSON.stringify(data), this.headers).then((res: Object) => {
             console.log(`get 请求得到的游戏的数据 ${res}`);
             const response = JSON.parse(res as string);
             if (response.code == 0) {
