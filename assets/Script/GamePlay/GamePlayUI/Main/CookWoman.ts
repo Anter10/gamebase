@@ -189,7 +189,7 @@ export default class CookWoman extends BaseNode {
     }
 
     change_cook_state() {
-        if (this.cook_woman_data.cookWomanState == CookWomanState.Cook && Time.get_second_time() - this.cook_woman_data.changeStateTime > GamePlayConfig.cook_woman_cook_spend) {
+        if (this.cook_woman_data.cookWomanState == CookWomanState.Cook && Time.get_second_time() - this.cook_woman_data.changeStateTime > (GamePlayConfig.cook_woman_cook_spend / ((100 + this.customer_config.cook_speed_accelerate[this.cook_woman_data.peopleLevel - 1]) / 100))) {
             this.cook_woman_animation.animation = "chaocaiwancheng";
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.complete_cook_menu, this.cook_woman_config_id);
             this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.CompleteCook });
