@@ -28,6 +28,8 @@ export class UpdateManagerComponent extends BaseNode {
     /**@description 更新的资源大小 */
     public update_size = 0;
     public asset = null;
+
+    public update_callback : Function = null;
     /**@description 初始化热更的信息 */
     public init() {
     };
@@ -80,7 +82,7 @@ export class UpdateManagerComponent extends BaseNode {
             case jsb.EventAssetsManager.NEW_VERSION_FOUND:
                 console.log("检查到有新的版本更新了");
                 // 开始走版本更新了
-                this.cal_current_assets_update_size(function () {
+                this.cal_current_assets_update_size( () =>{
                     this.start_update();
                 });
         }
@@ -146,7 +148,7 @@ export class UpdateManagerComponent extends BaseNode {
             this.assets_manager.downloadFailedAssets();
         }
     };
-    public update_callback(event) {
+    public update_ing_callback(event) {
         var failed = false;
         switch (event.getEventCode()) {
             case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
@@ -218,7 +220,7 @@ export class UpdateManagerComponent extends BaseNode {
                 }
                 this.assets_manager.loadLocalManifest(url);
             }
-            this.assets_manager.setEventCallback(this.update_callback.bind(this));
+            this.assets_manager.setEventCallback(this.update_ing_callback.bind(this));
             this.download_fail_count = 0;
             this.assets_manager.update();
         }
@@ -263,7 +265,7 @@ export class UpdateManagerComponent extends BaseNode {
                             }
 
                             // 开始热更新
-                            this.start_update();
+                            call_back && call_back();
                         }
                     } else {
                         this.update_complete_callback();
