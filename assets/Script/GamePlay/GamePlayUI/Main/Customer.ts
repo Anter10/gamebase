@@ -492,7 +492,7 @@ export default class Customer extends BaseNode {
                 insert_number++;
             }
         })
-        this.node.parent.insertChild(this.node, insert_number);
+        this.node.parent.insertChild(this.node, insert_number - 1);
     }
 
     set_node_direction_animation() {
