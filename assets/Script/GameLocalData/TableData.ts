@@ -15,7 +15,7 @@ class TableData extends BaseRecord {
     static _name = "TableData";
     base_name = "TableData";
 
-    private table_data: Array<TableInterface> = [{ tableNumber: 0, tableLevel: 4 }];
+    private table_data: Array<TableInterface> = [{ tableNumber: 0, tableLevel: 1 }];
 
     constructor() {
         super();
@@ -32,7 +32,7 @@ class TableData extends BaseRecord {
                 return this.table_data[i];
             }
         }
-        let init_table_data: TableInterface = { tableNumber: table_number, tableLevel: 4 };
+        let init_table_data: TableInterface = { tableNumber: table_number, tableLevel: 0 };
         this.table_data.push(init_table_data);
         this.store_table_data(this.table_data);
         return init_table_data;
