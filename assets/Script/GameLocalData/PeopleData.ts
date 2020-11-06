@@ -72,7 +72,7 @@ class PeopleData extends BaseRecord {
                 if (cook_woman.cookWomanState) {
                     this.people_data[id].cookWomanState = cook_woman.cookWomanState;
                     this.people_data[id].changeStateTime = Time.get_second_time();
-                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_cook_woman_state);
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_cook_woman_state, cook_woman.peopleConfigId);
                 }
                 if (cook_woman.walkToSeatNumber) {
                     this.people_data[id].walkToSeatNumber = cook_woman.walkToSeatNumber;
