@@ -307,9 +307,9 @@ export class UpdateManagerComponent extends BaseNode {
         }
         this.store_path = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'blackjack-remote-asset');
         var branch_path = "https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/" + GameConfig.s_channel + "/" + GameConfig.pack_type + "/" + GameConfig.branch + "/";
-        console.log("当前的资源配置信息的URL = ", branch_path + "/project.manifest");
+        console.log("当前的资源配置信息的URL = ", branch_path + "project.manifest");
         console.log("当前的存储路径", this.store_path);
-        this.assets_manager = new jsb.AssetsManager(branch_path + "/project.manifest", this.store_path, this.version_compare.bind(this));
+        this.assets_manager = new jsb.AssetsManager(branch_path + "project.manifest", this.store_path, this.version_compare.bind(this));
         console.log("当前的存储路径", this.store_path);
         this.assets_manager.setVerifyCallback( (path, asset) => {
             var compressed = asset.compressed;
