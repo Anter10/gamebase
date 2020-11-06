@@ -13,11 +13,12 @@ import TableData from "../../../GameLocalData/TableData";
 import { ANode } from "../../AStar/ANode";
 import { AStar } from "../../AStar/AStar";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
-import { CustomerState } from "../../GamePlayEnum/GamePlayEnum";
+import { CustomerState, PeopleType } from "../../GamePlayEnum/GamePlayEnum";
 import LinkGameBase from "../../LinkGameBase";
 import Map from "./Map";
 import { ChatConfig } from "../../../GameDataConfig/ConfigInterface";
 import Loader from "../../../Common/Loader";
+import OrderMenuData from "../../../GameLocalData/OrderMenuData";
 
 const { ccclass, property } = cc._decorator;
 
@@ -401,8 +402,26 @@ export default class Customer extends BaseNode {
         const customer_data = this.people_data.get_customer_data(this.customer_data_id);
         if (customer_data && customer_data.customerState == CustomerState.wait_menu && Time.get_second_time() - customer_data.changeStateTime > 40) {
             this.people_data.change_customer_data({ peopleDataNumber: this.customer_data_id, customerState: CustomerState.exit });
-            this.eat_menu.node.active = false;
-            this.walk_simple({ x: GamePlayConfig.chair_position[customer_data.seatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.seatNumber - 1][1] }, { x: 8, y: 5 });
+            const order_menu_data = GameLocalData.get_instance().get_data<OrderMenuData>(OrderMenuData);
+            let flag = true;
+            for (let i = 0; i < order_menu_data.get_order_menu().length; i++) {
+                if (order_menu_data.get_order_menu()[i].customerNumber == this.customer_data_id) {
+                    flag = false;
+                }
+            }
+            for (let i = 0; i < this.people_data.get_people_data().length; i++) {
+                const people = this.people_data.get_people_data()[i];
+                const people_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", people.peopleConfigId);
+                if (people_config.type == PeopleType.cook_woman) {
+                    if (people.seatNumber == customer_data.seatNumber) {
+                        flag = false;
+                    }
+                }
+            }
+            if (flag) {
+                this.eat_menu.node.active = false;
+                this.walk_simple({ x: GamePlayConfig.chair_position[customer_data.seatNumber - 1][0], y: GamePlayConfig.chair_position[customer_data.seatNumber - 1][1] }, { x: 8, y: 5 });
+            }
         }
     }
 
