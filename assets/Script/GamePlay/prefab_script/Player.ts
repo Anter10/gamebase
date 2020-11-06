@@ -119,8 +119,11 @@ export default class Player extends cc.Component {
        return play_card;
     }
 
-    follow_card(){
+    follow_card(send_card_data: LordSendCardInterface){
         console.log("请下一家跟牌");
+        const follow_card = this.ai.follow(send_card_data.send_card,0,10);
+        console.log("当前跟牌的数据 = ", follow_card);
+        
     }
 
     show_cards(cards: Array<LordCardInterface>){
@@ -190,6 +193,10 @@ export default class Player extends cc.Component {
 
     set upper_player(_upper_player: Player){
         this._upper_player = _upper_player;
+    }
+
+    get cards_number(): number{
+        return this.player_interface.cards.length;
     }
 
 

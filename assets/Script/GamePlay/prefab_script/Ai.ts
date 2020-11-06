@@ -584,11 +584,11 @@ export class Ai {
             }
         };
 
-        result();
+        let follow_result = result();
 
         //如果有炸弹，根据牌数量确定是否出
-        if (result) {
-            return result;
+        if (follow_result) {
+            return follow_result;
         } else if (winc.card_kind != LordSendCardType.boom && winc.card_kind != LordSendCardType.king_boom
             && (this._boom.length > 0 || this._king_bomb.length > 0)) {
             if ((isWinneris_lord && winnerCardCount < 5)

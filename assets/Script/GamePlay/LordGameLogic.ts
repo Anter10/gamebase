@@ -131,7 +131,7 @@ class LordGameLogic{
            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
         }else{
            const player = this.game_play.player_by_position(send_card_data.lord_people_interface.position);
-           player.follow_card();
+           player.follow_card(send_card_data);
         }
     }
 
@@ -159,6 +159,9 @@ class LordGameLogic{
        const cur_lord_player = this.game_play.current_lord_player();
        if(cur_lord_player.player_interface.position == 0){
           EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
+       }else{
+          // 如果是机器人的话 机器人开始出牌
+          cur_lord_player.play_card(cur_lord_player.cards_number);
        }
     }
 
