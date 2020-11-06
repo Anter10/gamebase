@@ -29,7 +29,7 @@ class DecorationData extends BaseRecord {
                 return this.decoration_data[i];
             }
         }
-        let init_decoration_data: DecorationInterface = { decorationNumber: decoration_number, decorationLevel: 0 };
+        let init_decoration_data: DecorationInterface = { decorationNumber: decoration_number, decorationLevel: 4 };
         this.decoration_data.push(init_decoration_data);
         this.store_decoration_data(this.decoration_data);
         return init_decoration_data;

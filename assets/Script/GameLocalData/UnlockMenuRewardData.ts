@@ -29,7 +29,7 @@ class UnlockMenuRewardData extends BaseRecord {
                 return this.unlock_menu_reward_data[i];
             }
         }
-        let init_unlock_menu_reward_data = { unlockMenuRewardId: unlock_menu_reward_id, unlockMenuRewardType: UnlockMenuRewardType.lock };
+        let init_unlock_menu_reward_data = { unlockMenuRewardId: unlock_menu_reward_id, unlockMenuRewardType: UnlockMenuRewardType.get };
         this.unlock_menu_reward_data.push(init_unlock_menu_reward_data);
         this.store_menu_data(this.unlock_menu_reward_data);
         return init_unlock_menu_reward_data;

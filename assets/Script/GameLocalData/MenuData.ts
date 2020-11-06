@@ -33,7 +33,7 @@ class MenuData extends BaseRecord {
                 return this.menu_data[i];
             }
         }
-        let init_menu_data = { menuNumber: menu_id, menuType: MenuType.lock, menuAdTime: 0 };
+        let init_menu_data = { menuNumber: menu_id, menuType: MenuType.unlock, menuAdTime: 0 };
         this.menu_data.push(init_menu_data);
         this.store_menu_data(this.menu_data);
         return init_menu_data;

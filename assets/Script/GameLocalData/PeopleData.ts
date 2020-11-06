@@ -59,7 +59,7 @@ class PeopleData extends BaseRecord {
     static _name = "PeopleData";
     base_name = "PeopleData";
 
-    private people_data: Array<PeopleInterface> = [{ peopleDataNumber: 1, peopleConfigId: 2, peopleLevel: 1, cookWomanState: CookWomanState.Null }];
+    private people_data: Array<PeopleInterface> = [{ peopleDataNumber: 1, peopleConfigId: 2, peopleLevel: 5, cookWomanState: CookWomanState.Null }];
 
     constructor() {
         super();
@@ -133,7 +133,7 @@ class PeopleData extends BaseRecord {
             peopleDataNumber: max_people_data_number + 1,
             peopleConfigId: people_config_id,
             peopleMoveStartTime: Time.get_second_time(),
-            peopleLevel: 0,
+            peopleLevel: 5,
             cookWomanState: CookWomanState.Null,
             seatNumber: 0,
         };
