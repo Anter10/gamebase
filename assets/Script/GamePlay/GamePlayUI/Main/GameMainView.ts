@@ -748,14 +748,14 @@ export default class GameMainView extends BaseUI {
 
     click_batch_attract_customer_button() {
         let i = 0;
-        const callback = ()=> {
+        const callback = () => {
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-            i ++;
-            if(i == GamePlayConfig.batch_add_customer){
-               this.unschedule(callback);  
+            i++;
+            if (i == GamePlayConfig.batch_add_customer) {
+                this.unschedule(callback);
             }
         }
-        this.schedule(callback,0.5, GamePlayConfig.batch_add_customer, 0.5);
+        this.schedule(callback, 0.5, GamePlayConfig.batch_add_customer, 0.5);
     }
 
     set_attract_customer_progress(progress_number: number) {
@@ -767,5 +767,57 @@ export default class GameMainView extends BaseUI {
         const people_data = GameLocalData.get_instance().get_data(PeopleData);
         people_data.fix_people_data_by_time();
     }
+
+    /**
+ * @description 金币飞向目标
+ * @param startPos 起始点坐标
+ * @param endPos 终点坐标
+ */
+    flyCoin(startPos: cc.Vec2, endPos: cc.Vec2) {
+        let coin_node = cc.instantiate(this.node);
+        coin_node.setPosition(startPos);
+        cc.moveTo
+        // 创建一个移动动作
+        let action = cc.moveTo(0.5, endPos);
+        // 执行动作
+        this.node.runAction(action);
+
+    }
+
+    // /**
+    // * @description 生成一定数量的星星飞向目标，复制金币的
+    // * @param startPos 起始点坐标
+    // * @param endPos 终点坐标
+    // * @param count 星星数量
+    // */
+    // flyStar(startPos: Laya.Point, endPos: Laya.Point, count: number) {
+    //     let arrPos = Utils.get_random_in_circle(startPos, 100, count);
+    //     for (let i = 0; i < arrPos.length; i++) {
+    //         let pos = arrPos[i];
+    //         let img: Laya.Image = new Laya.Image();
+    //         img.skin = "ui/ui_all/icon_star.png";
+    //         Laya.stage.addChild(img);
+    //         img.x = startPos.x;
+    //         img.y = startPos.y;
+    //         img.zOrder = 109;
+    //         img.scaleX = img.scaleY = 0.5;
+    //         setTimeout(() => {
+    //             if (!img.destroyed) {
+    //                 img.x = endPos.x;
+    //                 img.y = endPos.y;
+    //                 img.destroy();
+    //             }
+    //         }, 420);
+    //         Laya.Tween.to(img, { x: pos.x, y: pos.y }, 100, Laya.Ease.linearNone, Laya.Handler.create(null, () => {
+    //             Laya.Tween.to(img, { x: endPos.x, y: endPos.y }, 300, Laya.Ease.linearNone, Laya.Handler.create(null, () => {
+    //                 img.x = endPos.x;
+    //                 img.y = endPos.y;
+    //                 if (!img.destroyed) {
+    //                     img.destroy();
+    //                 }
+    //             }), 0)
+    //         }), i * 10)
+    //     }
+    // }
 
 }

@@ -336,7 +336,7 @@ class PeopleData extends BaseRecord {
             }
         }
 
-        for (let j = 1; j <= GamePlayConfig.total_table_number; j++) {
+        for (let j = 1; j <= GamePlayConfig.total_table_number * 2; j++) {
             let flag = false;
             for (let i = 0; i < seat_number.length; i++) {
                 if (seat_number[i] == j) {
