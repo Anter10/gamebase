@@ -283,7 +283,6 @@ class PeopleData extends BaseRecord {
                         }
                         const order_menu_data: OrderMenuData = GameLocalData.get_instance().get_data(OrderMenuData);
                         if (order_menu_data.get_menu_by_customer_number_config_id(people.peopleDataNumber)) {
-                            console.log("people.peopleDataNumber", people.peopleDataNumber);
                             let menu_number = order_menu_data.get_menu_by_customer_number_config_id(people.peopleDataNumber).menuNumber;
                             order_menu_data.complete_order_menu_data(menu_number);
                         }
