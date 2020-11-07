@@ -11,7 +11,6 @@ class Loader{
             })
       }
 
-
       /**@description 递归调用加载spriteFrame */
       static recursion_load_sprite_frame(paths: Array<string>,call_back:Function){
           let start_index = 0;

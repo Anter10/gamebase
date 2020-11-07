@@ -45,7 +45,7 @@ class GameDataConfig{
     }
 
     /**@description 得到整个某个配置的所有数据的Array */
-    static get_config_array<T>(config_name: string): Array<T> {
+    static get_config_array<T>(config_name: string): T {
         const configs = this.all_config_data[config_name];
         if(configs){
            return configs;
