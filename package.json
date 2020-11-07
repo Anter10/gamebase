@@ -15,6 +15,6 @@
   "dependencies": {
     "hh_tool": "^1.0.3",
     "hs_export_data": "^1.0.5",
-    "pako": "^1.0.11"
+    "images": "^3.2.3"
   }
 }
