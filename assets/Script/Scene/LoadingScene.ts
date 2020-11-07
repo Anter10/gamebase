@@ -73,7 +73,7 @@ class LoadingScene extends BaseScene {
         loading_progress_bottom_image:"loading_progress_bottom_image",
         loading_progress_upper_image:"loading_progress_upper_image",
         start_game_button_image:"start_game_button_image",
-        start_game_button_text:"开始游戏",
+        start_game_button_text:"微信登陆",
     };
 
     onLoad () {
@@ -92,7 +92,7 @@ class LoadingScene extends BaseScene {
 
         this.assets_manager.asset = this.asset;
         this.assets_manager.update_callback = (progress: number)=> {
-            console.log("当前热更新的进度信息 = ", JSON.stringify(progress));
+            console.log("当前热更新的进度信息 = ", progress);
         }
     }
 

@@ -34,16 +34,16 @@ export class HttpClient {
         this.responsePreprocessor = func;
     }
 
-    get(path: string, timeout = 5000, data, headers?: any) {
+    get(path: string, timeout = 5000, headers?: { [key: string]: string }) {
         return this._handleRequest({
             path,
             method: "GET",
             timeout,
             headers
-        }, data);
+        });
     }
 
-    post(path: string, timeout = 5000, body?: string | ArrayBuffer, contentType?: string, headers?: any) {
+    post(path: string, timeout = 5000, body?: string | ArrayBuffer, contentType?: string, headers?: { [key: string]: string }) {
        
         return this._handleRequest({
             path,
@@ -54,7 +54,7 @@ export class HttpClient {
         }, body);
     }
 
-    put(path: string, timeout = 5000, body?: string | ArrayBuffer, contentType?: string, headers?: any) {
+    put(path: string, timeout = 5000, body?: string | ArrayBuffer, contentType?: string, headers?: { [key: string]: string }) {
         return this._handleRequest({
             path,
             method: "POST",
@@ -64,7 +64,7 @@ export class HttpClient {
         }, body);
     }
 
-    delete(path: string, timeout = 5000, headers?: any) {
+    delete(path: string, timeout = 5000, headers?: { [key: string]: string }) {
         return this._handleRequest({
             path,
             method: "GET",
@@ -184,7 +184,7 @@ interface HttpRequest {
     contentType?: string;
     body?: string | ArrayBuffer;
     abort?: () => void;
-    headers?: any;
+    headers?: { [key: string]: string };
     onSuccess?: (result: string | ArrayBuffer) => void;
     onError?: (error: HttpError) => void;
 }

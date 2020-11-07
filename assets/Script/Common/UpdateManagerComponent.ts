@@ -28,8 +28,6 @@ export class UpdateManagerComponent extends BaseNode {
     /**@description 更新的资源大小 */
     public update_size = 0;
     public asset = null;
-
-    public update_callback : Function = null;
     /**@description 初始化热更的信息 */
     public init() {
     };
@@ -82,7 +80,7 @@ export class UpdateManagerComponent extends BaseNode {
             case jsb.EventAssetsManager.NEW_VERSION_FOUND:
                 console.log("检查到有新的版本更新了");
                 // 开始走版本更新了
-                this.cal_current_assets_update_size( () =>{
+                this.cal_current_assets_update_size(function () {
                     this.start_update();
                 });
         }
@@ -112,7 +110,7 @@ export class UpdateManagerComponent extends BaseNode {
         // this.assets_manager.checkUpdate();
         // 设置本地的资源的url 包的资源路径
         const branch_path = `https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/${GameConfig.s_channel}/${GameConfig.pack_type}/${GameConfig.branch}`;
-        this.manifestUrl = branch_path + `/local_manifest/${GameConfig.version}/project.manifest`;
+        this.manifestUrl = branch_path + `/${GameConfig.version}/project.manifest`;
         if (this.assets_manager.getState() == jsb.AssetsManager.State.UNINITED) {
             var url = this.manifestUrl;
             console.log("this.manifestUrl = ", this.manifestUrl);
@@ -123,7 +121,6 @@ export class UpdateManagerComponent extends BaseNode {
                 //     tassets = (<any>cc.assetManager).md5Pipe.transformURL(assets);
                 // }
 
-                console.log("assets._nativeAsset = ",JSON.stringify(assets._nativeAsset));
                 var manifest = new jsb.Manifest(assets._nativeAsset, this.store_path);
 
                 this.assets_manager.loadLocalManifest(manifest, this.store_path);
@@ -149,7 +146,7 @@ export class UpdateManagerComponent extends BaseNode {
             this.assets_manager.downloadFailedAssets();
         }
     };
-    public update_ing_callback(event) {
+    public update_callback(event) {
         var failed = false;
         switch (event.getEventCode()) {
             case jsb.EventAssetsManager.ERROR_NO_LOCAL_MANIFEST:
@@ -221,7 +218,7 @@ export class UpdateManagerComponent extends BaseNode {
                 }
                 this.assets_manager.loadLocalManifest(url);
             }
-            this.assets_manager.setEventCallback(this.update_ing_callback.bind(this));
+            this.assets_manager.setEventCallback(this.update_callback.bind(this));
             this.download_fail_count = 0;
             this.assets_manager.update();
         }
@@ -266,7 +263,7 @@ export class UpdateManagerComponent extends BaseNode {
                             }
 
                             // 开始热更新
-                            call_back && call_back();
+                            this.start_update();
                         }
                     } else {
                         this.update_complete_callback();
@@ -307,9 +304,9 @@ export class UpdateManagerComponent extends BaseNode {
         }
         this.store_path = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : '/') + 'blackjack-remote-asset');
         var branch_path = "https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/" + GameConfig.s_channel + "/" + GameConfig.pack_type + "/" + GameConfig.branch + "/";
-        console.log("当前的资源配置信息的URL = ", branch_path + "project.manifest");
+        console.log("当前的资源配置信息的URL = ", branch_path + "/project.manifest");
         console.log("当前的存储路径", this.store_path);
-        this.assets_manager = new jsb.AssetsManager(branch_path + "project.manifest", this.store_path, this.version_compare.bind(this));
+        this.assets_manager = new jsb.AssetsManager(branch_path + "/project.manifest", this.store_path, this.version_compare.bind(this));
         console.log("当前的存储路径", this.store_path);
         this.assets_manager.setVerifyCallback( (path, asset) => {
             var compressed = asset.compressed;

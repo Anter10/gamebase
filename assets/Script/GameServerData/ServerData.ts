@@ -118,10 +118,10 @@ class ServerData {
     }
 
     /**@description 发送get 请求获得 */
-    get_data(uri: string, call_back?: Function, error_callback?: Function,data?: any) {
+    get_data(uri: string, call_back?: Function, error_callback?: Function) {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
-        console.log(data, "当前get设置的请求地址", this.headers);
-        http.get(uri, 5000,JSON.stringify(data), this.headers).then((res: Object) => {
+        console.log("当前get设置的请求地址", this.headers);
+        http.get(uri, 5000, this.headers).then((res: Object) => {
             console.log(`get 请求得到的游戏的数据 ${res}`);
             const response = JSON.parse(res as string);
             if (response.code == 0) {
@@ -141,7 +141,7 @@ class ServerData {
         const http = new HttpClient("https://bp-api.coohua.com");
         console.log("当前get设置的请求地址", this.headers);
 
-        http.get(uri, 5000, JSON.stringify( this.headers)).then((res: Object) => {
+        http.get(uri, 5000, this.headers).then((res: Object) => {
             const response = JSON.parse(res as string);
             if (response) {
                 call_back && call_back(response.result);
