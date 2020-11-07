@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "df9bc247-6227-4dcf-ba9e-cb8c98e925f3",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 24,
+  "height": 35,
+  "platformSettings": {},
+  "subMetas": {
+    "main_icon_nvbiaoshi": {
+      "ver": "1.0.4",
+      "uuid": "7dd1a466-0560-4dc4-9b75-a408e0c86d7d",
+      "rawTextureUuid": "df9bc247-6227-4dcf-ba9e-cb8c98e925f3",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 24,
+      "height": 35,
+      "rawWidth": 24,
+      "rawHeight": 35,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
