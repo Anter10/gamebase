@@ -47,8 +47,8 @@ export default class PlotItem extends BaseNode {
     }
 
     start() {
-        this.set_plot_state();
         this.complete_cook_animation.node.active = false;
+        this.set_plot_state(null, this.plot_user_number);
     }
 
     complete_cook(event, cook_woman_id: number) {
@@ -64,13 +64,15 @@ export default class PlotItem extends BaseNode {
         }
     }
 
-    set_plot_state() {
+    set_plot_state(event, cook_woman_id: number) {
         let cook_woman_state = this.people_data.get_people_data_by_people_config_id(this.plot_user_number).cookWomanState;
         if (cook_woman_state == CookWomanState.Cook) {
             this.fire.active = true;
             this.wait_node.active = false;
             this.cooking.active = true;
-            this.home_tool_pot.play();
+            if (cook_woman_id == this.plot_user_number) {
+                this.home_tool_pot.play();
+            }
         } else {
             this.fire.active = false;
             this.wait_node.active = true;

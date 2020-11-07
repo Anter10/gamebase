@@ -224,13 +224,7 @@ export default class Customer extends BaseNode {
                 seat_data.change_seat_data(customer_data.seatNumber, false);
                 this.people_data.delete_people_by_people_data_number(this.customer_data_id);
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.new_seat);
-                let walk_people_y = [];
-                Map.walk_people_y.forEach((value, id) => {
-                    if (id != this.customer_data_id) {
-                        walk_people_y.push(value);
-                    }
-                });
-                Map.walk_people_y = walk_people_y;
+                Map.walk_people_y[this.customer_data_id] = undefined;
                 this.node.destroy();
                 //清除这个垃圾数据
                 break;
@@ -498,7 +492,7 @@ export default class Customer extends BaseNode {
                 insert_number++;
             }
         })
-        this.node.parent.insertChild(this.node, insert_number);
+        this.node.parent.insertChild(this.node, insert_number - 1);
     }
 
     set_node_direction_animation() {

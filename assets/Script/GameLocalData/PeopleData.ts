@@ -72,7 +72,7 @@ class PeopleData extends BaseRecord {
                 if (cook_woman.cookWomanState) {
                     this.people_data[id].cookWomanState = cook_woman.cookWomanState;
                     this.people_data[id].changeStateTime = Time.get_second_time();
-                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_cook_woman_state);
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.change_cook_woman_state, cook_woman.peopleConfigId);
                 }
                 if (cook_woman.walkToSeatNumber) {
                     this.people_data[id].walkToSeatNumber = cook_woman.walkToSeatNumber;
@@ -283,7 +283,6 @@ class PeopleData extends BaseRecord {
                         }
                         const order_menu_data: OrderMenuData = GameLocalData.get_instance().get_data(OrderMenuData);
                         if (order_menu_data.get_menu_by_customer_number_config_id(people.peopleDataNumber)) {
-                            console.log("people.peopleDataNumber", people.peopleDataNumber);
                             let menu_number = order_menu_data.get_menu_by_customer_number_config_id(people.peopleDataNumber).menuNumber;
                             order_menu_data.complete_order_menu_data(menu_number);
                         }
