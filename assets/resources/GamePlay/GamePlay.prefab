@@ -7117,6 +7117,9 @@
     "TopBottom": {
       "__id__": 15
     },
+    "PlayerCardBoardNode": {
+      "__id__": 11
+    },
     "card_prefab": {
       "__uuid__": "4d892057-03a7-47f3-b1dc-6c68c947ffca"
     },

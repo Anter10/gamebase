@@ -27,6 +27,15 @@ class LordGameLogic{
     constructor(){
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.send_card, this, this.send_card_callback.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.no_send_card, this, this.no_send_card_callback.bind(this));
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.player_send_card, this, this.deal_cards_callback.bind(this));
+    }
+
+
+    deal_cards_callback(){
+        if(this.game_play.player().player_interface.position == 0){
+            const cards = this.game_play.player_card_board.get_player_cur_selected_cards();
+            this.game_play.player().deal_select_cards(cards);
+        }
     }
      
 
@@ -147,7 +156,7 @@ class LordGameLogic{
            if(player.next_player.player_interface.position == this.current_send_card_data.lord_people_interface.position){
               player.next_player.play_card(0);
            }else{
-              player.next_player.follow_card();
+            //   player.next_player.follow_card();
            }
         }
     }

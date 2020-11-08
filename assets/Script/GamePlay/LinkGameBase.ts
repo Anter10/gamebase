@@ -40,6 +40,9 @@ class LinkGameBase{
              no_send_card:"no_send_card",
              /**@description 显示玩家的操作按钮的信息 */
              show_player_play_buttons: "show_player_play_buttons",
+             /**@description 当前玩家选中的牌*/
+             player_send_card: "player_send_card",
+             
       }
 
       /**

@@ -40,6 +40,10 @@ export default class GameLogicButton extends cc.Component {
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.no_send_card, {position: 0});
         });
 
+        this.out_btn.addComponent(TouchButton).register_touch(()=> {
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.player_send_card);
+        });
+
     }
 
     start () {

@@ -28,8 +28,12 @@ export default class PlayerCardBoard extends cc.Component {
         this.node.on("touchcancel",this.touch_cancel.bind(this), this);
     }
 
+    player_send_card_callback(){
+        const cur_cards = this.get_player_cur_selected_cards();
+        console.log("当前玩家选中的牌的数据 = ",cur_cards);
+    }
+
     get_card_for_touch(touch_point, card_nodes: Array<LordCard>){
-        
         for(const card of card_nodes){
             var box = card.node.getBoundingBox();
             let add_other_height = 0;
@@ -114,9 +118,19 @@ export default class PlayerCardBoard extends cc.Component {
         }
     }
 
-    choose_select(){
 
+    /**@description 得到玩家当前自己选中的牌 */
+    get_player_cur_selected_cards(): Array<LordCardInterface>{
+        const cards: Array<LordCardInterface> = [];
+        for(const card of this.card_nodes){
+            if(card.status == CardStatue.STANDUP){
+                cards.push(card.card);
+            }
+        }
+
+        return cards;
     }
+
 
   
 

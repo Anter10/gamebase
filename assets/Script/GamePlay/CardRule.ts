@@ -1,68 +1,9 @@
 import { LordCardType } from "./GamePlayEnum";
 import { CardValCountInterface, LordCardInterface } from "./GamePlayInterface";
-import { card_list } from "./LordUtils";
+import { CardsValue, CardValueType, card_list } from "./LordUtils";
 
 export class CardRule {
-    //牌型之间大小数值的定义
-    CardsValue = {
-        'one': {
-            name: 'One',
-            value: 1
-        },
-        'double': {
-            name: 'Double',
-            value: 1
-        },
-        'three': {
-            name: 'Three',
-            value: 1
-        },
-        'boom': { //炸弹
-            name: 'Boom',
-            value: 2
-        },
-        'threeWithOne': {
-            name: 'ThreeWithOne',
-            value: 1
-        },
-        'threeWithTwo': {
-            name: 'ThreeWithTwo',
-            value: 1
-        },
-        'plane': {
-            name: 'Plane',
-            value: 1
-        },
-        'planeWithOne': {
-            name: 'PlaneWithOne',
-            value: 1
-        },
-        'planeWithTwo': {
-            name: 'PlaneWithTwo',
-            value: 1
-        },
-        'scroll': { //顺子
-            name: 'Scroll',
-            value: 1
-        },
-        'doubleScroll': {  //连队
-            name: 'DoubleScroll',
-            value: 1
-        },
-        'kingboom': { //王炸
-            name: 'kingboom',
-            value: 3
-        },
-        'fourwithtwo': { //四带二
-            name: 'fourwithtwo',
-            value: 1
-        },
-        'fourwithtwopairs': { //四带两队
-            name: 'fourwithtwopairs',
-            value: 1
-        },
-    };
-
+    
 
 
     // 牌型的相关逻辑
@@ -123,19 +64,8 @@ export class CardRule {
         if (card_list.length != 4) {
             return false
         }
-
-        const pre_cards = card_list.slice(0, 3);
-        const after_cards = card_list.slice(3, 4);
-
-        if (pre_cards[0].id == pre_cards[1].id && pre_cards[1].id == pre_cards[2].id && pre_cards[2].id != card_list[3].id) {
-            return true;
-        }
-
-        if (after_cards[0].id != card_list[0].id && card_list[0].id == card_list[1].id && card_list[1].id == card_list[2].id) {
-            return true;
-        }
-
-        return false
+        var c = this.val_count(card_list);
+        return c.length === 2 && (c[0].count === 3 || c[1].count === 3);
     }
 
     /**@description 三带二 */
@@ -796,68 +726,76 @@ export class CardRule {
 
 
 
-    card_value(cardList: card_list) {
+    card_value(cardList: card_list) : CardValueType{
         if (this.is_one_card(cardList)) {
             console.log("isOneCard sucess")
-            return this.CardsValue.one;
+            return CardsValue.one;
         }
 
         if (this.is_double_card(cardList)) {
             console.log("IsDoubleCard sucess")
-            return this.CardsValue.double
+            return CardsValue.double
         }
 
         if (this.is_three(cardList)) {
             console.log("Isthree sucess")
-            return this.CardsValue.three
+            return CardsValue.three
         }
 
         if (this.is_three_with_one(cardList)) {
             console.log("IsThreeAndOne sucess")
-            return this.CardsValue.threeWithOne
+            return CardsValue.threeWithOne
         }
 
         if (this.is_three_with_two(cardList)) {
             console.log("IsThreeAndTwo sucess")
-            return this.CardsValue.threeWithTwo
+            return CardsValue.threeWithTwo
         }
 
         if (this.is_boom(cardList)) {
             console.log("IsBoom sucess")
-            return this.CardsValue.boom
+            return CardsValue.boom
         }
 
         if (this.is_king_boom(cardList)) {
             console.log("IsKingBoom sucess")
-            return this.CardsValue.kingboom
+            return CardsValue.kingboom
         }
 
         if (this.is_plan(cardList)) {
             console.log("IsPlan sucess")
-            return this.CardsValue.plane
+            return CardsValue.plane
         }
 
         if (this.is_plan_with_two_single(cardList)) {
             console.log("IsPlanWithSing sucess")
-            return this.CardsValue.planeWithOne
+            return CardsValue.planeWithOne
         }
 
         if (this.is_plan_with_two_double(cardList)) {
             console.log("IsPlanWithDouble sucess")
-            return this.CardsValue.planeWithTwo
+            return CardsValue.planeWithTwo
         }
 
         if (this.is_shunzi(cardList)) {
             console.log("IsShunzi sucess")
-            return this.CardsValue.scroll
+            return CardsValue.scroll
         }
 
         if (this.is_liandui(cardList)) {
             console.log("IsLianDui sucess")
-            return this.CardsValue.doubleScroll
+            return CardsValue.doubleScroll
+        }
+        if(this.is_four_with_two(cardList)){
+            console.log("is_four_with_two")
+            return CardsValue.fourwithtwo
+        }
+        if(this.is_four_with_pairs(cardList)){
+            console.log("is_four_with_pairs")
+            return CardsValue.fourwithtwopairs
         }
         //return false
-        return undefined
+        return CardsValue.none;
     }
 
     //cardA上次出的牌
@@ -866,47 +804,47 @@ export class CardRule {
     compare(cardA, cardB, current_card_value) {
         var result = false
         switch (current_card_value.name) {
-            case this.CardsValue.one.name:
+            case CardsValue.one.name:
                 result = this.compare_one(cardA, cardB)
                 break
-            case this.CardsValue.double.name:
+            case CardsValue.double.name:
                 result = this.compare_two(cardA, cardB)
                 break
-            case this.CardsValue.three.name:
+            case CardsValue.three.name:
                 result = this.compare_three(cardA, cardB)
                 break
-            case this.CardsValue.boom.name:
+            case CardsValue.boom.name:
                 result = this.compare_boom(cardA, cardB)
                 break
-            case this.CardsValue.kingboom.name:
+            case CardsValue.kingboom.name:
                 result = this.compare_boom_king(cardA, cardB)
                 break
-            case this.CardsValue.planeWithOne.name:
+            case CardsValue.planeWithOne.name:
                 result = this.compare_plan_with_one(cardA, cardB)
                 break
-            case this.CardsValue.planeWithTwo.name:
+            case CardsValue.planeWithTwo.name:
                 result = this.compare_three_with_two(cardA, cardB)
                 break
-            case this.CardsValue.plane.name:
+            case CardsValue.plane.name:
                 result = this.compare_plan(cardA, cardB)
                 break
-            case this.CardsValue.planeWithOne.name:
+            case CardsValue.planeWithOne.name:
                 result = this.compare_plan_with_one(cardA, cardB)
                 break
-            case this.CardsValue.planeWithTwo.name:
+            case CardsValue.planeWithTwo.name:
                 result = this.compare_plan_with_double(cardA, cardB)
                 break
-            case this.CardsValue.scroll.name:
+            case CardsValue.scroll.name:
                 result = this.compare_scroll(cardA, cardB)
                 break
-            case this.CardsValue.doubleScroll.name:
+            case CardsValue.doubleScroll.name:
                 result = this.compare_double_scroll(cardA, cardB)
                 break
-            case this.CardsValue.fourwithtwo.name:
+            case CardsValue.fourwithtwo.name:
                 result = this.compare_four_with_two(cardA, cardB)
                 break
 
-            case this.CardsValue.fourwithtwopairs.name:
+            case CardsValue.fourwithtwopairs.name:
                 result = this.compare_four_with_two_pairs(cardA, cardB)
                 break
             default:

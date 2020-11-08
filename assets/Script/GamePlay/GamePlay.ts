@@ -9,6 +9,7 @@ import LinkGameBase from "./LinkGameBase";
 import LordGameLogic from "./LordGameLogic";
 import { LordUtils } from "./LordUtils";
 import Player from "./prefab_script/Player";
+import PlayerCardBoard from "./prefab_script/PlayerCardBoard";
 
 const {ccclass, property} = cc._decorator;
 
@@ -28,6 +29,8 @@ class GamePlay extends cc.Component {
     PlayerPeople: cc.Node = null;
     @property(cc.Node)
     TopBottom: cc.Node = null;
+    @property(cc.Node)
+    PlayerCardBoardNode: cc.Node = null;
 
     @property(cc.Prefab)
     card_prefab: cc.Prefab = null;
@@ -39,14 +42,14 @@ class GamePlay extends cc.Component {
     public deal_cards: DealCardInterface = null;
     public card_pool:cc.NodePool = new cc.NodePool();
     public call_lord_interface: CallLordDataInterface = null;
-    
+    public player_card_board: PlayerCardBoard = null;
     
     onLoad () {
         this.register_ui();
         gamebase.game_play = this;
         gamebase.lord_util = LordUtils;
         gamebase.card_rule = new CardRule();
-        
+        this.player_card_board = this.PlayerCardBoardNode.getComponent(PlayerCardBoard);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.start_waiting, this, this.start_waiting.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.waiting, this, this.waiting.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.mating, this, this.mating.bind(this));
@@ -99,6 +102,10 @@ class GamePlay extends cc.Component {
         this._players[0] = player;
         this._players[1] = second_player;
         this._players[2] = third_player;
+        player.game_play = this;
+        second_player.game_play = this;
+        third_player.game_play = this;
+
         player.next_player = second_player;
         second_player.next_player = third_player;
         third_player.next_player = player;
@@ -116,7 +123,7 @@ class GamePlay extends cc.Component {
         return this._players[position];
     }
 
-    player(){
+    player(): Player{
         return this._players[0];
     }
 

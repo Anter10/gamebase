@@ -1,10 +1,11 @@
 import { gamebase } from "../../Boot";
 import Loader from "../../Common/Loader";
 import EventManager from "../../EventManager/EventManager";
+import GamePlay from "../GamePlay";
 import { LordCardType, PeopleIdentityType, PeopleType } from "../GamePlayEnum";
 import { LordCardInterface, LordPeopleInterface, LordSendCardInterface, SendCardInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
-import { card_list, LordUtils } from "../LordUtils";
+import { CardValueType, card_list, LordUtils } from "../LordUtils";
 import { Ai } from "./Ai";
 import LordCard from "./LordCard";
 
@@ -28,6 +29,9 @@ export default class Player extends cc.Component {
     car_number_label: cc.Label = null;
     @property(cc.Sprite)
     call_or_no_call_lord_mesage_sprite: cc.Sprite = null;
+
+
+    public game_play: GamePlay = null;
 
     public player_interface: LordPeopleInterface = null;
     private _next_player: Player = null;
@@ -71,9 +75,10 @@ export default class Player extends cc.Component {
         });
     }
 
+
     // 给玩家发牌
     deal_cards(cards: Array<LordCardInterface>){
-        // cards = this.test_cards();
+        cards = this.test_cards();
         this.player_interface.cards = cards;
 
         if(this.car_number_label){
@@ -103,6 +108,11 @@ export default class Player extends cc.Component {
     set_identified(identified: PeopleIdentityType){
         this.player_interface.people_identity_type = identified;
         this.show_call_or_no_call_lord_message();
+    }
+
+    deal_select_cards(cards: Array<LordCardInterface>){
+        const card_value: CardValueType = this.ai.card_rule.card_value(cards);
+        console.log("当前选中的牌型是 ", card_value);
     }
 
     /**@description 出牌 */
