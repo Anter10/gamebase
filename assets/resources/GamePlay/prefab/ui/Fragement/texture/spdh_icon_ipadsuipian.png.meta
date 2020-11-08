@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "010362c1-4979-4a3b-ac58-372aaa28a0f8",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 85,
+  "height": 105,
+  "platformSettings": {},
+  "subMetas": {
+    "spdh_icon_ipadsuipian": {
+      "ver": "1.0.4",
+      "uuid": "fa2ec686-f4c6-404f-85c2-8fb0c7933e14",
+      "rawTextureUuid": "010362c1-4979-4a3b-ac58-372aaa28a0f8",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 85,
+      "height": 105,
+      "rawWidth": 85,
+      "rawHeight": 105,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

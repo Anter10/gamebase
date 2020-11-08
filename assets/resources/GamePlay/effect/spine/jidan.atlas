@@ -1,0 +1,41 @@
+
+jidan.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+erji_action1
+  rotate: false
+  xy: 142, 148
+  size: 49, 61
+  orig: 49, 61
+  offset: 0, 0
+  index: -1
+egg2
+  rotate: false
+  xy: 1, 1
+  size: 157, 145
+  orig: 157, 145
+  offset: 0, 0
+  index: -1
+egg3
+  rotate: false
+  xy: 160, 1
+  size: 82, 123
+  orig: 89, 127
+  offset: 3, 0
+  index: -1
+eye1
+  rotate: false
+  xy: 160, 126
+  size: 41, 20
+  orig: 41, 20
+  offset: 0, 0
+  index: -1
+egg4
+  rotate: false
+  xy: 1, 148
+  size: 139, 107
+  orig: 139, 107
+  offset: 0, 0
+  index: -1

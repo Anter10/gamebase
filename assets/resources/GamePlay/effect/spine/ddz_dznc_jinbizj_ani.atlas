@@ -1,0 +1,20 @@
+
+ddz_dznc_jinbizj_ani.png
+size: 484,484
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ddz_dznc_jinbizj_ani
+  rotate: false
+  xy: 2, 90
+  size: 160, 120
+  orig: 160, 120
+  offset: 0, 0
+  index: -1
+ddz_dznc_jinbizj_ani01
+  rotate: false
+  xy: 2, 212
+  size: 480, 270
+  orig: 480, 270
+  offset: 0, 0
+  index: -1

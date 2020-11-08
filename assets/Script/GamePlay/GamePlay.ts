@@ -42,6 +42,7 @@ class GamePlay extends cc.Component {
     
     
     onLoad () {
+        this.register_ui();
         gamebase.game_play = this;
         gamebase.lord_util = LordUtils;
         gamebase.card_rule = new CardRule();
@@ -67,6 +68,14 @@ class GamePlay extends cc.Component {
         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.start_waiting);
         this.init_players();
     }
+
+    register_ui(){
+        LinkGameBase.register_ui_path("SettingView", "GamePlay/prefab/ui/setting/SettingView");
+        LinkGameBase.register_ui_path("EveryDayGift", "GamePlay/prefab/ui/EveryDayGift/EveryDayGift");
+        LinkGameBase.register_ui_path("FragementView", "GamePlay/prefab/ui/Fragement/FragementView");
+        LinkGameBase.register_ui_path("NewPlayerAwardView", "GamePlay/prefab/ui/NewPlayerAwardView/NewPlayerAwardView");
+    }
+    
 
     remove_card(card: cc.Node){
         card.scale = 1;

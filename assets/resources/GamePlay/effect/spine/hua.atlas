@@ -1,0 +1,27 @@
+
+hua.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+d48bc001-dac9-4551-90e1-206d2491faff
+  rotate: false
+  xy: 110, 1
+  size: 100, 85
+  orig: 100, 85
+  offset: 0, 0
+  index: -1
+hua
+  rotate: false
+  xy: 1, 128
+  size: 107, 125
+  orig: 107, 125
+  offset: 0, 0
+  index: -1
+hua1
+  rotate: false
+  xy: 1, 1
+  size: 107, 125
+  orig: 107, 125
+  offset: 0, 0
+  index: -1

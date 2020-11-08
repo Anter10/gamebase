@@ -5,7 +5,11 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import { UIParamInterface } from "../../Common/CommonInterface";
 import TouchButton from "../../Common/TouchButton";
+import UIConfig from "../../UI/UIManager/UIConfig";
+import UIManager from "../../UI/UIManager/UIManager";
+import LinkGameBase from "../LinkGameBase";
 
 const {ccclass, property} = cc._decorator;
 
@@ -27,7 +31,13 @@ export default class TopBottom extends cc.Component {
         })
 
         this.main_button_shezhi.addComponent(TouchButton).register_touch(()=>{
-            
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.SettingView,
+                ui_config_name: "SettingView",
+                param:{}
+            }
+        
+            UIManager.show_ui(ui_param_interface);
         })
     }
 
