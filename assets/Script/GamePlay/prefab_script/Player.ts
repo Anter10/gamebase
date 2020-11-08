@@ -73,7 +73,7 @@ export default class Player extends cc.Component {
 
     // 给玩家发牌
     deal_cards(cards: Array<LordCardInterface>){
-        cards = this.test_cards();
+        // cards = this.test_cards();
         this.player_interface.cards = cards;
 
         if(this.car_number_label){
@@ -137,12 +137,19 @@ export default class Player extends cc.Component {
         for(const card_data of cards){
             const card2 = gamebase.game_play.create_card();
             card2.scale = 0.6;
+            const card_width = card2.scale * card2.width;
+            const card_height = card2.scale * card2.height;
+
+            card2.width = card_width;
+            card2.height = card_height;
             card2.getComponent(LordCard).flush_data(card_data);
             card2.parent = container;
             if(this.player_interface.position == 0){
-               card2.x = (card_index * card2.width) + card2.width / 2 - container.width / 2;
+               card2.x = (card_index * (card_width / 2)) + card_width / 4 - container.width / 2;
             }else{
-               card2.x = (card_index * card2.width) + card2.width / 2;
+               const tx =  (card_index * (card_width / 2)) + card_width / 2;
+               card2.x = (this.player_interface.position == 1 ? -Math.abs(tx) : Math.abs(tx));
+               card2.zIndex = this.player_interface.position == 1 ?  (cards.length - card_index) : card_index;
             }
             card_index ++;
         }
