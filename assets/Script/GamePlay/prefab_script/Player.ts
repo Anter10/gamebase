@@ -78,7 +78,7 @@ export default class Player extends cc.Component {
 
     // 给玩家发牌
     deal_cards(cards: Array<LordCardInterface>){
-        cards = this.test_cards();
+        // cards = this.test_cards();
         this.player_interface.cards = cards;
 
         if(this.car_number_label){
