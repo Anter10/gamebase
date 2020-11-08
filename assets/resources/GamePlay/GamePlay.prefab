@@ -6617,8 +6617,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 298,
-      "height": 381
+      "width": 178,
+      "height": 261
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6636,8 +6636,8 @@
         0,
         0,
         1,
-        0.4,
-        0.4,
+        1,
+        1,
         1
       ]
     },
@@ -6681,8 +6681,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 298,
-      "height": 379
+      "width": 160,
+      "height": 161
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -6737,7 +6737,7 @@
       "__uuid__": "b41990e3-3911-46f1-ab4c-e88a4612b757"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -6807,8 +6807,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -52.527,
-        -131.318,
+        -57.512,
+        -44.174,
         0,
         0,
         0,
@@ -7122,6 +7122,9 @@
     "_enabled": true,
     "main_button_jipaiqi": {
       "__id__": 180
+    },
+    "main_button_cash_out_button": {
+      "__id__": 183
     },
     "_id": ""
   },

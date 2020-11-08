@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import TouchButton from "../../Common/TouchButton";
+
 const {ccclass, property} = cc._decorator;
 
 @ccclass
@@ -24,7 +26,27 @@ export default class RightButtonContainer extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {}
+    onLoad () {
+        this.main_button_jiasutixian.addComponent(TouchButton).register_touch(() => {
+
+        });
+
+        this.main_button_meirilibao.addComponent(TouchButton).register_touch(() => {
+            
+        });
+
+        this.main_button_mianfeihongbao.addComponent(TouchButton).register_touch(() => {
+            
+        });
+
+        this.main_button_suipianduijiang.addComponent(TouchButton).register_touch(() => {
+            
+        });
+
+        this.main_button_zaiwanjiju.addComponent(TouchButton).register_touch(() => {
+            
+        });
+    }
 
     start () {
 
