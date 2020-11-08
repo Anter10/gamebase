@@ -49,10 +49,13 @@
       },
       {
         "__id__": 201
+      },
+      {
+        "__id__": 202
       }
     ],
     "_prefab": {
-      "__id__": 202
+      "__id__": 203
     },
     "_opacity": 255,
     "_color": {
@@ -7180,12 +7183,25 @@
     "PlayerPeople": {
       "__id__": 149
     },
+    "TopBottom": {
+      "__id__": 15
+    },
     "card_prefab": {
       "__uuid__": "4d892057-03a7-47f3-b1dc-6c68c947ffca"
     },
     "main_difenbangzi": {
       "__id__": 22
     },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.SafeArea",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
     "_id": ""
   },
   {

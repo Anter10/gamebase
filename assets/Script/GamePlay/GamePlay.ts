@@ -26,6 +26,9 @@ class GamePlay extends cc.Component {
     ThirdPeople: cc.Node = null;
     @property(cc.Node)
     PlayerPeople: cc.Node = null;
+    @property(cc.Node)
+    TopBottom: cc.Node = null;
+
     @property(cc.Prefab)
     card_prefab: cc.Prefab = null;
 
