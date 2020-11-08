@@ -48,6 +48,22 @@ export default class LordCard extends cc.Component {
         return this._lord_card_statue;
     }
 
+    stand_up(){
+        if(this.status == CardStatue.STANDUP){
+           return;
+        }
+        this.status = CardStatue.STANDUP;
+        this.node.y += 20;
+    }
+
+    site_down(){
+        if(this.status == CardStatue.SITDOWN){
+            return;
+         }
+        this.status = CardStatue.SITDOWN;
+        this.node.y -= 20;
+    }
+
     public card: LordCardInterface = null;
 
     flush_data(card: LordCardInterface){

@@ -20,6 +20,11 @@ class LordGameLogic{
     public cur_send_card_pos: number = 0;
     /**@description 当前出牌的剩余时间 */
     public cur_game_pass_time: number = 0;
+    /**@description 提示的下标 */
+    public prompt_index: number = 0;
+    /**@description 当前提示牌型的数据 */
+    public prompt_card_array:Array<Array<LordCardInterface>> = [];
+    
     
     public current_send_card_data: LordSendCardInterface = null;
 
@@ -28,8 +33,10 @@ class LordGameLogic{
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.send_card, this, this.send_card_callback.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.no_send_card, this, this.no_send_card_callback.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.player_send_card, this, this.deal_cards_callback.bind(this));
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.prompt_card, this, this.prompt_callback.bind(this));
+   
     }
-
+    
 
     deal_cards_callback(){
         if(this.game_play.player().player_interface.position == 0){
@@ -132,6 +139,26 @@ class LordGameLogic{
         this.cur_send_card_pos = pos;
     }
 
+    /**@description 重置提示下标 */
+    reset_prompt_index(){
+        this.prompt_index = 0;
+        this.prompt_card_array = this.game_play.player().ai.prompt();
+    }
+
+    /**@description 提示回调 */
+    prompt_callback(){
+        if(this.prompt_index > this.prompt_card_array.length - 1){
+           this.prompt_index = 0;
+        }
+
+        const prompt_cards = this.prompt_card_array[this.prompt_index];
+        console.log("当前提示的",prompt_cards);
+        this.game_play.player_card_board.select_cards(prompt_cards);
+
+        this.prompt_index ++;
+    }
+
+
     /**@description 出牌触发的事件 */
     send_card_callback(event: any,send_card_data: LordSendCardInterface){
         this.current_send_card_data = send_card_data;
@@ -173,6 +200,8 @@ class LordGameLogic{
           cur_lord_player.play_card(cur_lord_player.cards_number);
        }
     }
+    
+
 
     /**@description 轮到机器人出牌规则 */
     machine_people_out_cards(){

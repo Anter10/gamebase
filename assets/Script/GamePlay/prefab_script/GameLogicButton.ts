@@ -44,6 +44,9 @@ export default class GameLogicButton extends cc.Component {
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.player_send_card);
         });
 
+        this.tip_button.addComponent(TouchButton).register_touch(()=> {
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.prompt_card);
+        });
     }
 
     start () {

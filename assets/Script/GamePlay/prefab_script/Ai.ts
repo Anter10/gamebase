@@ -868,7 +868,7 @@ export class Ai {
     * @param  {object} winc 当前牌面最大牌
     * @return {Array}      提示结果
     */
-    prompt(winc: SendCardInterface) {
+    prompt(winc?: SendCardInterface) {
         const cards = this._ai_player.player_interface.cards;
         let stat = this.card_rule.val_count(cards);
         // this.log();

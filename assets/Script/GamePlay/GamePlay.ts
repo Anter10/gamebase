@@ -177,6 +177,7 @@ class GamePlay extends cc.Component {
     }
 
     show_player_play_buttons_callback(){
+        this.game_logic.reset_prompt_index();
         CellUi.show_game_logic_node();
     }
 

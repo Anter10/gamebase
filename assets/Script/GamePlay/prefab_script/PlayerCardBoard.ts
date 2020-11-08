@@ -4,6 +4,7 @@ import GamePlay from "../GamePlay";
 import { CardStatue, LordCardStatue } from "../GamePlayEnum";
 import { LordCardInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
+import { card_list } from "../LordUtils";
 import LordCard from "./LordCard";
 
 const {ccclass, property} = cc._decorator;
@@ -108,12 +109,29 @@ export default class PlayerCardBoard extends cc.Component {
             if (card.isChoose === true) {
                 card.isChoose = false;
                 if (card.status === CardStatue.SITDOWN) {
-                    card.status = CardStatue.STANDUP;
-                    card.node.y += 20;
+                    card.stand_up();
                 } else {
-                    card.status = CardStatue.SITDOWN;
-                    card.node.y -= 20;
+                    card.site_down();
                 }
+            }
+        }
+    }
+
+    
+    select_cards(cards: card_list){
+        for(const card_script of this.card_nodes){
+            let had_find_it = false;
+            for(const card of cards){
+                if(card_script.card.card_type == card.card_type && card_script.card.id == card.id){
+                    had_find_it = true;
+                    break;
+                }
+            }
+
+            if(had_find_it){
+                card_script.stand_up();
+            }else{
+                card_script.site_down();
             }
         }
     }
