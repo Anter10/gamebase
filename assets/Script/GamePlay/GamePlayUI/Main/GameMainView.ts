@@ -492,7 +492,7 @@ export default class GameMainView extends BaseUI {
                 //刷新离线收益。暂时放这儿
                 const offline_data: OfflineData = GameLocalData.get_instance().get_data(OfflineData);
                 offline_data.set_offline_data(Time.get_second_time());
-            }, GamePlayConfig.add_customer_time * 100);
+            }, GamePlayConfig.add_customer_time * 1000);
         }
     }
 
