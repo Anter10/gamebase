@@ -5,7 +5,6 @@ import UIConfig from "./UIConfig";
 class UIManager {
     static all_ui: { [key: string]: BaseUI } = {};
     static ui_is_loading: { [key: string]: boolean } = {};
-
     /**@description 直接显示UI */
     static show_ui(ui_param_interface: UIParamInterface) {
         console.log("显示界面的参数 = ", ui_param_interface);
@@ -24,13 +23,7 @@ class UIManager {
                         this.all_ui[ui_param_interface.ui_config_name] = ui_script;
                         this.ui_is_loading[ui_param_interface.ui_config_name] = false;
                         const keys = Object.keys(this.all_ui);
-
-                        if (ui_param_interface.ui_config_name == "Toast" || ui_param_interface.ui_config_name == "Modal") {
-                            cc.director.getScene().addChild(ui, cc.macro.MAX_ZINDEX);
-                        } else {
-                            cc.director.getScene().addChild(ui, cc.macro.MAX_ZINDEX - 1000 + keys.length);
-                        }
-
+                        cc.director.getScene().addChild(ui, this.max_zindex());
                         ui_param_interface.complete_callback && ui_param_interface.complete_callback(ui_script);
                         ui_script.onAddFinished();
                     } else {
@@ -44,15 +37,25 @@ class UIManager {
                 this.all_ui[ui_param_interface.ui_config_name].controller = ui_param_interface.controller;
                 this.ui_is_loading[ui_param_interface.ui_config_name] = false;
                 const keys = Object.keys(this.all_ui);
-                if (ui_param_interface.ui_config_name == "Toast" || ui_param_interface.ui_config_name == "Modal") {
-                    this.all_ui[ui_param_interface.ui_config_name].node.zIndex = cc.macro.MAX_ZINDEX;
-                } else {
-                    this.all_ui[ui_param_interface.ui_config_name].node.zIndex = cc.macro.MAX_ZINDEX - 1000 + keys.length;
-                }
+                this.all_ui[ui_param_interface.ui_config_name].node.zIndex = this.max_zindex();
+              
                 ui_param_interface.complete_callback && ui_param_interface.complete_callback(this.all_ui[ui_param_interface.ui_config_name]);
                 this.all_ui[ui_param_interface.ui_config_name].onAddFinished();
             }
         }
+    }
+
+    static max_zindex(){
+        const keys = Object.keys(this.all_ui);
+        let z_index = 0;
+        for(const key of keys){
+            const _ui_node = this.all_ui[key].node;
+            if(_ui_node.zIndex > z_index){
+                z_index = _ui_node.zIndex;
+            }
+        }
+
+        return z_index;
     }
 
     static close_ui(ui_config_name: string) {
