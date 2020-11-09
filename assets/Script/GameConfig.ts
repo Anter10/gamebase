@@ -47,14 +47,14 @@ const GameConfig = {
         romVersion: "default",
         osVersion: "9",
         oaid: "",
-        accessKey: "accessKey",
+        accessKey: "8a7bb4323159138e7b49d835f81a0f3f_27260",
         timeId: "20201109",
     },
 
     /**@description 初始化的时候传递给Android端的数据 */
     android_init_param: {
-        appId: 11,
-        pkgId: 11,
+        appId: 93,
+        pkgId: 118,
         version: "1.0",
         apiType: 0,
         productName: "",
