@@ -3,7 +3,7 @@ import { CardValCountInterface, LordCardInterface } from "./GamePlayInterface";
 import { CardsValue, CardValueType, card_list } from "./LordUtils";
 
 export class CardRule {
-    
+
 
 
     // 牌型的相关逻辑
@@ -257,7 +257,7 @@ export class CardRule {
 
 
     /**@description 顺子 */
-    is_shunzi(card_list: card_list) {
+    is_progression(card_list: card_list) {
         if (card_list.length < 5 || card_list.length > 12) {
             return false
         }
@@ -293,7 +293,7 @@ export class CardRule {
     }
 
     //连队
-    is_liandui(card_list: card_list) {
+    is_progression_pairs(card_list: card_list) {
         if (card_list.length < 6 || card_list.length > 24) {
             return false
         }
@@ -726,7 +726,7 @@ export class CardRule {
 
 
 
-    card_value(cardList: card_list) : CardValueType{
+    card_value(cardList: card_list): CardValueType {
         if (this.is_one_card(cardList)) {
             console.log("isOneCard sucess")
             return CardsValue.one;
@@ -777,20 +777,20 @@ export class CardRule {
             return CardsValue.plane_with_two
         }
 
-        if (this.is_shunzi(cardList)) {
+        if (this.is_progression(cardList)) {
             console.log("IsShunzi sucess")
             return CardsValue.progression
         }
 
-        if (this.is_liandui(cardList)) {
+        if (this.is_progression_pairs(cardList)) {
             console.log("IsLianDui sucess")
             return CardsValue.progression_pair
         }
-        if(this.is_four_with_two(cardList)){
+        if (this.is_four_with_two(cardList)) {
             console.log("is_four_with_two")
             return CardsValue.four_with_two
         }
-        if(this.is_four_with_pairs(cardList)){
+        if (this.is_four_with_pairs(cardList)) {
             console.log("is_four_with_pairs")
             return CardsValue.four_with_tow_pairs
         }
@@ -861,10 +861,10 @@ export class CardRule {
      * 牌统计，统计各个牌有多少张
      * @param {*} cards 
      */
-    val_count(cards: card_list) : CardValCountInterface[]{
+    val_count(cards: card_list): CardValCountInterface[] {
         var result: CardValCountInterface[] = [];
 
-        var addCount =  (result: CardValCountInterface[], id: number) => {
+        var addCount = (result: CardValCountInterface[], id: number) => {
             for (var i = 0; i < result.length; i++) {
                 if (result[i].id == id) {
                     result[i].count++;
@@ -873,12 +873,12 @@ export class CardRule {
             }
             result.push({ 'id': id, 'count': 1 });
         };
-       
+
         for (var i = 0; i < cards.length; i++) {
             addCount(result, cards[i].id);
         }
-        console.log("cards = ",cards);
-        console.log("result = ",result);
+        console.log("cards = ", cards);
+        console.log("result = ", result);
 
         return result;
     }
@@ -918,6 +918,61 @@ export class CardRule {
         } else {
             return false
         }
+    }
+
+    /**
+    * 牌型判断
+    * @method function
+    * @param  {[shape]} cards [description]
+    * @return {[shape]}       [description]
+    */
+    type_judge(cards: Array<LordCardInterface>) {
+        let len = cards.length;
+        cards.sort((a, b) => b.id - a.id);
+        switch (len) {
+            case 1:
+                return { "card_kind": CardsValue.one.name, "id": cards[0].id, 'size': len, cards: cards};
+            case 2:
+                if (this.is_double_card(cards))
+                    return { "card_kind": CardsValue.double.name, "id": cards[0].id, 'size': len, cards: cards };
+                else if (this.is_king_boom(cards))
+                    return { "card_kind": CardsValue.king_boom.name, "id": cards[0].id, 'size': len, cards: cards };
+                else
+                    return null;
+            case 3:
+                if (this.is_three(cards))
+                    return { "card_kind": CardsValue.three.name, "id": cards[0].id, 'size': len, cards: cards };
+                else
+                    return null;
+            case 4:
+                if (this.is_three_with_one(cards)) {
+                    return { "card_kind": CardsValue.three_with_one.name, "id": this.get_max_id(cards, 3), 'size': len, cards: cards };
+                } else if (this.is_boom(cards)) {
+                    return { "card_kind": CardsValue.boom.name, "id": cards[0].id, 'size': len , cards: cards};
+                }
+                return null;
+            default:
+                if (this.is_progression(cards))
+                    return { "card_kind": CardsValue.progression.name, "id": cards[0].id, 'size': len , cards: cards};
+                else if (this.is_progression_pairs(cards))
+                    return { "card_kind": CardsValue.progression_pair.name, "id": cards[0].id, 'size': len, cards: cards };
+                else if (this.is_three_with_two(cards))
+                    return { "card_kind": CardsValue.three_withe_two.name, "id": this.get_max_id(cards, 3), 'size': len , cards: cards};
+                else if (this.is_plan(cards))
+                    return { "card_kind": CardsValue.plane.name, "id": this.get_max_id(cards, 3), 'size': len , cards: cards};
+                else if (this.is_plan_with_two_single(cards))
+                    return { "card_kind": CardsValue.plane_with_one.name, "id": this.get_max_id(cards, 3), 'size': len , cards: cards};
+                else if (this.is_plan_with_two_double(cards))
+                    return { "card_kind": CardsValue.plane_with_two.name, "id": this.get_max_id(cards, 3), 'size': len , cards: cards};
+                else if (this.is_four_with_two(cards))
+                    return { "card_kind": CardsValue.four_with_two.name, "id": this.get_max_id(cards, 4), 'size': len , cards: cards};
+                else if (this.is_four_with_pairs(cards))
+                    return { "card_kind": CardsValue.four_with_tow_pairs.name, "id": this.get_max_id(cards, 4), 'size': len, cards: cards };
+                else
+                    return null;
+
+        }
+
     }
 
     test() {
@@ -1112,13 +1167,13 @@ export class CardRule {
         console.log(plan_with_two_double1, "当前的牌型是飞机带2对 1 ", this.is_plan_with_two_double(plan_with_two_double1));
         console.log(plan_with_two_double2, "当前的牌型是飞机带2对 2 ", this.is_plan_with_two_double(plan_with_two_double2));
 
-        console.log(shunzi1, "当前的牌型是顺子 1 ", this.is_shunzi(shunzi1));
-        console.log(shunzi2, "当前的牌型是顺子 2 ", this.is_shunzi(shunzi2));
+        console.log(shunzi1, "当前的牌型是顺子 1 ", this.is_progression(shunzi1));
+        console.log(shunzi2, "当前的牌型是顺子 2 ", this.is_progression(shunzi2));
 
 
-        console.log(liandui1, "当前的牌型是连对 1 ", this.is_liandui(liandui1));
-        console.log(liandui2, "当前的牌型是连对 2 ", this.is_liandui(liandui2));
-        console.log(liandui3, "当前的牌型是连对 3 ", this.is_liandui(liandui3));
+        console.log(liandui1, "当前的牌型是连对 1 ", this.is_progression_pairs(liandui1));
+        console.log(liandui2, "当前的牌型是连对 2 ", this.is_progression_pairs(liandui2));
+        console.log(liandui3, "当前的牌型是连对 3 ", this.is_progression_pairs(liandui3));
 
 
         console.log(four_with_two1, "当前的牌型是四带2 1 ", this.is_four_with_two(four_with_two1));

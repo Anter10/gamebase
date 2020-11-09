@@ -31,7 +31,7 @@ export class Ai {
     /**@description 排的规则信息 */
     public card_rule: CardRule = new CardRule();
 
-    public clear(){
+    public clear() {
         this._one = [];
         this._pairs = [];
         this._three = [];
@@ -212,6 +212,9 @@ export class Ai {
         }
     };
 
+
+
+
     /**
  * 获取list对应牌型最大
  * @param  {array} list [description]
@@ -241,7 +244,7 @@ export class Ai {
  * @param  {number} v    要大过的值
  * @return
  */
-    min_cards(list, kind, v?: number):SendCardInterface {
+    min_cards(list, kind, v?: number): SendCardInterface {
         v = v ? v : 2;
         if (list.length > 0) {
             for (var i = list.length - 1; i >= 0; i--) {//从小值开始判断
@@ -1215,7 +1218,7 @@ export class Ai {
     * @param  {[array]}         cards 指定的牌
     */
     judge_progression(cards: card_list) {
-        var saveprogression =  (proList) => {
+        var saveprogression = (proList) => {
             var progression = [];
             for (var j = 0; j < proList.length; j++) {
                 progression.push(proList[j].obj);
@@ -1268,10 +1271,10 @@ export class Ai {
         }
     };
 
-     /**
-     * 将顺子与剩下的牌进行拼接，组成更大的顺子
-     * @param {*} cards 
-     */
+    /**
+    * 将顺子与剩下的牌进行拼接，组成更大的顺子
+    * @param {*} cards 
+    */
     join_progression(cards: card_list) {
         var self = this;
         for (var i = 0; i < this._progression.length; i++) {//拼接其他散牌
