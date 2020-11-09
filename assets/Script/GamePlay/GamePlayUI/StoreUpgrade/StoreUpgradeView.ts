@@ -136,7 +136,7 @@ export default class StoreUpgradeView extends BaseUI {
                 this.store_upgrade_data.change_store_level_data(this.click_store_level + 1);
                 this.store_upgrade_data_level = this.store_upgrade_data.get_store_level_data();
                 this.refresh_ui(0, this.click_store_level);
-                const ui_param_interface: UIParamInterface = {
+                const ui_success_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
@@ -144,17 +144,17 @@ export default class StoreUpgradeView extends BaseUI {
                     }
                 }
                 this.post_store_level_to_server(this.store_upgrade_data_level);
-                UIManager.show_ui(ui_param_interface);
+                UIManager.show_ui(ui_success_param_interface);
                 // console.log("解锁成功", this.store_upgrade_data_level);
             } else {
-                const ui_param_interface: UIParamInterface = {
+                const ui_heart_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
                         text: "红心不足，快去营业赚金币吧"
                     }
                 }
-                UIManager.show_ui(ui_param_interface);
+                UIManager.show_ui(ui_heart_param_interface);
                 // console.log("红心不足，快去营业赚金币吧");
             }
         } else {

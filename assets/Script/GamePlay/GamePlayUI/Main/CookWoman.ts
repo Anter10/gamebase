@@ -33,6 +33,12 @@ export default class CookWoman extends BaseNode {
     @property(cc.Node)
     yanwu: cc.Node = null;
 
+    @property(cc.Node)
+    dialogue: cc.Node = null;
+
+    @property(cc.Label)
+    speak_label: cc.Label = null;
+
     /**@description 当前行走的路径 */
     _go_path: Array<ANode> = [];
 
@@ -191,6 +197,8 @@ export default class CookWoman extends BaseNode {
     change_cook_state() {
         if (this.cook_woman_data.cookWomanState == CookWomanState.Cook && Time.get_second_time() - this.cook_woman_data.changeStateTime > (GamePlayConfig.cook_woman_cook_spend / ((100 + this.customer_config.cook_speed_accelerate[this.cook_woman_data.peopleLevel - 1]) / 100))) {
             this.cook_woman_animation.animation = "chaocaiwancheng";
+            this.dialogue.active = true;
+            this.speak_label.string = "做完了";
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.complete_cook_menu, this.cook_woman_config_id);
             this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.CompleteCook });
             this.cook_woman_node.scaleX = 0.35;
@@ -261,6 +269,7 @@ export default class CookWoman extends BaseNode {
 
     set_cook_woman() {
         let seat_number: number;
+        this.dialogue.active = false;
         switch (this.cook_woman_data.cookWomanState) {
             case CookWomanState.Null:
                 this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Stroll });
@@ -270,6 +279,8 @@ export default class CookWoman extends BaseNode {
                 this.walk_simple({ x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] }, { x: GamePlayConfig.cook_woman_stroll_position[0][0], y: GamePlayConfig.cook_woman_stroll_position[0][1] });
                 break;
             case CookWomanState.GetOrder:
+                this.dialogue.active = true;
+                this.speak_label.string = "收到，我马上开始准备";
                 if (this._go_path.length != 0) {
                     this.walk_simple({ x: this._go_path[this._move_index - 1].x, y: this._go_path[this._move_index - 1].y }, { x: GamePlayConfig.cook_woman_get_menu_position[0], y: GamePlayConfig.cook_woman_get_menu_position[1] });
                 } else {

@@ -100,14 +100,14 @@ export default class CookWomanItem extends BaseNode {
             this.people_data.change_cook_woman_level(this.cook_woman_config.id, 1);
             this.fresh_node_label();
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_cook_woman_level);
-            const ui_param_interface: UIParamInterface = {
+            const ui_success_param_interface: UIParamInterface = {
                 ui_config_path: UIConfig.Toast,
                 ui_config_name: "Toast",
                 param: {
                     text: "解锁成功"
                 }
             }
-            UIManager.show_ui(ui_param_interface);
+            UIManager.show_ui(ui_success_param_interface);
             // console.log("解锁成功");
         } else {
             const ui_param_interface: UIParamInterface = {

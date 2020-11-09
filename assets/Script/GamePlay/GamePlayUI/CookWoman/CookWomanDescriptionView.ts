@@ -71,14 +71,14 @@ export default class CookWomanDescriptionView extends BaseUI {
 
     click_upgrade_woman() {
         if (GamePlayConfig.cook_woman_max_level == this.cook_woman_level) {
-            const ui_param_interface: UIParamInterface = {
+            const ui_max_param_interface: UIParamInterface = {
                 ui_config_path: UIConfig.Toast,
                 ui_config_name: "Toast",
                 param: {
                     text: "您已经达到最大等级"
                 }
             }
-            UIManager.show_ui(ui_param_interface);
+            UIManager.show_ui(ui_max_param_interface);
             // console.log("您已经达到最大等级");
         } else {
             const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
@@ -86,14 +86,14 @@ export default class CookWomanDescriptionView extends BaseUI {
                 this.people_data.change_cook_woman_level(this.cook_woman_config.id, this.cook_woman_level + 1);
                 this.refresh_cook_woman_description();
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_cook_woman_level);
-                const ui_param_interface: UIParamInterface = {
+                const ui_success_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
                         text: "解锁成功"
                     }
                 }
-                UIManager.show_ui(ui_param_interface);
+                UIManager.show_ui(ui_success_param_interface);
                 // console.log("解锁成功");
             } else {
                 const ui_param_interface: UIParamInterface = {

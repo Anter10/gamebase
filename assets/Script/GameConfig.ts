@@ -97,7 +97,7 @@ const GameConfig = {
     },
 
     /**@description 是否是debug版本 */
-    get is_debug() : boolean{
+    get is_debug(): boolean {
         return this.pack_type == "debug";
     }
 

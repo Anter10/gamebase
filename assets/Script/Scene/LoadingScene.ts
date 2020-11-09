@@ -6,7 +6,6 @@ import TouchButton from "../Common/TouchButton";
 import { UpdateManagerComponent } from "../Common/UpdateManagerComponent";
 import Utils from "../Common/Utils";
 import GameConfig from "../GameConfig";
-import ServerData from "../GameServerData/ServerData";
 import BI from "../Sdk/BI";
 import { BiInterface, WechatLoginInterface } from "../Sdk/SdkInterface";
 import { SdkModule } from "../Sdk/SdkModule";
@@ -141,7 +140,7 @@ class LoadingScene extends BaseScene {
     /**@description 点击开始游戏的按钮的调用逻辑 */
     start_game_callback() {
         console.log("点击开始游戏的按钮");
-        // SdkModule.test();
+        SdkModule.test();
 
         if (this.user_toggle.isChecked) {
             this.start_game_success_callback();
