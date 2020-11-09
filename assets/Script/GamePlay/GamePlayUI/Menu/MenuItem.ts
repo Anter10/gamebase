@@ -13,6 +13,7 @@ import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import { MenuType } from "../../GamePlayEnum/GamePlayEnum";
+import { AdInterface } from "../Common/Ad/AdView";
 
 const { ccclass, property } = cc._decorator;
 
@@ -81,6 +82,19 @@ export default class MenuItem extends BaseNode {
     }
 
     click_price_button() {
+        let ad_param: AdInterface = {
+            text: "看完广告就可以解锁菜谱了",
+            success_call: () => { this.click_price_button_call() },
+        }
+        const ui_ad_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.AdView,
+            ui_config_name: "AdView",
+            param: ad_param,
+        }
+        UIManager.show_ui(ui_ad_param_interface);
+    }
+
+    click_price_button_call() {
         if (this.menu_config.id == 1) {
             this.unlock_new_menu();
         } else {

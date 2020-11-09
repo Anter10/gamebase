@@ -89,6 +89,7 @@ export default class OfflineView extends BaseUI {
         }
         this.differ_time = differ_time;
         this.offline_config = offline_configs[this.config_id];
+        this.differ_time = differ_time;
         this.refresh_view();
     }
 

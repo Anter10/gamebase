@@ -32,6 +32,7 @@ import { AStar } from "../../AStar/AStar";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
 import { PeopleType } from "../../GamePlayEnum/GamePlayEnum";
 import LinkGameBase from "../../LinkGameBase";
+import { AdInterface } from "../Common/Ad/AdView";
 import StoreIconItem from "../Common/StoreIconItem/StoreIconItem";
 import GameMainDecorationItem from "./GameMainDecorationItem";
 import GameMainTableItem from "./GameMainTableItem";

@@ -1447,7 +1447,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 226.68,
-      "height": 50.4
+      "height": 90.4
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1498,8 +1498,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "离线时间：1小时",
-    "_N$string": "离线时间：1小时",
+    "_string": "离线时间：1小时\n看视频立即领取",
+    "_N$string": "离线时间：1小时\n看视频立即领取",
     "_fontSize": 30,
     "_lineHeight": 40,
     "_enableWrapText": true,

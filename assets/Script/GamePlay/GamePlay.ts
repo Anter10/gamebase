@@ -21,6 +21,7 @@ class GamePlay extends cc.Component {
         LinkGameBase.register_ui_path("StoreUpgradeView", `GamePlay/GamePlayUI/StoreUpgrade/StoreUpgradeView`);
         LinkGameBase.register_ui_path("UnlockMenuView", `GamePlay/GamePlayUI/UnlockMenu/UnlockMenuView`);
         LinkGameBase.register_ui_path("OfflineView", `GamePlay/GamePlayUI/Offline/OfflineView`);
+        LinkGameBase.register_ui_path("AdView", `GamePlay/GamePlayUI/Common/Ad/AdView`);
     }
 
     onLoad() {
