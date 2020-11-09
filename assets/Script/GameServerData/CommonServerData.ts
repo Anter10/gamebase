@@ -64,7 +64,7 @@ class CommonServerData{
 
     /**@description 用户注册 获取accessKey */
     static request_accesskey(callback: Function){
-        let url = "/bp/user/register?appId="+GameConfig.appId+"&pkgId="+GameConfig.pkgId+"&oaid=";
+        let url = "/bp/user/register?appId="+GameConfig.android_init_param.appId+"&pkgId="+GameConfig.android_init_param.pkgId+"&oaid=";
         ServerData.get_instance().get_data(url, callback);
     }
 
