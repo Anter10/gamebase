@@ -1,5 +1,4 @@
 import { gamebase } from "../Boot";
-import Native from "./Native";
 import { AdFuncEnum } from "./SdkEnum";
 import { ImageAdInterface, RewardedAdInterface, ZhikeAdInterface } from "./SdkInterface";
 import { SdkModule } from "./SdkModule";
