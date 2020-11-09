@@ -104,7 +104,7 @@ export class HttpClient {
        
         const request_path = this.serverBaseUrl + request.path;
 
-        console.log("请求地址 = ",request_path);
+        // console.log("请求地址 = ",request_path);
         xhr.open(request.method, request_path , true);
 
         if (request.contentType) {

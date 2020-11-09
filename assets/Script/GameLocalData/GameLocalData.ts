@@ -60,7 +60,7 @@ class GameLocalData {
             }
         }
 
-        console.log("当前玩家的存档数据  =", this._game_data);
+        // console.log("当前玩家的存档数据  =", this._game_data);
 
         this.store_data();
         this.set_local_storeage();

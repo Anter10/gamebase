@@ -217,7 +217,6 @@ export default class CookWoman extends BaseNode {
                         this.order_menu_data.change_have_cook_woman(menu_array[i].menuNumber, this.cook_woman_config_id);
                         this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.GetOrder });
                         this.set_cook_woman();
-                        // console.log("this.cook_woman_config_id", menu_array[i].menuNumber);
                         break;
                     }
                 }
