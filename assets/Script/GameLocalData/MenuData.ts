@@ -21,10 +21,28 @@ class MenuData extends BaseRecord {
     base_name = "MenuData";
 
     private menu_data: Array<MenuInterface> = [{ menuNumber: 1, menuType: MenuType.unlock, menuAdTime: 0 }, { menuNumber: 2, menuType: MenuType.unlock, menuAdTime: 0 }];
+    private menu_unlock_number: number = 0;
+    private refresh_menu_unlock_number_time: number = 0;
 
     constructor() {
         super();
         this.apply_auto_update();
+    }
+
+    set_refresh_menu_unlock_number_time(refresh_menu_unlock_number_time: number) {
+        this.refresh_menu_unlock_number_time = refresh_menu_unlock_number_time;
+    }
+
+    set_menu_unlock_number(menu_unlock_number: number) {
+        this.menu_unlock_number = menu_unlock_number;
+    }
+
+    get_menu_unlock_number() {
+        return this.menu_unlock_number;
+    }
+
+    get_refresh_menu_unlock_number_time() {
+        return this.refresh_menu_unlock_number_time;
     }
 
     get_menu_data_by_id(menu_id: number): MenuInterface {
@@ -58,6 +76,10 @@ class MenuData extends BaseRecord {
             if (this.menu_data[i].menuNumber == menu_id) {
                 if (menu_type) {
                     this.menu_data[i].menuType = menu_type;
+                    if (menu_type == MenuType.unlock) {
+                        this.menu_unlock_number++;
+                        this.set_menu_unlock_number(this.menu_unlock_number);
+                    }
                 }
                 if (menu_ad_time) {
                     this.menu_data[i].menuAdTime = menu_ad_time;

@@ -116,6 +116,7 @@ export default class GameMainView extends BaseUI {
         this.new_player_guide();
         this.fix_people_data_by_time();
         this.fix_play_base_data();
+        this.fix_menu_data();
         this.load_gold_and_heart_item();
         this.load_table_item();
         this.load_decoration_item();
@@ -124,6 +125,15 @@ export default class GameMainView extends BaseUI {
         this.load_order_menu();
         this.show_offline_view();
         this.add_customer();
+    }
+
+    fix_menu_data() {
+        //是否是新的一天
+        const menu_data = GameLocalData.get_instance().get_data<MenuData>(MenuData);
+        if (Time.is_new_day(new Date(menu_data.get_refresh_menu_unlock_number_time()), new Date(Time.get_time()))) {
+            menu_data.set_refresh_menu_unlock_number_time(Time.get_time());
+            menu_data.set_menu_unlock_number(0);
+        }
     }
 
     //新手引导部分

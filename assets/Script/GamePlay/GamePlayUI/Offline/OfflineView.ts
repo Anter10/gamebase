@@ -49,6 +49,12 @@ export default class OfflineView extends BaseUI {
         close_button.register_touch(this.on_close_call.bind(this));
     }
 
+    start() {
+        this.scheduleOnce(() => {
+            this.close_button.active = true;
+        }, 3);
+    }
+
     click_unlock_button_button() {
         const game_base_data: GamePlayBaseData = GameLocalData.get_instance().get_data(GamePlayBaseData);
         game_base_data.change_gold_coin_number(this.offline_config.gold);
