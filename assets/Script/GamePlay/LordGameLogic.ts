@@ -34,7 +34,6 @@ class LordGameLogic{
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.no_send_card, this, this.no_send_card_callback.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.player_send_card, this, this.deal_cards_callback.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.prompt_card, this, this.prompt_callback.bind(this));
-   
     }
     
 

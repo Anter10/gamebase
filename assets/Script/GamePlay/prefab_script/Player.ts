@@ -78,14 +78,11 @@ export default class Player extends cc.Component {
 
     // 给玩家发牌
     deal_cards(cards: Array<LordCardInterface>) {
-        cards = this.test_cards();
+        // cards = this.test_cards();
         this.player_interface.cards = cards;
 
         if (this.car_number_label) {
             this.car_number_label.string = `${this.player_interface.cards.length}`;
-        }
-        if (this.player_interface.peopel_type == PeopleType.real) {
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.flush_player_show_cards, cards);
         }
 
         this.ai.analyse();
@@ -125,28 +122,31 @@ export default class Player extends cc.Component {
             }
             console.log("当前选择的牌型", play_card);
             this.show_cards(play_card.cards);
+            this.delete_cards(cards);
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.delete_card, cards);
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.send_card, send_data);
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.flush_player_show_cards, this.player_interface.cards);
         }
     }
 
-    delete_cards(cards:Array<LordCardInterface>){
+    delete_cards(cards: Array<LordCardInterface>) {
         const player_cards: Array<LordCardInterface> = [];
         let find_it = false;
-        for(const card of this.player_interface.cards){
-            for(const send_card of cards){
-                if(card.id == send_card.id && send_card.card_type == card.card_type){
+        for (const card of this.player_interface.cards) {
+            for (const send_card of cards) {
+                if (card.id == send_card.id && send_card.card_type == card.card_type) {
                     find_it = true;
-                   break;
+                    break;
                 }
             }
-            if(!find_it){
+            if (!find_it) {
                 player_cards.push(card);
             }
         }
 
         console.log("删除后剩余的牌的数据  = ", player_cards);
         this.player_interface.cards = player_cards;
-        
+        this.deal_cards(player_cards);
     }
 
     /**@description AI 出牌 */
@@ -159,6 +159,7 @@ export default class Player extends cc.Component {
             lord_people_interface: this.player_interface
         }
 
+        this.delete_cards(play_card.cards);
         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.send_card, send_data);
         return play_card;
     }
@@ -167,7 +168,23 @@ export default class Player extends cc.Component {
         console.log("请下一家跟牌");
         const follow_card = this.ai.follow(send_card_data.send_card, 0, 10);
         console.log("当前跟牌的数据 = ", follow_card);
-
+        if (this.player_interface.position != 0) {
+            if (follow_card) {
+                if (follow_card.card_kind != CardsValue.none) {
+                    const play_card = this.play_card(10);
+                }
+            }else{ 
+                // 说明机器人过牌 或者 打不起
+                if(this.next_player.player_interface.position != 0){
+                    // 继续跟牌
+                }else{
+                    // 提示玩家自己出牌
+                    
+                }
+            }
+        }else{
+            console.log("自己不走跟牌逻辑");
+        }
     }
 
     show_cards(cards: Array<LordCardInterface>) {

@@ -44,7 +44,8 @@ class LinkGameBase {
       player_send_card: "player_send_card",
       /**@description 提示玩家的牌*/
       prompt_card: "prompt_card",
-
+      /**@description 删除牌 */
+      delete_card: "delete_card",
    }
 
    /**

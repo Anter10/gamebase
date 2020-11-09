@@ -157,6 +157,9 @@ class GamePlay extends cc.Component {
         this.deal_cards = deal_cards;
         for(let pos = 0; pos < this._players.length; pos ++){
             const cards_data = this.deal_cards.every_pos_cards[pos];
+            if(pos == 0){
+               this.player_card_board.init_cards(cards_data);
+            }
             this._players[pos].deal_cards(cards_data);
         }
 
