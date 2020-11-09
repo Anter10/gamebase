@@ -21,6 +21,8 @@ export enum LordGameState{
 
 /**@description 游戏牌的类型 */
 export enum LordSendCardType{
+    /**@description 没有牌型 */
+    none = "none",
     /**@description 单只 */
     one = "one",
     /**@description 对子 */
@@ -28,7 +30,7 @@ export enum LordSendCardType{
     /**@description 三张 */
     three = "three",
     /**@description 炸弹 */
-    boom = "boome",
+    boom = "boom",
     /**@description 三带一 */
     three_with_one = "three_with_one",
     /**@description 三带二*/
@@ -42,7 +44,7 @@ export enum LordSendCardType{
     /**@description 四带二 */
     four_with_two = "four_with_two",
     /**@description 四带两对 */
-    four_withe_tow_pairs = "four_withe_tow_pairs",
+    four_with_tow_pairs = "four_with_tow_pairs",
     /**@description 顺子 */
     progression = "progression",
     /**@description 连对 */

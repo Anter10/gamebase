@@ -5,7 +5,7 @@ import GamePlay from "../GamePlay";
 import { LordCardType, PeopleIdentityType, PeopleType } from "../GamePlayEnum";
 import { LordCardInterface, LordPeopleInterface, LordSendCardInterface, SendCardInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
-import { CardValueType, card_list, LordUtils } from "../LordUtils";
+import { CardsValue, CardValueType, card_list, LordUtils } from "../LordUtils";
 import { Ai } from "./Ai";
 import LordCard from "./LordCard";
 
@@ -110,12 +110,26 @@ export default class Player extends cc.Component {
         this.show_call_or_no_call_lord_message();
     }
 
+    /**@description 玩家出牌 */
     deal_select_cards(cards: Array<LordCardInterface>){
         const card_value: CardValueType = this.ai.card_rule.card_value(cards);
         console.log("当前选中的牌型是 ", card_value);
+        if(card_value.name == CardsValue.none.name){
+           
+        }else{
+            const play_card: SendCardInterface = {
+                cards: cards,
+                size: cards.length,
+                id:cards[0].id,
+                card_kind: card_value.name,
+            }
+
+            this.show_cards(play_card.cards);
+            
+        }
     }
 
-    /**@description 出牌 */
+    /**@description AI 出牌 */
     play_card(lord_card_number: number): SendCardInterface{
        const play_card: SendCardInterface = this.ai.play(lord_card_number);
        this.show_cards(play_card.cards);

@@ -575,7 +575,7 @@ export class Ai {
                     }
                 case LordSendCardType.four_with_two:
                     return this.min_cards(this._boom, LordSendCardType.boom, winc.id);
-                case LordSendCardType.four_withe_tow_pairs:
+                case LordSendCardType.four_with_tow_pairs:
                     return this.min_cards(this._boom, LordSendCardType.boom, winc.id);
                 case LordSendCardType.king_boom:
                     return null;
@@ -1050,7 +1050,7 @@ export class Ai {
                 case LordSendCardType.four_with_two:
                     promptList = setPrompt(4, winc.id, stat);
                     break;
-                case LordSendCardType.four_withe_tow_pairs:
+                case LordSendCardType.four_with_tow_pairs:
                     promptList = setPrompt(4, winc.id, stat);
                     break;
                 case LordSendCardType.boom:

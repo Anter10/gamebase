@@ -12,61 +12,62 @@ export const CardsValue = {
         value:-1,
     },
     'one': {
-        name: 'One',
+        name: 'one',
         value: 1
     },
     'double': {
-        name: 'Double',
+        name: 'double',
         value: 1
     },
     'three': {
-        name: 'Three',
+        name: 'three',
         value: 1
     },
     'boom': { //炸弹
-        name: 'Boom',
+        name: 'boom',
         value: 2
     },
-    'threeWithOne': {
-        name: 'ThreeWithOne',
+    'three_with_one': {
+        name: 'three_with_one',
         value: 1
     },
-    'threeWithTwo': {
-        name: 'ThreeWithTwo',
+    'three_withe_two': {
+        name: 'three_withe_two',
         value: 1
     },
     'plane': {
-        name: 'Plane',
+        name: 'plane',
         value: 1
     },
-    'planeWithOne': {
-        name: 'PlaneWithOne',
+    'plane_with_one': {
+        name: 'plane_with_one',
         value: 1
     },
-    'planeWithTwo': {
-        name: 'PlaneWithTwo',
+    'plane_with_two': {
+        name: 'plane_with_two',
         value: 1
     },
-    'scroll': { //顺子
-        name: 'Scroll',
+    'four_with_two': { //四带二
+        name: 'four_with_two',
         value: 1
     },
-    'doubleScroll': {  //连队
-        name: 'DoubleScroll',
+    'four_with_tow_pairs': { //四带两队
+        name: 'four_with_tow_pairs',
         value: 1
     },
-    'kingboom': { //王炸
-        name: 'kingboom',
+    'progression': { //顺子
+        name: 'progression',
+        value: 1
+    },
+    'progression_pair': {  //连队
+        name: 'progression_pair',
+        value: 1
+    },
+    'king_boom': { //王炸
+        name: 'king_boom',
         value: 3
     },
-    'fourwithtwo': { //四带二
-        name: 'fourwithtwo',
-        value: 1
-    },
-    'fourwithtwopairs': { //四带两队
-        name: 'fourwithtwopairs',
-        value: 1
-    },
+   
 }
 
 

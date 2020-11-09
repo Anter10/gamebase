@@ -744,12 +744,12 @@ export class CardRule {
 
         if (this.is_three_with_one(cardList)) {
             console.log("IsThreeAndOne sucess")
-            return CardsValue.threeWithOne
+            return CardsValue.three_with_one
         }
 
         if (this.is_three_with_two(cardList)) {
             console.log("IsThreeAndTwo sucess")
-            return CardsValue.threeWithTwo
+            return CardsValue.three_withe_two
         }
 
         if (this.is_boom(cardList)) {
@@ -759,7 +759,7 @@ export class CardRule {
 
         if (this.is_king_boom(cardList)) {
             console.log("IsKingBoom sucess")
-            return CardsValue.kingboom
+            return CardsValue.king_boom
         }
 
         if (this.is_plan(cardList)) {
@@ -769,30 +769,30 @@ export class CardRule {
 
         if (this.is_plan_with_two_single(cardList)) {
             console.log("IsPlanWithSing sucess")
-            return CardsValue.planeWithOne
+            return CardsValue.plane_with_one
         }
 
         if (this.is_plan_with_two_double(cardList)) {
             console.log("IsPlanWithDouble sucess")
-            return CardsValue.planeWithTwo
+            return CardsValue.plane_with_two
         }
 
         if (this.is_shunzi(cardList)) {
             console.log("IsShunzi sucess")
-            return CardsValue.scroll
+            return CardsValue.progression
         }
 
         if (this.is_liandui(cardList)) {
             console.log("IsLianDui sucess")
-            return CardsValue.doubleScroll
+            return CardsValue.progression_pair
         }
         if(this.is_four_with_two(cardList)){
             console.log("is_four_with_two")
-            return CardsValue.fourwithtwo
+            return CardsValue.four_with_two
         }
         if(this.is_four_with_pairs(cardList)){
             console.log("is_four_with_pairs")
-            return CardsValue.fourwithtwopairs
+            return CardsValue.four_with_tow_pairs
         }
         //return false
         return CardsValue.none;
@@ -816,35 +816,35 @@ export class CardRule {
             case CardsValue.boom.name:
                 result = this.compare_boom(cardA, cardB)
                 break
-            case CardsValue.kingboom.name:
+            case CardsValue.king_boom.name:
                 result = this.compare_boom_king(cardA, cardB)
                 break
-            case CardsValue.planeWithOne.name:
+            case CardsValue.plane_with_one.name:
                 result = this.compare_plan_with_one(cardA, cardB)
                 break
-            case CardsValue.planeWithTwo.name:
+            case CardsValue.plane_with_two.name:
                 result = this.compare_three_with_two(cardA, cardB)
                 break
             case CardsValue.plane.name:
                 result = this.compare_plan(cardA, cardB)
                 break
-            case CardsValue.planeWithOne.name:
+            case CardsValue.plane_with_one.name:
                 result = this.compare_plan_with_one(cardA, cardB)
                 break
-            case CardsValue.planeWithTwo.name:
+            case CardsValue.plane_with_two.name:
                 result = this.compare_plan_with_double(cardA, cardB)
                 break
-            case CardsValue.scroll.name:
+            case CardsValue.progression.name:
                 result = this.compare_scroll(cardA, cardB)
                 break
-            case CardsValue.doubleScroll.name:
+            case CardsValue.progression_pair.name:
                 result = this.compare_double_scroll(cardA, cardB)
                 break
-            case CardsValue.fourwithtwo.name:
+            case CardsValue.four_with_two.name:
                 result = this.compare_four_with_two(cardA, cardB)
                 break
 
-            case CardsValue.fourwithtwopairs.name:
+            case CardsValue.four_with_tow_pairs.name:
                 result = this.compare_four_with_two_pairs(cardA, cardB)
                 break
             default:
