@@ -23,7 +23,7 @@ class UIManager {
                         this.all_ui[ui_param_interface.ui_config_name] = ui_script;
                         this.ui_is_loading[ui_param_interface.ui_config_name] = false;
                         const keys = Object.keys(this.all_ui);
-                        cc.director.getScene().addChild(ui, this.max_zindex());
+                        cc.director.getScene().addChild(ui, this.max_zindex() + 1);
                         ui_param_interface.complete_callback && ui_param_interface.complete_callback(ui_script);
                         ui_script.onAddFinished();
                     } else {
@@ -37,7 +37,7 @@ class UIManager {
                 this.all_ui[ui_param_interface.ui_config_name].controller = ui_param_interface.controller;
                 this.ui_is_loading[ui_param_interface.ui_config_name] = false;
                 const keys = Object.keys(this.all_ui);
-                this.all_ui[ui_param_interface.ui_config_name].node.zIndex = this.max_zindex();
+                this.all_ui[ui_param_interface.ui_config_name].node.zIndex = this.max_zindex() + 1;
               
                 ui_param_interface.complete_callback && ui_param_interface.complete_callback(this.all_ui[ui_param_interface.ui_config_name]);
                 this.all_ui[ui_param_interface.ui_config_name].onAddFinished();
