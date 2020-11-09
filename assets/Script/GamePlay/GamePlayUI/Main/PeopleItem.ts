@@ -45,6 +45,17 @@ export default class PeopleItem extends BaseNode {
     start() {
         this.people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
         this.people_config = GameDataConfig.get_config_by_id("PeopleConfig", 1);
+        this.set_god();
+    }
+
+    set_god() {
+        const menu_data: MenuData = GameLocalData.get_instance().get_data(MenuData);
+        const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", menu_data.get_unlock_number() + 1);
+        if (menu_config) {
+            this.node.active = true;
+        } else {
+            this.node.active = false;
+        }
     }
 
     update(dt) {
@@ -60,6 +71,7 @@ export default class PeopleItem extends BaseNode {
                     this.people_data.set_people_move_start_time(this.people_config.id, cur_time - time_difference);
                 }
                 if (time_difference < GamePlayConfig.kitchen_god_active_time) {
+                    this.set_god();
                     if (time_difference < GamePlayConfig.kitchen_god_active_time / 2) {
                         this.node.y = -30 * (time_difference / 1000) + 800;
                     } else {
@@ -68,7 +80,6 @@ export default class PeopleItem extends BaseNode {
                 } else {
                     this.node.y = 1000;
                 }
-
                 break;
         }
     }

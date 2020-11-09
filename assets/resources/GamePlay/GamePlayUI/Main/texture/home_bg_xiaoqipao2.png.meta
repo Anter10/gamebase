@@ -1,6 +1,6 @@
 {
   "ver": "2.3.5",
-  "uuid": "4b1501c8-b6f5-48d9-8385-30ea0e7bf9ab",
+  "uuid": "48fd62c5-5885-40e8-8220-be49cf76ffbd",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -11,10 +11,10 @@
   "height": 52,
   "platformSettings": {},
   "subMetas": {
-    "home_bg_xiaoqipao": {
+    "home_bg_xiaoqipao2": {
       "ver": "1.0.4",
-      "uuid": "86264b9f-b2f1-4e99-9736-6241c7e9d0f4",
-      "rawTextureUuid": "4b1501c8-b6f5-48d9-8385-30ea0e7bf9ab",
+      "uuid": "ff25d48d-09db-410e-bae5-c72eb473cf20",
+      "rawTextureUuid": "48fd62c5-5885-40e8-8220-be49cf76ffbd",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
