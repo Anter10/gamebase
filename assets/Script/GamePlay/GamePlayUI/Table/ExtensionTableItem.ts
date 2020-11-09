@@ -99,35 +99,35 @@ export default class ExtensionTableItem extends BaseNode {
                 this.table_data.change_table_level_data(this.mark_number, this.level_number);
                 this.set_table_sprite();
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_table);
-                const ui_param_interface: UIParamInterface = {
+                const ui_success_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
                         text: "解锁成功"
                     }
                 }
-                UIManager.show_ui(ui_param_interface);
+                UIManager.show_ui(ui_success_param_interface);
                 // console.log("解锁成功");
             } else {
-                const ui_param_interface: UIParamInterface = {
+                const ui_gold_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
                         text: "金币不足，快去营业赚金币吧"
                     }
                 }
-                UIManager.show_ui(ui_param_interface);
+                UIManager.show_ui(ui_gold_param_interface);
                 // console.log("金币不足，快去营业赚金币吧");
             }
         } else {
-            const ui_param_interface: UIParamInterface = {
+            const ui_unlock_param_interface: UIParamInterface = {
                 ui_config_path: UIConfig.Toast,
                 ui_config_name: "Toast",
                 param: {
                     text: "请先解锁前面的桌子"
                 }
             }
-            UIManager.show_ui(ui_param_interface);
+            UIManager.show_ui(ui_unlock_param_interface);
             // console.log("请先解锁前面的桌子");
         }
     }
