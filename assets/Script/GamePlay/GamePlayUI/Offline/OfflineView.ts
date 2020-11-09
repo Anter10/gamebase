@@ -33,6 +33,7 @@ export default class OfflineView extends BaseUI {
 
     offline_config: OfflineConfig = null;
     config_id: number = 0;
+    differ_time: number = 0;
 
     onLoad() {
         //点击领取
@@ -67,6 +68,7 @@ export default class OfflineView extends BaseUI {
         } else {
             this.config_id = 3;
         }
+        this.differ_time = differ_time;
         this.offline_config = offline_configs[this.config_id];
         this.refresh_view();
     }
@@ -81,7 +83,7 @@ export default class OfflineView extends BaseUI {
         offline_data.set_offline_data(Time.get_second_time());
         this.gold_label.string = this.offline_config.gold + "";
         this.heart_label.string = this.offline_config.heart + "";
-        this.offline_time_label.string = `离线时间：${this.config_id + 1}小时`;
+        this.offline_time_label.string = `离线时间：${Math.floor(this.differ_time / 3600)}小时`;
     }
 
 }
