@@ -7,8 +7,6 @@ const GameConfig = {
     appVersion: "1.0",
     /**@description 游戏的平台名称 */
     os: "android",
-    /**@description  apiType:0 测试环境的地址  1：正式环境地址  */
-    apiType: 0,
     /**@description 产品名称 */
     productName: "g3_zlzdd",
     /**@description 游戏包的名 */
@@ -24,8 +22,6 @@ const GameConfig = {
     // debug-version .// release-version
     timeId: 20201028,
     // preddefine
-    versionCode: "",
-    versionName: "",
     /**@description 当前游戏所在的分支 */
     branch: "Restaurant",
     // 用户协议的网页链接
@@ -94,7 +90,7 @@ const GameConfig = {
     /**@description 服务器的地址 地址规则 前面加上斜杠( / ) 后面不加斜杠( / ) */
     get serverUrl() {
         var serverUrl = "https://bp-api.coohua.com";
-        if (GameConfig.is_debug) {
+        if (GameConfig.android_init_param.apiType == 0) {
             serverUrl = "https://bp-api.coohua.top";
         }
         return serverUrl;
@@ -103,7 +99,7 @@ const GameConfig = {
     /**@description 是否是debug版本 */
     get is_debug() : boolean{
         return this.pack_type == "debug";
-    },
+    }
 
 }
 
