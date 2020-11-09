@@ -293,8 +293,8 @@ export default class StoreUpgradeView extends BaseUI {
             store_icon_item.getComponent(StoreIconItem).select_store_item();
             store_icon_item.parent = this.cur_store_sprite;
         });
-        for (let i = 0; i < this.store_upgrade_configs.length; i++) {
-            Loader.load_prefab("/GamePlay/GamePlayUI/Common/StoreIconItem/StoreIconItem", (prefab: cc.Prefab) => {
+        Loader.load_prefab("/GamePlay/GamePlayUI/Common/StoreIconItem/StoreIconItem", (prefab: cc.Prefab) => {
+            for (let i = 0; i < this.store_upgrade_configs.length; i++) {
                 const store_icon_item = cc.instantiate(prefab);
                 let store_icon_item_script = store_icon_item.getComponent(StoreIconItem);
                 store_icon_item_script.set_store_level(i + 1);
@@ -303,8 +303,8 @@ export default class StoreUpgradeView extends BaseUI {
                     store_icon_item_script.click_this_node();
                 }
                 store_icon_item.parent = this.store_array_content;
-            });
-        }
+            }
+        });
     }
 
 }

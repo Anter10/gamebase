@@ -26,22 +26,46 @@ export default class StoreIconItem extends BaseNode {
     private store_level: number = 0;
 
     set_store_level(store_level: number) {
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_store_level, this, this.update_item_array);
         this.store_level = store_level;
+        this.un_refresh_icon();
+        this.update_item_array();
+    }
+
+    update_item_array() {
+        let cur_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData).get_store_level_data();
+        let gray_color = cc.color(100, 100, 100, 255);
+        let full_color = cc.color(255, 255, 255, 255);
+        if (this.store_level <= cur_level) {
+            for (let i = 0; i < this.star_array.childrenCount; i++) {
+                this.star_array.children[i].color = full_color;
+            }
+            this.cur_store_sprite.node.color = full_color;
+            this.store_level_label.node.color = full_color;
+        } else {
+            for (let i = 0; i < this.star_array.childrenCount; i++) {
+                this.star_array.children[i].color = gray_color;
+            }
+            this.cur_store_sprite.node.color = gray_color;
+            this.store_level_label.node.color = gray_color;
+        }
     }
 
     open_refresh_icon() {
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_store_level, this, this.refresh_new_level);
+        this.refresh_new_level();
+    }
+
+    refresh_new_level() {
         this.store_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData).get_store_level_data();
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_store_level, this, this.un_refresh_icon);
+        this.un_refresh_icon();
     }
 
     onDestroy() {
-        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_store_level, this, this.un_refresh_icon);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_store_level, this, this.refresh_new_level);
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.click_store_button, this, this.close_click_bg);
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.select_store_level, this, this.select_store_level);
-    }
-
-    start() {
-        this.un_refresh_icon();
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_store_level, this, this.update_item_array);
     }
 
     select_store_item() {
