@@ -107,6 +107,10 @@ export interface SdkModuleInterface{
     os_ad_fail_callback?:Function;
     /**@description 游戏初始化成功的回调 */
     init_success_callback?:Function;
+    /**@description 成功展示静态图的广告 */
+    show_image_ad_success_callback?:Function;
+    /**@description 展示静态图广告失败 */
+    show_image_ad_fail_callback?:Function;
 }
 
 
@@ -125,4 +129,24 @@ export interface BiInterface{
 export interface GameInitInterface{
     param: any;
     success?: Function;
+}
+
+
+/**@description toast 接口 */
+export interface ToastInterface{
+    text: string;
+}
+
+/**@description 静态图广告的接口 */
+export interface ImageAdInterface{
+    /**@description 宽 */
+    width: number;
+    /**@description 高 */
+    height: number;
+    /**@description 距离顶部的距离 */
+    top: number;
+    /**@description 展示成功 */
+    success?:(res?: any)=>void;
+    /**@description 显示失败的回调 */
+    fail?:(res?: any)=>void;
 }

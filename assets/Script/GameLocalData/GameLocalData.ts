@@ -26,7 +26,6 @@ class GameLocalData {
         return all_store_types;
     }
 
-
     public static all_convert_single_data: Object = {
 
     }

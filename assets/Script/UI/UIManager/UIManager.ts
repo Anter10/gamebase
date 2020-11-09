@@ -37,6 +37,8 @@ class UIManager{
                 this.all_ui[ui_param_interface.ui_config_name].show(ui_param_interface);
                 this.all_ui[ui_param_interface.ui_config_name].controller = ui_param_interface.controller;
                 this.ui_is_loading[ui_param_interface.ui_config_name] = false;
+                const keys = Object.keys(this.all_ui);
+                this.all_ui[ui_param_interface.ui_config_name].node.zIndex = cc.macro.MAX_ZINDEX - 1000 + keys.length;
                 ui_param_interface.complete_callback && ui_param_interface.complete_callback(this.all_ui[ui_param_interface.ui_config_name]);
                 this.all_ui[ui_param_interface.ui_config_name].onAddFinished(); 
             }
