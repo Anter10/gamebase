@@ -207,7 +207,7 @@ export module SdkModule {
 
     /**@description 设置accesssKey */
     export function set_access_key(access_key) {
-        GameConfig.accessKey = access_key;
+        GameConfig.android_init_success_param.accessKey = access_key;
     }
 
     /**@description 渲染静态图广告 */
