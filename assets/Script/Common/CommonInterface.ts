@@ -107,6 +107,8 @@ interface NagivatorInterface{
      widget_left?: number;
      /**@description 显示导航栏的底部 */
      show_nagivator_bottom?: boolean;
+     /**@description 邀请好友数量 */
+     invite_friend_num?: number;
 }
 
 

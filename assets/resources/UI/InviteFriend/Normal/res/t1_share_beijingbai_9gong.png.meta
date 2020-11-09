@@ -1,6 +1,6 @@
 {
   "ver": "2.3.5",
-  "uuid": "6de7f8f7-41d6-4c4e-b40c-308a62c9ea1d",
+  "uuid": "80d026c3-9f5d-4ad1-ba94-5f7948ec98d9",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -11,10 +11,10 @@
   "height": 81,
   "platformSettings": {},
   "subMetas": {
-    "toast_bottom": {
+    "t1_share_beijingbai_9gong": {
       "ver": "1.0.4",
-      "uuid": "b37a4f69-7146-4660-bc10-6211115c347c",
-      "rawTextureUuid": "6de7f8f7-41d6-4c4e-b40c-308a62c9ea1d",
+      "uuid": "e1cb32b5-7005-498e-828d-48b06c5ae8ed",
+      "rawTextureUuid": "80d026c3-9f5d-4ad1-ba94-5f7948ec98d9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

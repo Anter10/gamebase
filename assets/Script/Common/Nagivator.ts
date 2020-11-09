@@ -14,8 +14,8 @@ export default class Nagivator extends BaseNode {
     nagivator_bottom: cc.Sprite = null;
     @property(cc.Sprite)
     nagivator_back_bottom: cc.Sprite = null;
-    @property(cc.Sprite)
-    nagivator_back_button: cc.Sprite = null;
+    @property(cc.Node)
+    nagivator_back_button: cc.Node = null;
 
     @property(cc.Node)
     action_container: cc.Node = null;
@@ -24,6 +24,9 @@ export default class Nagivator extends BaseNode {
 
     @property(cc.Label)
     title_label: cc.Label = null;
+
+    @property(cc.Node)
+    node_invite: cc.Node = null;
     
     public nagivator_interface: NagivatorInterface = null;
 
@@ -31,9 +34,9 @@ export default class Nagivator extends BaseNode {
     
 
     public nagivator_ui_interface: NagivatorUIInterface = {
-        nagivator_bottom:"nagivator_bottom",
+        nagivator_bottom: null,
         nagivator_back_bottom:"nagivator_back_bottom", 
-        nagivator_back_button: "nagivator_back_button",
+        nagivator_back_button: null,
     }
 
     onLoad(){
@@ -78,6 +81,10 @@ export default class Nagivator extends BaseNode {
         touch_button.register_touch(this.nagivator_interface.back_callback);
         this.set_nagivator_back_bottom_left_widget(this.nagivator_interface.widget_left);
         this.nagivator_bottom.node.active = this.nagivator_interface.show_nagivator_bottom;
+        if (this.nagivator_interface.invite_friend_num >= 0) {
+            this.node_invite.active = true;
+            this.node_invite.getChildByName(`label_friend_num`).getComponent(cc.Label).string = `好友数：${this.nagivator_interface.invite_friend_num}`;
+        }
     }
 
     set_title(title: string){

@@ -22,7 +22,7 @@ class InviteFriendView extends BaseUI {
     onAddFinished(){
         super.onAddFinished();
         this.controller.view = this;
-        this.controller.update_view();
+        // this.controller.update_view();
     }
 
     start () {

@@ -33,25 +33,18 @@ class InviteFriendViewController extends Controller{
                  const normal_invite_friend_view = cc.instantiate(prefab);
                  normal_invite_friend_view.parent = this.view.node;
                  this.normal_invite_friend_view = normal_invite_friend_view.getComponent(NormalInviteFriendView);
+                 this.get_invite_data();
             });
         }else{
             console.log("当前")
         }
     }
 
-    update_view(){
+    get_invite_data (){
         CommonServerData.get_invite_friends((share_interface: ShareInterface)=>{
             if(share_interface){
                 this.share_interface = share_interface;
-                if(share_interface.stages){
-                    if(this.view.ui_param_interface.router.path == InviteFriendPath.normal){
-                        this.normal_invite_friend_view.update_view(share_interface.stages);
-                    }else{
-                        console.log("当前页面显示失败")
-                    }
-                }else{
-                    console.log("没有获得分享数据");
-                }
+                this.normal_invite_friend_view.update_view(share_interface);
             }else{
                 console.log("功能没有开启");
             }
