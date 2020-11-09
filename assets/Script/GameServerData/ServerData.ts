@@ -12,7 +12,6 @@ class ServerData {
     /**@description 服务器端的请求头信息 */
     private _headers: HttpHeaderInterface = null;
     /**@description 初始化SDK的时候的配置信息 */
-    private _sdk_config: { [key: string]: any } = {};
 
     public static get_instance(): ServerData {
         if (!this.game_server_data_instance) {
@@ -31,7 +30,6 @@ class ServerData {
 
     init() {
         this.init_headers();
-        this.init_sdk_config();
     }
 
 
@@ -69,27 +67,6 @@ class ServerData {
 
         console.log("=新=gameExamine=", GameConfig.gameExamine);
         console.log("=新=_headers=", JSON.stringify(this._headers));
-    }
-
-    init_sdk_config() {
-        this._sdk_config = {
-            accessKey: this.headers.accessKey,
-            userId: this.headers.accessKey ? this.headers.accessKey.split("_")[1] : "",
-            appVersion: this.headers.appVersion,
-            appName: GameConfig.productName, // app名称
-            gps: this.headers.gps, // 经纬度
-            env: GameConfig.branch,
-            deviceId: this.headers.deviceId, // 设备号
-            bundle: GameConfig.packageName, // 包名
-            channelId: this.headers.channel, // 渠道
-            brand: this.headers.brand, // 厂商
-            romVersion: this.headers.romVersion, // sdk版本号
-            osVersion: this.headers.osVersion, // 系统版本号
-            appId: this.headers.appId, // app的id
-            posId: GameConfig.post_id,
-            pkgId: this.headers.pkgId,
-            remoteName: GameConfig.remoteName
-        }
     }
 
     /**@description 发送post 请求获得 */
@@ -139,45 +116,7 @@ class ServerData {
             }
         });
     }
-
-
-    //中台商业化 *（直客广告数据）
-    initBusinessSdk(callback: Function) {
-
-        const BusinessSDK = gamebase.BusinessSDK;
-
-        console.log("=直客广告数据==", typeof BusinessSDK)
-
-        if (typeof BusinessSDK == "undefined")
-            return;
-
-        BusinessSDK.initWebSDK(this._sdk_config, () => {
-            BusinessSDK.task.getTaskList(0, (res) => {
-                console.log("=直客广告数据=getTaskList=", JSON.stringify(res))
-                var taskArr = [];
-                //var showArr = [];
-                if (res.result && res.result.read60Cache && res.result.read60Cache.adCaches) {
-                    taskArr = res.result.read60Cache.adCaches;
-                } else {
-                    taskArr = [];
-                }
-                if (taskArr.length <= 0)
-                    return;
-                for (var key in taskArr) {
-                    taskArr[key].creditName = res.result.read60Cache.creditName;
-                }
-                callback && callback(taskArr);
-            }, (error) => {
-                //util.webClick('首页高额任务', JSON.stringify(error));
-                //cb && cb()
-            })
-        }
-        );
-
-        //点击直客广告时调用
-        //BusinessSDK.task.taskClick(taskArr[i])
-    }
-
+ 
     //用户注册 获取accessKey
     requestServerDataRegister() {
         let url = "/bp/user/register?appId=" + GameConfig.android_init_param.appId + "&pkgId=" + GameConfig.android_init_param.pkgId + "&oaid=" + GameConfig.android_init_success_param.oaid;
