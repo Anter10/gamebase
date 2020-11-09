@@ -232,7 +232,7 @@ export class UpdateManagerComponent extends BaseNode {
         var _this = this;
         /**@description 服务器端的本地版本信息 */
         var branch_path = "https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/" + GameConfig.s_channel + "/" + GameConfig.pack_type + "/" + GameConfig.branch;
-        var native_manifest = branch_path + ("/" + GameConfig.version + "/project.manifest");
+        var native_manifest = branch_path + ("/local_manifest/" + GameConfig.version + "/project.manifest");
         var remote_manifest = branch_path + "/project.manifest";
         Loader.request_remote_assets(native_manifest, (assets) => {
             console.log("本地远程资源的信息 ", assets._nativeAsset);
