@@ -151,6 +151,20 @@ export interface ImageAdInterface{
     fail?:(res?: any)=>void;
 }
 
+/**@description 静态图广告的接口 */
+export interface WindowImageAdInterface{
+    /**@description 宽 */
+    width: number;
+    /**@description 高 */
+    height: number;
+    /**@description 距离顶部的距离 */
+    bottom: number;
+    /**@description 展示成功 */
+    success?:(res?: any)=>void;
+    /**@description 显示失败的回调 */
+    fail?:(res?: any)=>void;
+}
+
 
 /**@description 微信登陆成功后的接口数据 */
 export interface WechatLoginSuccessInterface{
