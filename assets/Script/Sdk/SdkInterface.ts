@@ -13,7 +13,7 @@ export interface UserWeChatInterface{
 /**@description 观看激励视频广告的接口 */
 export interface RewardedAdInterface{
      /**@description 观看激励视频广告的ID */
-     ad_id: string;
+     ad_id: number;
      /**@description 观看激励视频成功的回调 */
      success: (res: any) => void;  
      /**@description 观看激励视频失败的成功回调*/
