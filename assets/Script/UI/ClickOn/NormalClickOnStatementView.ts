@@ -29,7 +29,7 @@ class NormalClickOnStatementView extends BaseUI {
 
     start() {
         super.start();
-        this.web_view.url = GameConfig.user_privacy_url;
+        this.web_view.url = GameConfig.click_on_statement_url;
     }
 
 }
