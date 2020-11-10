@@ -7,6 +7,7 @@ import { UpdateManagerComponent } from "../Common/UpdateManagerComponent";
 import Utils from "../Common/Utils";
 import GameConfig from "../GameConfig";
 import BI from "../Sdk/BI";
+import { NativeSDKTool } from "../Sdk/NativeSDKTool";
 import { BiInterface, WechatLoginInterface } from "../Sdk/SdkInterface";
 import { SdkModule } from "../Sdk/SdkModule";
 import UIConfig from "../UI/UIManager/UIConfig";
@@ -171,7 +172,7 @@ class LoadingScene extends BaseScene {
                 }
             }
 
-            SdkModule.wechat_login(login_interface);
+            NativeSDKTool.wechat_login(login_interface);
         } else {
             this.checking_update();
         }

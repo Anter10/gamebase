@@ -3,6 +3,7 @@ import GameDataConfig from "./GameDataConfig/GameDataConfig";
 import GameLocalData from "./GameLocalData/GameLocalData";
 import CommonServerData from "./GameServerData/CommonServerData";
 import ServerData from "./GameServerData/ServerData";
+import { NativeSDKTool } from "./Sdk/NativeSDKTool";
 import { SdkModule } from "./Sdk/SdkModule";
 import UIConfig from "./UI/UIManager/UIConfig";
 import UIManager from "./UI/UIManager/UIManager";
@@ -27,6 +28,7 @@ class Boot{
         GameLocalData.get_instance().init();
         ServerData.get_instance().init();
         GameDataConfig.init();
+        NativeSDKTool.init();
     }
 
     static os_init(){

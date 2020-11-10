@@ -150,3 +150,32 @@ export interface ImageAdInterface{
     /**@description 显示失败的回调 */
     fail?:(res?: any)=>void;
 }
+
+
+/**@description 微信登陆成功后的接口数据 */
+export interface WechatLoginSuccessInterface{
+    /**@description 用户的access_key */
+    access_key?: string,
+    /**@description 用户的ID  */
+    user_id?: string,
+    /**@description 设备ID */
+    device_id?: string,
+    /**@description rom 版本 */
+    romVersion?:string,
+    /**@description gps 信息 */
+    gps?: string,
+    /**@description mac 地址 */
+    mac?: string;
+    /**@description brand */
+    brand?:string;
+    /**@description oaid */
+    oaid?:string;
+    /**@description 渠道 */
+    channel?: string;
+    /**@description app的版本号 */
+    appVersion?: string;
+    /**@description */ 
+    nick_name?: string;
+    /**@description 头像 */
+    icon?:string;
+}
