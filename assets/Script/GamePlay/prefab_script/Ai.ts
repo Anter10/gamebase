@@ -713,6 +713,7 @@ export class Ai {
         const cards = this._ai_player.player_interface.cards;
         var cardsWithMin = (idx) => {
             var minCard = cards[idx];
+            console.log("minCard ",minCard);
             //在单根里找
             for (var i = 0; i < this._one.length; i++) {
                 if (this._one[i].id === minCard.id) {

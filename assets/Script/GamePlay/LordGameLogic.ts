@@ -6,7 +6,7 @@ import { LordGameConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import GamePlay from "./GamePlay";
 import { LordCardType, LordDealCardsType, LordGameState, PeopleIdentityType } from "./GamePlayEnum";
-import { CallLordDataInterface, LordCardInterface, LordSendCardInterface, NoSendCardInterface } from "./GamePlayInterface";
+import { CallLordDataInterface, LordCardInterface, LordSendCardInterface, NoSendCardInterface, SendCardInterface } from "./GamePlayInterface";
 import LinkGameBase from "./LinkGameBase";
 import { LordUtils } from "./LordUtils";
 import Player from "./prefab_script/Player";
@@ -24,9 +24,10 @@ class LordGameLogic{
     public prompt_index: number = 0;
     /**@description 当前提示牌型的数据 */
     public prompt_card_array:Array<Array<LordCardInterface>> = [];
-    
-    
     public current_send_card_data: LordSendCardInterface = null;
+
+    /**@description 当前出牌的人 */
+    private _cur_player: Player = null;
 
 
     constructor(){
@@ -188,15 +189,37 @@ class LordGameLogic{
     }
 
 
+    /**@description 出牌的逻辑 */
+    play_card(){
+        const cur_lord_player = this.game_play.current_lord_player();
+        const lord_card_number = cur_lord_player.cards_number;
+        const play_card: SendCardInterface = this._cur_player.ai.play(lord_card_number);
+        this._cur_player.show_cards(play_card.cards);
+        const send_data: LordSendCardInterface = {
+            send_card: play_card,
+            lord_people_interface: this._cur_player.player_interface
+        }
+        this._cur_player.delete_cards(play_card.cards);
+    }
+
+    /**@description 当前玩家的下一家跟牌的逻辑 */
+    follow_card(){
+        
+    }
+
+
     /**@description 游戏开始的时候调用 */
     gaming(){
+       console.log("抢完地主后开始游戏");
        this.cur_game_statue = LordGameState.gameing;
        const cur_lord_player = this.game_play.current_lord_player();
+       this._cur_player = cur_lord_player;
+
        if(cur_lord_player.player_interface.position == 0){
           EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
        }else{
           // 如果是机器人的话 机器人开始出牌
-          cur_lord_player.play_card(cur_lord_player.cards_number);
+          this.play_card();
        }
     }
     

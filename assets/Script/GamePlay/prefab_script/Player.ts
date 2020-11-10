@@ -150,18 +150,8 @@ export default class Player extends cc.Component {
     }
 
     /**@description AI 出牌 */
-    play_card(lord_card_number: number): SendCardInterface {
-        const play_card: SendCardInterface = this.ai.play(lord_card_number);
-        this.show_cards(play_card.cards);
-        this.send_card = play_card;
-        const send_data: LordSendCardInterface = {
-            send_card: play_card,
-            lord_people_interface: this.player_interface
-        }
-
-        this.delete_cards(play_card.cards);
-        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.send_card, send_data);
-        return play_card;
+    play_card(cards: Array<LordCardInterface>) {
+        this.show_cards(cards);
     }
 
     follow_card(send_card_data: LordSendCardInterface) {
@@ -176,14 +166,19 @@ export default class Player extends cc.Component {
             }else{ 
                 // 说明机器人过牌 或者 打不起
                 if(this.next_player.player_interface.position != 0){
-                    // 继续跟牌
+                   // 继续跟牌
+                   console.log("机器人跟牌")
+                   this.next_player.follow_card(send_card_data);
                 }else{
-                    // 提示玩家自己出牌
-                    
+                   // 提示玩家自己出牌
+                   console.log("玩家出牌")
+                   EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
                 }
             }
         }else{
             console.log("自己不走跟牌逻辑");
+            // 玩家的下一个机器人提示下一家走
+            this.next_player.follow_card(send_card_data);
         }
     }
 
