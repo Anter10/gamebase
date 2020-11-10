@@ -179,12 +179,12 @@ class LordGameLogic{
            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
         }else{
            // 得到当前位置的下一个位置的player 出牌
-           const player = this.game_play.player_by_position(no_send_card_interface.position);
-           if(player.next_player.player_interface.position == this.current_send_card_data.lord_people_interface.position){
-              player.next_player.play_card(0);
-           }else{
-            //   player.next_player.follow_card();
-           }
+        //    const player = this.game_play.player_by_position(no_send_card_interface.position);
+        //    if(player.next_player.player_interface.position == this.current_send_card_data.lord_people_interface.position){
+        //       player.next_player.play_card(0);
+        //    }else{
+        //     //   player.next_player.follow_card();
+        //    }
         }
     }
 
