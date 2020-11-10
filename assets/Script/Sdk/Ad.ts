@@ -1,4 +1,5 @@
 import { gamebase } from "../Boot";
+import { NativeSDKTool } from "./NativeSDKTool";
 import { AdFuncEnum } from "./SdkEnum";
 import { ImageAdInterface, RewardedAdInterface, ZhikeAdInterface } from "./SdkInterface";
 import { SdkModule } from "./SdkModule";
@@ -50,7 +51,7 @@ class Ad {
     /**@description 播放激励视频广告 */
     static play_video_ad(rewarded_ad_interface: RewardedAdInterface) {
         if (gamebase.jsb) {
-            SdkModule.rewarded_ad(rewarded_ad_interface);
+            NativeSDKTool.showVideoAd(rewarded_ad_interface);
         } else {
             // 非原生端 直接成功回调
             rewarded_ad_interface.success && (rewarded_ad_interface.success({}))
@@ -67,7 +68,18 @@ class Ad {
     }
 
     /**@description 播放二级弹窗的静态广告 */
-    static show_image_ad(image_ad_interface: ImageAdInterface) {
+    static show_static_image_ad(image_ad_interface: ImageAdInterface) {
+        if (gamebase.jsb) {
+            SdkModule.render_image_ad(image_ad_interface);
+        } else {
+            if (image_ad_interface.success) {
+                image_ad_interface.success();
+            }
+        }
+    }
+
+    /**@description 显示弹窗广告 */
+    static show_window_static_ad(){
         if (gamebase.jsb) {
             SdkModule.render_image_ad(image_ad_interface);
         } else {
