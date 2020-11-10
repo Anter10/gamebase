@@ -1,5 +1,5 @@
 // 游戏内部的事件配置信息
-const EventConfig:{[key: string]:string} = {
+const EventConfig = {
       "test":"test",
       /**@description 客户端告诉前端刷新数据 ：目前用于退出直客界面，刷新每日福利数据 */
       "webReload":"webReload",
@@ -9,6 +9,8 @@ const EventConfig:{[key: string]:string} = {
       "webAlertMoney":"webAlertMoney",
       /**@description 展示静态广告，红包上移响应 */
       "webUpMoney":"webUpMoney",
+      /**@description 开屏广告展示完成 */
+      "splash_ad_on":"splash_ad_on",
 }
 
 export default EventConfig;
