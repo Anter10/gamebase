@@ -1,5 +1,5 @@
 import { gamebase } from "../Boot";
-import { UIParamInterface } from "../Common/CommonInterface";
+import { HttpHeaderInterface, UIParamInterface } from "../Common/CommonInterface";
 import GameConfig from "../GameConfig";
 import GameRecord from "../GameLocalData/GameRecord";
 import { HttpClient } from "../NetWork/HttpClient";
@@ -10,9 +10,8 @@ import UIManager from "../UI/UIManager/UIManager";
 class ServerData {
     public static game_server_data_instance: ServerData = null;
     /**@description 服务器端的请求头信息 */
-    private _headers: { [key: string]: string } = {};
+    private _headers: HttpHeaderInterface = null;
     /**@description 初始化SDK的时候的配置信息 */
-    private _sdk_config: { [key: string]: any } = {};
 
     public static get_instance(): ServerData {
         if (!this.game_server_data_instance) {
@@ -21,84 +20,53 @@ class ServerData {
         return this.game_server_data_instance;
     }
 
-    get headers() {
+    get headers(): HttpHeaderInterface {
         return this._headers;
     }
 
-    set headers(_header: { [key: string]: string }) {
+    set headers(_header: HttpHeaderInterface) {
         this._headers = _header;
     }
 
     init() {
         this.init_headers();
-        this.init_sdk_config();
-    }
-
-
-    get_header_key_of_value(key: string) {
-        let dataStr = null;
-        if (gamebase.location && gamebase.location.search) {
-            dataStr = window.location.search;
-        }
-        if (dataStr) {
-            let dataList = dataStr.split("&");
-            for (var i = 0; i < dataList.length; i++) {
-                let str = dataList[i];
-                if (str.indexOf(key) >= 0) {
-                    let sunStr = str.split("=");
-                    return sunStr[1];
-                }
-            }
-            return "default";
-        } else {
-            return GameConfig[key];
-        }
     }
 
 
     init_headers() {
-        this._headers.appId = this.get_header_key_of_value("appId");
-        this._headers.pkgId = this.get_header_key_of_value("pkgId");
-        this._headers.deviceId = this.get_header_key_of_value("deviceId");
-        this._headers.brand = this.get_header_key_of_value("brand");
-        this._headers.gps = this.get_header_key_of_value("gps");
-        this._headers.bs = this.get_header_key_of_value("bs");
-        this._headers.appVersion = this.get_header_key_of_value("appVersion");
-        this._headers.os = this.get_header_key_of_value("os");
-        this._headers.channel = this.get_header_key_of_value("channel");
-        this._headers.romVersion = this.get_header_key_of_value("romVersion");
-        this._headers.osVersion = this.get_header_key_of_value("osVersion");
-        // this._headers.oaid = this.get_header_key_of_value("oaid");
-        this._headers.accessKey = this.get_header_key_of_value("accessKey");
-        // this._headers.apiType = this.get_header_key_of_value("apiType");
-        // TODO !  这里逻辑有点诡异
-        GameConfig.gameExamine = this.get_header_key_of_value("isPass") == "0";
-        GameConfig.apiType = parseInt(this._headers.apiType);
+        this._headers = {
+            /**@description 设备的型号 */
+            brand: GameConfig.android_init_success_param.brand,
+            /**@description 系统的版本 */
+            osVersion: GameConfig.android_init_success_param.osVersion,
+            /**@description rom的版本 */
+            romVersion: GameConfig.android_init_success_param.romVersion,
+            /**@description 应用的版本号 */
+            appVersion: GameConfig.appVersion,
+            /**@description 渠道*/
+            channel: GameConfig.android_init_success_param.channel,
+            /**@description 所处的系统名称 */
+            os: GameConfig.os,
+            /**@descriptions bs */
+            bs: GameConfig.android_init_success_param.bs,
+            /**@description gps信息 */
+            gps: GameConfig.android_init_success_param.gps,
+            /**@description 设备的ID */
+            deviceId: GameConfig.android_init_success_param.deviceId,
+            /**@description accessKey */
+            accessKey: GameConfig.android_init_success_param.accessKey,
+            /**@description 应用的ID */
+            // appId: GameConfig.android_init_param.appId,
+            /**@description */
+            pkgId: GameConfig.android_init_param.pkgId,
+            /**@description 游戏的接口类型 */
+            // apiType: GameConfig.android_init_param.apiType,
+            /**@description oaid */
+            oaid: GameConfig.android_init_success_param.oaid,
+        }
 
         console.log("=新=gameExamine=", GameConfig.gameExamine);
         console.log("=新=_headers=", JSON.stringify(this._headers));
-    }
-
-    init_sdk_config() {
-        this._sdk_config = {
-            accessKey: this.headers.accessKey,
-            userId: this.headers.accessKey ? this.headers.accessKey.split("_")[1] : "",
-            appVersion: this.headers.appVersion,
-            appName: GameConfig.productName, // app名称
-            gps: this.headers.gps, // 经纬度
-            env: GameConfig.branch,
-            deviceId: this.headers.deviceId, // 设备号
-            bundle: GameConfig.packageName, // 包名
-            channelId: this.headers.channel, // 渠道
-            brand: this.headers.brand, // 厂商
-            romVersion: this.headers.romVersion, // sdk版本号
-            osVersion: this.headers.osVersion, // 系统版本号
-            appId: this.headers.appId, // app的id
-            posId: GameConfig.post_id,
-            pkgId: this.headers.pkgId,
-            // pageName: DATA_ARRANGE.clickTargetEnter,//数据布点
-            remoteName: GameConfig.remoteName
-        }
     }
 
     /**@description 发送post 请求获得 */
@@ -118,10 +86,10 @@ class ServerData {
     }
 
     /**@description 发送get 请求获得 */
-    get_data(uri: string, call_back?: Function, error_callback?: Function,data?: any) {
+    get_data(uri: string, call_back?: Function, error_callback?: Function, data?: any) {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
         console.log(data, "当前get设置的请求地址", this.headers);
-        http.get(uri, 5000,JSON.stringify(data), this.headers).then((res: Object) => {
+        http.get(uri, 5000, JSON.stringify(data), this.headers).then((res: Object) => {
             console.log(`get 请求得到的游戏的数据 ${res}`);
             const response = JSON.parse(res as string);
             if (response.code == 0) {
@@ -141,55 +109,17 @@ class ServerData {
         const http = new HttpClient("https://bp-api.coohua.com");
         console.log("当前get设置的请求地址", this.headers);
 
-        http.get(uri, 5000, JSON.stringify( this.headers)).then((res: Object) => {
+        http.get(uri, 5000, JSON.stringify(this.headers)).then((res: Object) => {
             const response = JSON.parse(res as string);
             if (response) {
                 call_back && call_back(response.result);
             }
         });
     }
-
-
-    //中台商业化 *（直客广告数据）
-    initBusinessSdk(callback: Function) {
-
-        const BusinessSDK = gamebase.BusinessSDK;
-
-        console.log("=直客广告数据==", typeof BusinessSDK)
-
-        if (typeof BusinessSDK == "undefined")
-            return;
-
-        BusinessSDK.initWebSDK(this._sdk_config, () => {
-            BusinessSDK.task.getTaskList(0, (res) => {
-                console.log("=直客广告数据=getTaskList=", JSON.stringify(res))
-                var taskArr = [];
-                //var showArr = [];
-                if (res.result && res.result.read60Cache && res.result.read60Cache.adCaches) {
-                    taskArr = res.result.read60Cache.adCaches;
-                } else {
-                    taskArr = [];
-                }
-                if (taskArr.length <= 0)
-                    return;
-                for (var key in taskArr) {
-                    taskArr[key].creditName = res.result.read60Cache.creditName;
-                }
-                callback && callback(taskArr);
-            }, (error) => {
-                //util.webClick('首页高额任务', JSON.stringify(error));
-                //cb && cb()
-            })
-        }
-        );
-
-        //点击直客广告时调用
-        //BusinessSDK.task.taskClick(taskArr[i])
-    }
-
+ 
     //用户注册 获取accessKey
     requestServerDataRegister() {
-        let url = "/bp/user/register?appId=" + GameConfig.appId + "&pkgId=" + GameConfig.pkgId + "&oaid=";
+        let url = "/bp/user/register?appId=" + GameConfig.android_init_param.appId + "&pkgId=" + GameConfig.android_init_param.pkgId + "&oaid=" + GameConfig.android_init_success_param.oaid;
         let callback = (data) => {
             console.log("----用户注册--", data)
         }

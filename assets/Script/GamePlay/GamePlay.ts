@@ -76,7 +76,13 @@ class GamePlay extends cc.Component {
     player_level_up_callback() {
         cc.log(`提升玩家等级`);
     }
-
+// /**@description 加载图集资源 */
+// load_sprite_atlas(callBack?: Function) {
+//     Loader.load_sprite_atlas(`./GamePlay/texture/flower`, (atlas: cc.SpriteAtlas) => {
+//         this.flowerAtlas = atlas;
+//         callBack && callBack();
+//     });
+// }
     /**@description 打开每日登录界面 */
     open_sign_in_callback() {
         cc.log(`打开每日登陆界面`);
