@@ -178,4 +178,6 @@ export interface WechatLoginSuccessInterface{
     nick_name?: string;
     /**@description 头像 */
     icon?:string;
+    /**@description 打点的时间ID */
+    timer_id?: string;
 }
