@@ -1,5 +1,6 @@
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
+import GameConfig from "../GameConfig";
 import { SdkModuleInterface, WechatLoginInterface, WechatLoginSuccessInterface } from "./SdkInterface";
 
 
@@ -82,6 +83,9 @@ export class NativeSDKTool {
     /**@description 微信登陆成功后的回调 */
     public static wx_login_success(login_success_interface: WechatLoginSuccessInterface){
         console.log("微信登陆成功后的参数 = ", JSON.stringify(login_success_interface));
+        GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
+        GameConfig.android_init_success_param.user_id   = login_success_interface.user_id;
+
         if(sdk_module_interface.wechat_login_success_callback){
             sdk_module_interface.wechat_login_success_callback(login_success_interface);
         }
@@ -91,7 +95,7 @@ export class NativeSDKTool {
     public static wx_login_fail(res: any){
         console.log("微信登陆失败的参数  = ",res);
         if(sdk_module_interface.wechat_login_fail_callback){
-            sdk_module_interface.wechat_login_fail_callback();
+            sdk_module_interface.wechat_login_fail_callback(res);
         }
     }
 

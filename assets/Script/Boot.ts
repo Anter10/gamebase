@@ -26,7 +26,6 @@ class Boot{
     static init(){
         cc.macro.ENABLE_MULTI_TOUCH = false;
         GameLocalData.get_instance().init();
-        ServerData.get_instance().init();
         GameDataConfig.init();
         NativeSDKTool.init();
     }
