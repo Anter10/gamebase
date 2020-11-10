@@ -49,8 +49,8 @@ class NormalClickOnView extends BaseUI {
 
     click_label_explain(){
         const ui_param_interface: UIParamInterface = {
-            ui_config_path: UIConfig.UserProtocolView,
-            ui_config_name: "UserProtocolView",
+            ui_config_path: UIConfig.NormalClickOnStatementView,
+            ui_config_name: "NormalClickOnStatementView",
      }
      UIManager.show_ui(ui_param_interface);
     }

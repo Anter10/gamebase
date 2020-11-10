@@ -38,6 +38,8 @@ const GameConfig = {
       user_protocol_url:"http://waqqq.hainanliangyou.com/user.html",
       // 隐私声明的网页链接
       user_privacy_url:"http://waqqq.hainanliangyou.com/private.html",
+      // 打卡声明的网页链接
+      click_on_statement_url:"http://waqqq.hainanliangyou.com/private.html",
 
       /**@description BI的根地址 */
       bi_root_path:"g3-ocpc",
