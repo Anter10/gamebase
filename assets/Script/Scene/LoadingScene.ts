@@ -76,6 +76,8 @@ class LoadingScene extends BaseScene {
         start_game_button_text:"开始游戏",
     };
 
+    public flowerAtlas: cc.SpriteAtlas = null;
+
     onLoad () {
         super.onLoad();
         Boot.init();
@@ -136,6 +138,14 @@ class LoadingScene extends BaseScene {
         gamebase.start_game_button_node = this.start_game_button_node;
     }
 
+    /**@description 加载图集资源 */
+    load_sprite_atlas(callBack?: Function) {
+        Loader.load_sprite_atlas(`./GamePlay/texture/flower`, (atlas: cc.SpriteAtlas) => {
+            this.flowerAtlas = atlas;
+            callBack && callBack();
+        });
+    }
+
     /**@description 点击开始游戏的按钮的调用逻辑 */
     start_game_callback(){
         console.log("点击开始游戏的按钮");
@@ -165,17 +175,19 @@ class LoadingScene extends BaseScene {
         this.loading_progress.node.active = true;
         this.protocol_and_privacy_node.active = false;
 
-        // 加载主场景
-        cc.director.preloadScene("GameScene",(completedCount: number,totalCount: number,item: any) => {
-            const progress = completedCount / totalCount;
-            this.loading_progress.progress = progress;
-        }, (error: Error)=>{
-            if(!error){
-                this.assets_manager.check_server_update();
-            }else{
-                console.log("进入游戏主场景失败了");
-            }
-        });
+        // this.load_sprite_atlas(() => {
+            // 加载主场景
+            cc.director.preloadScene("GameScene",(completedCount: number,totalCount: number,item: any) => {
+                const progress = completedCount / totalCount;
+                this.loading_progress.progress = progress;
+            }, (error: Error)=>{
+                if(!error){
+                    this.assets_manager.check_server_update();
+                }else{
+                    console.log("进入游戏主场景失败了");
+                }
+            });
+        // });
     }
 
 

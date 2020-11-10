@@ -68,9 +68,9 @@ class ServerData {
         this._headers.channel = this.get_header_key_of_value("channel");
         this._headers.romVersion = this.get_header_key_of_value("romVersion");
         this._headers.osVersion = this.get_header_key_of_value("osVersion");
-        this._headers.oaid = this.get_header_key_of_value("oaid");
+        // this._headers.oaid = this.get_header_key_of_value("oaid");
         this._headers.accessKey = this.get_header_key_of_value("accessKey");
-        this._headers.apiType = this.get_header_key_of_value("apiType");
+        // this._headers.apiType = this.get_header_key_of_value("apiType");
         // TODO !  这里逻辑有点诡异
         GameConfig.gameExamine = this.get_header_key_of_value("isPass") == "0";
         GameConfig.apiType = parseInt(this._headers.apiType);

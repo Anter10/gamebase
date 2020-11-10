@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.5",
+  "uuid": "c0915ac2-327b-428e-a4f0-68d68edd8ef1",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 34,
+  "height": 34,
+  "platformSettings": {},
+  "subMetas": {
+    "home_icon_redspot": {
+      "ver": "1.0.4",
+      "uuid": "15517229-216d-47db-94cc-09cb38e0bab9",
+      "rawTextureUuid": "c0915ac2-327b-428e-a4f0-68d68edd8ef1",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 2,
+      "trimY": 2,
+      "width": 30,
+      "height": 30,
+      "rawWidth": 34,
+      "rawHeight": 34,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
