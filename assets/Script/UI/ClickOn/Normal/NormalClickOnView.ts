@@ -51,7 +51,7 @@ class NormalClickOnView extends BaseUI {
         label_clockin_day_num.getComponent(cc.Label).string = `${checkInDay}`;
 
         const label_clockin_day_num1 = this.sprite_clockin_progress.getChildByName(`label_clockin_day_num`);
-        label_clockin_day_num1.getComponent(cc.RichText).string = `<color=#1B1B1B>已连续签到</c><color=#F16700>${data.checkInDay}<color=#1B1B1B>天</color>`;
+        label_clockin_day_num1.getComponent(cc.RichText).string = `<color=#1B1B1B>已连续打卡</c><color=#F16700>${data.checkInDay}<color=#1B1B1B>天</color>`;
 
         this.init_clickin_progress();
         if (this.clock_in_data.special && this.clock_in_data.special.length > 0) {

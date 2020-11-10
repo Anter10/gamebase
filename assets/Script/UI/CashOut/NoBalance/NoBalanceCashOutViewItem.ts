@@ -42,7 +42,7 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
         const touch_button: TouchButton = this.cash_out_button.node.addComponent(TouchButton);
         touch_button.register_touch(() => {
             // 提现操作
-            // console.log("点击了提现操作", this.cash_out_item_interface);
+            console.log("点击了提现操作", this.cash_out_item_interface);
             if (this.cash_out_item_interface && !this.cash_out_item_interface.disable) {
                 if (this.cash_out_item_interface.process >= this.cash_out_item_interface.needProcess) {
                     this.cash_out(this.cash_out_item_interface.id, 0, (res: CashInterface) => {
@@ -51,13 +51,12 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
                         }
                     });
                 } else {
-                    // console.log("提现失败");
                     let cash_out_tip_msg = "提现失败";
                     let finish_function: Function = null;
                     if (this.cash_out_item_interface.type == CashOutItemType.new_plyaer) {
                         cash_out_tip_msg = "你已经不是新手了";
                     } else if (this.cash_out_item_interface.type == CashOutItemType.click_on) {
-                        cash_out_tip_msg = "请前往打卡";
+                        cash_out_tip_msg = `还需打卡${this.cash_out_item_interface.process - this.cash_out_item_interface.needProcess}天`;
                         finish_function = () => {
                             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_cash_out);
                             ClickOnController.open(ClickOnRouterPath.normal);
@@ -129,10 +128,16 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
         } else if (this.cash_out_item_interface.type == CashOutItemType.click_on) {
             cash_out_tip_msg = `${this.cash_out_item_interface.needProcess} 天打卡专享`;
             this.left_cornoer_sign.node.active = false;
+            if (cash_out_item_interface.needProcess > cash_out_item_interface.process) {
+                this.cash_out_button_text_label.string = "去打卡";
+            }
         } else if (this.cash_out_item_interface.type == CashOutItemType.pass_level) {
             this.left_cornoer_sign.node.active = true;
-            cash_out_tip_msg = `店铺LV.${this.cash_out_item_interface.needProcess}专享`;
+            cash_out_tip_msg = `店铺${this.cash_out_item_interface.needProcess}级专享`;
             this.cornor_tip_label.string = "免打卡";
+            if (cash_out_item_interface.needProcess > cash_out_item_interface.process) {
+                this.cash_out_button_text_label.string = "去升级";
+            }
         }
 
         this.cash_out_condition_tip_label.string = `${cash_out_tip_msg}`;

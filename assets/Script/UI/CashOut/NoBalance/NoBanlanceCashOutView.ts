@@ -76,7 +76,7 @@ class NoBanlanceCashOutView extends BaseUI {
                 needProcess: 8,
                 process: 0,
                 type: 4,
-                goodsData: { name: "店铺LV.3专享", content: "Hello", image: "", money: 2 },
+                goodsData: { name: "店铺3级专享", content: "Hello", image: "", money: 2 },
             },
 
             {
@@ -87,7 +87,7 @@ class NoBanlanceCashOutView extends BaseUI {
                 needProcess: 10,
                 process: 0,
                 type: 4,
-                goodsData: { name: "店铺LV.3专享", content: "Hello", image: "", money: 2 },
+                goodsData: { name: "店铺4级专享", content: "Hello", image: "", money: 2 },
             },
             {
                 disable: false,
@@ -97,7 +97,7 @@ class NoBanlanceCashOutView extends BaseUI {
                 needProcess: 18,
                 process: 0,
                 type: 4,
-                goodsData: { name: "店铺LV.3专享", content: "Hello", image: "", money: 2 },
+                goodsData: { name: "店铺5级专享", content: "Hello", image: "", money: 2 },
             },
 
 

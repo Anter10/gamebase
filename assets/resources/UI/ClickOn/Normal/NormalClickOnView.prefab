@@ -917,7 +917,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "5eeWz1IrNOyZkU3iKWwB4M",
+    "fileId": "77WwE9GExCOJ4QGlwafBxy",
     "sync": false
   },
   {
@@ -1026,7 +1026,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "e9f5/vPI1BQoeswcndKJSH",
+    "fileId": "bdwjlkGehNcamZ1YhcA3qu",
     "sync": false
   },
   {
@@ -1393,8 +1393,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "已连续签到",
-    "_N$string": "已连续签到",
+    "_string": "已连续打卡",
+    "_N$string": "已连续打卡",
     "_fontSize": 32,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1419,7 +1419,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "57AVWBDOJK/qt+ea/qQeVy",
+    "fileId": "0fkzoCVuFJ2JPBuYtKDmTi",
     "sync": false
   },
   {
@@ -1528,7 +1528,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "220sDL05dGk4TFWLL1Golk",
+    "fileId": "0cBiaBx/pC0LBNnPvPODvV",
     "sync": false
   },
   {
@@ -1637,7 +1637,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "19R+xp3l9AwZ4eC7/WMTzr",
+    "fileId": "03gp+UfhBCKJfXzH9z+mQi",
     "sync": false
   },
   {
@@ -1650,7 +1650,7 @@
     "_enabled": true,
     "_fontFamily": "Arial",
     "_isSystemFontUsed": true,
-    "_N$string": "<color=#1B1B1B>已连续签到</c><color=#F16700>00<color=#1B1B1B>天</color>",
+    "_N$string": "<color=#1B1B1B>已连续打卡</c><color=#F16700>00<color=#1B1B1B>天</color>",
     "_N$horizontalAlign": 0,
     "_N$fontSize": 32,
     "_N$font": null,
