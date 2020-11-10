@@ -5,6 +5,8 @@ import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
 import { UpdateManagerComponent } from "../Common/UpdateManagerComponent";
 import Utils from "../Common/Utils";
+import EventConfig from "../EventManager/EventConfig";
+import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
 import BI from "../Sdk/BI";
 import { NativeSDKTool } from "../Sdk/NativeSDKTool";
@@ -79,6 +81,10 @@ class LoadingScene extends BaseScene {
 
     onLoad() {
         super.onLoad();
+
+        EventManager.get_instance().listen(EventConfig.splash_ad_on, this, ()=>{
+            NativeSDKTool.hideLoadBg();
+        })
         Boot.init();
         this.init_update_manager();
         this.flush_view();
@@ -164,7 +170,7 @@ class LoadingScene extends BaseScene {
         if (gamebase.jsb) {
             const login_interface: WechatLoginInterface = {
                 success: (res: any) => {
-                    console.log("微信登陆成功 登陆成功的数据 ", res);
+                    console.log("微信登陆成功 登陆成功的数据 ", JSON.stringify(res));
                     this.checking_update();
                 },
                 fail: (res: any) => {

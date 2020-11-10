@@ -1,3 +1,5 @@
+import EventConfig from "../EventManager/EventConfig";
+import EventManager from "../EventManager/EventManager";
 import { SdkModuleInterface, WechatLoginInterface, WechatLoginSuccessInterface } from "./SdkInterface";
 
 
@@ -78,15 +80,15 @@ export class NativeSDKTool {
 
 
     /**@description 微信登陆成功后的回调 */
-    public wx_login_success(login_success_interface: WechatLoginSuccessInterface){
-        console.log("微信登陆成功后的参数 = ", login_success_interface);
+    public static wx_login_success(login_success_interface: WechatLoginSuccessInterface){
+        console.log("微信登陆成功后的参数 = ", JSON.stringify(login_success_interface));
         if(sdk_module_interface.wechat_login_success_callback){
-            sdk_module_interface.wechat_login_success_callback();
+            sdk_module_interface.wechat_login_success_callback(login_success_interface);
         }
     }
 
     /**@description 微信登陆失败后的回调 */
-    public wx_login_fail(res: any){
+    public static wx_login_fail(res: any){
         console.log("微信登陆失败的参数  = ",res);
         if(sdk_module_interface.wechat_login_fail_callback){
             sdk_module_interface.wechat_login_fail_callback();
@@ -603,11 +605,11 @@ export class NativeSDKTool {
      * 开屏广告结束
      * @param res "1"
      */
-    public static onSplashAdDone(res:number){
-        console.log("====开屏广告结束:")
-        // if (res == "1") {
-        //     GameLaunchEvent.ON_SPLASH_AD_DONE.emit();            
-        // }
+    public static onSplashAdDone(res:string){
+        console.log("====开屏广告结束:",res, typeof res);
+        if (res == "1") {
+            EventManager.get_instance().emit(EventConfig.splash_ad_on);
+        }
     }
 
 }
