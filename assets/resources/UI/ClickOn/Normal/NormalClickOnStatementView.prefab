@@ -254,7 +254,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 660,
-      "height": 890
+      "height": 400
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -353,15 +353,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 0,
+      "g": 0,
+      "b": 0,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 560,
-      "height": 780
+      "width": 500,
+      "height": 210.39999999999998
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -373,7 +373,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        12.072,
         0,
         0,
         0,
@@ -398,15 +398,36 @@
     "_id": ""
   },
   {
-    "__type__": "cc.WebView",
+    "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 9
     },
     "_enabled": true,
-    "_url": "",
-    "webviewEvents": [],
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_string": "                       打卡说明\n1、完成打卡就可以立即领取大量红心，红心可用于升级店铺提现哦\n2、累计打卡2天/10天/18天还可以立即提现到微信哦",
+    "_N$string": "                       打卡说明\n1、完成打卡就可以立即领取大量红心，红心可用于升级店铺提现哦\n2、累计打卡2天/10天/18天还可以立即提现到微信哦",
+    "_fontSize": 30,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": null,
+    "_isSystemFontUsed": true,
+    "_spacingX": 0,
+    "_batchAsBitmap": false,
+    "_styleFlags": 0,
+    "_underlineHeight": 0,
+    "_N$horizontalAlign": 0,
+    "_N$verticalAlign": 0,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 3,
+    "_N$cacheMode": 0,
     "_id": ""
   },
   {
@@ -459,8 +480,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        306.231,
-        410.972,
+        297.251,
+        168.517,
         0,
         0,
         0,
@@ -562,9 +583,6 @@
       "__id__": 1
     },
     "_enabled": true,
-    "web_view": {
-      "__id__": 10
-    },
     "close_button_image": {
       "__id__": 13
     },

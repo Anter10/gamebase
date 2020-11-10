@@ -8,8 +8,8 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 class NormalClickOnStatementView extends BaseUI {
 
-    @property(cc.WebView)
-    web_view: cc.WebView = null;
+    // @property(cc.WebView)
+    // web_view: cc.WebView = null;
 
     @property(cc.Sprite)
     close_button_image: cc.Sprite;
@@ -29,7 +29,7 @@ class NormalClickOnStatementView extends BaseUI {
 
     start() {
         super.start();
-        this.web_view.url = GameConfig.click_on_statement_url;
+        // this.web_view.url = GameConfig.click_on_statement_url;
     }
 
 }
