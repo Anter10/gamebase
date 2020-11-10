@@ -28,6 +28,8 @@ const UIConfig:{[key: string]: string} = {
       NewPlayerGuideView:"./UI/NewPlayerGuide/NewPlayerGuideView",
       /**@description 拆红包成功的界面 */
       NormalOpenRedEnvelopeSuccessView:"./UI/OpenRedEnvelope/Normal/NormalOpenRedEnvelopeSuccessView",
+      /**@description  打卡声明界面*/
+      NormalClickOnStatementView:"./UI/OpenRedEnvelope/Normal/NormalClickOnStatementView",
 };
 
 
