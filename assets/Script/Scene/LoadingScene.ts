@@ -65,6 +65,8 @@ class LoadingScene extends BaseScene {
 
     public assets_manager: UpdateManagerComponent = null;
 
+    public flowerAtlas: cc.SpriteAtlas = null;
+
     public loading_scene_interface: LoadingSceneInterface = {
         game_logo_iamge: "",
         game_background_image: "game_background_image",
@@ -135,6 +137,26 @@ class LoadingScene extends BaseScene {
         gamebase.start_game_button_node = this.start_game_button_node;
     }
 
+    /**@description 加载鲜花图集资源 */
+    load_flower_atlas () {
+        Loader.load_sprite_atlas(`./GamePlay/texture/flower` ,(atlas: cc.SpriteAtlas) => {
+            gamebase.flowerAtlas = atlas;
+        });
+    }
+
+    /**@description 加载GameScene界面Prefab */
+    load_gamescene_prefab () {
+        const prefabPath = [
+            `./GamePlay/node_top` ,
+            `./GamePlay/node_mid` ,
+            `./GamePlay/node_bottom` ,
+        ];
+        gamebase.gameScenePrefab = [];
+        Loader.recursion_load_prefab(prefabPath ,(prefab: cc.Prefab) => {
+            gamebase.gameScenePrefab.push(prefab);
+        });
+    }
+
     /**@description 点击开始游戏的按钮的调用逻辑 */
     start_game_callback() {
         console.log("点击开始游戏的按钮");
@@ -180,6 +202,8 @@ class LoadingScene extends BaseScene {
         this.start_game_button_image.node.active = false;
         this.loading_progress.node.active = true;
         this.protocol_and_privacy_node.active = false;
+        this.load_flower_atlas();
+        this.load_gamescene_prefab();
         // 加载主场景
         cc.director.preloadScene("GameScene", (completedCount: number, totalCount: number, item: any) => {
             const progress = completedCount / totalCount;

@@ -52,6 +52,23 @@ class Loader {
         });
     }
 
+    /**@description 递归调用加载预质体 */
+    static recursion_load_prefab(paths: Array<string>, call_back: Function) {
+        let start_index = 0;
+        const rescursion_load = () => {
+            const load_path = paths[start_index];
+            this.load_prefab(load_path, (prefab: cc.Prefab) => {
+                call_back && call_back(prefab);
+                if (start_index < paths.length - 1) {
+                    start_index++;
+                    rescursion_load();
+                }
+            })
+        }
+
+        rescursion_load();
+    }
+
     /**@description 请求远程的图片资源 */
     static request_remote_image(url: string, callback: Function) {
         cc.assetManager.loadRemote(url, (error: Error, texture: cc.Texture2D) => {

@@ -1,30 +1,34 @@
+import { gamebase } from "../Boot";
 import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
+import LinkGameBase from "./LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
 
 @ccclass
 class GamePlay extends cc.Component {
     // LIFE-CYCLE CALLBACKS:
-    @property(cc.Node)
-    node_top: cc.Node = null;
+    public node_top: cc.Node = null;
 
-    @property(cc.Node)
-    node_mid: cc.Node = null;
+    public node_mid: cc.Node = null;
 
-    @property(cc.Node)
-    node_bottom: cc.Node = null;
+    public node_bottom: cc.Node = null;
 
     @property(cc.Prefab)
     flower_prefab: cc.Prefab = null;
 
-    public flowerAtlas: cc.SpriteAtlas = null;
-
     onLoad() {
         console.log(`进入游戏的game_play了`)
+        // LinkGameBase.game_play_record[0].ch
     }
 
     start() {
+        this.node_mid = cc.instantiate(gamebase.gameScenePrefab[1]);
+        this.node_mid.parent = this.node;
+        this.node_top = cc.instantiate(gamebase.gameScenePrefab[0]);
+        this.node_top.parent = this.node;
+        this.node_bottom = cc.instantiate(gamebase.gameScenePrefab[2]);
+        this.node_bottom.parent = this.node;
         this.regist_button_touch_event();
         this.init_flower_trellis();
     }
@@ -36,11 +40,13 @@ class GamePlay extends cc.Component {
         const content = scrollview.getChildByName(`view`).getChildByName(`content`);
         const len = 8;
         const item_height = Math.floor(scrollview.height / 3);
-        content.height = item_height * len - item_height / 3;
+        content.height = item_height * len;
+        let posY = -item_height + 50;
         for (let i = 0;i < len;++ i) {
             const clone_item = cc.instantiate(node_item);
             clone_item.parent = content;
-            clone_item.y = -item_height * i - item_height / 2;
+            clone_item.y = posY;
+            posY -= item_height;
             clone_item.active = true;
             const clone_flower = cc.instantiate(this.flower_prefab);
             clone_flower.parent = clone_item;
@@ -48,9 +54,10 @@ class GamePlay extends cc.Component {
             const baffle_height = clone_item.getChildByName(`sprite_baffle`).height;
             clone_flower.y = flowerpot_height / 2 + baffle_height * 3 / 4;
         }
+        this.scheduleOnce(() => {
+            scrollview.getComponent(cc.ScrollView).scrollToBottom();
+        } ,0);
     }
-
-    
 
     /**@description 按钮同意注册点击事件 */
     regist_button_touch_event() {
@@ -76,13 +83,7 @@ class GamePlay extends cc.Component {
     player_level_up_callback() {
         cc.log(`提升玩家等级`);
     }
-// /**@description 加载图集资源 */
-// load_sprite_atlas(callBack?: Function) {
-//     Loader.load_sprite_atlas(`./GamePlay/texture/flower`, (atlas: cc.SpriteAtlas) => {
-//         this.flowerAtlas = atlas;
-//         callBack && callBack();
-//     });
-// }
+
     /**@description 打开每日登录界面 */
     open_sign_in_callback() {
         cc.log(`打开每日登陆界面`);
