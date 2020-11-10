@@ -56,7 +56,7 @@ class ServerData {
             /**@description accessKey */
             accessKey: GameConfig.android_init_success_param.accessKey,
             /**@description 应用的ID */
-            // appId: GameConfig.android_init_param.appId,
+            appId: GameConfig.android_init_param.appId,
             /**@description */
             pkgId: GameConfig.android_init_param.pkgId,
             /**@description 游戏的接口类型 */
