@@ -353,7 +353,10 @@ export default class Customer extends BaseNode {
                     //顾客点餐菜品配置id
                     customerOrderConfig: customer_data.customerOrderConfig,
                 }
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_table_gift, pay);
+                this.scheduleOnce(() => {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.customer_pay, pay);
+                }, 2)
             }
         }
     }

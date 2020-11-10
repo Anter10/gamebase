@@ -31,12 +31,12 @@ export default class GameMainTableItem extends BaseNode {
 
     onLoad() {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.refresh_table_sprite);
-        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.customer_pay, this, this.show_gift);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.show_table_gift, this, this.show_gift);
     }
 
     onDisable() {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.refresh_table_sprite);
-        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.customer_pay, this, this.show_gift);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.show_table_gift, this, this.show_gift);
     }
 
     refresh_table_sprite() {

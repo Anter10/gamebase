@@ -63,6 +63,8 @@ class LinkGameBase {
       "fly_coin": "fly_coin",
       //飞红心
       "fly_heart": "fly_heart",
+      //桌子上显示奖励
+      "show_table_gift": "show_table_gift",
    }
 
    /**
