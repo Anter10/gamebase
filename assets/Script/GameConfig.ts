@@ -39,6 +39,8 @@ const GameConfig = {
     game_api_root_path: "",
     /**@description 当前的打包类型 debug 测试环境 release 正式环境 */
     pack_type: "debug",
+    /**@description env 类型 0: 测试环境 1: 正式环境*/
+    env: "0",
 
     /**@description android初始化成功返回的参数 */
     android_init_success_param: {
@@ -67,28 +69,36 @@ const GameConfig = {
         // —————————————————————————————— 非header ————————————————————————————
         // 广告信息
         release_awarded_video_ids: [
-            "xxxx1",
-            "xxxx2",
+            1000433,
+            1000434,
         ],
 
         debug_awarded_video_ids: [
-            "xxxx1",
-            "xxxx2",
+            1000451,
+            1000451,
         ],
+        // 开屏广告的ID
+        debug_splash_ad_id: 1000448,
+        release_splash_ad_id: 1000430,
+
         // 静态图的ID
-        release_static_image_ad_id: `xxxxx1`,
-        debug_static_image_ad_id: `xxxxx2`,
+        release_static_image_ad_id: 1000432,
+        debug_static_image_ad_id: 1000450,
+
+        // 弹窗静态图的广告ID
+        window_release_static_image_ad_id: 1000431,
+        window_debug_static_image_ad_id: 1000449,
         // 三个APPID
-        release_tt_appid: `xxxxxx1`, // 头条的广告ID
-        debug_tt_appid: `xxxxxx2`, // 头条的广告ID
-        ks_appid: `xxxxxx1`, // 快手的APPID
-        gdt_appid: "xxxxxx1", // 广点通的APPID
+        release_tt_appid: 5117863, // 头条的广告ID
+        debug_tt_appid: 5078148, // 头条的广告ID
+        ks_appid: 502500061, // 快手的APPID
+        gdt_appid: 1111096891, // 广点通的APPID
         // 百度地图定位的key
         baidu_map_key: "xxxxxx1",
         // bugly key
         bugly_key: "xxxxxx1",
         // wx_id
-        wx_id: "xxxxxx2",
+        wx_id: "wxc5fb17eb4bc6ba96",
     },
 
     /**@description 服务器的地址 地址规则 前面加上斜杠( / ) 后面不加斜杠( / ) */
@@ -103,6 +113,38 @@ const GameConfig = {
     /**@description 是否是debug版本 */
     get is_debug(): boolean {
         return this.pack_type == "debug";
+    },
+
+    /**@description 当前的环境是debug环境 */
+    get env_is_debug(): boolean {
+        return GameConfig.env == "0";
+    },
+
+    /**@description 当前播放激励视频广告的ID */
+    get video_ad_id(): number {
+        if (GameConfig.env_is_debug) {
+            return GameConfig.android_init_param.debug_awarded_video_ids[0];
+        } else {
+            return GameConfig.android_init_param.release_awarded_video_ids[0];
+        }
+    },
+
+    /**@description 弹窗静态图的广告ID */
+    get window_static_image_ad_id(): number {
+        if (GameConfig.env_is_debug) {
+            return GameConfig.android_init_param.window_debug_static_image_ad_id;
+        } else {
+            return GameConfig.android_init_param.window_release_static_image_ad_id;
+        }
+    },
+
+    /**@description 静态图的广告ID */
+    get static_image_ad_id(): number {
+        if (GameConfig.env_is_debug) {
+            return GameConfig.android_init_param.window_debug_static_image_ad_id;
+        } else {
+            return GameConfig.android_init_param.window_release_static_image_ad_id;
+        }
     }
 
 }
