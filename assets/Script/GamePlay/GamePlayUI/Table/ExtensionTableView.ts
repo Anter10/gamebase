@@ -35,9 +35,14 @@ export default class ExtensionTableView extends BaseUI {
     @property(cc.Label)
     growth_description: cc.Label = null;
 
+    @property(cc.Node)
+    table_label: cc.Node = null;
+    
+    @property(cc.Node)
+    decoration_label: cc.Node = null;
     private cur_button_type = ExtensionTypeButton.table;
 
-    readonly table_content_height = 1500;
+    readonly table_content_height = 1700;
     readonly decoration_content_height = 1850;
     onLoad() {
         this.flush_view();
@@ -51,7 +56,7 @@ export default class ExtensionTableView extends BaseUI {
     onDisable() {
         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.open_next_player_guide);
     }
-    
+
     flush_view() {
         const nagivator_interface: NagivatorInterface = {
             title: "扩建",
@@ -74,6 +79,8 @@ export default class ExtensionTableView extends BaseUI {
     click_table_button_type() {
         if (this.cur_button_type != ExtensionTypeButton.table) {
             this.cur_button_type = ExtensionTypeButton.table;
+            this.table_label.color = cc.color(131, 39, 45, 255);
+            this.decoration_label.color = cc.color(229, 203, 169, 255);
             let c_sprite_frame = this.decoration_button.getComponent(cc.Sprite).spriteFrame;
             this.decoration_button.getComponent(cc.Sprite).spriteFrame = this.table_button.getComponent(cc.Sprite).spriteFrame;
             this.table_button.getComponent(cc.Sprite).spriteFrame = c_sprite_frame;
@@ -84,6 +91,8 @@ export default class ExtensionTableView extends BaseUI {
     click_decoration_button_type() {
         if (this.cur_button_type != ExtensionTypeButton.decoration) {
             this.cur_button_type = ExtensionTypeButton.decoration;
+            this.decoration_label.color = cc.color(131, 39, 45, 255);
+            this.table_label.color = cc.color(229, 203, 169, 255);
             let c_sprite_frame = this.decoration_button.getComponent(cc.Sprite).spriteFrame;
             this.decoration_button.getComponent(cc.Sprite).spriteFrame = this.table_button.getComponent(cc.Sprite).spriteFrame;
             this.table_button.getComponent(cc.Sprite).spriteFrame = c_sprite_frame;
@@ -106,9 +115,9 @@ export default class ExtensionTableView extends BaseUI {
                 this.delay_add_nodes(GamePlayConfig.total_table_number - 1, prefab, (node: cc.Node) => {
                     const extension_table_frame_item = node;
                     extension_table_frame_item.getComponent(ExtensionTableFrameItem).set_mark_number(i);
-                    extension_table_frame_item.y = -130 - i * extension_table_frame_item.height;
+                    extension_table_frame_item.y = -130 - i * (extension_table_frame_item.height + 20);
                     extension_table_frame_item.parent = this.table_content;
-                    i ++;
+                    i++;
                 });
             });
         }

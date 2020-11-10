@@ -269,7 +269,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "10000",
     "_N$string": "10000",
     "_fontSize": 30,
@@ -352,7 +351,7 @@
     "asset": {
       "__uuid__": "6d020346-681a-4e59-8c9b-94d5537c6094"
     },
-    "fileId": "0dFM2DbgxFJKZjiVDIxaR5",
+    "fileId": "",
     "sync": false
   }
 ]

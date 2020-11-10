@@ -2,10 +2,13 @@ import BaseNode from "../../../Common/BaseNode";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
+import GameConfig from "../../../GameConfig";
 import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
+import { Ad } from "../../../Sdk/Ad";
+import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
@@ -92,8 +95,27 @@ export default class MenuItem extends BaseNode {
                 UIManager.show_ui(ui_param_interface);
             } else {
                 if (this.menu_data.get_menu_data_by_id(this.menu_config.id - 1).menuType == MenuType.unlock) {
-                    //播放广告。如果看完。
-                    this.unlock_new_menu();
+                    let rewarded_ad_interface: RewardedAdInterface = {
+                        /**@description 观看激励视频广告的ID */
+                        ad_id: GameConfig.android_init_param.debug_awarded_video_ids[0],
+                        /**@description 观看激励视频成功的回调 */
+                        success: (res: any) => {
+                            //播放广告。如果看完。
+                            this.unlock_new_menu();
+                        },
+                        /**@description 观看激励视频失败的成功回调*/
+                        fail: (res: any) => {
+                            const ui_param_interface: UIParamInterface = {
+                                ui_config_path: UIConfig.Toast,
+                                ui_config_name: "Toast",
+                                param: {
+                                    text: "解锁失败"
+                                }
+                            }
+                            UIManager.show_ui(ui_param_interface);
+                        },
+                    }
+                    Ad.play_video_ad(rewarded_ad_interface);
                 } else {
                     const ui_param_interface: UIParamInterface = {
                         ui_config_path: UIConfig.Toast,

@@ -2,11 +2,14 @@ import BaseUI from "../../../Common/BaseUI";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Time from "../../../Common/Time";
 import TouchButton from "../../../Common/TouchButton";
+import GameConfig from "../../../GameConfig";
 import { OfflineConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import OfflineData from "../../../GameLocalData/OfflineData";
+import { Ad } from "../../../Sdk/Ad";
+import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 
 const { ccclass, property } = cc._decorator;
 
@@ -56,10 +59,20 @@ export default class OfflineView extends BaseUI {
     }
 
     click_unlock_button_button() {
-        const game_base_data: GamePlayBaseData = GameLocalData.get_instance().get_data(GamePlayBaseData);
-        game_base_data.change_gold_coin_number(this.offline_config.gold);
-        game_base_data.change_red_heart_number(this.offline_config.heart);
-        this.on_close_call();
+        let rewarded_ad_interface: RewardedAdInterface = {
+            /**@description 观看激励视频广告的ID */
+            ad_id: GameConfig.android_init_param.debug_awarded_video_ids[0],
+            /**@description 观看激励视频成功的回调 */
+            success: (res: any) => {
+                const game_base_data: GamePlayBaseData = GameLocalData.get_instance().get_data(GamePlayBaseData);
+                game_base_data.change_gold_coin_number(this.offline_config.gold);
+                game_base_data.change_red_heart_number(this.offline_config.heart);
+                this.on_close_call();
+            },
+            /**@description 观看激励视频失败的成功回调*/
+            fail: (res: any) => { },
+        }
+        Ad.play_video_ad(rewarded_ad_interface);
     }
 
     set_offline_view(differ_time: number) {

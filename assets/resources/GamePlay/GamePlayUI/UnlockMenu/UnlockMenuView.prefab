@@ -590,7 +590,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -610,9 +610,16 @@
     "_colors": [
       {
         "__type__": "cc.Color",
-        "r": 255,
-        "g": 166,
-        "b": 105,
+        "r": 253,
+        "g": 223,
+        "b": 114,
+        "a": 255
+      },
+      {
+        "__type__": "cc.Color",
+        "r": 253,
+        "g": 223,
+        "b": 114,
         "a": 255
       },
       {
@@ -624,9 +631,23 @@
       },
       {
         "__type__": "cc.Color",
-        "r": 253,
-        "g": 223,
-        "b": 114,
+        "r": 255,
+        "g": 248,
+        "b": 221,
+        "a": 255
+      },
+      {
+        "__type__": "cc.Color",
+        "r": 255,
+        "g": 166,
+        "b": 105,
+        "a": 255
+      },
+      {
+        "__type__": "cc.Color",
+        "r": 255,
+        "g": 166,
+        "b": 105,
         "a": 255
       }
     ],

@@ -2,9 +2,12 @@ import BaseUI from "../../../Common/BaseUI";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
+import GameConfig from "../../../GameConfig";
 import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
+import { Ad } from "../../../Sdk/Ad";
+import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import { MenuType } from "../../GamePlayEnum/GamePlayEnum";
@@ -75,9 +78,23 @@ export default class UnlockMenuView extends BaseUI {
     }
 
     click_get_button() {
+        let rewarded_ad_interface: RewardedAdInterface = {
+            /**@description 观看激励视频广告的ID */
+            ad_id: GameConfig.android_init_param.debug_awarded_video_ids[0],
+            /**@description 观看激励视频成功的回调 */
+            success: (res: any) => {
+                this.get_gift();
+            },
+            /**@description 观看激励视频失败的成功回调*/
+            fail: (res: any) => { },
+        }
+        Ad.play_video_ad(rewarded_ad_interface);
+    }
+
+    get_gift() {
         this.menu_data = GameLocalData.get_instance().get_data<MenuData>(MenuData);
         let menu_ad_data = this.menu_data.get_menu_data_by_id(this.menu_config.id);
-        if(menu_ad_data){
+        if (menu_ad_data) {
             if (menu_ad_data.menuAdTime + 1 == this.menu_config.ad_number) {
                 this.menu_data.change_menu_data(this.menu_config.id, MenuType.unlock, menu_ad_data.menuAdTime + 1);
                 const ui_param_interface: UIParamInterface = {

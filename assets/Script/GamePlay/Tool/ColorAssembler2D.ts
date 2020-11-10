@@ -1,15 +1,9 @@
-// Learn TypeScript:
-//  - https://docs.cocos.com/creator/manual/en/scripting/typescript.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 const { ccclass, property, executeInEditMode, requireComponent, menu } = cc._decorator;
 
 @ccclass
 @executeInEditMode
 @requireComponent(cc.RenderComponent)
-@menu('i18n:MAIN_MENU.component.renderers/ColorAssembler2D-lamyoung.com')
+// @menu('i18n:MAIN_MENU.component.renderers/ColorAssembler2D-lamyoung.com')
 export default class ColorAssembler2D extends cc.Component {
 
     @property
@@ -47,4 +41,6 @@ export default class ColorAssembler2D extends cc.Component {
             uintVerts[i] = (this.colors[count++] || color)['_val'];
         }
     }
+
+
 }

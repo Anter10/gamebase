@@ -617,7 +617,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -637,9 +637,16 @@
     "_colors": [
       {
         "__type__": "cc.Color",
-        "r": 255,
-        "g": 166,
-        "b": 105,
+        "r": 253,
+        "g": 223,
+        "b": 114,
+        "a": 255
+      },
+      {
+        "__type__": "cc.Color",
+        "r": 253,
+        "g": 223,
+        "b": 114,
         "a": 255
       },
       {
@@ -651,9 +658,9 @@
       },
       {
         "__type__": "cc.Color",
-        "r": 253,
-        "g": 223,
-        "b": 114,
+        "r": 255,
+        "g": 248,
+        "b": 221,
         "a": 255
       }
     ],
@@ -1406,7 +1413,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "dfKjAN9HlCEqL+oMP6i5vp",
+    "fileId": "8d2vyBthlCLp8ihOIvklG/",
     "sync": false
   },
   {
@@ -1615,7 +1622,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "88AF8XWxVAjqoAeVMvtqBh",
+    "fileId": "2f7gnE2FtJsKaQ9EvwZyoH",
     "sync": false
   },
   {
@@ -1824,7 +1831,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "barqfVxe5IRLehyGSDi97L",
+    "fileId": "d9CfgwkjpIGKeth58+U5P1",
     "sync": false
   },
   {
@@ -1947,7 +1954,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2055,7 +2062,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2163,7 +2170,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2271,7 +2278,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -2886,7 +2893,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,

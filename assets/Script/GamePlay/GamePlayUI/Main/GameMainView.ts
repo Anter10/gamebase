@@ -6,6 +6,7 @@ import Random from "../../../Common/Random";
 import Time from "../../../Common/Time";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
+import GameConfig from "../../../GameConfig";
 import { DecorationConfig, MenuConfig, PeopleConfig, TableConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import DecorationData from "../../../GameLocalData/DecorationData";
@@ -18,6 +19,8 @@ import OrderMenuData from "../../../GameLocalData/OrderMenuData";
 import PeopleData, { CustomerPayInterface } from "../../../GameLocalData/PeopleData";
 import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
+import { Ad } from "../../../Sdk/Ad";
+import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 import GameData from "../../../Sdk/UserData";
 import CashOutController from "../../../UI/CashOut/CashOutController";
 import ClickOnController from "../../../UI/ClickOn/ClickOnController";
@@ -768,15 +771,34 @@ export default class GameMainView extends BaseUI {
     }
 
     click_batch_attract_customer_button() {
-        let i = 0;
-        const callback = () => {
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-            i++;
-            if (i == GamePlayConfig.batch_add_customer) {
-                this.unschedule(callback);
-            }
+        let rewarded_ad_interface: RewardedAdInterface = {
+            /**@description 观看激励视频广告的ID */
+            ad_id: GameConfig.android_init_param.debug_awarded_video_ids[0],
+            /**@description 观看激励视频成功的回调 */
+            success: (res: any) => {
+                let i = 0;
+                const callback = () => {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                    i++;
+                    if (i == GamePlayConfig.batch_add_customer) {
+                        this.unschedule(callback);
+                    }
+                }
+                this.schedule(callback, 0.5, GamePlayConfig.batch_add_customer, 0.5);
+            },
+            /**@description 观看激励视频失败的成功回调*/
+            fail: (res: any) => {
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "批量招揽失败"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+            },
         }
-        this.schedule(callback, 0.5, GamePlayConfig.batch_add_customer, 0.5);
+        Ad.play_video_ad(rewarded_ad_interface);
     }
 
     set_attract_customer_progress(progress_number: number) {

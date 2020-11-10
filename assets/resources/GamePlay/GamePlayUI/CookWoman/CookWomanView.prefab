@@ -528,7 +528,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
@@ -591,7 +591,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "8d20e7be-6787-4433-a139-1215e5dd6c58"
+      "__uuid__": "93ba93b9-8cba-4491-8a25-1823b87e8ef7"
     },
     "_type": 1,
     "_sizeMode": 0,
