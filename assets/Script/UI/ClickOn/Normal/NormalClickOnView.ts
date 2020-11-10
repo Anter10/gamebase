@@ -19,6 +19,8 @@ class NormalClickOnView extends BaseUI {
     click_background_bottom: cc.Sprite = null;
     @property(cc.Node)
     click_on_item_scroll_view_bottom: cc.Node = null;
+    @property(cc.Node)
+    label_explain: cc.Node = null;
 
     @property(cc.Node)
     container: cc.Node = null;
@@ -39,8 +41,20 @@ class NormalClickOnView extends BaseUI {
         super.onLoad();
         console.log(this.controller)
         // this.init_view();
+
+        // 点击打卡声明
+        const label_explain: TouchButton = this.label_explain.addComponent(TouchButton);
+        label_explain.register_touch(this.click_label_explain.bind(this));
     }
 
+    click_label_explain(){
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.UserProtocolView,
+            ui_config_name: "UserProtocolView",
+     }
+     UIManager.show_ui(ui_param_interface);
+    }
+    
     init_view(data: any) {
         this.clock_in_data = data;
         const label_clockin_progress = this.sprite_title_bg.node.getChildByName(`label_clockin_progress`);
@@ -56,13 +70,13 @@ class NormalClickOnView extends BaseUI {
         this.init_clickin_progress();
         if (this.clock_in_data.special && this.clock_in_data.special.length > 0) {
             const len = this.clock_in_data.special.length;
-            for(let i = 0; i < len;  i++ ){
+            for (let i = 0; i < len; i++) {
                 const item = cc.instantiate(this.click_on_item_prefab);
                 item.parent = this.container;
                 const view_item = item.getComponent(ClickOnViewItem);
-                view_item.init_item_data(this.clock_in_data.special[i] ,this.clock_in_data.checkInDay ,this.clock_in_data.todayDone);
+                view_item.init_item_data(this.clock_in_data.special[i], this.clock_in_data.checkInDay, this.clock_in_data.todayDone);
             }
-        } 
+        }
     }
 
     init_clickin_progress() {
@@ -74,11 +88,11 @@ class NormalClickOnView extends BaseUI {
             clone_sprite_red.parent = this.sprite_clockin_progress;
             clone_sprite_red.x = posX;
             posX += 107;
-            this.update_item(clone_sprite_red ,i ,redImageList);
+            this.update_item(clone_sprite_red, i, redImageList);
         }
     }
 
-    update_item (clone_sprite_red: cc.Node ,i: number ,redImageList: Array<cc.SpriteFrame>) {
+    update_item(clone_sprite_red: cc.Node, i: number, redImageList: Array<cc.SpriteFrame>) {
         let index = this.clock_in_data.checkInDay < i ? 2 : (i <= this.clock_in_data.receivedDay ? 1 : 0);
         if (!redImageList[index]) {
             Loader.load_texture(`./UI/ClickOn/Normal/res/dakazpp_icon_mark1_hongbao${index}`, (texture: cc.Texture2D) => {
@@ -101,18 +115,18 @@ class NormalClickOnView extends BaseUI {
         if (index == 0) {
             const touch_button: TouchButton = clone_sprite_red.addComponent(TouchButton);
             touch_button.register_touch(() => {
-                ServerData.get_instance().sendOutServerDataSignIn(i ,(data?: any) => {
+                ServerData.get_instance().sendOutServerDataSignIn(i, (data?: any) => {
                     if (!data) return;
                     const ui_param_interface: UIParamInterface = {
                         ui_config_path: UIConfig.Toast,
                         ui_config_name: "Toast",
-                        param:{
+                        param: {
                             text: `+${data.result.addMoney / 100}元`
                         }
                     }
                     UIManager.show_ui(ui_param_interface);
-                    this.clock_in_data.receivedDay ++;
-                    this.update_item(clone_sprite_red ,i ,redImageList);
+                    this.clock_in_data.receivedDay++;
+                    this.update_item(clone_sprite_red, i, redImageList);
                 });
             });
         }
