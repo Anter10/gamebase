@@ -16,7 +16,7 @@ export class HttpServer {
         }
 
         xhr.onreadystatechange =  () =>{
-            console.warn("get 地址 = ", this.base_url + uri);
+            console.log("get 地址 = ", this.base_url + uri);
             console.log("xhr.readyState  = ",xhr.readyState,"xhr.status  = ",xhr.status);
             if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
                 const response = JSON.parse(xhr.responseText as string);
@@ -42,7 +42,7 @@ export class HttpServer {
         }
 
         xhr.onreadystatechange =  () =>{
-            console.warn("post 地址 = ", this.base_url + uri);
+            console.log("post 地址 = ", this.base_url + uri);
             console.log("xhr.readyState  = ",xhr.readyState,"xhr.status  = ",xhr.status);
             if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
                 const response = JSON.parse(xhr.responseText);
