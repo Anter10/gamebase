@@ -42,7 +42,6 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
         const touch_button: TouchButton = this.cash_out_button.node.addComponent(TouchButton);
         touch_button.register_touch(() => {
             // 提现操作
-            console.log("点击了提现操作", this.cash_out_item_interface);
             if (this.cash_out_item_interface && !this.cash_out_item_interface.disable) {
                 if (this.cash_out_item_interface.process >= this.cash_out_item_interface.needProcess) {
                     this.cash_out(this.cash_out_item_interface.id, 0, (res: CashInterface) => {
@@ -105,12 +104,10 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
 
     /**@description 将按钮设置成不可以点击 */
     disable_cash_out() {
-        if (this.cash_out_item_interface.disable) {
-            Loader.load_texture("/UI/CashOut/texture/NoBalance/common-button_grey", (texture2d: cc.Texture2D) => {
-                this.cash_out_button.spriteFrame = new cc.SpriteFrame(texture2d);
-            });
-            this.cash_out_button_text_label.string = "已完成";
-        }
+        Loader.load_texture("/UI/CashOut/texture/NoBalance/common-button_grey", (texture2d: cc.Texture2D) => {
+            this.cash_out_button.spriteFrame = new cc.SpriteFrame(texture2d);
+        });
+        this.cash_out_button_text_label.string = "已完成";
     }
 
     update_view(cash_out_item_interface: CashOutViewItemInterface) {

@@ -295,12 +295,20 @@ export default class CookWoman extends BaseNode {
                 break;
             case CookWomanState.CompleteCook:
                 seat_number = this.cook_woman_data.seatNumber;
-                this.walk_simple({ x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] }, { x: GamePlayConfig.chair_position[seat_number - 1][0], y: GamePlayConfig.chair_position[seat_number - 1][1] });
+                if (seat_number) {
+                    this.walk_simple({ x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] }, { x: GamePlayConfig.chair_position[seat_number - 1][0], y: GamePlayConfig.chair_position[seat_number - 1][1] });
+                } else {
+                    this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Stroll });
+                }
                 break;
             case CookWomanState.SendMenu:
                 seat_number = this.cook_woman_data.seatNumber;
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.finish_menu, seat_number);
-                this.walk_simple({ x: GamePlayConfig.chair_position[seat_number - 1][0], y: GamePlayConfig.chair_position[seat_number - 1][1] }, { x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] });
+                if (seat_number) {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.finish_menu, seat_number);
+                    this.walk_simple({ x: GamePlayConfig.chair_position[seat_number - 1][0], y: GamePlayConfig.chair_position[seat_number - 1][1] }, { x: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][0], y: GamePlayConfig.cook_woman_cook_position[this.customer_config.id - 2][1] });
+                } else {
+                    this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Stroll });
+                }
                 break;
             case CookWomanState.CompleteSendMenu:
                 this.people_data.change_cook_woman_data({ peopleConfigId: this.cook_woman_config_id, cookWomanState: CookWomanState.Stroll });

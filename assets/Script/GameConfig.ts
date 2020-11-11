@@ -38,6 +38,8 @@ const GameConfig = {
     api_root_path: "g3-odyssey",
     /**@description BI的根地址 */
     bi_root_path: "g3-ocpc",
+    /**@description 游戏功能api */
+    api_func_path: "g3-automatic",
     /**@description 专用API的地址 */
     game_api_root_path: "",
     /**@description 当前的打包类型 debug 测试环境 release 正式环境 */
@@ -110,10 +112,10 @@ const GameConfig = {
         var serverUrl = null;
         if (GameConfig.env_is_debug) {
             serverUrl = GameConfig.test_url;
-        }else{
+        } else {
             serverUrl = GameConfig.release_url;
         }
-        
+
         return serverUrl;
     },
 
@@ -124,10 +126,10 @@ const GameConfig = {
 
     /**@description 当前的环境是debug环境 */
     get env_is_debug(): boolean {
-        if(!OSRuntime.wechat_login_success_interface){
+        if (!OSRuntime.wechat_login_success_interface) {
             return true;
         }
-        
+
         return OSRuntime.wechat_login_success_interface.env == "0";
     },
 
