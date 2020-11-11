@@ -278,7 +278,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "spdh_button_huodong",
+    "_name": "activity_rule_button",
     "_objFlags": 0,
     "_parent": {
       "__id__": 5
@@ -385,7 +385,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "spdh_button_shouhuo",
+    "_name": "shipping_address_button",
     "_objFlags": 0,
     "_parent": {
       "__id__": 5
@@ -1335,8 +1335,8 @@
     "close_button": {
       "__id__": 32
     },
-    "label": null,
-    "text": "hello",
+    "activity_rule_button": null,
+    "shipping_address_button": null,
     "_id": ""
   },
   {

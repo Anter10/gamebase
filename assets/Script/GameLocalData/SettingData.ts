@@ -25,7 +25,7 @@ class SettingData extends BaseRecord {
 
     change_sound_effect(sound_effect: boolean) {
         if (sound_effect != this.sound_effect) {
-            this.music = sound_effect;
+            this.sound_effect = sound_effect;
             if (sound_effect) {
                 //打开音效
             } else {

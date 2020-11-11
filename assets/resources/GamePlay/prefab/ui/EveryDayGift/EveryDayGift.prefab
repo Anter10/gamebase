@@ -400,7 +400,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "mrczli_button_lijilinqu",
+    "_name": "get_gift_button",
     "_objFlags": 0,
     "_parent": {
       "__id__": 6
@@ -829,8 +829,9 @@
     "close_button": {
       "__id__": 7
     },
-    "label": null,
-    "text": "hello",
+    "get_gift_button": {
+      "__id__": 10
+    },
     "_id": ""
   },
   {
