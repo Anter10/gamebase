@@ -1,3 +1,4 @@
+import { Boot } from "../Boot";
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
@@ -320,6 +321,11 @@ export class NativeSDKTool {
      * 显示视频广告
      */
     public static showVideoAd(rewarded_interface: RewardedAdInterface) {
+        if(!Boot.ad_mode){
+            if (sdk_module_interface.rewarded_video_success_callback) {
+                sdk_module_interface.rewarded_video_success_callback();
+            }
+        }
         if (NativeSDKTool.rewarded_videoing) {
             return;
         }
