@@ -8,9 +8,6 @@ const UIConfig:{[key: string]: string} = {
 
       NativeDebug: "./NativeDebug/NativeDebug",
 
-      // 用户声明界面
-      UserPrivacyView:"./UI/UserProtocolAndPrivacy/UserPrivacyView",
-      UserProtocolView:"./UI/UserProtocolAndPrivacy/UserProtocolView",
       // 相关的View
       /**@description 提现界面 */
       CashOutView:"./UI/CashOut/CashOutView",
