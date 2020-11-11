@@ -201,13 +201,16 @@ class LoadingScene extends BaseScene {
         this.start_game_button_image.node.active = false;
         this.loading_progress.node.active = true;
         this.protocol_and_privacy_node.active = false;
+        console.log("checking_update error1");
         // 加载主场景
         cc.director.preloadScene("GameScene", (completedCount: number, totalCount: number, item: any) => {
             const progress = completedCount / totalCount;
             this.loading_progress.progress = progress;
         }, (error: Error) => {
             if (!error) {
+                console.log("checking_update error1");
                 this.assets_manager.check_server_update();
+                console.log("checking_update error2");
             } else {
                 console.log("进入游戏主场景失败了");
             }

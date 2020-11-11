@@ -80,7 +80,7 @@ export default class UnlockMenuView extends BaseUI {
     click_get_button() {
         let rewarded_ad_interface: RewardedAdInterface = {
             /**@description 观看激励视频广告的ID */
-            ad_id: GameConfig.android_init_param.debug_awarded_video_ids[0],
+            ad_id: GameConfig.video_ad_id,
             /**@description 观看激励视频成功的回调 */
             success: (res: any) => {
                 this.get_gift();

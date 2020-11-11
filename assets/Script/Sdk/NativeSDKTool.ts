@@ -85,7 +85,6 @@ export class NativeSDKTool {
         console.log("微信登陆成功后的参数 = ", JSON.stringify(login_success_interface));
         GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
         GameConfig.android_init_success_param.user_id = login_success_interface.user_id;
-
         if (sdk_module_interface.wechat_login_success_callback) {
             sdk_module_interface.wechat_login_success_callback(login_success_interface);
         }
