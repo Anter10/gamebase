@@ -58,6 +58,7 @@ const GameConfig = {
         accessKey: "8a7bb4323159138e7b49d835f81a0f3f_27260",
         timeId: "20201109",
         user_id: "27260",
+        appVersion: "1.0.0",
     },
 
     /**@description 初始化的时候传递给Android端的数据 */
