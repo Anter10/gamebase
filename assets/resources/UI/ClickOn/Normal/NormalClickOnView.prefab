@@ -273,7 +273,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 750,
-      "height": 380
+      "height": 1334
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -917,7 +917,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "dbMu4RLelLJ54Hukdqe/Cv",
+    "fileId": "2dC88NeydOELVtWLwfimbs",
     "sync": false
   },
   {
@@ -1026,7 +1026,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "8bpsjGwOpDoYcJEyyObtO3",
+    "fileId": "20bqweQQ1E3L4sSXUOZdO3",
     "sync": false
   },
   {
@@ -1419,7 +1419,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "d1s6DL5opAFp767NvaRkw1",
+    "fileId": "fd177lrLhONakXc+Q4Fy0C",
     "sync": false
   },
   {
@@ -1528,7 +1528,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "f2Y0QwIqJBlId/SK4FOota",
+    "fileId": "b4pSnQgbVNzZuu+LAOTXPM",
     "sync": false
   },
   {
@@ -1637,7 +1637,7 @@
     "asset": {
       "__uuid__": "5f22215a-1a12-405b-8fb6-d9d9eed8d746"
     },
-    "fileId": "f4HKJS4U9Ju4+qiWo56BA9",
+    "fileId": "dev1Hz6KFHnLM/0N90swJ9",
     "sync": false
   },
   {
@@ -1719,10 +1719,10 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "b8b2eced-1a43-4405-8629-1c008ef1e508"
+      "__uuid__": "92540d90-585c-452e-bd9f-666a19731707"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -1745,7 +1745,7 @@
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 1,
+    "_alignFlags": 45,
     "_left": 0,
     "_right": 0,
     "_top": 0,
@@ -1758,8 +1758,8 @@
     "_isAbsBottom": true,
     "_isAbsHorizontalCenter": true,
     "_isAbsVerticalCenter": true,
-    "_originalWidth": 0,
-    "_originalHeight": 0,
+    "_originalWidth": 303,
+    "_originalHeight": 178,
     "_id": ""
   },
   {

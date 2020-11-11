@@ -3,6 +3,9 @@ import { ApiV2CheckinInterface, UIParamInterface } from "../../../Common/CommonI
 import Loader from "../../../Common/Loader";
 import Toast from "../../../Common/Toast";
 import TouchButton from "../../../Common/TouchButton";
+import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
+import GameLocalData from "../../../GameLocalData/GameLocalData";
+import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import CommonServerData from "../../../GameServerData/CommonServerData";
 import ServerData from "../../../GameServerData/ServerData";
 import UIConfig from "../../UIManager/UIConfig";
@@ -39,7 +42,8 @@ class NormalClickOnView extends BaseUI {
 
     api_v2_checkin_interface: ApiV2CheckinInterface;
 
-    private clock_in_data: any = null;
+    private clock_in_data: ApiV2CheckinInterface = null;
+
     onLoad() {
         super.onLoad();
         console.log(this.controller)
@@ -51,12 +55,17 @@ class NormalClickOnView extends BaseUI {
         this.request_checkin_data();
     }
 
-    request_checkin_data(){
-        CommonServerData.get_clock_in((res: ApiV2CheckinInterface)=>{
+    start() {
+        super.start();
+    }
+
+    request_checkin_data() {
+        CommonServerData.get_clock_in((res: ApiV2CheckinInterface) => {
             this.api_v2_checkin_interface = res;
-            console.log("获得的打卡数据 = ",this.api_v2_checkin_interface);
-        },true,(error:any)=>{
-            console.log("打卡数据错误 = ",error);
+            console.log("获得的打卡数据 = ", this.api_v2_checkin_interface);
+            this.init_view(this.api_v2_checkin_interface);
+        }, true, (error: any) => {
+            console.log("打卡数据错误 = ", error);
         })
     }
 
@@ -68,7 +77,7 @@ class NormalClickOnView extends BaseUI {
         UIManager.show_ui(ui_param_interface);
     }
 
-    init_view(data: any) {
+    init_view(data: ApiV2CheckinInterface) {
         this.clock_in_data = data;
         const label_clockin_progress = this.sprite_title_bg.node.getChildByName(`label_clockin_progress`);
         label_clockin_progress.getComponent(cc.RichText).string = `<color=#ffffff>今日打卡进度</c><color=#fffc00>(看视频${data.process}/${data.needProcess})</color>`
@@ -134,10 +143,12 @@ class NormalClickOnView extends BaseUI {
                         ui_config_path: UIConfig.Toast,
                         ui_config_name: "Toast",
                         param: {
-                            text: `+${data.result.addMoney / 100}元`
+                            text: `成功兑换红心`
                         }
                     }
                     UIManager.show_ui(ui_param_interface);
+                    const game_base_play = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+                    game_base_play.change_red_heart_number(Number(this.clock_in_data.normal));
                     this.clock_in_data.receivedDay++;
                     this.update_item(clone_sprite_red, i, redImageList);
                 });
@@ -145,11 +156,7 @@ class NormalClickOnView extends BaseUI {
         }
     }
 
-    start() {
-        super.start();
-    }
 
-    // update (dt) {}
 }
 
 

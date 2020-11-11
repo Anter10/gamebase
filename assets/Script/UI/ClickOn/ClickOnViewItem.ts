@@ -33,7 +33,7 @@ class ClickOnViewItem extends BaseNode {
         label_day_num.getComponent(cc.Label).string = `${need_progress}日打卡提现`;
 
         const label_need_day_num = this.click_on_view_item_bottom.node.getChildByName(`label_need_day_num`);
-        label_need_day_num.getComponent(cc.RichText).string = `<color=#8A8080>还差</c><color=#F10000> ${progress - need_progress}天 </c><color=#8A8080>可提现</color>`;
+        label_need_day_num.getComponent(cc.RichText).string = `<color=#8A8080>还差</c><color=#F10000> ${need_progress - progress}天 </c><color=#8A8080>可提现</color>`;
 
         const money = data.money / 100;
         const label_money = this.click_on_view_item_bottom.node.getChildByName(`label_money`);

@@ -32,7 +32,7 @@ class ClickOnController implements Controller {
                 const normal_click_on_view = cc.instantiate(prefab);
                 normal_click_on_view.parent = this.view.node;
                 this.normal_click_on_view = normal_click_on_view.getComponent(NormalClickOnView);
-                this.get_clock_in_data();
+                // this.get_clock_in_data();
                 console.log("click on view 2");
             });
         } else {
@@ -40,12 +40,12 @@ class ClickOnController implements Controller {
         }
     }
 
-    get_clock_in_data() {
-        CommonServerData.get_clock_in((data: any) => {
-            cc.log(`当前打卡数据:${JSON.stringify(data)}`)
-            this.normal_click_on_view.init_view(data);
-        } ,true);
-    }
+    // get_clock_in_data() {
+    //     CommonServerData.get_clock_in((data: any) => {
+    //         cc.log(`当前打卡数据:${JSON.stringify(data)}`)
+    //         this.normal_click_on_view.init_view(data);
+    //     } ,true);
+    // }
 }
 
 

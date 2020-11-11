@@ -240,7 +240,7 @@ interface ApiV2CheckinInterface{
     /**@description 第几天 */
     checkInDay: number;
     /**@description 今日是否完成 */
-    todayDone: number;
+    todayDone: boolean;
     /**@description 已领取天数 */
     receivedDay: number;
     /**@description 当前进度 */
