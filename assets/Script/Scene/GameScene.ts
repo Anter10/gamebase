@@ -1,3 +1,4 @@
+import { gamebase } from "../Boot";
 import { UIParamInterface } from "../Common/CommonInterface";
 import Loader from "../Common/Loader";
 import GameConfig from "../GameConfig";
@@ -17,6 +18,7 @@ class GameScene extends BaseScene {
 
     onLoad() {
         super.onLoad();
+        gamebase.game_scene = this;
         this.game_play_init();
         this.bi();
         this.check_api_version();
@@ -34,7 +36,6 @@ class GameScene extends BaseScene {
 
     start() {
         super.start();
-
     }
 
     game_play_init() {
@@ -42,6 +43,16 @@ class GameScene extends BaseScene {
             const game_play_node = cc.instantiate(prefab);
             game_play_node.parent = this.node;
         })
+    }
+
+    show_debug_view(){
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.DebugView,
+            ui_config_name: "DebugView",
+            param: {}
+        }
+
+        UIManager.show_ui(ui_param_interface);
     }
 
     check_api_version() {
