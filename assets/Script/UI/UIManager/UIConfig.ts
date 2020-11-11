@@ -7,7 +7,7 @@ const UIConfig:any = {
       ActionNode: "./UI/Common/ActionNode",
       NativeDebug: "./NativeDebug/NativeDebug",
       ApiVersionView: "./UI/Common/ApiVersionView",
-
+      DebugView: "./UI/Common/DebugView",
 
       // 用户声明界面
       UserPrivacyView:"./UI/UserProtocolAndPrivacy/UserPrivacyView",
