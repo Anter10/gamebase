@@ -99,6 +99,17 @@ export default class UnlockMenuView extends BaseUI {
         Ad.play_video_ad(rewarded_ad_interface);
     }
 
+    onAddFinished() {
+        Ad.show_bottom_static_ad(340, 250, 0.1,(code: number) => {
+            console.log("显示静态广告的code ",code);
+        });
+    }
+
+    onDisable() {
+        super.onDisable();
+        Ad.close_image_ad_view();
+    }
+
     get_gift() {
         this.menu_data = GameLocalData.get_instance().get_data<MenuData>(MenuData);
         let menu_ad_data = this.menu_data.get_menu_data_by_id(this.menu_config.id);

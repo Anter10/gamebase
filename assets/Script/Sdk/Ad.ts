@@ -79,20 +79,20 @@ class Ad {
     }
 
     /**@description 显示弹窗广告 */
-    static show_window_static_ad(){
+    static show_bottom_static_ad(width: number, height: number, bottom: number, callback: Function) {
         if (gamebase.jsb) {
-            SdkModule.render_image_ad(image_ad_interface);
+            NativeSDKTool.showImageAdBottom(width, height, bottom,(code: string) => {
+                callback && callback(code);
+            });
         } else {
-            if (image_ad_interface.success) {
-                image_ad_interface.success();
-            }
+            callback && callback(-1);
         }
     }
 
-    /**@description 关闭静态图的广告 */
-    static close_image_ad(){
-        SdkModule.close_image_ad();
+    static close_image_ad_view(){
+        NativeSDKTool.closeImageAd();
     }
+
 
 }
 

@@ -3,6 +3,7 @@ import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import { TableConfig } from "../../../GameDataConfig/ConfigInterface";
+import { Ad } from "../../../Sdk/Ad";
 
 const { ccclass, property } = cc._decorator;
 
@@ -41,6 +42,18 @@ export default class ShowTableDescriptionView extends BaseUI {
 
     onLoad() {
         this.flush_view();
+    }
+
+    onAddFinished() {
+        Ad.show_bottom_static_ad(340, 250, 0.1,(code: number) => {
+            console.log("显示静态广告的code ",code);
+        });
+    }
+
+
+    onDisable() {
+        super.onDisable();
+        Ad.close_image_ad_view();
     }
 
     flush_view() {
