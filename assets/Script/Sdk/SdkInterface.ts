@@ -189,9 +189,18 @@ export interface WechatLoginSuccessInterface{
     /**@description app的版本号 */
     appVersion?: string;
     /**@description */ 
-    nick_name?: string;
-    /**@description 头像 */
-    icon?:string;
-    /**@description 打点的时间ID */
-    timer_id?: string;
+    env: string;
+    /**@description */ 
+    inviteCode: string;
+}
+
+
+/**@description 视频打点的数据接口 */
+export interface VideoBiInterface{
+    /**@description 视频点的名称 */
+    name: string;
+    /**@description 视频统计成功回调*/
+    success?: Function;
+    /**@description 视频统计失败回调*/
+    fail?: Function;
 }

@@ -401,17 +401,6 @@ export class NativeSDKTool {
      * 获取是否是测试环境
      */
     public static getEnv(callback: (code: string) => void) {
-        // Log.log("====进入getEnv");
-        // if (this.mapNativeCallBack[this.env]) {
-        //     Log.log(`${this.env} 事件已经存在,等待上一个回调`)
-
-        //     return;
-        // }
-        if (cc.sys.isBrowser) {
-            callback("0");
-            return;
-        }
-        this.mapNativeCallBack[this.env] = callback;
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getEnv", "()V");
