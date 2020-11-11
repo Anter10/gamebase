@@ -163,7 +163,7 @@ class NormalClickOnView extends BaseUI {
                     }
                     UIManager.show_ui(ui_param_interface);
                     const game_base_play = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-                    game_base_play.change_red_heart_number(Number(this.clock_in_data.normal));
+                    game_base_play.change_red_heart_number(50);
                     this.clock_in_data.receivedDay++;
                     this.update_item(clone_sprite_red, i, redImageList);
                 });
