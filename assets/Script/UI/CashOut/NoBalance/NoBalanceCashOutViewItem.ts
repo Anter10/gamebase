@@ -56,7 +56,7 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
                     if (this.cash_out_item_interface.type == CashOutItemType.new_plyaer) {
                         cash_out_tip_msg = "你已经不是新手了";
                     } else if (this.cash_out_item_interface.type == CashOutItemType.click_on) {
-                        cash_out_tip_msg = `还需打卡${this.cash_out_item_interface.process - this.cash_out_item_interface.needProcess}天`;
+                        cash_out_tip_msg = `还需打卡${this.cash_out_item_interface.needProcess - this.cash_out_item_interface.process}天`;
                         finish_function = () => {
                             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_cash_out);
                             ClickOnController.open(ClickOnRouterPath.normal);
@@ -153,7 +153,7 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
 
         CommonServerData.post_withdraw(post_draw_data, (res: CashInterface) => {
             success && success(res);
-        },(res)=>{
+        }, (res) => {
             const ui_param_interface: UIParamInterface = {
                 ui_config_path: UIConfig.Toast,
                 ui_config_name: "Toast",
