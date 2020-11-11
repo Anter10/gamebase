@@ -173,10 +173,13 @@ class LoadingScene extends BaseScene {
         if (gamebase.jsb) {
             const login_interface: WechatLoginInterface = {
                 success: (res: any) => {
-                    console.log("微信登陆成功 登陆成功的数据 ", JSON.stringify(res));
+                    console.log("微信登陆成功 登陆成功的数据1 ", JSON.stringify(res));
                     ServerData.get_instance().init();
+                    console.log("微信登陆成功 登陆成功的数据2 ", JSON.stringify(res));
                     GameDataConfig.server_request_server_config();
+                    console.log("微信登陆成功 登陆成功的数据3 ", JSON.stringify(res));
                     this.checking_update();
+                    console.log("微信登陆成功 登陆成功的数据4 ", JSON.stringify(res));
                 },
                 fail: (res: any) => {
                     console.log("微信登陆失败", res);
