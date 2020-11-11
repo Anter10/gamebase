@@ -62,6 +62,7 @@ export class NativeSDKTool {
     public static readonly env: string = "env";
     public static readonly wx_subscribe_message: string = "wx_subscribe_message";
 
+    public static rewarded_videoing = false;
 
     /**@description 初始化和原生端通信的SDK  */
     public static init() {
@@ -319,6 +320,11 @@ export class NativeSDKTool {
      * 显示视频广告
      */
     public static showVideoAd(rewarded_interface: RewardedAdInterface) {
+        if (NativeSDKTool.rewarded_videoing) {
+            return;
+        }
+        NativeSDKTool.rewarded_videoing = true;
+        console.log("播放广告的数据  =", JSON.stringify(rewarded_interface));
         sdk_module_interface.rewarded_video_fail_callback = rewarded_interface.fail;
         sdk_module_interface.rewarded_video_success_callback = rewarded_interface.success;
         if (this.isAndroid) {
@@ -331,19 +337,20 @@ export class NativeSDKTool {
      * 播放完视频广告回调
      */
     public static videoAdResult(code: string) {
-        console.log("cc===js=videoAdResult播放完视频广告回调code=", code);
-        // GuideMgr.getInstance().passAll();
+        console.log("播放完视频广告回调code=", code);
         //关闭弹窗广告
         NativeSDKTool.closeImageAd();
-        if (sdk_module_interface.rewarded_video_success_callback) {
-            if (code == "2") {
-              sdk_module_interface.rewarded_video_success_callback();
+        if (code == "2") {
+            if (sdk_module_interface.rewarded_video_success_callback) {
+                sdk_module_interface.rewarded_video_success_callback();
             }
-
-            if (code == "0" || code == "2") {
-                // delete this.mapNativeCallBack[this.view_ad];
+        } else if (code && code == "0") {
+            if (sdk_module_interface.rewarded_video_fail_callback) {
+                sdk_module_interface.rewarded_video_fail_callback(code);
             }
         }
+
+        NativeSDKTool.rewarded_videoing = false;
     }
 
     /**显示看文章的广告 */
