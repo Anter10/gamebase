@@ -1,3 +1,4 @@
+import { gamebase } from "../../../Boot";
 import BaseUI from "../../../Common/BaseUI";
 import { CashOutRouterPath, ClickOnRouterPath } from "../../../Common/CommonEnum";
 import { UIParamInterface } from "../../../Common/CommonInterface";
@@ -106,6 +107,12 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     button_array: cc.Node = null;
 
+    @property(cc.Node)
+    debug_button: cc.Node = null;
+
+    
+    private _debug_click_number: number = 0;
+
     private _order_menu_number = 0;
 
     onLoad() {
@@ -139,6 +146,14 @@ export default class GameMainView extends BaseUI {
         if (Time.is_new_day(new Date(menu_data.get_refresh_menu_unlock_number_time()), new Date(Time.get_time()))) {
             menu_data.set_refresh_menu_unlock_number_time(Time.get_time());
             menu_data.set_menu_unlock_number(0);
+        }
+    }
+
+    debug_call(){
+        this._debug_click_number = this._debug_click_number + 1;
+        if(this._debug_click_number >= 5){
+           gamebase.game_scene.show_debug_view();
+           this._debug_click_number = 0;
         }
     }
 
@@ -655,6 +670,7 @@ export default class GameMainView extends BaseUI {
         //提现
         const cash_out_button: TouchButton = this.cash_out_button.addComponent(TouchButton);
         cash_out_button.register_touch(this.click_cash_out_button.bind(this));
+        
 
         //店铺升级
         const store_upgrade_button: TouchButton = this.store_upgrade_button.addComponent(TouchButton);
@@ -684,6 +700,11 @@ export default class GameMainView extends BaseUI {
         const batch_attract_customer_button: TouchButton = this.batch_attract_customer_button.addComponent(TouchButton);
         batch_attract_customer_button.register_touch(this.click_batch_attract_customer_button.bind(this));
 
+        // debug
+        this.debug_button.addComponent(TouchButton).register_touch(()=>{
+            this.debug_call();
+        });
+    
         const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
         this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
 
