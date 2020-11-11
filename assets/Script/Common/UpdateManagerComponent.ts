@@ -112,7 +112,7 @@ export class UpdateManagerComponent extends BaseNode {
         // this.assets_manager.checkUpdate();
         // 设置本地的资源的url 包的资源路径
         const branch_path = `https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/${GameConfig.s_channel}/${GameConfig.pack_type}/${GameConfig.branch}`;
-        this.manifestUrl = branch_path + `/local_manifest/${GameConfig.version}/project.manifest`;
+        this.manifestUrl = branch_path + `/local_manifest/${GameConfig.android_init_param.version}/project.manifest`;
         if (this.assets_manager.getState() == jsb.AssetsManager.State.UNINITED) {
             var url = this.manifestUrl;
             console.log("this.manifestUrl = ", this.manifestUrl);
@@ -232,7 +232,7 @@ export class UpdateManagerComponent extends BaseNode {
         var _this = this;
         /**@description 服务器端的本地版本信息 */
         var branch_path = "https://yaotkj.oss-cn-beijing.aliyuncs.com/games_assets_update/channel/" + GameConfig.s_channel + "/" + GameConfig.pack_type + "/" + GameConfig.branch;
-        var native_manifest = branch_path + ("/local_manifest/" + GameConfig.version + "/project.manifest");
+        var native_manifest = branch_path + ("/local_manifest/" + GameConfig.android_init_param.version + "/project.manifest");
         var remote_manifest = branch_path + "/project.manifest";
         Loader.request_remote_assets(native_manifest, (assets) => {
             console.log("本地远程资源的信息 ", assets._nativeAsset);

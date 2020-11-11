@@ -198,4 +198,33 @@ interface HttpHeaderInterface{
 }
 
 
-export {HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+/**@description 请求用户信息的数据接口 */
+interface ApiUserInterface{
+    /**@description 用户的ID */
+    userId: number;
+    /**@description 用户的昵称 */
+    nickName:string;
+    /**@description 用户的头像 */
+    photoUrl:string;
+    /**@description 用户的money */
+    money:number;
+    /**@description 是否是新用户 */
+    newUser:boolean;
+    /**@description 是否是友好的 */
+    friendly:boolean;
+}
+
+/**@description 用户版本信息是否强制更新 */
+interface ApiVersionInterface{
+    /**@description 是否需要更新版本 */
+    update: boolean;
+    /**@description 更新版本的APK包的地址 */
+    url: string;
+    /**@description 版本更新描述*/
+    desc: string;
+    /**@description force 是否强制更新*/
+    force: boolean;
+}
+
+
+export {ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
