@@ -71,7 +71,7 @@ export default class LordCard extends cc.Component {
         if(card.id < 16){
            this.normal_node.active = true;
            this.king_icon.active = false;
-        
+           
            Loader.load_texture(`./GamePlay/prefab/card/${card.card_type}`,(texture2d: cc.Texture2D) => {
                this.big_icon.spriteFrame = new cc.SpriteFrame(texture2d);
                this.small_icon.spriteFrame = new cc.SpriteFrame(texture2d);

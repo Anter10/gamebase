@@ -47,6 +47,8 @@ class LinkGameBase {
       prompt_card: "prompt_card",
       /**@description 删除牌 */
       delete_card: "delete_card",
+      /**@description 记牌器显示他人的牌 */
+      card_register_show_card: "card_register_show_card",
    }
 
    /**
