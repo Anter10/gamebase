@@ -36,11 +36,9 @@ class CashOutView extends BaseUI implements CashOutViewInterface, BaseUIInterfac
     onAddFinished() {
         super.onAddFinished();
         this.controller.view = this;
-        this.controller.update_cash_out_view();
     }
 
     onEnable() {
-        super.onDisable();
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.close_cash_out, this, this.close_this_node.bind(this));
     }
     start() {

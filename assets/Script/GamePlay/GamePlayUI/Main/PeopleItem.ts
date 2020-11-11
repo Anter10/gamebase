@@ -51,7 +51,7 @@ export default class PeopleItem extends BaseNode {
     set_god() {
         const menu_data: MenuData = GameLocalData.get_instance().get_data(MenuData);
         const menu_config: MenuConfig = GameDataConfig.get_config_by_id("MenuConfig", menu_data.get_unlock_number() + 1);
-        if (menu_config) {
+        if (menu_config && menu_data.get_menu_unlock_number() < GamePlayConfig.daily_unlock_menu_limit) {
             this.node.active = true;
         } else {
             this.node.active = false;

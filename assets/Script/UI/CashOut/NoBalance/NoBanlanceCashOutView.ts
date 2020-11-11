@@ -3,9 +3,10 @@ import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import EventManager from "../../../EventManager/EventManager";
 import LinkGameBase from "../../../GamePlay/LinkGameBase";
+import CommonServerData from "../../../GameServerData/CommonServerData";
 import UIConfig from "../../UIManager/UIConfig";
 import UIManager from "../../UIManager/UIManager";
-import { CashOutViewItemInterface } from "../CashOutInterface";
+import { CashOutInterface, CashOutViewItemInterface } from "../CashOutInterface";
 import NoBalanceCashOutViewItem from "./NoBalanceCashOutViewItem";
 
 const { ccclass, property } = cc._decorator;
@@ -123,6 +124,19 @@ class NoBanlanceCashOutView extends BaseUI {
                     this.on_close_call("CashOutView");
                 }
             })
+    }
+
+    /**
+ * @description 更新视图
+ */
+    update_cash_out_view() {
+        CommonServerData.get_withdraw((with_draw_data_interface: CashOutInterface) => {
+            this.update_view(with_draw_data_interface.items);
+        })
+    }
+
+    onEnable() {
+        this.update_cash_out_view();
     }
 
     update_view(cash_out_view_items_interface: Array<CashOutViewItemInterface>) {
