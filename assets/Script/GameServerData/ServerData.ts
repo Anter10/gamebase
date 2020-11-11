@@ -89,13 +89,13 @@ class ServerData {
         http.post(uri, 5000, JSON.stringify(data), content_type, t_header, call_back, error_callback);
     }
 
-        /**@description 发送post 请求获得 */
-        post_data1(uri: string, data?: Object, call_back?: Function, error_callback?: Function) {
-            const http = new HttpServer("l.local");
-            const content_type = `application/json`;
-            const t_header = cc.instantiate(this.headers);
-            http.post(uri, 5000, JSON.stringify(data), content_type, t_header, call_back, error_callback);
-        }
+    /**@description 发送post 请求获得 */
+    post_data1(uri: string, data?: Object, call_back?: Function, error_callback?: Function) {
+        const http = new HttpServer("http://l.local:8080");
+        const content_type = `application/json`;
+        const t_header = cc.instantiate(this.headers);
+        http.post(uri, 5000, JSON.stringify(data), content_type, t_header, call_back, error_callback);
+    }
     /**@description 发送get 请求获得 */
     get_data(uri: string, call_back?: Function, error_callback?: Function, data?: any) {
         // const http = new HttpClient(GameConfig.serverUrl, 5000);
