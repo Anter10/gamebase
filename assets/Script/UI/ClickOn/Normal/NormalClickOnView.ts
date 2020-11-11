@@ -32,6 +32,8 @@ class NormalClickOnView extends BaseUI {
     sprite_title_bg: cc.Sprite = null;
     @property(cc.Node)
     sprite_clockin_progress: cc.Node = null;
+    @property(cc.Node)
+    red_heart_content: cc.Node = null;
 
     @property(cc.Prefab)
     normal_click_on_free_tip: cc.Prefab = null;
@@ -52,6 +54,7 @@ class NormalClickOnView extends BaseUI {
         // 点击打卡声明
         const label_explain: TouchButton = this.label_explain.addComponent(TouchButton);
         label_explain.register_touch(this.click_label_explain.bind(this));
+        this.request_checkin_data();
     }
 
     onEnable() {
@@ -117,10 +120,10 @@ class NormalClickOnView extends BaseUI {
         } else {
             startIndex = (Math.ceil((this.clock_in_data.checkInDay + 1) / (CLICK_IN_LENGTH - 1)) - 1) * (CLICK_IN_LENGTH - 1) + 1;
         }
-
+        this.red_heart_content.removeAllChildren();
         for (let i = startIndex; i < CLICK_IN_LENGTH + startIndex; ++i) {
             const clone_sprite_red = cc.instantiate(this.click_on_red_prefab);
-            clone_sprite_red.parent = this.sprite_clockin_progress;
+            clone_sprite_red.parent = this.red_heart_content;
             clone_sprite_red.x = posX;
             posX += 107;
             this.update_item(clone_sprite_red, i, redImageList);
