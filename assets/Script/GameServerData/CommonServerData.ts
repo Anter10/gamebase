@@ -2,7 +2,7 @@ import GameConfig from "../GameConfig";
 import ServerData from "./ServerData";
 
 /**@description 通用服务器数据 */
-class CommonServerData{
+class CommonServerData {
     /**
      * @description 请求排行榜数据 get 
      * @param callback Function 请求排行榜数据
