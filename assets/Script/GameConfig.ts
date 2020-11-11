@@ -29,7 +29,7 @@ const GameConfig = {
     // 隐私声明的网页链接
     user_privacy_url: "http://waqqq.hainanliangyou.com/private.html",
     /**@description 测试接口 */
-    test_url: "https://bp-api.coohua.top",
+    test_url: "http://bp-api.coohua.top",
     /**@description 正式接口 */
     release_url: "https://bp-api.coohua.com",
     /**@description 通用API的根地址 */
