@@ -65,8 +65,8 @@ class ServerData {
             oaid: GameConfig.android_init_success_param.oaid,
         }
 
-        console.log("=新=gameExamine=", GameConfig.gameExamine);
-        console.log("=新=_headers=", JSON.stringify(this._headers));
+        // console.log("=新=gameExamine=", GameConfig.gameExamine);
+        // console.log("=新=_headers=", JSON.stringify(this._headers));
     }
 
     /**@description 发送post 请求获得 */
@@ -74,12 +74,12 @@ class ServerData {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
         const content_type = `application/json`;
         http.post(uri, 5000, JSON.stringify(data), content_type, this.headers).then((res) => {
-            console.log(`post 请求得到的游戏的数据 ${res}`);
+            console.log(`post 请求得到的游戏的数据 ${JSON.stringify(res)}`);
             const response = JSON.parse(res as string);
             if (response.code == 0) {
                 call_back && call_back(response.result);
             } else {
-                console.log(`服务器断返回的错误信息 `, response);
+                // // console.log(`服务器断返回的错误信息 `, response);
                 error_callback && error_callback(response);
             }
         });
@@ -88,14 +88,14 @@ class ServerData {
     /**@description 发送get 请求获得 */
     get_data(uri: string, call_back?: Function, error_callback?: Function, data?: any) {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
-        console.log(data, "当前get设置的请求地址", this.headers);
+        // console.log(data, "当前get设置的请求地址", this.headers);
         http.get(uri, 5000, JSON.stringify(data), this.headers).then((res: Object) => {
-            console.log(`get 请求得到的游戏的数据 ${res}`);
+            console.log(`get 请求得到的游戏的数据 ${JSON.stringify(res)}`);
             const response = JSON.parse(res as string);
             if (response.code == 0) {
                 call_back && call_back(response.result);
             } else {
-                console.log(`服务器断返回的错误信息 `, response);
+                // console.log(`服务器断返回的错误信息 `, response);
                 error_callback && error_callback(response);
             }
         });
@@ -107,7 +107,7 @@ class ServerData {
 
     bi_data(uri: string, call_back?: Function) {
         const http = new HttpClient("https://bp-api.coohua.com");
-        console.log("当前get设置的请求地址", this.headers);
+        // console.log("当前get设置的请求地址", this.headers);
 
         http.get(uri, 5000, JSON.stringify(this.headers)).then((res: Object) => {
             const response = JSON.parse(res as string);
@@ -116,12 +116,12 @@ class ServerData {
             }
         });
     }
- 
+
     //用户注册 获取accessKey
     requestServerDataRegister() {
         let url = "/bp/user/register?appId=" + GameConfig.android_init_param.appId + "&pkgId=" + GameConfig.android_init_param.pkgId + "&oaid=" + GameConfig.android_init_success_param.oaid;
         let callback = (data) => {
-            console.log("----用户注册--", data)
+            // console.log("----用户注册--", data)
         }
         this.get_data(url, callback);
     }
@@ -129,7 +129,7 @@ class ServerData {
     requestServerDataAchievement() {
         let url = "/lovexiao/achievement/list";
         this.get_data(url, function (data) {
-            console.log("==请求服务端数据=成就===", JSON.stringify(data));
+            // console.log("==请求服务端数据=成就===", JSON.stringify(data));
             // let achieveData = cc.common.fileOperation.getUserAchievementData();//网络出现问题调用本地数据
             // if(data!=-1)
             // {
@@ -150,7 +150,7 @@ class ServerData {
         let testDate = new Date();
         var mytime = testDate.getTime();//获取当前时间
         let newStr = correct + "," + level + "," + mytime + "," + GameConfig.secretData;
-        //console.log("==newStr==", newStr)
+        //// console.log("==newStr==", newStr)
         let md5NewStr = hexMD5(newStr);
         let params = {
             "correct": correct,
@@ -194,7 +194,7 @@ class ServerData {
 
     sendOutSeverDataUseProp() {
         this.get_data("/lovexiao/props/use_props", (result) => {
-            console.log("==向服务端发送数据=使用道具==", JSON.stringify(result))
+            // console.log("==向服务端发送数据=使用道具==", JSON.stringify(result))
         });
     }
 
