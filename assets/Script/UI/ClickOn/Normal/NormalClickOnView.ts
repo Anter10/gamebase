@@ -78,6 +78,9 @@ class NormalClickOnView extends BaseUI {
     }
 
     init_view(data: ApiV2CheckinInterface) {
+        if (!data.todayDone) {
+            data.checkInDay--;
+        }
         this.clock_in_data = data;
         const label_clockin_progress = this.sprite_title_bg.node.getChildByName(`label_clockin_progress`);
         label_clockin_progress.getComponent(cc.RichText).string = `<color=#ffffff>今日打卡进度</c><color=#fffc00>(看视频${data.process}/${data.needProcess})</color>`
@@ -104,7 +107,13 @@ class NormalClickOnView extends BaseUI {
     init_clickin_progress() {
         let redImageList = [];
         let posX = -295;
-        let startIndex = (Math.ceil(this.clock_in_data.checkInDay / (CLICK_IN_LENGTH - 1)) - 1) * (CLICK_IN_LENGTH - 1) + 1;
+        let startIndex;
+        if (this.clock_in_data.todayDone) {
+            startIndex = (Math.ceil(this.clock_in_data.checkInDay / (CLICK_IN_LENGTH - 1)) - 1) * (CLICK_IN_LENGTH - 1) + 1;
+        } else {
+            startIndex = (Math.ceil((this.clock_in_data.checkInDay + 1) / (CLICK_IN_LENGTH - 1)) - 1) * (CLICK_IN_LENGTH - 1) + 1;
+        }
+
         for (let i = startIndex; i < CLICK_IN_LENGTH + startIndex; ++i) {
             const clone_sprite_red = cc.instantiate(this.click_on_red_prefab);
             clone_sprite_red.parent = this.sprite_clockin_progress;
@@ -127,7 +136,6 @@ class NormalClickOnView extends BaseUI {
         }
 
         clone_sprite_red.getChildByName(`label_day_num`).getComponent(cc.Label).string = `${i}天`;
-        clone_sprite_red.getChildByName(`label_money`).getComponent(cc.Label).string = `${this.clock_in_data.normal}`;
         clone_sprite_red.getChildByName(`sprite_line`).active = this.clock_in_data.checkInDay > i;
         clone_sprite_red.getChildByName(`sprite_point`).active = this.clock_in_data.checkInDay >= i;
         let isDone = this.clock_in_data.checkInDay > i;

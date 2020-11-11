@@ -23,7 +23,7 @@ class ClickOnViewItem extends BaseNode {
 
     init_item_data(data: any, checkInDay: number, todayDone: boolean) {
         const need_progress = data.day;
-        let progress = todayDone ? checkInDay : (checkInDay - 1);
+        let progress = checkInDay;
         if (progress > need_progress) progress = need_progress;
 
         const sprite_progress = this.click_on_view_item_bottom.node.getChildByName(`sprite_progress_bg`);
