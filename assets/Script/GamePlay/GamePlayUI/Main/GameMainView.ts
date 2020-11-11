@@ -772,6 +772,19 @@ export default class GameMainView extends BaseUI {
     }
 
     click_batch_attract_customer_button() {
+        let ad_param: AdInterface = {
+            text: "看完广告就可以立即招揽\n10个顾客了",
+            success_call: () => { this.batch_attract_customer() },
+        }
+        const ui_ad_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.AdView,
+            ui_config_name: "AdView",
+            param: ad_param,
+        }
+        UIManager.show_ui(ui_ad_param_interface);
+    }
+
+    batch_attract_customer() {
         let rewarded_ad_interface: RewardedAdInterface = {
             /**@description 观看激励视频广告的ID */
             ad_id: GameConfig.android_init_param.debug_awarded_video_ids[0],
