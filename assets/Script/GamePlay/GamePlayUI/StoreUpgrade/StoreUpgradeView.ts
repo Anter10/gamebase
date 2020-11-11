@@ -219,6 +219,11 @@ export default class StoreUpgradeView extends BaseUI {
         if (click_level_number) {
             this.click_store_level = click_level_number;
         }
+        if (click_level_number <= 2) {
+            this.store_array_scroll_view.scrollTo(cc.v2(0, 0));
+        } else if (click_level_number <= this.store_upgrade_configs.length) {
+            this.store_array_scroll_view.scrollTo(cc.v2((click_level_number * 0.17 - 0.44), 0));
+        }
         if (this.click_store_level == this.store_upgrade_data_level) {
             if (this.store_upgrade_configs[this.click_store_level] && this.store_upgrade_configs[this.click_store_level].upgrade_need_cook_woman.length != 0) {
                 this.upgrade_conditions_array.removeAllChildren();
@@ -277,11 +282,7 @@ export default class StoreUpgradeView extends BaseUI {
     un_refresh_ui() {
         this.title_label.string = "店铺升级";
         let click = this.click_store_level;
-        if (click <= 2) {
-            this.store_array_scroll_view.scrollTo(cc.v2(0, 0));
-        } else if (click <= this.store_upgrade_configs.length) {
-            this.store_array_scroll_view.scrollTo(cc.v2((click * 0.17 - 0.44), 0));
-        }
+
 
         Loader.load_prefab("/GamePlay/GamePlayUI/Common/StoreIconItem/StoreIconItem", (prefab: cc.Prefab) => {
             const store_icon_item = cc.instantiate(prefab);
