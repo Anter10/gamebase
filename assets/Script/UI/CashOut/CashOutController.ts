@@ -35,7 +35,6 @@ class CashOutController implements Controller {
                 const no_balance_cash_out_view = cc.instantiate(prefab);
                 no_balance_cash_out_view.parent = this.view.node;
                 this.no_balance_cash_out_view = no_balance_cash_out_view.getComponent(NoBanlanceCashOutView);
-                this.update_cash_out_view();
             });
         }
     }
@@ -58,9 +57,6 @@ class CashOutController implements Controller {
      */
     update_cash_out_view() {
         CommonServerData.get_withdraw((with_draw_data_interface: CashOutInterface) => {
-            console.log("当前的体现数据  = ", with_draw_data_interface);
-            // console.log("this.view",this.view.ui_param_interface.router.path);
-            // 现金类型的提现模块
             if (this.view.ui_param_interface.router.path == CashOutRouterPath.no_balance) {
                 if(this.no_balance_cash_out_view){
                     this.no_balance_cash_out_view.update_view(with_draw_data_interface.items);
