@@ -1,1 +1,1 @@
-{"AudioConfig":[{"id":1,"name":"background","time":13,"loop":true,"info":"背景音乐"},{"id":2,"name":"button","time":1,"loop":false,"info":"按钮音效"}]}
+{"AudioConfig":[{"id":1,"name":"background","time":120,"info":"背景音乐"},{"id":2,"name":"button","time":1,"info":"按钮音效"}]}
