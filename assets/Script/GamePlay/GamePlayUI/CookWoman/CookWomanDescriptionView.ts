@@ -130,6 +130,17 @@ export default class CookWomanDescriptionView extends BaseUI {
         this.level_rich_text.string = "";
         this.coin_upgrade_rich_text.string = "";
         this.heart_upgrade_rich_text.string = "";
+        for (let i = 1; i <= GamePlayConfig.cook_woman_max_level; i++) {
+            if (i == this.cook_woman_level) {
+                this.level_rich_text.string = this.level_rich_text.string + `<b>LV.${i}  </b>`;
+                this.coin_upgrade_rich_text.string = this.coin_upgrade_rich_text.string + `<b>${this.cook_woman_config.cook_speed_accelerate[i - 1]}%  </b>`;
+                this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `<b>${this.cook_woman_config.cook_gold_accelerate[i - 1]}%  </b>`;
+            } else {
+                this.level_rich_text.string = this.level_rich_text.string + `<b><color=#460B0D>LV.${i}  </c></b>`;
+                this.coin_upgrade_rich_text.string = this.coin_upgrade_rich_text.string + `<b><color=#460B0D>${this.cook_woman_config.cook_speed_accelerate[i - 1]}%  </c></b>`;
+                this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `<b><color=#460B0D>${this.cook_woman_config.cook_gold_accelerate[i - 1]}%  </c></b>`;
+            }
+        }
         if (this.cook_woman_level == 0) {
             this.level_label.string = "";
             this.upgrade_button_label.string = "解锁";
@@ -144,20 +155,10 @@ export default class CookWomanDescriptionView extends BaseUI {
                 this.upgrade_button_label.string = "升级";
             }
             this.green_sprite.active = true;
-            this.green_sprite.x = 78.75 * this.cook_woman_level - 200.75;
+            this.green_sprite.x = this.level_rich_text.node.x + (this.level_rich_text.node.width / 5) * (this.cook_woman_level - 3) - 5;
         }
 
-        for (let i = 1; i <= GamePlayConfig.cook_woman_max_level; i++) {
-            if (i == this.cook_woman_level) {
-                this.level_rich_text.string = this.level_rich_text.string + `<b>LV.${i}  </b>`;
-                this.coin_upgrade_rich_text.string = this.coin_upgrade_rich_text.string + `<b>${this.cook_woman_config.cook_speed_accelerate[i - 1]}%  </b>`;
-                this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `<b>${this.cook_woman_config.cook_gold_accelerate[i - 1]}%  </b>`;
-            } else {
-                this.level_rich_text.string = this.level_rich_text.string + `<b><color=#460B0D>LV.${i}  </c></b>`;
-                this.coin_upgrade_rich_text.string = this.coin_upgrade_rich_text.string + `<b><color=#460B0D>${this.cook_woman_config.cook_speed_accelerate[i - 1]}%  </c></b>`;
-                this.heart_upgrade_rich_text.string = this.heart_upgrade_rich_text.string + `<b><color=#460B0D>${this.cook_woman_config.cook_gold_accelerate[i - 1]}%  </c></b>`;
-            }
-        }
+
     }
 
     not_refresh_cook_woman_description() {

@@ -1171,7 +1171,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -115,
+        0,
         0,
         0,
         0,
@@ -1270,7 +1270,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 373.7,
+      "width": 382.59,
       "height": 63
     },
     "_anchorPoint": {
@@ -1334,7 +1334,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 373.7,
+      "width": 391.34,
       "height": 63
     },
     "_anchorPoint": {
@@ -1346,7 +1346,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -186.85,
+        -191.295,
         -31.5,
         0,
         0,
@@ -1387,8 +1387,8 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_string": "LV.1  LV.1  LV.1  LV.1  LV.1",
-    "_N$string": "LV.1  LV.1  LV.1  LV.1  LV.1",
+    "_string": "LV.1  LV.1  LV.1  LV.1  LV.1 ",
+    "_N$string": "LV.1  LV.1  LV.1  LV.1  LV.1 ",
     "_fontSize": 32,
     "_lineHeight": 50,
     "_enableWrapText": true,
@@ -1396,7 +1396,7 @@
     "_isSystemFontUsed": true,
     "_spacingX": 0,
     "_batchAsBitmap": false,
-    "_styleFlags": 0,
+    "_styleFlags": 1,
     "_underlineHeight": 0,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
@@ -1413,7 +1413,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "8d2vyBthlCLp8ihOIvklG/",
+    "fileId": "bcdCq2Iq1OoZHqOJNCac8g",
     "sync": false
   },
   {
@@ -1426,7 +1426,7 @@
     "_enabled": true,
     "_fontFamily": "Arial",
     "_isSystemFontUsed": true,
-    "_N$string": "LV.1  LV.1  LV.1  LV.1  LV.1",
+    "_N$string": "<b>LV.1  LV.1  LV.1  LV.1  LV.1 </b>",
     "_N$horizontalAlign": 1,
     "_N$fontSize": 32,
     "_N$font": null,
@@ -1622,7 +1622,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "2f7gnE2FtJsKaQ9EvwZyoH",
+    "fileId": "4fq38+OONGHosrYltD69zm",
     "sync": false
   },
   {
@@ -1831,7 +1831,7 @@
     "asset": {
       "__uuid__": "b6b25111-03f3-4c1d-83ad-c00fdc255725"
     },
-    "fileId": "d9CfgwkjpIGKeth58+U5P1",
+    "fileId": "e2QavpOtpE+6uUBxHppsla",
     "sync": false
   },
   {
