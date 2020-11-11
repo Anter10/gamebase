@@ -251,6 +251,7 @@ export default class StoreUpgradeView extends BaseUI {
             } else {
                 this.upgrade_label.y = 70;
                 this.upgrade_frame.y = -60;
+                this.upgrade_conditions_array.removeAllChildren();
             }
             if (this.store_upgrade_data_level == this.store_upgrade_configs.length) {
                 this.upgrade_label.active = false;
