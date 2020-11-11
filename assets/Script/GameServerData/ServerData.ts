@@ -44,7 +44,6 @@ class ServerData {
         });
     }
 
-
     init_headers() {
         this._headers = {
             /**@description 设备的型号 */

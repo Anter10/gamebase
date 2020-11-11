@@ -216,5 +216,17 @@ interface ApiUserInterface{
     friendly:boolean;
 }
 
+/**@description 用户版本信息是否强制更新 */
+interface ApiVersionInterface{
+    /**@description 是否需要更新版本 */
+    update: boolean;
+    /**@description 更新版本的APK包的地址 */
+    url: string;
+    /**@description 版本更新描述*/
+    desc: string;
+    /**@description force 是否强制更新*/
+    force: boolean;
+}
 
-export {ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+
+export {ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };

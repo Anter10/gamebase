@@ -1,12 +1,13 @@
-const UIConfig:{[key: string]: string} = {
+const UIConfig = {
       // COMMON 类型的UI
       NetworkLoading : "UI/Common/NetworkLoading",
       Toast: "./UI/Common/Toast",
       Modal: "./UI/Common/Modal",
       Nagivator: "./UI/Common/Nagivator",
       ActionNode: "./UI/Common/ActionNode",
-
       NativeDebug: "./NativeDebug/NativeDebug",
+      ApiVersionView: "./UI/Common/ApiVersionView",
+
 
       // 用户声明界面
       UserPrivacyView:"./UI/UserProtocolAndPrivacy/UserPrivacyView",
