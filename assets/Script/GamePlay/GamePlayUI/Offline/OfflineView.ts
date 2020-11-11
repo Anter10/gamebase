@@ -9,6 +9,7 @@ import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import OfflineData from "../../../GameLocalData/OfflineData";
 import { Ad } from "../../../Sdk/Ad";
+import BI from "../../../Sdk/BI";
 import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 
 const { ccclass, property } = cc._decorator;
@@ -64,6 +65,7 @@ export default class OfflineView extends BaseUI {
             ad_id: GameConfig.video_ad_id,
             /**@description 观看激励视频成功的回调 */
             success: (res: any) => {
+                BI.video_bi({ name: "离线收益" })
                 const game_base_data: GamePlayBaseData = GameLocalData.get_instance().get_data(GamePlayBaseData);
                 game_base_data.change_gold_coin_number(this.offline_config.gold);
                 game_base_data.change_red_heart_number(this.offline_config.heart);

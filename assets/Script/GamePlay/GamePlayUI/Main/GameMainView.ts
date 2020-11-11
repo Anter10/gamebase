@@ -21,6 +21,7 @@ import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
 import OSRuntime from "../../../OSRuntime";
 import { Ad } from "../../../Sdk/Ad";
+import BI from "../../../Sdk/BI";
 import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 import GameData from "../../../Sdk/UserData";
 import CashOutController from "../../../UI/CashOut/CashOutController";
@@ -795,6 +796,7 @@ export default class GameMainView extends BaseUI {
             ad_id: GameConfig.video_ad_id,
             /**@description 观看激励视频成功的回调 */
             success: (res: any) => {
+                BI.video_bi({ name: "批量招揽顾客" })
                 let i = 0;
                 const callback = () => {
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
