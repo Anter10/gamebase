@@ -8,8 +8,6 @@ class GameDataConfig{
              if(!error){
                 const keys = Object.keys(json.json);
                 this.all_config_data = json.json;
-                cc.log(`config:${JSON.stringify(json)}`)
-                this.server_request_server_config();
              }else{
              }
          });

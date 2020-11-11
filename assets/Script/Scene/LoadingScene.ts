@@ -4,8 +4,13 @@ import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
 import { UpdateManagerComponent } from "../Common/UpdateManagerComponent";
 import Utils from "../Common/Utils";
+import EventConfig from "../EventManager/EventConfig";
+import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
+import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import ServerData from "../GameServerData/ServerData";
 import BI from "../Sdk/BI";
+import { NativeSDKTool } from "../Sdk/NativeSDKTool";
 import { BiInterface, WechatLoginInterface } from "../Sdk/SdkInterface";
 import { SdkModule } from "../Sdk/SdkModule";
 import UIConfig from "../UI/UIManager/UIConfig";
@@ -79,6 +84,10 @@ class LoadingScene extends BaseScene {
 
     onLoad() {
         super.onLoad();
+
+        EventManager.get_instance().listen(EventConfig.splash_ad_on, this, ()=>{
+            NativeSDKTool.hideLoadBg();
+        })
         Boot.init();
         this.init_update_manager();
         this.flush_view();
@@ -184,7 +193,9 @@ class LoadingScene extends BaseScene {
         if (gamebase.jsb) {
             const login_interface: WechatLoginInterface = {
                 success: (res: any) => {
-                    console.log("微信登陆成功 登陆成功的数据 ", res);
+                    console.log("微信登陆成功 登陆成功的数据 ", JSON.stringify(res));
+                    ServerData.get_instance().init();
+                    GameDataConfig.server_request_server_config();
                     this.checking_update();
                 },
                 fail: (res: any) => {
@@ -192,8 +203,11 @@ class LoadingScene extends BaseScene {
                 }
             }
 
-            SdkModule.wechat_login(login_interface);
+            NativeSDKTool.wechat_login(login_interface);
         } else {
+            // 非原生的话直接初始化服务器配置数据 和 初始化header参数
+            ServerData.get_instance().init();
+            GameDataConfig.server_request_server_config();
             this.checking_update();
         }
     }
