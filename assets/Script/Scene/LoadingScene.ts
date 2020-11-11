@@ -79,7 +79,7 @@ class LoadingScene extends BaseScene {
         loading_progress_bottom_image: "loading_progress_bottom_image",
         loading_progress_upper_image: "loading_progress_upper_image",
         start_game_button_image: "start_game_button_image",
-        start_game_button_text: "开始游戏",
+        start_game_button_text: "微信登陆",
     };
 
     onLoad() {
@@ -250,7 +250,7 @@ class LoadingScene extends BaseScene {
     }
 
     update() {
-        this.loading_progress.totalLength = this.loading_progress_bottom_image.node.width;
+        this.loading_progress.totalLength = this.loading_progress_upper_image.node.width;
     }
 }
 
