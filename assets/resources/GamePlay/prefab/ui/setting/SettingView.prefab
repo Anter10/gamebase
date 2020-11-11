@@ -2354,8 +2354,12 @@
     "close_button": {
       "__id__": 56
     },
-    "label": null,
-    "text": "hello",
+    "user_privacy_button": {
+      "__id__": 14
+    },
+    "user_protocol_button": {
+      "__id__": 17
+    },
     "_id": ""
   },
   {
