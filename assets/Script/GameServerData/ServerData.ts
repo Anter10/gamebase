@@ -74,7 +74,7 @@ class ServerData {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
         const content_type = `application/json`;
         http.post(uri, 5000, JSON.stringify(data), content_type, this.headers).then((res) => {
-            // console.log(`post 请求得到的游戏的数据 ${res}`);
+            console.log(`post 请求得到的游戏的数据 ${JSON.stringify(res)}`);
             const response = JSON.parse(res as string);
             if (response.code == 0) {
                 call_back && call_back(response.result);
@@ -90,7 +90,7 @@ class ServerData {
         const http = new HttpClient(GameConfig.serverUrl, 5000);
         // console.log(data, "当前get设置的请求地址", this.headers);
         http.get(uri, 5000, JSON.stringify(data), this.headers).then((res: Object) => {
-            // console.log(`get 请求得到的游戏的数据 ${res}`);
+            console.log(`get 请求得到的游戏的数据 ${JSON.stringify(res)}`);
             const response = JSON.parse(res as string);
             if (response.code == 0) {
                 call_back && call_back(response.result);

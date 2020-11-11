@@ -153,6 +153,15 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
 
         CommonServerData.post_withdraw(post_draw_data, (res: CashInterface) => {
             success && success(res);
+        },(res)=>{
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: `${res.message}`
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
         })
     }
 
