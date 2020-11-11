@@ -85,18 +85,18 @@ class NormalClickOnView extends BaseUI {
 
     init_view(data: ApiV2CheckinInterface) {
         if (!data.todayDone) {
-            data.checkInDay--;
+            this.clock_in_data.checkInDay--;
         }
         this.clock_in_data = data;
         const label_clockin_progress = this.sprite_title_bg.node.getChildByName(`label_clockin_progress`);
-        label_clockin_progress.getComponent(cc.RichText).string = `<color=#ffffff>今日打卡进度</c><color=#fffc00>(看视频${data.process}/${data.needProcess})</color>`
+        label_clockin_progress.getComponent(cc.RichText).string = `<color=#ffffff>今日打卡进度</c><color=#fffc00>(看视频${this.clock_in_data.process}/${this.clock_in_data.needProcess})</color>`
 
-        const checkInDay = data.checkInDay < 10 ? `0${data.checkInDay}` : data.checkInDay;
+        const checkInDay = this.clock_in_data.checkInDay < 10 ? `0${this.clock_in_data.checkInDay}` : this.clock_in_data.checkInDay;
         const label_clockin_day_num = this.sprite_title_bg.node.getChildByName(`label_clockin_day_num`);
         label_clockin_day_num.getComponent(cc.Label).string = `${checkInDay}`;
 
         const label_clockin_day_num1 = this.sprite_clockin_progress.getChildByName(`label_clockin_day_num`);
-        label_clockin_day_num1.getComponent(cc.RichText).string = `<color=#1B1B1B>已连续打卡</c><color=#F16700>${data.checkInDay}<color=#1B1B1B>天</color>`;
+        label_clockin_day_num1.getComponent(cc.RichText).string = `<color=#1B1B1B>已连续打卡</c><color=#F16700>${this.clock_in_data.checkInDay}<color=#1B1B1B>天</color>`;
 
         this.init_clickin_progress();
         if (this.clock_in_data.special && this.clock_in_data.special.length > 0) {
