@@ -54,6 +54,7 @@ export default class OfflineView extends BaseUI {
     }
 
     start() {
+        this.close_button.active = false;
         this.scheduleOnce(() => {
             this.close_button.active = true;
         }, 3);
