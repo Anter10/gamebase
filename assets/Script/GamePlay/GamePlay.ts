@@ -1,4 +1,7 @@
+import CocosAudio from "../Common/Audio";
 import { UIParamInterface } from "../Common/CommonInterface";
+import { AudioConfig } from "../GameDataConfig/ConfigInterface";
+import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 import LinkGameBase from "./LinkGameBase";
@@ -25,6 +28,9 @@ class GamePlay extends cc.Component {
     }
 
     onLoad() {
+        const audio_config: AudioConfig = GameDataConfig.get_config_by_id("AudioConfig", 1);
+        const audio: CocosAudio = new CocosAudio();
+        audio.play(audio_config);
         this.init_game_play_ui_config();
         const ui_main_param_interface: UIParamInterface = {
             ui_config_path: UIConfig.GameMainView,

@@ -13,6 +13,7 @@ class CocosAudio{
                   this.audio = new cc.AudioSource();
                   this.audio.clip = audio_clip;
                   this.audio.play();
+                  console.log("this.audio_config.loop ",this.audio_config.loop)
                   this.audio.loop = this.audio_config.loop;
               }else{
                   console.error(`当前的音乐没有播放出来  ${this.audio_config.name}`)

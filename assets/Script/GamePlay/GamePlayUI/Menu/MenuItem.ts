@@ -83,7 +83,7 @@ export default class MenuItem extends BaseNode {
     }
 
     click_price_button() {
-        if (OSRuntime._api_user_interface.friendly) {
+        if (OSRuntime.api_user_interface.friendly) {
             let ad_param: AdInterface = {
                 text: "看完广告就可以解锁菜谱了",
                 success_call: () => { this.click_price_button_call(); },

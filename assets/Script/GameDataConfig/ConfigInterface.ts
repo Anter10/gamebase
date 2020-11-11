@@ -6,6 +6,11 @@ interface AudioConfig {
     info : string; 
 } 
 
+interface ChatConfig { 
+    id : number; 
+    text : string; 
+} 
+
 interface DecorationConfig { 
     id : number; 
     name : string; 
@@ -13,11 +18,6 @@ interface DecorationConfig {
     upgrade : Array<number>; 
     growth : Array<number>; 
     description : string; 
-} 
-
-interface ChatConfig { 
-    id : number; 
-    text : string; 
 } 
 
 interface MenuConfig { 
@@ -72,4 +72,4 @@ interface UnlockMenuRewardConfig {
  
   
 
- export { AudioConfig,DecorationConfig,ChatConfig,MenuConfig,OfflineConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };
+ export { AudioConfig,ChatConfig,DecorationConfig,MenuConfig,OfflineConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };

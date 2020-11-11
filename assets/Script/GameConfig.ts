@@ -1,3 +1,5 @@
+import OSRuntime from "./OSRuntime";
+
 /**@description 游戏的配置资源 */
 const GameConfig = {
     secretData: "fS*rD^NzBD847*KCBU7d^bgbzJddPU3u",
@@ -121,7 +123,11 @@ const GameConfig = {
 
     /**@description 当前的环境是debug环境 */
     get env_is_debug(): boolean {
-        return GameConfig.env == "0";
+        if(!OSRuntime.wechat_login_success_interface){
+            return true;
+        }
+        
+        return OSRuntime.wechat_login_success_interface.env == "0";
     },
 
     /**@description 当前播放激励视频广告的ID */
