@@ -836,7 +836,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "shezhi_button_zxzh",
+    "_name": "exit_button",
     "_objFlags": 0,
     "_parent": {
       "__id__": 20
@@ -1272,7 +1272,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Background",
+    "_name": "audio_effect_false",
     "_objFlags": 512,
     "_parent": {
       "__id__": 32
@@ -1379,7 +1379,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "checkmark",
+    "_name": "audio_effect_true",
     "_objFlags": 512,
     "_parent": {
       "__id__": 32
@@ -1675,7 +1675,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Background",
+    "_name": "audio_music_false",
     "_objFlags": 512,
     "_parent": {
       "__id__": 43
@@ -1782,7 +1782,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "checkmark",
+    "_name": "audio_music_true",
     "_objFlags": 512,
     "_parent": {
       "__id__": 43
@@ -2199,6 +2199,33 @@
     },
     "user_protocol_button": {
       "__id__": 17
+    },
+    "audio_effect_button": {
+      "__id__": 32
+    },
+    "audio_music_button": {
+      "__id__": 43
+    },
+    "audio_effect_true": {
+      "__id__": 36
+    },
+    "audio_effect_false": {
+      "__id__": 33
+    },
+    "audio_music_false": {
+      "__id__": 44
+    },
+    "audio_music_true": {
+      "__id__": 47
+    },
+    "exit_button": {
+      "__id__": 21
+    },
+    "id_label": {
+      "__id__": 25
+    },
+    "version_label": {
+      "__id__": 28
     },
     "_id": ""
   },

@@ -15,6 +15,14 @@ class SettingData extends BaseRecord {
         this.apply_auto_update();
     }
 
+    get_sound_effect(): boolean {
+        return this.sound_effect;
+    }
+
+    get_music(): boolean {
+        return this.music;
+    }
+
     change_sound_effect(sound_effect: boolean) {
         if (sound_effect != this.sound_effect) {
             this.music = sound_effect;
