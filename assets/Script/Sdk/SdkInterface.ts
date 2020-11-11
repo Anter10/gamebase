@@ -195,3 +195,15 @@ export interface WechatLoginSuccessInterface{
     /**@description 打点的时间ID */
     timer_id?: string;
 }
+
+
+/**@description 视频打点的数据接口 */
+export interface VideoBiInterface{
+    /**@description 视频点的名称 */
+    name: string;
+    /**@description 视频统计成功回调*/
+    success?: Function;
+    /**@description 视频统计失败回调*/
+    fail?: Function;
+}
+

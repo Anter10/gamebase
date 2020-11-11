@@ -117,9 +117,19 @@ class ServerData {
     }
 
     bi_data(uri: string, call_back?: Function) {
-        const http = new HttpClient("https://bp-api.coohua.com");
+        const http = new HttpClient(GameConfig.serverUrl);
         // console.log("当前get设置的请求地址", this.headers);
+        http.get(uri, 5000, JSON.stringify(this.headers)).then((res: Object) => {
+            const response = JSON.parse(res as string);
+            if (response) {
+                call_back && call_back(response.result);
+            }
+        });
+    }
 
+    video_bi_data(uri: string, call_back?: Function) {
+        const http = new HttpClient(GameConfig.serverUrl);
+        // console.log("当前get设置的请求地址", this.headers);
         http.get(uri, 5000, JSON.stringify(this.headers)).then((res: Object) => {
             const response = JSON.parse(res as string);
             if (response) {
