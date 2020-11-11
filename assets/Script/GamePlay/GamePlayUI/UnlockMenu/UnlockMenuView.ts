@@ -7,6 +7,7 @@ import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
 import { Ad } from "../../../Sdk/Ad";
+import BI from "../../../Sdk/BI";
 import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
@@ -95,6 +96,7 @@ export default class UnlockMenuView extends BaseUI {
         this.menu_data = GameLocalData.get_instance().get_data<MenuData>(MenuData);
         let menu_ad_data = this.menu_data.get_menu_data_by_id(this.menu_config.id);
         if (menu_ad_data) {
+            BI.video_bi({ name: "解锁菜品" })
             if (menu_ad_data.menuAdTime + 1 == this.menu_config.ad_number) {
                 this.menu_data.change_menu_data(this.menu_config.id, MenuType.unlock, menu_ad_data.menuAdTime + 1);
                 const ui_param_interface: UIParamInterface = {
