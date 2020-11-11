@@ -52,6 +52,9 @@ class NormalClickOnView extends BaseUI {
         // 点击打卡声明
         const label_explain: TouchButton = this.label_explain.addComponent(TouchButton);
         label_explain.register_touch(this.click_label_explain.bind(this));
+    }
+
+    onEnable() {
         this.request_checkin_data();
     }
 
@@ -95,6 +98,7 @@ class NormalClickOnView extends BaseUI {
         this.init_clickin_progress();
         if (this.clock_in_data.special && this.clock_in_data.special.length > 0) {
             const len = this.clock_in_data.special.length;
+            this.container.removeAllChildren();
             for (let i = 0; i < len; i++) {
                 const item = cc.instantiate(this.click_on_item_prefab);
                 item.parent = this.container;
