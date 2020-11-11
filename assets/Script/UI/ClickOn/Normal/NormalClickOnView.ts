@@ -84,10 +84,10 @@ class NormalClickOnView extends BaseUI {
     }
 
     init_view(data: ApiV2CheckinInterface) {
+        this.clock_in_data = data;
         if (!data.todayDone) {
             this.clock_in_data.checkInDay--;
         }
-        this.clock_in_data = data;
         const label_clockin_progress = this.sprite_title_bg.node.getChildByName(`label_clockin_progress`);
         label_clockin_progress.getComponent(cc.RichText).string = `<color=#ffffff>今日打卡进度</c><color=#fffc00>(看视频${this.clock_in_data.process}/${this.clock_in_data.needProcess})</color>`
 
