@@ -93,6 +93,12 @@ class CommonServerData {
         ServerData.get_instance().get_data(url, callback, error_callback);
     }
 
+    /**@description 检查用户是否需要强制更新版本信息 */
+    static check_api_version(callback: Function, error_callback: Function){
+        let url =  `/${GameConfig.api_root_path}/api/version`;
+        ServerData.get_instance().get_data(url, callback, error_callback);
+    }
+
 }
 
 
