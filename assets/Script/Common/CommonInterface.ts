@@ -200,4 +200,21 @@ interface HttpHeaderInterface{
 }
 
 
-export {HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+/**@description 请求用户信息的数据接口 */
+interface ApiUserInterface{
+    /**@description 用户的ID */
+    userId: number;
+    /**@description 用户的昵称 */
+    nickName:string;
+    /**@description 用户的头像 */
+    photoUrl:string;
+    /**@description 用户的money */
+    money:number;
+    /**@description 是否是新用户 */
+    newUser:boolean;
+    /**@description 是否是友好的 */
+    friendly:boolean;
+}
+
+
+export {ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };

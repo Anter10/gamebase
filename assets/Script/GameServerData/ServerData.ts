@@ -4,8 +4,10 @@ import GameConfig from "../GameConfig";
 import GameRecord from "../GameLocalData/GameRecord";
 import { HttpClient } from "../NetWork/HttpClient";
 import { hexMD5 } from "../NetWork/Md5";
+import OSRuntime from "../OSRuntime";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
+import CommonServerData from "./CommonServerData";
 
 class ServerData {
     public static game_server_data_instance: ServerData = null;
@@ -30,6 +32,16 @@ class ServerData {
 
     init() {
         this.init_headers();
+        this.init_user_data();
+    }
+
+    init_user_data(){
+        CommonServerData.get_api_user((res: any) => {
+            OSRuntime.api_user_interface = res;
+            console.log("当前的用户信息 ",JSON.stringify(OSRuntime.api_user_interface));
+        }, (res)=>{
+            console.log("用户信息不存在");
+        });
     }
 
 

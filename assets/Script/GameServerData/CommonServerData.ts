@@ -86,6 +86,13 @@ class CommonServerData {
         ServerData.get_instance().post_data(`/${GameConfig.api_root_path}/api/order`,post_data,callback,  error_callback);
     }
 
+
+    /**@description 用户的信息 */
+    static get_api_user(callback: Function, error_callback: Function){
+        let url =  `/${GameConfig.api_root_path}/api/user`;
+        ServerData.get_instance().get_data(url, callback, error_callback);
+    }
+
 }
 
 
