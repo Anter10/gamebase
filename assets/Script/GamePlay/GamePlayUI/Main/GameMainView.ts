@@ -19,6 +19,7 @@ import OrderMenuData from "../../../GameLocalData/OrderMenuData";
 import PeopleData, { CustomerPayInterface } from "../../../GameLocalData/PeopleData";
 import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
+import OSRuntime from "../../../OSRuntime";
 import { Ad } from "../../../Sdk/Ad";
 import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 import GameData from "../../../Sdk/UserData";
@@ -772,16 +773,20 @@ export default class GameMainView extends BaseUI {
     }
 
     click_batch_attract_customer_button() {
-        let ad_param: AdInterface = {
-            text: "看完广告就可以立即招揽\n10个顾客了",
-            success_call: () => { this.batch_attract_customer() },
+        if (OSRuntime._api_user_interface.friendly) {
+            let ad_param: AdInterface = {
+                text: "看完广告就可以立即招揽\n10个顾客了",
+                success_call: () => { this.batch_attract_customer() },
+            }
+            const ui_ad_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.AdView,
+                ui_config_name: "AdView",
+                param: ad_param,
+            }
+            UIManager.show_ui(ui_ad_param_interface);
+        } else {
+            this.batch_attract_customer();
         }
-        const ui_ad_param_interface: UIParamInterface = {
-            ui_config_path: UIConfig.AdView,
-            ui_config_name: "AdView",
-            param: ad_param,
-        }
-        UIManager.show_ui(ui_ad_param_interface);
     }
 
     batch_attract_customer() {

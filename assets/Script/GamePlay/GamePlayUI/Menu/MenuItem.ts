@@ -7,6 +7,7 @@ import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
+import OSRuntime from "../../../OSRuntime";
 import { Ad } from "../../../Sdk/Ad";
 import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 import UIConfig from "../../../UI/UIManager/UIConfig";
@@ -82,16 +83,20 @@ export default class MenuItem extends BaseNode {
     }
 
     click_price_button() {
-        let ad_param: AdInterface = {
-            text: "看完广告就可以解锁菜谱了",
-            success_call: () => { this.click_price_button_call() },
+        if (OSRuntime._api_user_interface.friendly) {
+            let ad_param: AdInterface = {
+                text: "看完广告就可以解锁菜谱了",
+                success_call: () => { this.click_price_button_call(); },
+            }
+            const ui_ad_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.AdView,
+                ui_config_name: "AdView",
+                param: ad_param,
+            }
+            UIManager.show_ui(ui_ad_param_interface);
+        } else {
+            this.click_price_button_call();
         }
-        const ui_ad_param_interface: UIParamInterface = {
-            ui_config_path: UIConfig.AdView,
-            ui_config_name: "AdView",
-            param: ad_param,
-        }
-        UIManager.show_ui(ui_ad_param_interface);
     }
 
     click_price_button_call() {
