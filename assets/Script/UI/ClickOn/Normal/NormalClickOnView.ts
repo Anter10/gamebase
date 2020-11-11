@@ -55,7 +55,7 @@ class NormalClickOnView extends BaseUI {
         CommonServerData.get_clock_in((res: ApiV2CheckinInterface)=>{
             this.api_v2_checkin_interface = res;
             console.log("获得的打卡数据 = ",this.api_v2_checkin_interface);
-        },false,(error:any)=>{
+        },true,(error:any)=>{
             console.log("打卡数据错误 = ",error);
         })
     }
