@@ -28,6 +28,10 @@ const GameConfig = {
     user_protocol_url: "http://waqqq.hainanliangyou.com/user.html",
     // 隐私声明的网页链接
     user_privacy_url: "http://waqqq.hainanliangyou.com/private.html",
+    /**@description 测试接口 */
+    test_url: "https://bp-api.coohua.top",
+    /**@description 正式接口 */
+    release_url: "https://bp-api.coohua.com",
     /**@description 通用API的根地址 */
     api_root_path: "g3-odyssey",
     /**@description BI的根地址 */
@@ -100,10 +104,13 @@ const GameConfig = {
 
     /**@description 服务器的地址 地址规则 前面加上斜杠( / ) 后面不加斜杠( / ) */
     get serverUrl() {
-        var serverUrl = "https://bp-api.coohua.com";
-        if (GameConfig.android_init_param.apiType == 0) {
-            serverUrl = "https://bp-api.coohua.top";
+        var serverUrl = null;
+        if (GameConfig.env_is_debug) {
+            serverUrl = GameConfig.test_url;
+        }else{
+            serverUrl = GameConfig.release_url;
         }
+        
         return serverUrl;
     },
 
