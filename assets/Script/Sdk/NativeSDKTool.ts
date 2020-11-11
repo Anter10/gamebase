@@ -321,9 +321,13 @@ export class NativeSDKTool {
      * 显示视频广告
      */
     public static showVideoAd(rewarded_interface: RewardedAdInterface) {
+        sdk_module_interface.rewarded_video_fail_callback = rewarded_interface.fail;
+        sdk_module_interface.rewarded_video_success_callback = rewarded_interface.success;
+
         if(!Boot.ad_mode){
             if (sdk_module_interface.rewarded_video_success_callback) {
                 sdk_module_interface.rewarded_video_success_callback();
+                return;
             }
         }
         if (NativeSDKTool.rewarded_videoing) {
@@ -331,8 +335,7 @@ export class NativeSDKTool {
         }
         NativeSDKTool.rewarded_videoing = true;
         console.log("播放广告的数据  =", JSON.stringify(rewarded_interface));
-        sdk_module_interface.rewarded_video_fail_callback = rewarded_interface.fail;
-        sdk_module_interface.rewarded_video_success_callback = rewarded_interface.success;
+        
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderVideoAd", "(I)V", rewarded_interface.ad_id);
@@ -588,9 +591,7 @@ export class NativeSDKTool {
      */
     public static onSplashAdDone(res: string) {
         console.log("====开屏广告结束:", res, typeof res);
-        if (res == "1") {
-            EventManager.get_instance().emit(EventConfig.splash_ad_on);
-        }
+        EventManager.get_instance().emit(EventConfig.splash_ad_on);
     }
 
 }
