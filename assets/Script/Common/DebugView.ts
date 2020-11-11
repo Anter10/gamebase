@@ -33,8 +33,8 @@ export default class DebugView extends BaseUI {
             this.exchange_ad_mode();   
         });
 
-        if(GameConfig.env_is_debug){
-            this.ad_mode_button.active = false;
+        if(!GameConfig.env_is_debug){
+           this.ad_mode_button.active = false;
         }
     }
 
