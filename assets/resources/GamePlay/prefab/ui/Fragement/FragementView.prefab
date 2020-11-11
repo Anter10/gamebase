@@ -1335,8 +1335,12 @@
     "close_button": {
       "__id__": 32
     },
-    "activity_rule_button": null,
-    "shipping_address_button": null,
+    "activity_rule_button": {
+      "__id__": 6
+    },
+    "shipping_address_button": {
+      "__id__": 9
+    },
     "_id": ""
   },
   {

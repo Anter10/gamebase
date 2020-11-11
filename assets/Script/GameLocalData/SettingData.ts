@@ -7,8 +7,8 @@ class SettingData extends BaseRecord {
     static _name = "SettingData";
     base_name = "SettingData";
 
-    public sound_effect: boolean = true;
-    public music: boolean = true;
+    private sound_effect: boolean = true;
+    private music: boolean = true;
 
     constructor() {
         super();
