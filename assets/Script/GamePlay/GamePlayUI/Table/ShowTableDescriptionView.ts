@@ -45,7 +45,7 @@ export default class ShowTableDescriptionView extends BaseUI {
     }
 
     onAddFinished() {
-        Ad.show_bottom_static_ad(340, 250, 0.1,(code: number) => {
+        Ad.show_bottom_static_ad(340, 250, 0,(code: number) => {
             console.log("显示静态广告的code ",code);
         });
     }

@@ -1,5 +1,6 @@
 import { Boot } from "../Boot";
 import GameConfig from "../GameConfig";
+import GameConfig from "../GameConfig";
 import OSRuntime from "../OSRuntime";
 import BaseUI from "./BaseUI";
 import TouchButton from "./TouchButton";
@@ -31,6 +32,10 @@ export default class DebugView extends BaseUI {
         this.ad_mode_button.addComponent(TouchButton).register_touch(()=>{
             this.exchange_ad_mode();   
         });
+
+        if(GameConfig.env_is_debug){
+            this.ad_mode_button.active = false;
+        }
     }
 
     start() {

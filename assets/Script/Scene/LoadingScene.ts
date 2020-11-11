@@ -70,6 +70,10 @@ class LoadingScene extends BaseScene {
     @property(cc.Asset)
     asset: cc.Asset = null;
 
+    public wait_time_number: number = 0;
+
+    public had_hide_bg: boolean = false;
+
     public assets_manager: UpdateManagerComponent = null;
 
     public loading_scene_interface: LoadingSceneInterface = {
@@ -255,9 +259,16 @@ class LoadingScene extends BaseScene {
         UIManager.show_ui(ui_param_interface);
     }
 
-    update() {
+    update(dt) {
+        this.wait_time_number = this.wait_time_number + dt;
+        if(this.wait_time_number >= 3 && !this.had_hide_bg){
+            this.had_hide_bg = true;
+            EventManager.get_instance().emit(EventConfig.splash_ad_on);
+        }
         this.loading_progress.totalLength = this.loading_progress_upper_image.node.width;
     }
+
+
 }
 
 

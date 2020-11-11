@@ -27,9 +27,9 @@ const GameConfig = {
     /**@description 当前游戏所在的分支 */
     branch: "Restaurant",
     // 用户协议的网页链接
-    user_protocol_url: "http://waqqq.hainanliangyou.com/user.html",
+    user_protocol_url: "http://wdct.hainanliangyou.com/wdct/user.html",
     // 隐私声明的网页链接
-    user_privacy_url: "http://waqqq.hainanliangyou.com/private.html",
+    user_privacy_url: "http://wdct.hainanliangyou.com/wdct/private.html",
     /**@description 测试接口 */
     test_url: "http://bp-api.coohua.top",
     /**@description 正式接口 */
