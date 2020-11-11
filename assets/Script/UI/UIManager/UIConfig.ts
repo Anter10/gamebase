@@ -7,7 +7,7 @@ const UIConfig = {
       ActionNode: "./UI/Common/ActionNode",
       NativeDebug: "./NativeDebug/NativeDebug",
       ApiVersionView: "./UI/Common/ApiVersionView",
-
+      DebugView: "./UI/Common/DebugView",
 
       // 相关的View
       /**@description 提现界面 */
