@@ -20,7 +20,7 @@ const GameConfig = {
     // 自己定义的渠道 company tencent 
     s_channel: "company",
     // debug-version .// release-version
-    timeId: 20201028,
+    timeId: (new Date()).getTime(),
     // preddefine
     /**@description 当前游戏所在的分支 */
     branch: "Restaurant",
