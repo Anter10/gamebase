@@ -11,7 +11,7 @@ class BI {
 
     /**@description 视频广告打点 */
     static video_bi(video_bi_interface: VideoBiInterface){
-        ServerData.get_instance().video_bi_data(`/${GameConfig.bi_root_path}/api/user_recover/ad?name=${video_bi_interface.name}`);
+        ServerData.get_instance().video_bi_data(`/${GameConfig.api_root_path}/api/user_recover/ad?name=${video_bi_interface.name}`);
     }
 }
 

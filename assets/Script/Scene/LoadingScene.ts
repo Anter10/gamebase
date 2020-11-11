@@ -194,8 +194,6 @@ class LoadingScene extends BaseScene {
             GameDataConfig.server_request_server_config();
             this.checking_update();
         }
-        
-        BI.video_bi({name: "test video ad point"});
     }
 
     checking_update() {
