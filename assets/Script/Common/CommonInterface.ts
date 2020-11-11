@@ -228,5 +228,32 @@ interface ApiVersionInterface{
     force: boolean;
 }
 
+/**@description 特殊奖励 */
+interface ApiV2SpecialCheckinInterface{
+    day: number;
+    money: number;
+    received: number;
+}
 
-export {ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+/**@description 打卡功能首页的数据接口 */
+interface ApiV2CheckinInterface{
+    /**@description 第几天 */
+    checkInDay: number;
+    /**@description 今日是否完成 */
+    todayDone: number;
+    /**@description 已领取天数 */
+    receivedDay: number;
+    /**@description 当前进度 */
+    process: number;
+    /**@description 所需进度 */
+    needProcess: number;
+    /**@description 每页展示多少 */
+    pageSize: number; 
+    /**@description 普通奖励 */
+    normal: string;
+    /**@description 特殊奖励 */
+    special?:Array<ApiV2SpecialCheckinInterface>
+}
+
+
+export {ApiV2CheckinInterface, ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };

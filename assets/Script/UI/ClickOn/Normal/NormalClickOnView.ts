@@ -1,8 +1,9 @@
 import BaseUI from "../../../Common/BaseUI";
-import { UIParamInterface } from "../../../Common/CommonInterface";
+import { ApiV2CheckinInterface, UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import Toast from "../../../Common/Toast";
 import TouchButton from "../../../Common/TouchButton";
+import CommonServerData from "../../../GameServerData/CommonServerData";
 import ServerData from "../../../GameServerData/ServerData";
 import UIConfig from "../../UIManager/UIConfig";
 import UIManager from "../../UIManager/UIManager";
@@ -36,6 +37,8 @@ class NormalClickOnView extends BaseUI {
     @property(cc.Prefab)
     click_on_red_prefab: cc.Prefab = null;
 
+    api_v2_checkin_interface: ApiV2CheckinInterface;
+
     private clock_in_data: any = null;
     onLoad() {
         super.onLoad();
@@ -45,16 +48,26 @@ class NormalClickOnView extends BaseUI {
         // 点击打卡声明
         const label_explain: TouchButton = this.label_explain.addComponent(TouchButton);
         label_explain.register_touch(this.click_label_explain.bind(this));
+        this.request_checkin_data();
     }
 
-    click_label_explain(){
+    request_checkin_data(){
+        CommonServerData.get_clock_in((res: ApiV2CheckinInterface)=>{
+            this.api_v2_checkin_interface = res;
+            console.log("获得的打卡数据 = ",this.api_v2_checkin_interface);
+        },false,(error:any)=>{
+            console.log("打卡数据错误 = ",error);
+        })
+    }
+
+    click_label_explain() {
         const ui_param_interface: UIParamInterface = {
             ui_config_path: UIConfig.NormalClickOnStatementView,
             ui_config_name: "NormalClickOnStatementView",
-     }
-     UIManager.show_ui(ui_param_interface);
+        }
+        UIManager.show_ui(ui_param_interface);
     }
-    
+
     init_view(data: any) {
         this.clock_in_data = data;
         const label_clockin_progress = this.sprite_title_bg.node.getChildByName(`label_clockin_progress`);
