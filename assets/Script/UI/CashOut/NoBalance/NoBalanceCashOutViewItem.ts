@@ -106,7 +106,7 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
     /**@description 将按钮设置成不可以点击 */
     disable_cash_out() {
         if (this.cash_out_item_interface.disable) {
-            Loader.load_texture("assets/UI/CashOut/texture/NoBalance/common-button_grey", (texture2d: cc.Texture2D) => {
+            Loader.load_texture("/UI/CashOut/texture/NoBalance/common-button_grey", (texture2d: cc.Texture2D) => {
                 this.cash_out_button.spriteFrame = new cc.SpriteFrame(texture2d);
             });
             this.cash_out_button_text_label.string = "已完成";
