@@ -84,6 +84,8 @@ class LoadingScene extends BaseScene {
 
     onLoad() {
         super.onLoad();
+        this.bi("launch");
+        
 
         EventManager.get_instance().listen(EventConfig.splash_ad_on, this, ()=>{
             NativeSDKTool.hideLoadBg();
@@ -91,7 +93,6 @@ class LoadingScene extends BaseScene {
         Boot.init();
         this.init_update_manager();
         this.flush_view();
-        this.bi();
     }
 
     init_update_manager() {
@@ -106,15 +107,17 @@ class LoadingScene extends BaseScene {
         }
     }
 
-    bi() {
+    bi(event_name: string) {
         const bi_data: BiInterface = {
             eventId: `${GameConfig.timeId}`,
-            eventName: "into_loading_scene",
-            eventParam: "into gamescene start",
+            eventName: `${event_name}`,
+            eventParam: "bi event",
             ts: `${(new Date()).getTime()}`,
         }
         BI.bi(bi_data);
     }
+
+    
 
     special_set_sprite() {
 
@@ -171,15 +174,13 @@ class LoadingScene extends BaseScene {
 
     wechat_login() {
         if (gamebase.jsb) {
+            this.bi("click_wechat_login");
             const login_interface: WechatLoginInterface = {
                 success: (res: any) => {
-                    console.log("微信登陆成功 登陆成功的数据1 ", JSON.stringify(res));
                     ServerData.get_instance().init();
-                    console.log("微信登陆成功 登陆成功的数据2 ", JSON.stringify(res));
                     GameDataConfig.server_request_server_config();
-                    console.log("微信登陆成功 登陆成功的数据3 ", JSON.stringify(res));
                     this.checking_update();
-                    console.log("微信登陆成功 登陆成功的数据4 ", JSON.stringify(res));
+                    this.bi("wechat_login_finish");
                 },
                 fail: (res: any) => {
                     console.log("微信登陆失败", res);
@@ -225,6 +226,7 @@ class LoadingScene extends BaseScene {
 
     start() {
         super.start();
+        this.bi("launch_finish");
     }
 
     /**@description 用户协议的调用 */
