@@ -4,7 +4,10 @@ import Loader from "../../../Common/Loader";
 import Nagivator from "../../../Common/Nagivator";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
+import { TableConfig } from "../../../GameDataConfig/ConfigInterface";
+import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
+import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import GuideData from "../../../GameLocalData/GuideData";
 import TableData from "../../../GameLocalData/TableData";
 import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideType } from "../../../UI/NewPlayerGuide/NewPlayerGuideEnum";
@@ -82,7 +85,10 @@ export default class ExtensionTableView extends BaseUI {
                 () => {
                     guide_data.cur_guid_id = 6;
                     const table_data = GameLocalData.get_instance().get_data<TableData>(TableData);
+                    const game_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+                    const table_config: TableConfig = GameDataConfig.get_config_by_id("TableConfig", 1);
                     table_data.change_table_level_data(1, 1);
+                    game_base_data.change_gold_coin_number(-table_config.upgrade);
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_table, 1);
                     this.guide_click_close();
                 },

@@ -6,6 +6,7 @@ import EventManager from "../../../EventManager/EventManager";
 import { PeopleConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
+import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import GuideData from "../../../GameLocalData/GuideData";
 import PeopleData from "../../../GameLocalData/PeopleData";
 import { GuideFingerDirection, GuideMaskType, GuideMsgAlignHorizontalMode, GuideMsgAlignVerticleMode, GuideType } from "../../../UI/NewPlayerGuide/NewPlayerGuideEnum";
@@ -40,7 +41,10 @@ export default class CookWomanView extends BaseUI {
                 () => {
                     guide_data.cur_guid_id = 9;
                     const people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
+                    const people_config: PeopleConfig = GameDataConfig.get_config_by_id("PeopleConfig", 3);
+                    const game_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
                     people_data.change_cook_woman_level(3, 1);
+                    game_base_data.change_gold_coin_number(-people_config.upgrade_need_coin[0]);
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_cook_woman_level);
                     this.guide_click_close();
                 },
