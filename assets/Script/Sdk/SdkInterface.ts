@@ -173,7 +173,7 @@ export interface WechatLoginSuccessInterface {
     /**@description 用户的ID  */
     user_id?: string,
     /**@description 设备ID */
-    device_id?: string,
+    deviceId?: string,
     /**@description rom 版本 */
     romVersion?: string,
     /**@description gps 信息 */
