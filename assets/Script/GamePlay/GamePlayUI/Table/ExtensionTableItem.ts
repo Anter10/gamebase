@@ -7,6 +7,7 @@ import { TableConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
+import GuideData from "../../../GameLocalData/GuideData";
 import TableData from "../../../GameLocalData/TableData";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
@@ -43,11 +44,21 @@ export default class ExtensionTableItem extends BaseNode {
     onLoad() {
         this.flush_node();
     }
-
     start() {
         this.table_config = GameDataConfig.get_config_by_id("TableConfig", this.level_number);
         this.table_data = GameLocalData.get_instance().get_data<TableData>(TableData);
         this.set_table_sprite();
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.upgrade_table);
+    }
+
+    onDestroy() {
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.upgrade_table);
+    }
+
+    upgrade_table(event, table_number: number) {
+        if (table_number == this.mark_number) {
+            this.set_table_sprite();
+        }
     }
 
     set_table_sprite() {
@@ -97,8 +108,7 @@ export default class ExtensionTableItem extends BaseNode {
             const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
             if (game_play_base_data.change_gold_coin_number(-this.table_config.upgrade)) {
                 this.table_data.change_table_level_data(this.mark_number, this.level_number);
-                this.set_table_sprite();
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_table);
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_table, this.mark_number);
                 const ui_success_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",

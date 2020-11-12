@@ -118,7 +118,6 @@ export default class CookWomanItem extends BaseNode {
                 }
             }
             UIManager.show_ui(ui_param_interface);
-            // console.log("金币不足，快去营业赚金币吧");
         }
     }
 

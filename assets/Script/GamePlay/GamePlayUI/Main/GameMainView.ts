@@ -110,7 +110,7 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     debug_button: cc.Node = null;
 
-    
+
     private _debug_click_number: number = 0;
 
     private _order_menu_number = 0;
@@ -149,18 +149,18 @@ export default class GameMainView extends BaseUI {
         }
     }
 
-    debug_call(){
+    debug_call() {
         this._debug_click_number = this._debug_click_number + 1;
-        if(this._debug_click_number >= 5){
-           gamebase.game_scene.show_debug_view();
-           this._debug_click_number = 0;
+        if (this._debug_click_number >= 5) {
+            gamebase.game_scene.show_debug_view();
+            this._debug_click_number = 0;
         }
     }
 
     //新手引导部分
     new_player_guide() {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
-        if (guide_data.cur_guid_id != 8) {
+        if (guide_data.cur_guid_id != 12) {
             //1
             this.guide_cook_gold_speak();
             //2
@@ -171,11 +171,15 @@ export default class GameMainView extends BaseUI {
             this.guide_click_batch_add();
             //5
             this.guide_click_extension();
-            //6
-            this.guide_click_cook_woman();
-            //7
-            this.guide_click_cash_out();
+            //6 7
+            this.guide_show_extension();
             //8
+            this.guide_click_cook_woman();
+            // 9 10
+            this.guide_show_cook_woman();
+            //11
+            this.guide_click_cash_out();
+            //12
             this.guide_click_menu();
         }
     }
@@ -358,15 +362,27 @@ export default class GameMainView extends BaseUI {
             )
         }
     }
+
+    guide_show_extension() {
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 5 || guide_data.cur_guid_id == 6) {
+            this.click_extension_button();
+        }
+        if (guide_data.cur_guid_id == 6) {
+            guide_data.cur_guid_id = 7;
+            this.guide_click_cook_woman();
+        }
+    }
+
     guide_click_cook_woman() {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
-        if (guide_data.cur_guid_id == 5) {
+        if (guide_data.cur_guid_id == 7) {
             NewPlayerGuideView.show_guide(
-                6,
+                8,
                 GuideType.normal,
                 this.cook_woman_button,
                 () => {
-                    guide_data.cur_guid_id = 6;
+                    guide_data.cur_guid_id = 8;
                     this.click_cook_woman_button();
                 },
                 false,
@@ -399,15 +415,27 @@ export default class GameMainView extends BaseUI {
             )
         }
     }
+
+    guide_show_cook_woman() {
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.cur_guid_id == 8) {
+            this.click_cook_woman_button();
+        }
+        if (guide_data.cur_guid_id == 9) {
+            guide_data.cur_guid_id = 10;
+            this.guide_click_cash_out();
+        }
+    }
+
     guide_click_cash_out() {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
-        if (guide_data.cur_guid_id == 6) {
+        if (guide_data.cur_guid_id == 10) {
             NewPlayerGuideView.show_guide(
-                7,
+                11,
                 GuideType.normal,
                 this.cash_out_button,
                 () => {
-                    guide_data.cur_guid_id = 7;
+                    guide_data.cur_guid_id = 11;
                     this.click_cash_out_button();
                 },
                 false,
@@ -442,13 +470,13 @@ export default class GameMainView extends BaseUI {
     }
     guide_click_menu() {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
-        if (guide_data.cur_guid_id == 7) {
+        if (guide_data.cur_guid_id == 11) {
             NewPlayerGuideView.show_guide(
-                8,
+                12,
                 GuideType.normal,
                 this.menu_button,
                 () => {
-                    guide_data.cur_guid_id = 8;
+                    guide_data.cur_guid_id = 12;
                     this.click_menu_button();
                 },
                 false,
@@ -513,7 +541,7 @@ export default class GameMainView extends BaseUI {
     add_customer() {
         //如果新手引导都过了才能开始自动送人，离线收益计时;
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
-        if (guide_data.guide_finished(8)) {
+        if (guide_data.guide_finished(12)) {
             setInterval(() => {
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
                 this.scheduleOnce(() => {
@@ -670,7 +698,7 @@ export default class GameMainView extends BaseUI {
         //提现
         const cash_out_button: TouchButton = this.cash_out_button.addComponent(TouchButton);
         cash_out_button.register_touch(this.click_cash_out_button.bind(this));
-        
+
 
         //店铺升级
         const store_upgrade_button: TouchButton = this.store_upgrade_button.addComponent(TouchButton);
@@ -701,10 +729,10 @@ export default class GameMainView extends BaseUI {
         batch_attract_customer_button.register_touch(this.click_batch_attract_customer_button.bind(this));
 
         // debug
-        this.debug_button.addComponent(TouchButton).register_touch(()=>{
+        this.debug_button.addComponent(TouchButton).register_touch(() => {
             this.debug_call();
         });
-    
+
         const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
         this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
 
