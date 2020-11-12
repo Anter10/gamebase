@@ -34,6 +34,7 @@ class ServerData {
     init() {
         this.init_headers();
         this.init_user_data();
+        this.init_headers();
     }
 
     init_user_data() {
