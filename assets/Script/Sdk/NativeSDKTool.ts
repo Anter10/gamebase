@@ -90,7 +90,7 @@ export class NativeSDKTool {
         GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
         GameConfig.android_init_success_param.user_id = login_success_interface.user_id;
         GameConfig.android_init_success_param.channel = login_success_interface.channel;
-        GameConfig.android_init_success_param.deviceId = login_success_interface.device_id;
+        GameConfig.android_init_success_param.deviceId = login_success_interface.deviceId;
         GameConfig.android_init_success_param.oaid = login_success_interface.oaid;
         GameConfig.android_init_success_param.brand = login_success_interface.brand;
         GameConfig.android_init_success_param.env = login_success_interface.env;
