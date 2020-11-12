@@ -9,7 +9,7 @@ class GamePlayBaseData extends BaseRecord {
     static _name = "GamePlayBaseData";
     base_name = "GamePlayBaseData";
 
-    public gold_coin_number: number = 0;
+    public gold_coin_number: number = 2600;
     public red_heart_number: number = 0;
     public attract_customer_number: number = 0;
 

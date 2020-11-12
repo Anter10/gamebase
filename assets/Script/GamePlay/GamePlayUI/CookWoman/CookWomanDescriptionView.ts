@@ -145,6 +145,7 @@ export default class CookWomanDescriptionView extends BaseUI {
             this.level_label.string = "";
             this.upgrade_button_label.string = "解锁";
             this.green_sprite.active = false;
+            this.cost_coin_label.string = this.cook_woman_config.upgrade_need_coin[this.cook_woman_level] + "";
         } else {
             this.level_label.string = `LV.${this.cook_woman_level}`;
             if (this.cook_woman_level == GamePlayConfig.cook_woman_max_level) {
