@@ -62,6 +62,8 @@ const GameConfig = {
         timeId: "20201109",
         user_id: "27260",
         appVersion: "1.0.1",
+        env:"0",
+        mac: "",
     },
 
     /**@description 初始化的时候传递给Android端的数据 */
