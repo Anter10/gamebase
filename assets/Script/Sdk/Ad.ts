@@ -89,7 +89,7 @@ class Ad {
                 }
             });
         } else {
-            static_image_ad_interface.success && static_image_ad_interface.success(NativeSupportStatueCode.LOAD_OK);
+            static_image_ad_interface.fail && static_image_ad_interface.fail(NativeSupportStatueCode.LOAD_FAIL);
         }
     }
 
