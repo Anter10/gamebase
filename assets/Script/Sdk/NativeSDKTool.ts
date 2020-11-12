@@ -3,6 +3,7 @@ import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
 import OSRuntime from "../OSRuntime";
+import { NativeSupportStatueCode } from "./SdkEnum";
 import { RewardedAdInterface, SdkModuleInterface, WechatLoginInterface, WechatLoginSuccessInterface } from "./SdkInterface";
 
 
@@ -261,7 +262,7 @@ export class NativeSDKTool {
 
 
     /**
-     * 我的界面显示信息流广告
+     * @description 显示顶部的时候的广告
      */
     public static showImageAd(adWidth: number, adHeight: number, top: number, callback: (code: string) => void) {
         this.mapNativeCallBack[this.image_ad] = callback;
@@ -273,7 +274,8 @@ export class NativeSDKTool {
         }
     }
 
-    public static showImageAdBottom(adWidth: number, adHeight: number, bottom: number, callback: (code: string) => void) {
+    /**@description 显示底部的时候的广告 */
+    public static showImageAdBottom(adWidth: number, adHeight: number, bottom: number, callback: (code: NativeSupportStatueCode) => void) {
         this.mapNativeCallBack[this.image_ad] = callback;
         if (this.isAndroid) {
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderImageAdToBottom", "(IIF)V", adWidth, adHeight, bottom);
@@ -282,7 +284,8 @@ export class NativeSDKTool {
             jsb.reflection.callStaticMethod("RootViewController", "showImageAd:height:bottom:", "", adWidth, adHeight, bottom);
         }
     }
-
+    
+    /**@description 展示静态图广告后的回调 */
     public static imageAdResult(code: string) {
         if (this.mapNativeCallBack[this.image_ad]) {
             this.mapNativeCallBack[this.image_ad](code);
@@ -321,9 +324,13 @@ export class NativeSDKTool {
      * 显示视频广告
      */
     public static showVideoAd(rewarded_interface: RewardedAdInterface) {
-        if(!Boot.ad_mode){
+        sdk_module_interface.rewarded_video_fail_callback = rewarded_interface.fail;
+        sdk_module_interface.rewarded_video_success_callback = rewarded_interface.success;
+
+        if (!Boot.ad_mode) {
             if (sdk_module_interface.rewarded_video_success_callback) {
                 sdk_module_interface.rewarded_video_success_callback();
+                return;
             }
         }
         if (NativeSDKTool.rewarded_videoing) {
@@ -331,8 +338,7 @@ export class NativeSDKTool {
         }
         NativeSDKTool.rewarded_videoing = true;
         console.log("播放广告的数据  =", JSON.stringify(rewarded_interface));
-        sdk_module_interface.rewarded_video_fail_callback = rewarded_interface.fail;
-        sdk_module_interface.rewarded_video_success_callback = rewarded_interface.success;
+
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderVideoAd", "(I)V", rewarded_interface.ad_id);
@@ -361,28 +367,8 @@ export class NativeSDKTool {
 
     /**显示看文章的广告 */
     public static showDocAd(docInfo: LookDocTaskInfo, callback: (code: string) => void) {
-        // if (this.mapNativeCallBack[this.view_ad]) {
-        //     Log.log(`${this.view_ad} 事件已经存在,等待上一个回调`)
-        //     return;
-        // }
-        // GuideMgr.getInstance().blockAll();
-        // if (cc.sys.isBrowser) {
-        //     GuideMgr.getInstance().passAll();
-        //     callback("1");
-        //     return;
-        // }
-        // if (UserMgr.getInstance().data.marketReview) {
-        //     GuideMgr.getInstance().passAll();
-        //     callback("1");
-        //     return;
-        // }
         //关闭弹窗广告
         NativeSDKTool.closeImageAd();
-        //防止不回调，自动关闭屏蔽事件
-        // Utils.delay(8).then(() => {
-        //     GuideMgr.getInstance().passAll();
-        // })
-
         /**直客任务打点 */
         NativeSDKTool.hitClick("首页直客任务", `直客:${docInfo.title}-${docInfo.h5ActionText}`);
         this.mapNativeCallBack[this.view_ad] = callback;
@@ -431,6 +417,7 @@ export class NativeSDKTool {
             delete this.mapNativeCallBack[this.env];
         }
     }
+
     /**
      * 通知原生去掉白色背景
      */
@@ -505,10 +492,6 @@ export class NativeSDKTool {
      * @param callback 
      */
     public static shareImgTimeLine(callback: (code: string) => void) {
-        // if (this.mapNativeCallBack[this.share_wx]) {
-        //     Log.log(`${this.share_wx} ===事件已经存在,等待上一个回调`)
-        //     return;
-        // }
         if (cc.sys.isBrowser) {
             callback("2");
             return;
@@ -588,9 +571,7 @@ export class NativeSDKTool {
      */
     public static onSplashAdDone(res: string) {
         console.log("====开屏广告结束:", res, typeof res);
-        if (res == "1") {
-            EventManager.get_instance().emit(EventConfig.splash_ad_on);
-        }
+        EventManager.get_instance().emit(EventConfig.splash_ad_on);
     }
 
 }
