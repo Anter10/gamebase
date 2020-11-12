@@ -136,7 +136,12 @@ const GameConfig = {
         if (GameConfig.env_is_debug) {
             return GameConfig.android_init_param.debug_awarded_video_ids[0];
         } else {
-            return GameConfig.android_init_param.release_awarded_video_ids[0];
+            if(OSRuntime.play_rewarded_ad_index > GameConfig.android_init_param.release_awarded_video_ids.length - 1){
+               OSRuntime.play_rewarded_ad_index = 0;
+            }
+            let ad_id = GameConfig.android_init_param.release_awarded_video_ids[OSRuntime.play_rewarded_ad_index]; 
+            OSRuntime.play_rewarded_ad_index ++;
+            return GameConfig.android_init_param.release_awarded_video_ids[ad_id];
         }
     },
 
