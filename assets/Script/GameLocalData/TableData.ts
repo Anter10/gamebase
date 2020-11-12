@@ -52,6 +52,15 @@ class TableData extends BaseRecord {
         }
     }
 
+    get_max_table() {
+        let max = 0;
+        for (let i = 0; i < this.table_data.length; i++) {
+            if (this.table_data[i].tableLevel > 0) {
+                max++;
+            }
+        }
+        return max;
+    }
 }
 
 export default TableData;

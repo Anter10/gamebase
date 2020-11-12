@@ -124,7 +124,7 @@ export default class ExtensionTableItem extends BaseNode {
                         ui_config_path: UIConfig.Toast,
                         ui_config_name: "Toast",
                         param: {
-                            text: "请先解锁上一级桌子"
+                            text: `请先解锁${this.table_data.get_max_table() + 1}号桌`
                         }
                     }
                     UIManager.show_ui(ui_success_param_interface);
