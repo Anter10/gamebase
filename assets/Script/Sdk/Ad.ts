@@ -1,7 +1,7 @@
 import { gamebase } from "../Boot";
 import { NativeSDKTool } from "./NativeSDKTool";
-import { AdFuncEnum } from "./SdkEnum";
-import { ImageAdInterface, RewardedAdInterface, ZhikeAdInterface } from "./SdkInterface";
+import { AdFuncEnum, NativeSupportStatueCode } from "./SdkEnum";
+import { ImageAdInterface, RewardedAdInterface, StaticImageAdInterface, ZhikeAdInterface } from "./SdkInterface";
 import { SdkModule } from "./SdkModule";
 
 /**@description 播放激励视频广告的数据 */
@@ -79,13 +79,17 @@ class Ad {
     }
 
     /**@description 显示弹窗广告 */
-    static show_bottom_static_ad(width: number, height: number, bottom: number, callback: Function) {
+    static show_bottom_static_ad(static_image_ad_interface: StaticImageAdInterface) {
         if (gamebase.jsb) {
-            NativeSDKTool.showImageAdBottom(width, height, bottom,(code: string) => {
-                callback && callback(code);
+            NativeSDKTool.showImageAdBottom(static_image_ad_interface.width, static_image_ad_interface.height, static_image_ad_interface.bottom,(code: NativeSupportStatueCode) => {
+                if(code == NativeSupportStatueCode.LOAD_FAIL){
+                    static_image_ad_interface.fail && static_image_ad_interface.fail(code);
+                }else{
+                    static_image_ad_interface.success && static_image_ad_interface.success(code);
+                }
             });
         } else {
-            callback && callback(-1);
+            static_image_ad_interface.fail && static_image_ad_interface.fail(NativeSupportStatueCode.LOAD_FAIL);
         }
     }
 

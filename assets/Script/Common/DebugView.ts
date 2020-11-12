@@ -1,6 +1,5 @@
 import { Boot } from "../Boot";
 import GameConfig from "../GameConfig";
-import GameConfig from "../GameConfig";
 import OSRuntime from "../OSRuntime";
 import BaseUI from "./BaseUI";
 import TouchButton from "./TouchButton";

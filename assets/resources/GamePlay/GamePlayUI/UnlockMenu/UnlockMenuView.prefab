@@ -2105,7 +2105,7 @@
       "__id__": 6
     },
     "_enabled": true,
-    "alignMode": 1,
+    "alignMode": 2,
     "_target": null,
     "_alignFlags": 1,
     "_left": 0,
@@ -2190,6 +2190,9 @@
     },
     "get_button": {
       "__id__": 41
+    },
+    "bg": {
+      "__id__": 6
     },
     "_id": ""
   },

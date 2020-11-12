@@ -8,7 +8,8 @@ import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
 import { Ad } from "../../../Sdk/Ad";
 import BI from "../../../Sdk/BI";
-import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
+import { NativeSupportStatueCode } from "../../../Sdk/SdkEnum";
+import { RewardedAdInterface, StaticImageAdInterface } from "../../../Sdk/SdkInterface";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import { MenuType } from "../../GamePlayEnum/GamePlayEnum";
@@ -38,6 +39,9 @@ export default class UnlockMenuView extends BaseUI {
 
     @property(cc.Node)
     get_button: cc.Node = null;
+
+    @property(cc.Node)
+    bg: cc.Node = null;
 
     menu_config: MenuConfig = null;
     menu_data: MenuData = null;
@@ -99,10 +103,36 @@ export default class UnlockMenuView extends BaseUI {
         Ad.play_video_ad(rewarded_ad_interface);
     }
 
+    update_view_widget(code: NativeSupportStatueCode){
+        const widget = this.bg.getComponent(cc.Widget);
+        if(code == NativeSupportStatueCode.LOAD_FAIL){
+            widget.isAlignTop = false;
+            widget.isAlignVerticalCenter = true;
+            widget.updateAlignment();
+        }else{
+            widget.isAlignTop = true;
+            widget.top = 100;
+            widget.isAlignVerticalCenter = false;
+            widget.updateAlignment();
+        }
+    }
+
     onAddFinished() {
-        Ad.show_bottom_static_ad(340, 250, 0,(code: number) => {
-            console.log("显示静态广告的code ",code);
-        });
+        const ad_data: StaticImageAdInterface = {
+            width:340,
+            height:250,
+            bottom: 0,
+            type:1,
+            success:(code: NativeSupportStatueCode) => {
+                console.log("静态图加载成功",code);
+                this.update_view_widget(code);
+            },
+            fail:(code: NativeSupportStatueCode) => {
+                console.log("静态图加载失败",code);
+                this.update_view_widget(code);
+            }
+        }
+        Ad.show_bottom_static_ad(ad_data);
     }
 
     onDisable() {
