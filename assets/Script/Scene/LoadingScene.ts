@@ -88,9 +88,8 @@ class LoadingScene extends BaseScene {
 
     onLoad() {
         super.onLoad();
+        ServerData.get_instance().init_headers();
         this.bi("launch");
-        
-
         EventManager.get_instance().listen(EventConfig.splash_ad_on, this, ()=>{
             NativeSDKTool.hideLoadBg();
         })
