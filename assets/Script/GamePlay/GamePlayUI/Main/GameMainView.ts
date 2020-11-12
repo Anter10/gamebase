@@ -365,7 +365,7 @@ export default class GameMainView extends BaseUI {
 
     guide_show_extension() {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
-        if (guide_data.cur_guid_id == 5 || guide_data.cur_guid_id == 6) {
+        if (guide_data.cur_guid_id == 5) {
             this.click_extension_button();
         }
         if (guide_data.cur_guid_id == 6) {
