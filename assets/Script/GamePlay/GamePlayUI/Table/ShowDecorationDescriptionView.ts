@@ -3,6 +3,7 @@ import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import { DecorationConfig } from "../../../GameDataConfig/ConfigInterface";
+import { Ad } from "../../../Sdk/Ad";
 
 const { ccclass, property } = cc._decorator;
 
@@ -45,6 +46,12 @@ export default class ShowDecorationDescriptionView extends BaseUI {
         this.flush_view();
     }
 
+    onAddFinished() {
+        Ad.show_bottom_static_ad(340, 250, 0,(code: number) => {
+            console.log("显示静态广告的code ",code);
+        });
+    }
+    
     flush_view() {
         //关闭界面
         const close_button: TouchButton = this.close_button.addComponent(TouchButton);
