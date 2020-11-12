@@ -287,6 +287,10 @@ export class UpdateManagerComponent extends BaseNode {
     };
 
     check_server_update(){
+        if(!GameConfig.open_update){
+            this.update_complete_callback();
+            return;
+        }
         CommonServerData.check_update((result: any) => {
             console.log("检查服务器是否让你更新",result);
             this.init_assets_manager();

@@ -6,7 +6,7 @@ const GameConfig = {
     /**@description 游戏的AB版本 */
     gameExamine: false,
     /**@description 游戏的版本号 */
-    appVersion: "1.0",
+    appVersion: "1.0.1",
     /**@description 游戏的平台名称 */
     os: "android",
     /**@description 产品名称 */
@@ -27,9 +27,9 @@ const GameConfig = {
     /**@description 当前游戏所在的分支 */
     branch: "Restaurant",
     // 用户协议的网页链接
-    user_protocol_url: "http://waqqq.hainanliangyou.com/user.html",
+    user_protocol_url: "http://wdct.hainanliangyou.com/wdct/private.html",
     // 隐私声明的网页链接
-    user_privacy_url: "http://waqqq.hainanliangyou.com/private.html",
+    user_privacy_url: "http://wdct.hainanliangyou.com/wdct/user.html",
     /**@description 测试接口 */
     test_url: "http://bp-api.coohua.top",
     /**@description 正式接口 */
@@ -38,13 +38,17 @@ const GameConfig = {
     api_root_path: "g3-odyssey",
     /**@description BI的根地址 */
     bi_root_path: "g3-ocpc",
+    /**@description 游戏功能api */
+    api_func_path: "g3-automatic",
     /**@description 专用API的地址 */
     game_api_root_path: "",
     /**@description 当前的打包类型 debug 测试环境 release 正式环境 */
     pack_type: "debug",
     /**@description env 类型 0: 测试环境 1: 正式环境*/
     env: "0",
-
+    /**@description 是否开启热更新 */
+    open_update: true,
+    
     /**@description android初始化成功返回的参数 */
     android_init_success_param: {
         deviceId: `bff1979e4c6c74141414310680bdb547fc671844e483b95c7e4e7ac050462ae0`,
@@ -58,7 +62,7 @@ const GameConfig = {
         accessKey: "8a7bb4323159138e7b49d835f81a0f3f_27260",
         timeId: "20201109",
         user_id: "27260",
-        appVersion: "1.0.0",
+        appVersion: "1.0.1",
     },
 
     /**@description 初始化的时候传递给Android端的数据 */
@@ -100,7 +104,7 @@ const GameConfig = {
         // 百度地图定位的key
         baidu_map_key: "xxxxxx1",
         // bugly key
-        bugly_key: "xxxxxx1",
+        bugly_key: "7a2840cd31",
         // wx_id
         wx_id: "wxc5fb17eb4bc6ba96",
     },
@@ -110,10 +114,10 @@ const GameConfig = {
         var serverUrl = null;
         if (GameConfig.env_is_debug) {
             serverUrl = GameConfig.test_url;
-        }else{
+        } else {
             serverUrl = GameConfig.release_url;
         }
-        
+
         return serverUrl;
     },
 
@@ -124,10 +128,10 @@ const GameConfig = {
 
     /**@description 当前的环境是debug环境 */
     get env_is_debug(): boolean {
-        if(!OSRuntime.wechat_login_success_interface){
+        if (!OSRuntime.wechat_login_success_interface) {
             return true;
         }
-        
+
         return OSRuntime.wechat_login_success_interface.env == "0";
     },
 
@@ -141,7 +145,7 @@ const GameConfig = {
             }
             let ad_id = GameConfig.android_init_param.release_awarded_video_ids[OSRuntime.play_rewarded_ad_index]; 
             OSRuntime.play_rewarded_ad_index ++;
-            return GameConfig.android_init_param.release_awarded_video_ids[ad_id];
+            return ad_id;
         }
     },
 
