@@ -286,6 +286,7 @@ export class NativeSDKTool {
     /**@description 显示底部的时候的广告 */
     public static showImageAdBottom(adWidth: number, adHeight: number, bottom: number, callback: (code: NativeSupportStatueCode) => void) {
         this.mapNativeCallBack[this.image_ad] = callback;
+        OSRuntime.static_image_ad_statue = 1;
         if (this.isAndroid) {
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderImageAdToBottom", "(IIF)V", adWidth, adHeight, bottom);
         }
@@ -299,6 +300,9 @@ export class NativeSDKTool {
         if (this.mapNativeCallBack[this.image_ad]) {
             this.mapNativeCallBack[this.image_ad](code);
             delete this.mapNativeCallBack[this.image_ad];
+            if(OSRuntime.static_image_ad_statue == 0 && code == NativeSupportStatueCode.LOAD_OK){
+               NativeSDKTool.closeImageAd();
+            }
         }
     }
 
@@ -306,6 +310,7 @@ export class NativeSDKTool {
      * 关闭信息流广告 
      */
     public static closeImageAd() {
+        OSRuntime.static_image_ad_statue = 0;
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "closeImageAd", "()V");
