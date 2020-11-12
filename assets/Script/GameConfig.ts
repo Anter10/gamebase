@@ -6,7 +6,7 @@ const GameConfig = {
     /**@description 游戏的AB版本 */
     gameExamine: false,
     /**@description 游戏的版本号 */
-    appVersion: "1.0.1",
+    appVersion: "1.0.3",
     /**@description 游戏的平台名称 */
     os: "android",
     /**@description 产品名称 */
@@ -51,7 +51,7 @@ const GameConfig = {
     
     /**@description android初始化成功返回的参数 */
     android_init_success_param: {
-        deviceId: `bff1979e4c6c74141414310680bdb547fc671844e483b95c7e4e7ac050462ae0`,
+        deviceId: `d65625a94d57d168`,
         brand: `Xiaomi`,
         gps: "40.015551,116.361037",
         bs: `default`,
@@ -62,7 +62,7 @@ const GameConfig = {
         accessKey: "8a7bb4323159138e7b49d835f81a0f3f_27260",
         timeId: "20201109",
         user_id: "27260",
-        appVersion: "1.0.1",
+        appVersion: "1.0.3",
         env:"0",
         mac: "",
     },

@@ -34,8 +34,7 @@ export default class DebugView extends BaseUI {
     }
 
     start() {
-        const msg = `accesskey: ${(OSRuntime.wechat_login_success_interface && OSRuntime.wechat_login_success_interface.access_key) || GameConfig.android_init_success_param.accessKey}\n\nuser_id: ${(OSRuntime.wechat_login_success_interface && OSRuntime.wechat_login_success_interface.user_id) || GameConfig.android_init_success_param.user_id }
-            \napp_version:${(OSRuntime.wechat_login_success_interface && OSRuntime.wechat_login_success_interface.appVersion) || GameConfig.android_init_success_param.appVersion}, \n\nenv: ${(OSRuntime.wechat_login_success_interface && OSRuntime.wechat_login_success_interface.env) || GameConfig.env}(0: 测试环境, 1: 正式环境)\n\n服务器请求地址: ${GameConfig.serverUrl}\n\nappid: ${GameConfig.android_init_param.appId}\n\npkg_id: ${GameConfig.android_init_param.pkgId}`;
+        const msg = `user_id: ${(OSRuntime.wechat_login_success_interface && OSRuntime.wechat_login_success_interface.user_id) || GameConfig.android_init_success_param.user_id }\n\napp_version:${(OSRuntime.wechat_login_success_interface && OSRuntime.wechat_login_success_interface.appVersion) || GameConfig.android_init_success_param.appVersion} \n\nappid: ${GameConfig.android_init_param.appId}\n\npkg_id: ${GameConfig.android_init_param.pkgId} \n\ndeviceId:${GameConfig.android_init_success_param.deviceId}\n\nchannel:${GameConfig.android_init_success_param.channel}`;
         this.msg_label.string = msg;
     }
 
