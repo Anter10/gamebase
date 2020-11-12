@@ -22,6 +22,9 @@ gamebase.CommonServerData = CommonServerData;
 
 /** */
 class Boot{
+    /**@description true: 广告模式 false: 非广告模式 */
+    static ad_mode:boolean = true;
+    
     static os: {[key: string]: any} = {};
     static init(){
         cc.macro.ENABLE_MULTI_TOUCH = false;

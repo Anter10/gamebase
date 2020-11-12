@@ -204,3 +204,22 @@ export interface VideoBiInterface{
     /**@description 视频统计失败回调*/
     fail?: Function;
 }
+
+
+/**@description 显示静态图广告的接口 */
+export interface StaticImageAdInterface{
+    /**@description 静态图广告的宽 */
+    width: number;
+    /**@description 静态图广告的高 */
+    height: number;
+    /**@description 静态图广告距离顶部 的 屏幕百分比 */
+    bottom: number;
+    /**@description 静态图广告距离顶部 的 屏幕百分比*/
+    top: number;
+    /**@description 静态图广告的类型 1: 距离底部的静态图 2: 距离顶部的静态图*/
+    type: number;
+    /**@description 静态图广告加载成功的回调 */
+    success?: (code: string) => void;
+    /**@description 静态图广告加载失败的回调 */
+    fail?:(code: string) => void;
+}
