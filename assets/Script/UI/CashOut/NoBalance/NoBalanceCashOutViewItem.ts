@@ -46,6 +46,14 @@ export default class NoBalanceCashOutViewItem extends BaseNode {
                 if (this.cash_out_item_interface.process >= this.cash_out_item_interface.needProcess) {
                     this.cash_out(this.cash_out_item_interface.id, 0, (res: CashInterface) => {
                         if (res.disable) {
+                            const ui_param_interface: UIParamInterface = {
+                                ui_config_path: UIConfig.Toast,
+                                ui_config_name: "Toast",
+                                param: {
+                                    text: "提现成功"
+                                }
+                            }
+                            UIManager.show_ui(ui_param_interface);
                             this.disable_cash_out();
                         }
                     });
