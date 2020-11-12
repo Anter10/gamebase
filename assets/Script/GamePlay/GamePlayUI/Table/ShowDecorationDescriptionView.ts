@@ -82,6 +82,11 @@ export default class ShowDecorationDescriptionView extends BaseUI {
         }
         Ad.show_bottom_static_ad(ad_data);
     }
+
+    onDisable() {
+        super.onDisable();
+        Ad.close_image_ad_view();
+    }
     
     flush_view() {
         //关闭界面
