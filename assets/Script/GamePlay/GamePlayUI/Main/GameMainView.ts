@@ -825,7 +825,7 @@ export default class GameMainView extends BaseUI {
     click_batch_attract_customer_button() {
         if (OSRuntime.api_user_interface.friendly) {
             let ad_param: AdInterface = {
-                text: "看完广告就可以立即招揽\n10个顾客了",
+                text: `看完广告就可以立即招揽\n${GamePlayConfig.batch_add_customer}个顾客了`,
                 success_call: () => { this.batch_attract_customer() },
             }
             const ui_ad_param_interface: UIParamInterface = {
