@@ -65,7 +65,7 @@ export default class UnlockMenuView extends BaseUI {
         this.set_unlock_menu_view(ui_param_interface.param);
     }
 
-    start() {
+    onEnable() {
         this.close_button.active = false;
         this.scheduleOnce(() => {
             this.close_button.active = true;

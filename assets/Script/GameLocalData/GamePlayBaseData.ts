@@ -12,7 +12,8 @@ class GamePlayBaseData extends BaseRecord {
     public gold_coin_number: number = 2600;
     public red_heart_number: number = 0;
     public attract_customer_number: number = 0;
-
+    public attract_customer_limit: number = 0;
+    
     change_gold_coin_number(change_gold_number: number): boolean {
         if (change_gold_number + this.gold_coin_number >= 0) {
             this.gold_coin_number = change_gold_number + this.gold_coin_number;

@@ -516,6 +516,7 @@ export default class GameMainView extends BaseUI {
     fix_play_base_data() {
         const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
         game_play_base_data.attract_customer_number = 0;
+        this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
     }
 
     show_offline_view() {
@@ -733,9 +734,6 @@ export default class GameMainView extends BaseUI {
             this.debug_call();
         });
 
-        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-        this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
-
     }
 
     load_gold_and_heart_item() {
@@ -812,14 +810,42 @@ export default class GameMainView extends BaseUI {
             game_play_base_data.attract_customer_number = game_play_base_data.attract_customer_number + GamePlayConfig.click_attract_customer_button_add;
             this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
             if (total == 100) {
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-                this.scheduleOnce(() => {
-                    game_play_base_data.attract_customer_number = 0;
-                    this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
-                    //再招揽一位客人。
-                }, 0.5);
+                if (game_play_base_data.attract_customer_limit >= GamePlayConfig.add_customer_max) {
+                    this.show_attract_customer_ad();
+                } else {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                    this.scheduleOnce(() => {
+                        game_play_base_data.attract_customer_number = 0;
+                        this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
+                        game_play_base_data.attract_customer_limit = game_play_base_data.attract_customer_limit + 1;
+                        //再招揽一位客人。
+                    }, 0.5);
+                }
+            }
+        } else {
+            if (game_play_base_data.attract_customer_number == 100 && game_play_base_data.attract_customer_limit >= GamePlayConfig.add_customer_max) {
+                this.show_attract_customer_ad();
             }
         }
+    }
+
+    show_attract_customer_ad() {
+        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        let ad_param: AdInterface = {
+            text: `看完广告就可以继续手动揽客啦！`,
+            success_call: () => {
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                game_play_base_data.attract_customer_limit = 0;
+                game_play_base_data.attract_customer_number = 0;
+                this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
+            },
+        }
+        const ui_ad_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.AdView,
+            ui_config_name: "AdView",
+            param: ad_param,
+        }
+        UIManager.show_ui(ui_ad_param_interface);
     }
 
     click_batch_attract_customer_button() {

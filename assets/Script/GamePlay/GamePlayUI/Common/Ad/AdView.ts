@@ -25,7 +25,7 @@ export default class AdView extends BaseUI {
 
     ad_interface: AdInterface = null;
 
-    start() {
+    onEnable() {
         this.close_button.active = false;
         this.scheduleOnce(() => {
             this.close_button.active = true;
@@ -41,7 +41,7 @@ export default class AdView extends BaseUI {
         const close_button: TouchButton = this.close_button.addComponent(TouchButton);
         close_button.register_touch(this.click_close_button.bind(this));
     }
-    
+
     show(ui_param_interface: UIParamInterface) {
         super.show(ui_param_interface);
         this.set_ad_interface(<AdInterface>ui_param_interface.param);

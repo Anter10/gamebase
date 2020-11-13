@@ -95,7 +95,7 @@ export default class OfflineView extends BaseUI {
         Ad.close_image_ad_view();
     }
 
-    start() {
+    onEnable() {
         this.close_button.active = false;
         this.scheduleOnce(() => {
             this.close_button.active = true;
