@@ -69,6 +69,10 @@ class LinkGameBase {
       "success_ad_video": "success_ad_video",
       //关闭扩建界面
       "close_store_view": "close_store_view",
+      //在扩建界面点击桌子
+      "click_table": "click_table",
+      //在扩建界面点击装饰
+      "click_decoration": "click_decoration",
    }
 
    /**

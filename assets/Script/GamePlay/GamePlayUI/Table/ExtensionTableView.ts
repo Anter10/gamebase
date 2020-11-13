@@ -61,6 +61,13 @@ export default class ExtensionTableView extends BaseUI {
 
     onLoad() {
         this.flush_view();
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.click_table, this, this.click_table_button_type);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.click_decoration, this, this.click_decoration_button_type);
+    }
+
+    onDestroy() {
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.click_table, this, this.click_table_button_type);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.click_decoration, this, this.click_decoration_button_type);
     }
 
     start() {

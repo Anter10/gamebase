@@ -127,6 +127,7 @@ export default class UpgradeConditionItem extends BaseNode {
                     ui_config_name: "ExtensionTableView",
                 }
                 UIManager.show_ui(ui_extension_param_interface);
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.click_table);
                 break;
             case StoreUpgradeConditionType.CookWoman:
                 const ui_cook_woman_param_interface: UIParamInterface = {
@@ -141,6 +142,7 @@ export default class UpgradeConditionItem extends BaseNode {
                     ui_config_name: "ExtensionTableView",
                 }
                 UIManager.show_ui(ui_param_interface);
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.click_decoration);
                 break;
         }
     }
