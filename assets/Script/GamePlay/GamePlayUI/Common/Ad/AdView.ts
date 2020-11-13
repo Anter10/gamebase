@@ -1,15 +1,21 @@
 import BaseUI from "../../../../Common/BaseUI";
 import { UIParamInterface } from "../../../../Common/CommonInterface";
 import TouchButton from "../../../../Common/TouchButton";
+import EventManager from "../../../../EventManager/EventManager";
+import GameConfig from "../../../../GameConfig";
 import { Ad } from "../../../../Sdk/Ad";
+import BI from "../../../../Sdk/BI";
 import { NativeSupportStatueCode } from "../../../../Sdk/SdkEnum";
-import { StaticImageAdInterface } from "../../../../Sdk/SdkInterface";
+import { RewardedAdInterface, StaticImageAdInterface } from "../../../../Sdk/SdkInterface";
+import UIConfig from "../../../../UI/UIManager/UIConfig";
+import UIManager from "../../../../UI/UIManager/UIManager";
 
 const { ccclass, property } = cc._decorator;
 
 /**@description 广告的显示接口 */
 export interface AdInterface {
     text: string,
+    button_label?: string,
     success_call?: Function,
     fail_call?: Function,
 }
@@ -26,9 +32,12 @@ export default class AdView extends BaseUI {
     @property(cc.Node)
     close_button: cc.Node = null;
 
+    @property(cc.Label)
+    button_label: cc.Label = null;
+
     @property(cc.Node)
     bg: cc.Node = null;
-    
+
     ad_interface: AdInterface = null;
 
     onEnable() {
@@ -60,11 +69,26 @@ export default class AdView extends BaseUI {
 
     set_ad_view() {
         this.ad_label.string = this.ad_interface.text;
+        if (this.ad_interface.button_label) {
+            this.button_label.string = this.ad_interface.button_label;
+        }
     }
 
     click_get_button() {
-        this.on_close_call();
-        this.ad_interface.success_call && this.ad_interface.success_call();
+        let rewarded_ad_interface: RewardedAdInterface = {
+            /**@description 观看激励视频广告的ID */
+            ad_id: GameConfig.video_ad_id,
+            /**@description 观看激励视频成功的回调 */
+            success: (res: any) => {
+                this.on_close_call();
+                this.ad_interface.success_call && this.ad_interface.success_call();
+            },
+            /**@description 观看激励视频失败的成功回调*/
+            fail: (res: any) => {
+                this.ad_interface.fail_call && this.ad_interface.fail_call();
+            },
+        }
+        Ad.play_video_ad(rewarded_ad_interface);
     }
 
     click_close_button() {
@@ -72,13 +96,13 @@ export default class AdView extends BaseUI {
     }
 
 
-    update_view_widget(code: NativeSupportStatueCode){
+    update_view_widget(code: NativeSupportStatueCode) {
         const widget = this.bg.getComponent(cc.Widget);
-        if(code == NativeSupportStatueCode.LOAD_FAIL){
+        if (code == NativeSupportStatueCode.LOAD_FAIL) {
             widget.isAlignTop = false;
             widget.isAlignVerticalCenter = true;
             widget.updateAlignment();
-        }else{
+        } else {
             widget.isAlignTop = true;
             widget.top = 100;
             widget.isAlignVerticalCenter = false;
@@ -88,16 +112,16 @@ export default class AdView extends BaseUI {
 
     onAddFinished() {
         const ad_data: StaticImageAdInterface = {
-            width:340,
-            height:250,
+            width: 340,
+            height: 250,
             bottom: 0,
-            type:1,
-            success:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载成功",code);
+            type: 1,
+            success: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载成功", code);
                 this.update_view_widget(code);
             },
-            fail:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载失败",code);
+            fail: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载失败", code);
                 this.update_view_widget(code);
             }
         }

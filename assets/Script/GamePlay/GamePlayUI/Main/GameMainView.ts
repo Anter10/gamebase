@@ -856,12 +856,24 @@ export default class GameMainView extends BaseUI {
         const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
         let ad_param: AdInterface = {
             text: `看完广告就可以继续手动揽客啦！`,
+            button_label: "立即揽客",
             success_call: () => {
+                BI.video_bi({ name: "手动揽客" })
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
                 game_play_base_data.attract_customer_limit = 0;
                 game_play_base_data.attract_customer_number = 0;
                 this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
             },
+            fail_call: () => {
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "招揽失败"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+            }
         }
         const ui_ad_param_interface: UIParamInterface = {
             ui_config_path: UIConfig.AdView,
@@ -875,7 +887,32 @@ export default class GameMainView extends BaseUI {
         if (OSRuntime.api_user_interface.friendly) {
             let ad_param: AdInterface = {
                 text: `看完广告就可以立即招揽\n${GamePlayConfig.batch_add_customer}个顾客了`,
-                success_call: () => { this.batch_attract_customer() },
+                button_label: "立即揽客",
+                success_call: () => {
+                    BI.video_bi({ name: "批量招揽顾客" });
+                    this.scheduleOnce(() => {
+                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+                    }, 0.2)
+                    let i = 0;
+                    const callback = () => {
+                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                        i++;
+                        if (i == GamePlayConfig.batch_add_customer) {
+                            this.unschedule(callback);
+                        }
+                    }
+                    this.schedule(callback, 0.5, GamePlayConfig.batch_add_customer, 0.5);
+                },
+                fail_call: () => {
+                    const ui_param_interface: UIParamInterface = {
+                        ui_config_path: UIConfig.Toast,
+                        ui_config_name: "Toast",
+                        param: {
+                            text: "批量招揽失败"
+                        }
+                    }
+                    UIManager.show_ui(ui_param_interface);
+                }
             }
             const ui_ad_param_interface: UIParamInterface = {
                 ui_config_path: UIConfig.AdView,

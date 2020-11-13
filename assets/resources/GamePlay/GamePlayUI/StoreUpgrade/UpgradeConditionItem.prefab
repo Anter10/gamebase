@@ -300,7 +300,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 88,
+      "width": 82,
       "height": 54.4
     },
     "_anchorPoint": {
@@ -354,7 +354,7 @@
     "_dstBlendFactor": 771,
     "_string": "去获取",
     "_N$string": "去获取",
-    "_fontSize": 28,
+    "_fontSize": 26,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -380,9 +380,9 @@
     "_enabled": true,
     "_color": {
       "__type__": "cc.Color",
-      "r": 42,
-      "g": 105,
-      "b": 20,
+      "r": 52,
+      "g": 123,
+      "b": 27,
       "a": 255
     },
     "_width": 2,

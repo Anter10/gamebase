@@ -86,20 +86,8 @@ export default class MenuItem extends BaseNode {
     }
 
     click_price_button() {
-        if (OSRuntime.api_user_interface.friendly) {
-            let ad_param: AdInterface = {
-                text: "看完广告就可以解锁菜谱了",
-                success_call: () => { this.click_price_button_call(); },
-            }
-            const ui_ad_param_interface: UIParamInterface = {
-                ui_config_path: UIConfig.AdView,
-                ui_config_name: "AdView",
-                param: ad_param,
-            }
-            UIManager.show_ui(ui_ad_param_interface);
-        } else {
-            this.click_price_button_call();
-        }
+
+        this.click_price_button_call();
     }
 
     click_price_button_call() {
@@ -117,27 +105,50 @@ export default class MenuItem extends BaseNode {
                 UIManager.show_ui(ui_param_interface);
             } else {
                 if (this.menu_data.get_menu_data_by_id(this.menu_config.id - 1).menuType == MenuType.unlock) {
-                    let rewarded_ad_interface: RewardedAdInterface = {
-                        /**@description 观看激励视频广告的ID */
-                        ad_id: GameConfig.video_ad_id,
-                        /**@description 观看激励视频成功的回调 */
-                        success: (res: any) => {
-                            //播放广告。如果看完。
-                            this.unlock_new_menu();
-                        },
-                        /**@description 观看激励视频失败的成功回调*/
-                        fail: (res: any) => {
-                            const ui_param_interface: UIParamInterface = {
-                                ui_config_path: UIConfig.Toast,
-                                ui_config_name: "Toast",
-                                param: {
-                                    text: "解锁失败"
+                    if (OSRuntime.api_user_interface.friendly) {
+                        let ad_param: AdInterface = {
+                            text: "看完广告就可以解锁菜谱了",
+                            success_call: () => { this.unlock_new_menu(); },
+                            fail_call: () => {
+                                const ui_param_interface: UIParamInterface = {
+                                    ui_config_path: UIConfig.Toast,
+                                    ui_config_name: "Toast",
+                                    param: {
+                                        text: "解锁失败"
+                                    }
                                 }
+                                UIManager.show_ui(ui_param_interface);
                             }
-                            UIManager.show_ui(ui_param_interface);
-                        },
+                        }
+                        const ui_ad_param_interface: UIParamInterface = {
+                            ui_config_path: UIConfig.AdView,
+                            ui_config_name: "AdView",
+                            param: ad_param,
+                        }
+                        UIManager.show_ui(ui_ad_param_interface);
+                    } else {
+                        let rewarded_ad_interface: RewardedAdInterface = {
+                            /**@description 观看激励视频广告的ID */
+                            ad_id: GameConfig.video_ad_id,
+                            /**@description 观看激励视频成功的回调 */
+                            success: (res: any) => {
+                                //播放广告。如果看完。
+                                this.unlock_new_menu();
+                            },
+                            /**@description 观看激励视频失败的成功回调*/
+                            fail: (res: any) => {
+                                const ui_param_interface: UIParamInterface = {
+                                    ui_config_path: UIConfig.Toast,
+                                    ui_config_name: "Toast",
+                                    param: {
+                                        text: "解锁失败"
+                                    }
+                                }
+                                UIManager.show_ui(ui_param_interface);
+                            },
+                        }
+                        Ad.play_video_ad(rewarded_ad_interface);
                     }
-                    Ad.play_video_ad(rewarded_ad_interface);
                 } else {
                     const ui_param_interface: UIParamInterface = {
                         ui_config_path: UIConfig.Toast,
@@ -155,7 +166,7 @@ export default class MenuItem extends BaseNode {
 
     unlock_new_menu() {
         let menu_ad_data = this.menu_data.get_menu_data_by_id(this.menu_config.id);
-        BI.video_bi({name: "解锁菜品"})
+        BI.video_bi({ name: "解锁菜品" })
         if (menu_ad_data.menuAdTime + 1 == this.menu_config.ad_number) {
             this.menu_data.change_menu_data(this.menu_config.id, MenuType.unlock, menu_ad_data.menuAdTime + 1);
             this.scheduleOnce(() => {

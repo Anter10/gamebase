@@ -59,13 +59,13 @@ export default class OfflineView extends BaseUI {
         close_button.register_touch(this.on_close_call.bind(this));
     }
 
-    update_view_widget(code: NativeSupportStatueCode){
+    update_view_widget(code: NativeSupportStatueCode) {
         const widget = this.bg.getComponent(cc.Widget);
-        if(code == NativeSupportStatueCode.LOAD_FAIL){
+        if (code == NativeSupportStatueCode.LOAD_FAIL) {
             widget.isAlignTop = false;
             widget.isAlignVerticalCenter = true;
             widget.updateAlignment();
-        }else{
+        } else {
             widget.isAlignTop = true;
             widget.top = 100;
             widget.isAlignVerticalCenter = false;
@@ -75,16 +75,16 @@ export default class OfflineView extends BaseUI {
 
     onAddFinished() {
         const ad_data: StaticImageAdInterface = {
-            width:340,
-            height:250,
+            width: 340,
+            height: 250,
             bottom: 0,
-            type:1,
-            success:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载成功",code);
+            type: 1,
+            success: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载成功", code);
                 this.update_view_widget(code);
             },
-            fail:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载失败",code);
+            fail: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载失败", code);
                 this.update_view_widget(code);
             }
         }
