@@ -95,7 +95,9 @@ export default class ExtensionTableView extends BaseUI {
                 false,
                 () => {
                 },
-                {},
+                {
+                    show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点这里解锁桌椅扩建餐厅！", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(300, -120)
+                },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
@@ -137,7 +139,8 @@ export default class ExtensionTableView extends BaseUI {
                 false,
                 () => {
                 },
-                {},
+                {
+                },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,

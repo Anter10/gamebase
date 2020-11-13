@@ -203,7 +203,7 @@ export default class GameMainView extends BaseUI {
                 () => {
                     guide_data.cur_guid_id = 1;
                 },
-                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "嗨，我是神界人见人爱的灶王爷，看你灵气冲天快来和我学做菜，成为新一代厨神。", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
+                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "欢迎来到幸福餐厅，你的餐厅你做主！扩建餐厅，解锁厨娘和菜谱，招揽客人就可以赚钱！", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
                 {},
                 {},
                 { npc_direction: GuideNpcDirection.right, size: cc.v2(271, 657), show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 550 }
@@ -230,7 +230,7 @@ export default class GameMainView extends BaseUI {
                 () => {
                     guide_data.cur_guid_id = 2;
                 },
-                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "那本神就传授你一些精湛的厨艺，咱们先开个餐馆招些厨娘吧，想把参观经营好，先试试怎么招待客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
+                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "记住哦！扩建餐厅，解锁厨娘和菜谱，招揽客人，赚钱可以提现到微信！", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
                 {},
                 {},
                 { npc_direction: GuideNpcDirection.right, size: cc.v2(271, 657), show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 550 }
@@ -251,7 +251,7 @@ export default class GameMainView extends BaseUI {
                 true,
                 () => {
                 },
-                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点击这里可以快速招揽客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36 },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点这里就招揽客人赚金币！", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36 },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
@@ -294,7 +294,7 @@ export default class GameMainView extends BaseUI {
                 true,
                 () => {
                 },
-                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点击这里可以批量招揽客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36, },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点这里批量揽客,躺着赚钱", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36, },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
@@ -335,7 +335,7 @@ export default class GameMainView extends BaseUI {
                 false,
                 () => {
                 },
-                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "桌椅太少，点这里扩建餐厅", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "客人太多，点这里扩建餐厅", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
@@ -388,7 +388,7 @@ export default class GameMainView extends BaseUI {
                 false,
                 () => {
                 },
-                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(30, 10), help_message: "忙不过来，点这里解锁厨娘", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(30, 10), help_message: "忙不过来，解锁更多厨娘！", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
