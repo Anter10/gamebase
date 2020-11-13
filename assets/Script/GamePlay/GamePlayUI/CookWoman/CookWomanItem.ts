@@ -92,12 +92,12 @@ export default class CookWomanItem extends BaseNode {
             if (cur_cook_woman_level == GamePlayConfig.cook_woman_max_level) {
                 this.get_mark.active = true;
                 this.upgrade_frame.active = false;
-                this.upgrade_profit_label.string = `升级后速度和红心加成${this.cook_woman_config.cook_gold_accelerate[cur_cook_woman_level - 1]}%`;
+                this.upgrade_profit_label.string = `当前速度和红心加成${this.cook_woman_config.cook_gold_accelerate[cur_cook_woman_level - 1]}%`;
             } else {
                 this.get_mark.active = false;
                 this.upgrade_frame.active = true;
                 this.refresh_upgrade_description();
-                this.upgrade_profit_label.string = `当前速度和红心加成${this.cook_woman_config.cook_gold_accelerate[cur_cook_woman_level]}%`;
+                this.upgrade_profit_label.string = `升级后速度和红心加成${this.cook_woman_config.cook_gold_accelerate[cur_cook_woman_level]}%`;
                 //升级厨娘
                 if (!this.upgrade_button.getComponent(TouchButton)) {
                     const upgrade_button: TouchButton = this.upgrade_button.addComponent(TouchButton);
