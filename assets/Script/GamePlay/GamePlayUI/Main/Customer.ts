@@ -49,6 +49,7 @@ export default class Customer extends BaseNode {
     @property(cc.Sprite)
     eat_menu: cc.Sprite = null;
 
+
     /**@description 当前行走的路径 */
     _go_path: Array<ANode> = [];
 
@@ -225,7 +226,8 @@ export default class Customer extends BaseNode {
                 this.people_data.delete_people_by_people_data_number(this.customer_data_id);
                 EventManager.get_instance().emit(LinkGameBase.game_play_event_config.new_seat);
                 Map.walk_people_y[this.customer_data_id] = undefined;
-                this.node.destroy();
+                this.fix_menu_disappear();
+                this.node.parent.getComponent(Map).remove_customer(this.node);
                 //清除这个垃圾数据
                 break;
         }

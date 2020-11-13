@@ -2472,6 +2472,9 @@
         "__id__": 42
       }
     ],
+    "customer_prefab": {
+      "__uuid__": "978fc565-6fba-42ee-9d7d-d86b79dd74cd"
+    },
     "_id": ""
   },
   {
