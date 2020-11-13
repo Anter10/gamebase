@@ -1,7 +1,7 @@
 import { gamebase } from "../../../Boot";
 import BaseUI from "../../../Common/BaseUI";
 import { CashOutRouterPath, ClickOnRouterPath } from "../../../Common/CommonEnum";
-import { UIParamInterface } from "../../../Common/CommonInterface";
+import { ApiV2CheckinInterface, UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import Random from "../../../Common/Random";
 import Time from "../../../Common/Time";
@@ -20,6 +20,7 @@ import OrderMenuData from "../../../GameLocalData/OrderMenuData";
 import PeopleData, { CustomerPayInterface } from "../../../GameLocalData/PeopleData";
 import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
+import CommonServerData from "../../../GameServerData/CommonServerData";
 import OSRuntime from "../../../OSRuntime";
 import { Ad } from "../../../Sdk/Ad";
 import BI from "../../../Sdk/BI";
@@ -77,6 +78,12 @@ export default class GameMainView extends BaseUI {
     @property(cc.Label)
     attract_customer_progress_label: cc.Label = null;
 
+    @property(cc.Label)
+    video_number: cc.Label = null;
+
+    @property(cc.Node)
+    video_frame: cc.Node = null;
+
     @property(cc.Node)
     attract_customer_progress: cc.Node = null;
 
@@ -123,6 +130,7 @@ export default class GameMainView extends BaseUI {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.open_next_player_guide, this, this.new_player_guide);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_coin, this, this.fly_coin);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_heart, this, this.fly_heart);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.success_ad_video, this, this.request_checkin_data);
     }
 
     start() {
@@ -138,6 +146,22 @@ export default class GameMainView extends BaseUI {
         this.load_order_menu();
         this.show_offline_view();
         this.add_customer();
+        this.request_checkin_data();
+    }
+
+    request_checkin_data() {
+        this.video_frame.active = false;
+        CommonServerData.get_clock_in((res: ApiV2CheckinInterface) => {
+            if (res.needProcess - res.process > 0) {
+                this.video_frame.active = true;
+                this.video_number.string = `${res.needProcess - res.process}个`;
+            } else {
+                this.video_frame.active = false;
+            }
+        }, true, (error: any) => {
+            this.video_frame.active = false;
+            console.log("打卡数据错误 = ", error);
+        })
     }
 
     fix_menu_data() {
@@ -192,7 +216,7 @@ export default class GameMainView extends BaseUI {
                     guide_data.pass_a_guide(1);
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_new_player_guide_view);
                 }
-            }, 3);
+            }, 4);
             NewPlayerGuideView.show_guide(
                 1,
                 GuideType.pciture,
@@ -203,7 +227,7 @@ export default class GameMainView extends BaseUI {
                 () => {
                     guide_data.cur_guid_id = 1;
                 },
-                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "嗨，我是神界人见人爱的灶王爷，看你灵气冲天快来和我学做菜，成为新一代厨神。", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
+                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "欢迎来到幸福餐厅，你的餐厅你做主！扩建餐厅，解锁厨娘和菜谱，招揽客人就可以赚钱！", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
                 {},
                 {},
                 { npc_direction: GuideNpcDirection.right, size: cc.v2(271, 657), show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 550 }
@@ -219,7 +243,7 @@ export default class GameMainView extends BaseUI {
                     guide_data.pass_a_guide(2);
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_new_player_guide_view);
                 }
-            }, 3);
+            }, 4);
             NewPlayerGuideView.show_guide(
                 2,
                 GuideType.pciture,
@@ -230,7 +254,7 @@ export default class GameMainView extends BaseUI {
                 () => {
                     guide_data.cur_guid_id = 2;
                 },
-                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "那本神就传授你一些精湛的厨艺，咱们先开个餐馆招些厨娘吧，想把参观经营好，先试试怎么招待客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
+                { show_help_msg: true, size: cc.v2(600, 187), set_layout: cc.v2(150, 10), help_message: "记住哦！扩建餐厅，解锁厨娘和菜谱，招揽客人，赚钱可以提现到微信！", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 30, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 650, label_size: 28 },
                 {},
                 {},
                 { npc_direction: GuideNpcDirection.right, size: cc.v2(271, 657), show_npc: true, horizonal_align_mode: GuideNpcAlignHorizontalMode.left, horizonal_align: 0, verticle_align_mode: GuideNpcAlignVerticleMode.bottom, verticle_align: 550 }
@@ -251,7 +275,7 @@ export default class GameMainView extends BaseUI {
                 true,
                 () => {
                 },
-                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点击这里可以快速招揽客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36 },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点这里就招揽客人赚金币！", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36 },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
@@ -294,7 +318,7 @@ export default class GameMainView extends BaseUI {
                 true,
                 () => {
                 },
-                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点击这里可以批量招揽客人", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36, },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "点这里批量揽客,躺着赚钱", horizonal_align_mode: GuideMsgAlignHorizontalMode.right, horizonal_align: 125, verticle_align_mode: GuideMsgAlignVerticleMode.bottom, verticle_align: 300, label_size: 36, },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
@@ -335,7 +359,7 @@ export default class GameMainView extends BaseUI {
                 false,
                 () => {
                 },
-                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "桌椅太少，点这里扩建餐厅", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(45, 10), help_message: "客人太多，点这里扩建餐厅", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
@@ -388,7 +412,7 @@ export default class GameMainView extends BaseUI {
                 false,
                 () => {
                 },
-                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(30, 10), help_message: "忙不过来，点这里解锁厨娘", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
+                { show_help_msg: true, size: cc.v2(500, 100), set_layout: cc.v2(30, 10), help_message: "忙不过来，解锁更多厨娘！", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-400, 0) },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,
@@ -516,6 +540,7 @@ export default class GameMainView extends BaseUI {
     fix_play_base_data() {
         const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
         game_play_base_data.attract_customer_number = 0;
+        this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
     }
 
     show_offline_view() {
@@ -733,9 +758,6 @@ export default class GameMainView extends BaseUI {
             this.debug_call();
         });
 
-        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-        this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
-
     }
 
     load_gold_and_heart_item() {
@@ -812,20 +834,48 @@ export default class GameMainView extends BaseUI {
             game_play_base_data.attract_customer_number = game_play_base_data.attract_customer_number + GamePlayConfig.click_attract_customer_button_add;
             this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
             if (total == 100) {
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-                this.scheduleOnce(() => {
-                    game_play_base_data.attract_customer_number = 0;
-                    this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
-                    //再招揽一位客人。
-                }, 0.5);
+                if (game_play_base_data.attract_customer_limit >= GamePlayConfig.add_customer_max) {
+                    this.show_attract_customer_ad();
+                } else {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                    this.scheduleOnce(() => {
+                        game_play_base_data.attract_customer_number = 0;
+                        this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
+                        game_play_base_data.attract_customer_limit = game_play_base_data.attract_customer_limit + 1;
+                        //再招揽一位客人。
+                    }, 0.5);
+                }
+            }
+        } else {
+            if (game_play_base_data.attract_customer_number == 100 && game_play_base_data.attract_customer_limit >= GamePlayConfig.add_customer_max) {
+                this.show_attract_customer_ad();
             }
         }
+    }
+
+    show_attract_customer_ad() {
+        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        let ad_param: AdInterface = {
+            text: `看完广告就可以继续手动揽客啦！`,
+            success_call: () => {
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                game_play_base_data.attract_customer_limit = 0;
+                game_play_base_data.attract_customer_number = 0;
+                this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
+            },
+        }
+        const ui_ad_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.AdView,
+            ui_config_name: "AdView",
+            param: ad_param,
+        }
+        UIManager.show_ui(ui_ad_param_interface);
     }
 
     click_batch_attract_customer_button() {
         if (OSRuntime.api_user_interface.friendly) {
             let ad_param: AdInterface = {
-                text: "看完广告就可以立即招揽\n10个顾客了",
+                text: `看完广告就可以立即招揽\n${GamePlayConfig.batch_add_customer}个顾客了`,
                 success_call: () => { this.batch_attract_customer() },
             }
             const ui_ad_param_interface: UIParamInterface = {
@@ -845,7 +895,8 @@ export default class GameMainView extends BaseUI {
             ad_id: GameConfig.video_ad_id,
             /**@description 观看激励视频成功的回调 */
             success: (res: any) => {
-                BI.video_bi({ name: "批量招揽顾客" })
+                BI.video_bi({ name: "批量招揽顾客" });
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
                 let i = 0;
                 const callback = () => {
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);

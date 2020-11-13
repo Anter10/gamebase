@@ -2,6 +2,7 @@ import BaseUI from "../../../Common/BaseUI";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
+import EventManager from "../../../EventManager/EventManager";
 import GameConfig from "../../../GameConfig";
 import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
@@ -13,6 +14,7 @@ import { RewardedAdInterface, StaticImageAdInterface } from "../../../Sdk/SdkInt
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import { MenuType } from "../../GamePlayEnum/GamePlayEnum";
+import LinkGameBase from "../../LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
 
@@ -65,7 +67,7 @@ export default class UnlockMenuView extends BaseUI {
         this.set_unlock_menu_view(ui_param_interface.param);
     }
 
-    start() {
+    onEnable() {
         this.close_button.active = false;
         this.scheduleOnce(() => {
             this.close_button.active = true;
@@ -145,6 +147,7 @@ export default class UnlockMenuView extends BaseUI {
         let menu_ad_data = this.menu_data.get_menu_data_by_id(this.menu_config.id);
         if (menu_ad_data) {
             BI.video_bi({ name: "解锁菜品" })
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
             if (menu_ad_data.menuAdTime + 1 == this.menu_config.ad_number) {
                 this.menu_data.change_menu_data(this.menu_config.id, MenuType.unlock, menu_ad_data.menuAdTime + 1);
                 const ui_param_interface: UIParamInterface = {

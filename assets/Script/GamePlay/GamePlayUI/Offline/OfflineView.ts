@@ -2,6 +2,7 @@ import BaseUI from "../../../Common/BaseUI";
 import { UIParamInterface } from "../../../Common/CommonInterface";
 import Time from "../../../Common/Time";
 import TouchButton from "../../../Common/TouchButton";
+import EventManager from "../../../EventManager/EventManager";
 import GameConfig from "../../../GameConfig";
 import { OfflineConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
@@ -12,6 +13,7 @@ import { Ad } from "../../../Sdk/Ad";
 import BI from "../../../Sdk/BI";
 import { NativeSupportStatueCode } from "../../../Sdk/SdkEnum";
 import { RewardedAdInterface, StaticImageAdInterface } from "../../../Sdk/SdkInterface";
+import LinkGameBase from "../../LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
 
@@ -95,7 +97,7 @@ export default class OfflineView extends BaseUI {
         Ad.close_image_ad_view();
     }
 
-    start() {
+    onEnable() {
         this.close_button.active = false;
         this.scheduleOnce(() => {
             this.close_button.active = true;
@@ -109,6 +111,7 @@ export default class OfflineView extends BaseUI {
             /**@description 观看激励视频成功的回调 */
             success: (res: any) => {
                 BI.video_bi({ name: "离线收益" })
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
                 const game_base_data: GamePlayBaseData = GameLocalData.get_instance().get_data(GamePlayBaseData);
                 game_base_data.change_gold_coin_number(this.offline_config.gold);
                 game_base_data.change_red_heart_number(this.offline_config.heart);

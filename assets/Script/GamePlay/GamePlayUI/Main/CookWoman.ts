@@ -15,6 +15,10 @@ import LinkGameBase from "../../LinkGameBase";
 import Time from "../../../Common/Time";
 import GameConfig from "../../../GameConfig";
 import Random from "../../../Common/Random";
+import TouchButton from "../../../Common/TouchButton";
+import { UIParamInterface } from "../../../Common/CommonInterface";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -74,6 +78,19 @@ export default class CookWoman extends BaseNode {
     onLoad() {
         this.people_data = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
         this.order_menu_data = GameLocalData.get_instance().get_data<OrderMenuData>(OrderMenuData);
+
+        //点击厨娘显示详情页
+        const click_cook_woman: TouchButton = this.node.addComponent(TouchButton);
+        click_cook_woman.register_touch(this.show_cook_woman.bind(this));
+    }
+
+    show_cook_woman() {
+        const ui_cook_woman_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.CookWomanDescriptionView,
+            ui_config_name: "CookWomanDescriptionView",
+            param: this.customer_config,
+        }
+        UIManager.show_ui(ui_cook_woman_param_interface);
     }
 
     set_cook_woman_config_id(cook_woman_config_id: number) {

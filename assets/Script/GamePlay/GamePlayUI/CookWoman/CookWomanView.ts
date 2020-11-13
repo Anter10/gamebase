@@ -51,7 +51,9 @@ export default class CookWomanView extends BaseUI {
                 false,
                 () => {
                 },
-                {},
+                {
+                    show_help_msg: true, size: cc.v2(400, 100), set_layout: cc.v2(45, 10), help_message: "点这里解锁厨娘吧！", horizonal_align_mode: GuideMsgAlignHorizontalMode.null, verticle_align_mode: GuideMsgAlignVerticleMode.null, label_size: 36, position: cc.v2(-300, 0)
+                },
                 {
                     /**@description 是否显示mask */
                     show_mask: true,

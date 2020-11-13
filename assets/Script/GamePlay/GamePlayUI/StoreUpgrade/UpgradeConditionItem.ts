@@ -1,9 +1,15 @@
 import BaseNode from "../../../Common/BaseNode";
+import { UIParamInterface } from "../../../Common/CommonInterface";
+import TouchButton from "../../../Common/TouchButton";
+import EventManager from "../../../EventManager/EventManager";
 import DecorationData from "../../../GameLocalData/DecorationData";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import PeopleData from "../../../GameLocalData/PeopleData";
 import TableData from "../../../GameLocalData/TableData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 import { StoreUpgradeConditionType } from "../../GamePlayEnum/GamePlayEnum";
+import LinkGameBase from "../../LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
 
@@ -104,6 +110,39 @@ export default class UpgradeConditionItem extends BaseNode {
         } else {
             this.incomplete.active = true;
             this.complete.active = false;
+            //去获取按钮
+            if (!this.incomplete.getComponent(TouchButton)) {
+                const incomplete_button: TouchButton = this.incomplete.addComponent(TouchButton);
+                incomplete_button.register_touch(this.click_incomplete.bind(this));
+            }
         }
     }
+
+    click_incomplete() {
+        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_store_view);
+        switch (this.condition_type) {
+            case StoreUpgradeConditionType.Table:
+                const ui_extension_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.ExtensionTableView,
+                    ui_config_name: "ExtensionTableView",
+                }
+                UIManager.show_ui(ui_extension_param_interface);
+                break;
+            case StoreUpgradeConditionType.CookWoman:
+                const ui_cook_woman_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.CookWomanView,
+                    ui_config_name: "CookWomanView",
+                }
+                UIManager.show_ui(ui_cook_woman_param_interface);
+                break;
+            case StoreUpgradeConditionType.Decoration:
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.ExtensionTableView,
+                    ui_config_name: "ExtensionTableView",
+                }
+                UIManager.show_ui(ui_param_interface);
+                break;
+        }
+    }
+
 }
