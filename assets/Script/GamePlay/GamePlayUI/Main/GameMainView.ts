@@ -216,7 +216,7 @@ export default class GameMainView extends BaseUI {
                     guide_data.pass_a_guide(1);
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_new_player_guide_view);
                 }
-            }, 3);
+            }, 4);
             NewPlayerGuideView.show_guide(
                 1,
                 GuideType.pciture,
@@ -243,7 +243,7 @@ export default class GameMainView extends BaseUI {
                     guide_data.pass_a_guide(2);
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.close_new_player_guide_view);
                 }
-            }, 3);
+            }, 4);
             NewPlayerGuideView.show_guide(
                 2,
                 GuideType.pciture,
