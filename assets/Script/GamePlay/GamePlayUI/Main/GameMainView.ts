@@ -1,7 +1,7 @@
 import { gamebase } from "../../../Boot";
 import BaseUI from "../../../Common/BaseUI";
 import { CashOutRouterPath, ClickOnRouterPath } from "../../../Common/CommonEnum";
-import { UIParamInterface } from "../../../Common/CommonInterface";
+import { ApiV2CheckinInterface, UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import Random from "../../../Common/Random";
 import Time from "../../../Common/Time";
@@ -20,6 +20,7 @@ import OrderMenuData from "../../../GameLocalData/OrderMenuData";
 import PeopleData, { CustomerPayInterface } from "../../../GameLocalData/PeopleData";
 import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
+import CommonServerData from "../../../GameServerData/CommonServerData";
 import OSRuntime from "../../../OSRuntime";
 import { Ad } from "../../../Sdk/Ad";
 import BI from "../../../Sdk/BI";
@@ -77,6 +78,12 @@ export default class GameMainView extends BaseUI {
     @property(cc.Label)
     attract_customer_progress_label: cc.Label = null;
 
+    @property(cc.Label)
+    video_number: cc.Label = null;
+
+    @property(cc.Node)
+    video_frame: cc.Node = null;
+
     @property(cc.Node)
     attract_customer_progress: cc.Node = null;
 
@@ -123,6 +130,7 @@ export default class GameMainView extends BaseUI {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.open_next_player_guide, this, this.new_player_guide);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_coin, this, this.fly_coin);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_heart, this, this.fly_heart);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.success_ad_video, this, this.request_checkin_data);
     }
 
     start() {
@@ -138,6 +146,21 @@ export default class GameMainView extends BaseUI {
         this.load_order_menu();
         this.show_offline_view();
         this.add_customer();
+        this.request_checkin_data();
+    }
+
+    request_checkin_data() {
+        CommonServerData.get_clock_in((res: ApiV2CheckinInterface) => {
+            if (res.needProcess - res.process > 0) {
+                this.video_frame.active = true;
+                this.video_number.string = `${res.needProcess - res.process}个`;
+            } else {
+                this.video_frame.active = false;
+            }
+        }, true, (error: any) => {
+            this.video_frame.active = false;
+            console.log("打卡数据错误 = ", error);
+        })
     }
 
     fix_menu_data() {
@@ -871,7 +894,8 @@ export default class GameMainView extends BaseUI {
             ad_id: GameConfig.video_ad_id,
             /**@description 观看激励视频成功的回调 */
             success: (res: any) => {
-                BI.video_bi({ name: "批量招揽顾客" })
+                BI.video_bi({ name: "批量招揽顾客" });
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
                 let i = 0;
                 const callback = () => {
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
