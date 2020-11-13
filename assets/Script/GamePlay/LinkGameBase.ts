@@ -67,6 +67,8 @@ class LinkGameBase {
       "show_table_gift": "show_table_gift",
       //成功观看广告
       "success_ad_video": "success_ad_video",
+      //关闭扩建界面
+      "close_store_view": "close_store_view",
    }
 
    /**

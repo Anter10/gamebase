@@ -87,6 +87,7 @@ export default class StoreUpgradeView extends BaseUI {
         this.store_upgrade_data = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData);
         this.store_upgrade_data_level = this.store_upgrade_data.get_store_level_data();
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.click_store_button, this, this.refresh_ui);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.close_store_view, this, this.close_this_node);
     }
 
     onEnable() {
@@ -96,6 +97,11 @@ export default class StoreUpgradeView extends BaseUI {
 
     onDestroy() {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.click_store_button, this, this.refresh_ui);
+        EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.close_store_view, this, this.close_this_node);
+    }
+
+    close_this_node() {
+        this.on_close_call();
     }
 
     start() {

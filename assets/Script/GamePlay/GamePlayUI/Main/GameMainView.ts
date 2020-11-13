@@ -150,6 +150,7 @@ export default class GameMainView extends BaseUI {
     }
 
     request_checkin_data() {
+        this.video_frame.active = false;
         CommonServerData.get_clock_in((res: ApiV2CheckinInterface) => {
             if (res.needProcess - res.process > 0) {
                 this.video_frame.active = true;
