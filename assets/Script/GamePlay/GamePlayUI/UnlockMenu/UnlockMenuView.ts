@@ -105,13 +105,13 @@ export default class UnlockMenuView extends BaseUI {
         Ad.play_video_ad(rewarded_ad_interface);
     }
 
-    update_view_widget(code: NativeSupportStatueCode){
+    update_view_widget(code: NativeSupportStatueCode) {
         const widget = this.bg.getComponent(cc.Widget);
-        if(code == NativeSupportStatueCode.LOAD_FAIL){
+        if (code == NativeSupportStatueCode.LOAD_FAIL) {
             widget.isAlignTop = false;
             widget.isAlignVerticalCenter = true;
             widget.updateAlignment();
-        }else{
+        } else {
             widget.isAlignTop = true;
             widget.top = 100;
             widget.isAlignVerticalCenter = false;
@@ -121,16 +121,16 @@ export default class UnlockMenuView extends BaseUI {
 
     onAddFinished() {
         const ad_data: StaticImageAdInterface = {
-            width:340,
-            height:250,
+            width: 340,
+            height: 250,
             bottom: 0,
-            type:1,
-            success:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载成功",code);
+            type: 1,
+            success: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载成功", code);
                 this.update_view_widget(code);
             },
-            fail:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载失败",code);
+            fail: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载失败", code);
                 this.update_view_widget(code);
             }
         }
@@ -147,7 +147,9 @@ export default class UnlockMenuView extends BaseUI {
         let menu_ad_data = this.menu_data.get_menu_data_by_id(this.menu_config.id);
         if (menu_ad_data) {
             BI.video_bi({ name: "解锁菜品" })
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+            this.scheduleOnce(() => {
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+            }, 0.2);
             if (menu_ad_data.menuAdTime + 1 == this.menu_config.ad_number) {
                 this.menu_data.change_menu_data(this.menu_config.id, MenuType.unlock, menu_ad_data.menuAdTime + 1);
                 const ui_param_interface: UIParamInterface = {

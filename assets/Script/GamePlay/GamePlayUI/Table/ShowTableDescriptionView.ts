@@ -98,7 +98,7 @@ export default class ShowTableDescriptionView extends BaseUI {
         this.title_label.string = this.table_config.chinese_name;
         this.level_number_title.string = this.table_config.id + "级桌";
         this.description_label.string = this.table_config.description;
-        this.growth_label.string = "此桌提供" + this.table_config.growth + "%的金币收益";
+        this.growth_label.string = "金币总收益增加" + this.table_config.growth + "%";
         Loader.load_texture(`GamePlay/GamePlayUI/Main/texture/${this.table_config.name}`, (texture2d: cc.Texture2D) => {
             this.table_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
         })

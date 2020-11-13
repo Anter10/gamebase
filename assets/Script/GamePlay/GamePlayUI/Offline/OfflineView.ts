@@ -110,8 +110,10 @@ export default class OfflineView extends BaseUI {
             ad_id: GameConfig.video_ad_id,
             /**@description 观看激励视频成功的回调 */
             success: (res: any) => {
-                BI.video_bi({ name: "离线收益" })
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+                BI.video_bi({ name: "离线收益" });
+                this.scheduleOnce(() => {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+                }, 0.2);
                 const game_base_data: GamePlayBaseData = GameLocalData.get_instance().get_data(GamePlayBaseData);
                 game_base_data.change_gold_coin_number(this.offline_config.gold);
                 game_base_data.change_red_heart_number(this.offline_config.heart);

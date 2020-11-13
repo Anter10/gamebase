@@ -51,13 +51,13 @@ export default class ShowDecorationDescriptionView extends BaseUI {
         this.flush_view();
     }
 
-    update_view_widget(code: NativeSupportStatueCode){
+    update_view_widget(code: NativeSupportStatueCode) {
         const widget = this.bg.getComponent(cc.Widget);
-        if(code == NativeSupportStatueCode.LOAD_FAIL){
+        if (code == NativeSupportStatueCode.LOAD_FAIL) {
             widget.isAlignTop = false;
             widget.isAlignVerticalCenter = true;
             widget.updateAlignment();
-        }else{
+        } else {
             widget.isAlignTop = true;
             widget.top = 100;
             widget.isAlignVerticalCenter = false;
@@ -67,16 +67,16 @@ export default class ShowDecorationDescriptionView extends BaseUI {
 
     onAddFinished() {
         const ad_data: StaticImageAdInterface = {
-            width:340,
-            height:250,
+            width: 340,
+            height: 250,
             bottom: 0,
-            type:1,
-            success:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载成功",code);
+            type: 1,
+            success: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载成功", code);
                 this.update_view_widget(code);
             },
-            fail:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载失败",code);
+            fail: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载失败", code);
                 this.update_view_widget(code);
             }
         }
@@ -87,7 +87,7 @@ export default class ShowDecorationDescriptionView extends BaseUI {
         super.onDisable();
         Ad.close_image_ad_view();
     }
-    
+
     flush_view() {
         //关闭界面
         const close_button: TouchButton = this.close_button.addComponent(TouchButton);
@@ -98,7 +98,7 @@ export default class ShowDecorationDescriptionView extends BaseUI {
         this.title_label.string = this.decoration_config.chinese_name;
         this.level_number_title.string = this.level_number + "级装饰";
         this.description_label.string = this.decoration_config.description;
-        this.growth_label.string = "此提供" + this.decoration_config.growth[this.level_number - 1] + "%的金币收益";
+        this.growth_label.string = "金币总收益增加" + this.decoration_config.growth[this.level_number - 1] + "%";
         Loader.load_texture(`GamePlay/GamePlayUI/ExtensionTable/decoration_texture/${this.decoration_config.name}${this.level_number}`, (texture2d: cc.Texture2D) => {
             this.decoration_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
         })

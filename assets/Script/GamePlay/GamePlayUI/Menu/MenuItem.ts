@@ -158,7 +158,9 @@ export default class MenuItem extends BaseNode {
         BI.video_bi({name: "解锁菜品"})
         if (menu_ad_data.menuAdTime + 1 == this.menu_config.ad_number) {
             this.menu_data.change_menu_data(this.menu_config.id, MenuType.unlock, menu_ad_data.menuAdTime + 1);
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+            this.scheduleOnce(() => {
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+            }, 0.2);
             const ui_param_interface: UIParamInterface = {
                 ui_config_path: UIConfig.Toast,
                 ui_config_name: "Toast",
