@@ -81,6 +81,9 @@ export class NativeSDKTool {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "weixin_login", "(Ljava/lang/String;)V", "weixin_login");
         }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "weixin_login:", null);
+        }
     }
 
 
@@ -356,6 +359,9 @@ export class NativeSDKTool {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderVideoAd", "(I)V", rewarded_interface.ad_id);
         }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "showVideoAd:", "1000372");
+        }
     }
 
     /**
@@ -418,6 +424,9 @@ export class NativeSDKTool {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getEnv", "()V");
         }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "getEnv:", null);
+        }
     }
 
     /**
@@ -438,6 +447,9 @@ export class NativeSDKTool {
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "hideLoadBg", "()V");
+        }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "hideLoadBg:", null);
         }
     }
 
