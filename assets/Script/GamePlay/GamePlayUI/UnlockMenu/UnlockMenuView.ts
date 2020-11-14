@@ -98,6 +98,9 @@ export default class UnlockMenuView extends BaseUI {
             /**@description 观看激励视频成功的回调 */
             success: (res: any) => {
                 this.get_gift();
+                setTimeout(() => {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+                 }, 1000);
             },
             /**@description 观看激励视频失败的成功回调*/
             fail: (res: any) => { },
