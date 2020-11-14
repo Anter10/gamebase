@@ -151,6 +151,7 @@ export default class GameMainView extends BaseUI {
 
     request_checkin_data() {
         CommonServerData.get_clock_in((res: ApiV2CheckinInterface) => {
+            console.log("当前 request_checkin_data = ", res);
             if (res.needProcess - res.process > 0) {
                 this.video_frame.active = true;
                 this.video_number.string = `${res.needProcess - res.process}个`;

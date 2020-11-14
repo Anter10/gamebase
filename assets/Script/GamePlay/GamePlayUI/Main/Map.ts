@@ -27,12 +27,6 @@ export default class Map extends cc.Component {
 
     @property(cc.Node)
     decoration_array: Array<cc.Node> = [];
-    @property(cc.Prefab)
-    public customer_prefab: cc.Prefab = null;
-
-
-    public customer_pool: cc.NodePool = new cc.NodePool();
-
 
     static map_grid: any = null;
     static map_item_size: number = 40;
@@ -43,18 +37,6 @@ export default class Map extends cc.Component {
     private vertical_number: number = 0;
     people_data: PeopleData = null;
     people_configs: Array<PeopleConfig> = null;
-
-    get_customer(): cc.Node {
-        if (this.customer_pool.size() > 0) {
-            return this.customer_pool.get();
-        } else {
-            return cc.instantiate(this.customer_prefab);
-        }
-    }
-
-    remove_customer(customer: cc.Node): void {
-        this.customer_pool.put(customer);
-    }
 
     onLoad() {
         this.init_map();
@@ -105,12 +87,13 @@ export default class Map extends cc.Component {
             }
         }
         for (let i = 0; i < customer_data_array.length; i++) {
-            const customer_node = this.get_customer();
-            customer_node.active = true;
-            const customer_script = customer_node.getComponent(Customer);
-            customer_node.parent = this.node;
-            customer_script.init(customer_data_array[i].peopleDataNumber);
-            customer_script.set_customer();
+            Loader.load_prefab("GamePlay/GamePlayUI/Main/Customer", (customer: cc.Prefab) => {
+                const customer_node = cc.instantiate(customer);
+                const customer_script = customer_node.getComponent(Customer);
+                customer_node.parent = this.node;
+                customer_script.init(customer_data_array[i].peopleDataNumber);
+                customer_script.set_customer();
+            })
         }
     }
 
@@ -123,12 +106,13 @@ export default class Map extends cc.Component {
         }
         const customer_config = customer_configs[Random.rangeInt(0, customer_configs.length - 1)];
         const add_customer_data = this.people_data.add_customer(customer_config.id);
-        const customer_node = this.get_customer();
-        customer_node.active = true;
-        const customer_script = customer_node.getComponent(Customer);
-        customer_node.parent = this.node;
-        customer_script.init(add_customer_data.peopleDataNumber);
-        customer_script.add_new_customer();
+        Loader.load_prefab("GamePlay/GamePlayUI/Main/Customer", (customer: cc.Prefab) => {
+            const customer_node = cc.instantiate(customer);
+            const customer_script = customer_node.getComponent(Customer);
+            customer_node.parent = this.node;
+            customer_script.init(add_customer_data.peopleDataNumber);
+            customer_script.add_new_customer();
+        })
     }
 
     init_map() {
