@@ -4,8 +4,8 @@ import {DecorationConfig} from "./ConfigInterface"
 import {MenuConfig} from "./ConfigInterface" 
 import {OfflineConfig} from "./ConfigInterface" 
 import {PeopleConfig} from "./ConfigInterface" 
-import {StoreUpgradeConfig} from "./ConfigInterface" 
 import {TableConfig} from "./ConfigInterface" 
+import {StoreUpgradeConfig} from "./ConfigInterface" 
 import {UnlockMenuRewardConfig} from "./ConfigInterface" 
  
 
@@ -16,8 +16,8 @@ import {UnlockMenuRewardConfig} from "./ConfigInterface"
      MenuConfig:"MenuConfig", 
      OfflineConfig:"OfflineConfig", 
      PeopleConfig:"PeopleConfig", 
-     StoreUpgradeConfig:"StoreUpgradeConfig", 
      TableConfig:"TableConfig", 
+     StoreUpgradeConfig:"StoreUpgradeConfig", 
      UnlockMenuRewardConfig:"UnlockMenuRewardConfig", 
  }; 
  export default ConfigsName;
