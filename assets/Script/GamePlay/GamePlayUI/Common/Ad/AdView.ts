@@ -83,7 +83,9 @@ export default class AdView extends BaseUI {
             success: (res: any) => {
                 this.on_close_call();
                 this.ad_interface.success_call && this.ad_interface.success_call();
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+                setTimeout(() => {
+                   EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+                }, 1000);
             },
             /**@description 观看激励视频失败的成功回调*/
             fail: (res: any) => {
