@@ -1,5 +1,6 @@
 import Loader from "../../Common/Loader";
 import TouchButton from "../../Common/TouchButton";
+import CardRegisterNode from "./CardRegisterNode";
 
 const { ccclass, property } = cc._decorator;
 
@@ -14,8 +15,6 @@ export default class BottomNode extends cc.Component {
 
     private card_register: cc.Node = null;
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad() {
         this.main_button_jipaiqi.addComponent(TouchButton).register_touch(() => {
             if (this.card_register) {
@@ -28,6 +27,8 @@ export default class BottomNode extends cc.Component {
                 Loader.load_prefab(`./GamePlay/prefab/cells/CardRegisterNode`, (prefab: cc.Prefab) => {
                     const card_item = cc.instantiate(prefab);
                     this.card_register = card_item;
+                    //输入此时要显示的记牌器数据
+                    card_item.getComponent(CardRegisterNode).set_card_register([]);
                     card_item.parent = this.node;
                 });
             }

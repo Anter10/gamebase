@@ -10,14 +10,8 @@ const { ccclass, property } = cc._decorator;
 @ccclass
 export default class CardRegisterItem extends BaseNode {
 
-    @property(cc.Node)
-    normal_node: cc.Node = null;
-
-    @property(cc.Node)
-    king_icon: cc.Node = null;
-
-    @property(cc.Sprite)
-    id_sprite: cc.Sprite = null;
+    @property(cc.Label)
+    cell_name: cc.Label = null;
 
     @property(cc.Label)
     count_label: cc.Label = null;
@@ -25,6 +19,10 @@ export default class CardRegisterItem extends BaseNode {
     private card: LordCardInterface = null;
     private card_register_config: Array<LordCardInterface> = [];
     private card_count: Array<number> = [];
+
+    private readonly red_color = cc.color(248, 43, 26, 255);
+    private readonly zero_color = cc.color(209, 194, 174, 255);
+    private readonly no_zero_color = cc.color(181, 136, 96, 255);
 
     onLoad() {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.card_register_show_card, this, this.set_card.bind(this));
@@ -46,30 +44,26 @@ export default class CardRegisterItem extends BaseNode {
         this.card_count.forEach((value, id) => {
             if (id == this.card.id) {
                 this.count_label.string = value + "";
+                if (value == 0) {
+                    this.count_label.node.color = this.zero_color;
+                }
             }
         });
     }
 
-    set_data(card: LordCardInterface) {
+    set_item(card: LordCardInterface) {
         this.card = card;
         if (card.id < 16) {
-            this.normal_node.active = true;
-            this.king_icon.active = false;
-            Loader.load_texture(`./GamePlay/prefab/card/pkp_hong_${card.id}`, (texture2d: cc.Texture2D) => {
-                this.id_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
-            });
+            this.cell_name.string = card.id + "";
+            this.count_label.node.color = this.no_zero_color;
         } else {
-            this.normal_node.active = false;
-            this.king_icon.active = true;
+            this.count_label.node.color = this.red_color;
             if (card.id == 16) {
-                card.card_type = LordCardType.small_king;
+                this.cell_name.string = "小王"
             }
             if (card.id == 17) {
-                card.card_type = LordCardType.big_king;
+                this.cell_name.string = "大王"
             }
-            Loader.load_texture(`./GamePlay/prefab/card/${card.card_type}`, (texture2d: cc.Texture2D) => {
-                this.king_icon.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture2d);
-            });
         }
     }
 
