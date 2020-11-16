@@ -5,6 +5,8 @@ const exportdata = require("hs_export_data");
 // 需要传给服务器端的配置
 const server_data_config =[
     "AudioConfig",
+    "PeopleConfig",
+    "StoreUpgradeConfig",
 ];
 
 console.log("server_data_config ",server_data_config);

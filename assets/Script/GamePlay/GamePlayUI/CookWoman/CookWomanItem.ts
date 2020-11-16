@@ -7,6 +7,7 @@ import { PeopleConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import PeopleData from "../../../GameLocalData/PeopleData";
+import StoreUpgradeData from "../../../GameLocalData/StoreUpgradeData";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
@@ -149,24 +150,38 @@ export default class CookWomanItem extends BaseNode {
             UIManager.show_ui(ui_max_param_interface);
         } else {
             const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-            if (game_play_base_data.change_gold_coin_number(-this.cook_woman_config.upgrade_need_coin[cur_cook_woman_level])) {
-                this.people_data.change_cook_woman_level(this.cook_woman_config.id, cur_cook_woman_level + 1);
-                this.refresh_upgrade_description();
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_cook_woman_level);
-                const ui_success_param_interface: UIParamInterface = {
-                    ui_config_path: UIConfig.Toast,
-                    ui_config_name: "Toast",
-                    param: {
-                        text: "解锁成功"
+            const store_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData);
+            if (cur_cook_woman_level == 0 || this.cook_woman_config.upgrade_need_store_level[cur_cook_woman_level] <= store_level.get_store_level_data()) {
+                if (game_play_base_data.change_gold_coin_number(-this.cook_woman_config.upgrade_need_coin[cur_cook_woman_level])) {
+                    this.people_data.change_cook_woman_level(this.cook_woman_config.id, cur_cook_woman_level + 1);
+                    this.refresh_upgrade_description();
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_cook_woman_level);
+                    const ui_success_param_interface: UIParamInterface = {
+                        ui_config_path: UIConfig.Toast,
+                        ui_config_name: "Toast",
+                        param: {
+                            text: "解锁成功"
+                        }
                     }
+                    UIManager.show_ui(ui_success_param_interface);
+                    // console.log("解锁成功");
+                } else {
+                    const ui_param_interface: UIParamInterface = {
+                        ui_config_path: UIConfig.Toast,
+                        ui_config_name: "Toast",
+                        param: {
+                            text: "金币不足，快去营业赚金币吧"
+                        }
+                    }
+                    UIManager.show_ui(ui_param_interface);
+                    // console.log("金币不足，快去营业赚金币吧");
                 }
-                UIManager.show_ui(ui_success_param_interface);
             } else {
                 const ui_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
-                        text: "金币不足，快去营业赚金币吧"
+                        text: `${this.cook_woman_config.upgrade_need_store_level[cur_cook_woman_level]}级店铺可解锁`
                     }
                 }
                 UIManager.show_ui(ui_param_interface);

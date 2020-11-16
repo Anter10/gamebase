@@ -277,12 +277,12 @@ export default class StoreUpgradeView extends BaseUI {
             this.upgrade_conditions.active = false;
             this.show_null.active = true;
         }
-        if (this.store_upgrade_data_level < 3) {
-            this.upgrade_description_label.string = "<b><color=#460B0D>店铺升级到3级就可以</c><color=#DA0000>提现啦\n</c><color=#460B0D>快去升级吧</c></b>";
+        if (this.store_upgrade_data_level < 2) {
+            this.upgrade_description_label.string = "<b><color=#460B0D>店铺升级到2级就可以</c><color=#DA0000>提现啦\n</c><color=#460B0D>快去升级吧</c></b>";
         } else if (this.store_upgrade_data_level == this.store_upgrade_configs.length) {
-            this.upgrade_description_label.string = "<b><color=#460B0D>店铺升级到10级，每周</c><color=#DA0000>可提现888元啦</c>\n<color=#460B0D>快去提现吧</c></b>";
+            this.upgrade_description_label.string = "<b><color=#460B0D>店铺升级到10级，</c><color=#DA0000>可提现128元啦</c>\n<color=#460B0D>快去提现吧</c></b>";
         } else {
-            this.upgrade_description_label.string = `<b><color=#460B0D>店铺升级到${this.store_upgrade_data_level + 1}级，每周</c><color=#DA0000>可提现${this.store_upgrade_configs[this.store_upgrade_data_level].cash_number}元啦</c>\n<color=#460B0D>快去提现吧</c></b>`;
+            this.upgrade_description_label.string = `<b><color=#460B0D>店铺升级到${this.store_upgrade_data_level + 1}级，</c><color=#DA0000>可提现${this.store_upgrade_configs[this.store_upgrade_data_level].cash_number}元啦</c>\n<color=#460B0D>快去提现吧</c></b>`;
         }
     }
 

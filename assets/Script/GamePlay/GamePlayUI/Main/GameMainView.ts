@@ -121,6 +121,7 @@ export default class GameMainView extends BaseUI {
     private _debug_click_number: number = 0;
 
     private _order_menu_number = 0;
+    private start_ad = false;
 
     onLoad() {
         this.flush_view();
@@ -927,38 +928,47 @@ export default class GameMainView extends BaseUI {
     }
 
     batch_attract_customer() {
-        let rewarded_ad_interface: RewardedAdInterface = {
-            /**@description 观看激励视频广告的ID */
-            ad_id: GameConfig.video_ad_id,
-            /**@description 观看激励视频成功的回调 */
-            success: (res: any) => {
-                BI.video_bi({ name: "批量招揽顾客" });
-                this.scheduleOnce(() => {
-                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
-                }, 0.2)
-                let i = 0;
-                const callback = () => {
-                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-                    i++;
-                    if (i == GamePlayConfig.batch_add_customer) {
-                        this.unschedule(callback);
+        if (!this.start_ad) {
+            this.start_ad = true;
+            let rewarded_ad_interface: RewardedAdInterface = {
+                /**@description 观看激励视频广告的ID */
+                ad_id: GameConfig.video_ad_id,
+                /**@description 观看激励视频成功的回调 */
+                success: (res: any) => {
+                    this.start_ad = false;
+                    BI.video_bi({ name: "批量招揽顾客" });
+                    this.scheduleOnce(() => {
+                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+                    }, 0.2)
+                    let i = 0;
+                    const callback = () => {
+                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                        i++;
+                        if (i == GamePlayConfig.batch_add_customer) {
+                            this.unschedule(callback);
+                        }
                     }
-                }
-                this.schedule(callback, 0.5, GamePlayConfig.batch_add_customer, 0.5);
-            },
-            /**@description 观看激励视频失败的成功回调*/
-            fail: (res: any) => {
-                const ui_param_interface: UIParamInterface = {
-                    ui_config_path: UIConfig.Toast,
-                    ui_config_name: "Toast",
-                    param: {
-                        text: "批量招揽失败"
+                    this.schedule(callback, 0.5, GamePlayConfig.batch_add_customer, 0.5);
+                },
+                /**@description 观看激励视频失败的成功回调*/
+                fail: (res: any) => {
+                    this.start_ad = false;
+                    const ui_param_interface: UIParamInterface = {
+                        ui_config_path: UIConfig.Toast,
+                        ui_config_name: "Toast",
+                        param: {
+                            text: "批量招揽失败"
+                        }
                     }
-                }
-                UIManager.show_ui(ui_param_interface);
-            },
+                    UIManager.show_ui(ui_param_interface);
+                },
+            }
+            Ad.play_video_ad(rewarded_ad_interface);
+        } else {
+            this.scheduleOnce(() => {
+                this.start_ad = false;
+            }, 20)
         }
-        Ad.play_video_ad(rewarded_ad_interface);
     }
 
     set_attract_customer_progress(progress_number: number) {

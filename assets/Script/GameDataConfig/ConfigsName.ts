@@ -3,10 +3,10 @@ import {ChatConfig} from "./ConfigInterface"
 import {DecorationConfig} from "./ConfigInterface" 
 import {MenuConfig} from "./ConfigInterface" 
 import {OfflineConfig} from "./ConfigInterface" 
-import {PeopleConfig} from "./ConfigInterface" 
 import {TableConfig} from "./ConfigInterface" 
-import {StoreUpgradeConfig} from "./ConfigInterface" 
+import {PeopleConfig} from "./ConfigInterface" 
 import {UnlockMenuRewardConfig} from "./ConfigInterface" 
+import {StoreUpgradeConfig} from "./ConfigInterface" 
  
 
  const ConfigsName = {
@@ -15,9 +15,9 @@ import {UnlockMenuRewardConfig} from "./ConfigInterface"
      DecorationConfig:"DecorationConfig", 
      MenuConfig:"MenuConfig", 
      OfflineConfig:"OfflineConfig", 
-     PeopleConfig:"PeopleConfig", 
      TableConfig:"TableConfig", 
-     StoreUpgradeConfig:"StoreUpgradeConfig", 
+     PeopleConfig:"PeopleConfig", 
      UnlockMenuRewardConfig:"UnlockMenuRewardConfig", 
+     StoreUpgradeConfig:"StoreUpgradeConfig", 
  }; 
  export default ConfigsName;
