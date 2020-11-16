@@ -1,4 +1,6 @@
+import { PreLoadAdInterface } from "./Common/CommonInterface";
 import Test from "./Common/Test";
+import GameConfig from "./GameConfig";
 import GameDataConfig from "./GameDataConfig/GameDataConfig";
 import GameLocalData from "./GameLocalData/GameLocalData";
 import CommonServerData from "./GameServerData/CommonServerData";
@@ -31,10 +33,31 @@ class Boot{
         GameLocalData.get_instance().init();
         GameDataConfig.init();
         NativeSDKTool.init();
+        this.preload_ad();
     }
 
     static os_init(){
         
+    }
+
+    /**@description 预备家在广告 */
+    static preload_ad(){
+        const preload_ad_ids = GameConfig.video_ad_ids;
+        if(preload_ad_ids){
+            console.log("预备加载广告的所有ID = ",preload_ad_ids);
+            for(const ad_id of preload_ad_ids){
+                const preload_ad_interface: PreLoadAdInterface = {
+                    ad_id: ad_id,
+                    success: (id: number)=> {
+                        console.log("预备加载广告成功",id);
+                    },
+                    fail: (id: number)=> {
+                        console.log("预备加载广告失败",id);
+                    },
+                }
+                NativeSDKTool.preload_ad(preload_ad_interface);
+            }
+        }
     }
 }
 

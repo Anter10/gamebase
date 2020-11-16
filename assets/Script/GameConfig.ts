@@ -137,6 +137,14 @@ const GameConfig = {
         return OSRuntime.wechat_login_success_interface.env == "0";
     },
 
+    get video_ad_ids(){
+        if(GameConfig.env_is_debug){
+            return GameConfig.android_init_param.debug_awarded_video_ids;
+        }else{
+            return GameConfig.android_init_param.release_awarded_video_ids;
+        }
+    },
+
     /**@description 当前播放激励视频广告的ID */
     get video_ad_id(): number {
         if (GameConfig.env_is_debug) {
@@ -150,6 +158,7 @@ const GameConfig = {
             return ad_id;
         }
     },
+    
 
     /**@description 弹窗静态图的广告ID */
     get window_static_image_ad_id(): number {

@@ -228,5 +228,15 @@ interface ApiVersionInterface{
     force: boolean;
 }
 
+/**@description 预拉取广告的接口 */
+interface PreLoadAdInterface{
+    /**@description 广告的ID */
+    ad_id: number,
+    /**@description 广告加载成功 */
+    success?: Function,
+    /**@description 广告加载失败 */
+    fail?:Function,
+}
 
-export {ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+
+export {PreLoadAdInterface,ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };

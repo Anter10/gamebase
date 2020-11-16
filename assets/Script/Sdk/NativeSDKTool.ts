@@ -1,5 +1,5 @@
 import { Boot } from "../Boot";
-import { UIParamInterface } from "../Common/CommonInterface";
+import { PreLoadAdInterface, UIParamInterface } from "../Common/CommonInterface";
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
@@ -631,8 +631,33 @@ export class NativeSDKTool {
         UIManager.show_ui(ui_param_interface);
     }
 
+    /**@description 预加载广告 */
+    public static preload_ad(preload_ad_interface: PreLoadAdInterface){
+        sdk_module_interface.pre_load_ads[preload_ad_interface.ad_id] = preload_ad_interface;
+        if (this.isAndroid) {
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "preload_ad", "(I)V", preload_ad_interface.ad_id);
+        }
+    }
 
+    /**@description 预加载广告成功的回调 */
+    public static preload_ad_success(ad_id: number){
+        console.log("广告预拉去成功的回调 = ",ad_id);
+        if(sdk_module_interface.pre_load_ads && sdk_module_interface.pre_load_ads[ad_id]){
+           if(sdk_module_interface.pre_load_ads[ad_id].success){
+              sdk_module_interface.pre_load_ads[ad_id].success();
+           }
+        }
+    }
 
+    /**@description 预拉去广告失败的回调 */
+    public static preload_ad_fai(ad_id: number){
+        console.log("广告预拉去失败的回调 = ",ad_id);
+        if(sdk_module_interface.pre_load_ads && sdk_module_interface.pre_load_ads[ad_id]){
+            if(sdk_module_interface.pre_load_ads[ad_id].fail){
+             sdk_module_interface.pre_load_ads[ad_id].fail();
+            }
+         }
+    }
 }
 
 cc["NativeSDKTool"] = NativeSDKTool;
