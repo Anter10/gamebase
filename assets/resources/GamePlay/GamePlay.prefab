@@ -234,6 +234,9 @@
     "offline_benefits": {
       "__uuid__": "ca57f5f8-df2e-4ad1-8b38-36c33420af23"
     },
+    "popup_prefab": {
+      "__uuid__": "156bce12-46d9-4fb8-aa56-cddae5e3c02f"
+    },
     "_id": ""
   },
   {

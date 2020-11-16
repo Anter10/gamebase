@@ -67,6 +67,14 @@ const GameDataBaseConfig = {
         `_azalea_level`
     ] ,
 
+    /**@description 弹窗类型 */
+    popup_type: {
+        red: 1 ,
+        no_coin: 2 ,
+        tips: 3 ,
+        benefits: 4 ,
+    },
+
     /**@description 金币转化W/M */
     conversionCoin: (coinNum: number) => {
         if (coinNum >= 1000 && coinNum < 1000000) {

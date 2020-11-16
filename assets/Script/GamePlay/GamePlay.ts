@@ -1,12 +1,15 @@
 import FlowerCultureLayer from "../../resources/GamePlay/FlowerCulture/FlowerCultureLayer";
 import OfflineBenefitsLayer from "../../resources/GamePlay/OfflineBenefits/OfflineBenefitsLayer";
+import PopupLayer from "../../resources/GamePlay/Popup/PopupLayer";
 import { gamebase } from "../Boot";
 import { UIParamInterface } from "../Common/CommonInterface";
 import TouchButton from "../Common/TouchButton";
+import GameConfig from "../GameConfig";
 import GameDataBaseConfig from "../GameDataConfig/GameDataBaseConfig";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import GameLocalData from "../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
+import { Ad } from "../Sdk/Ad";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
 
@@ -22,6 +25,8 @@ class GamePlay extends cc.Component {
     flower_culture_prefab: cc.Prefab = null;
     @property(cc.Prefab)
     offline_benefits: cc.Prefab = null;
+    @property(cc.Prefab)
+    popup_prefab: cc.Prefab = null;
 
     public node_top: cc.Node = null;
     public node_mid: cc.Node = null;
@@ -37,6 +42,7 @@ class GamePlay extends cc.Component {
     public updateLevelCallBack: Function = null;
     public updateExperienceCallBack: Function = null;
     public updateAccelerationCallBack: Function = null;
+    public curShowPopupList: Array<number> = [];
 
     onLoad() {
         console.log(`进入游戏的game_play了`)
@@ -212,7 +218,12 @@ class GamePlay extends cc.Component {
                 cloneHand.setPosition(cc.v2(50, -40));
                 const touch_button: TouchButton = btn_unlock.addComponent(TouchButton);
                 touch_button.register_touch(() => {
-                    this.unlock_flower_callback(i, len);
+                    Ad.play_video_ad({ad_id: GameConfig.video_ad_id ,success: () => {
+                        cc.log(`解锁花架，播放视频成功!`);
+                        this.unlock_flower_callback(i, len);
+                    } ,fail: () => {
+                        cc.log(`解锁花架，播放视频失败!`);
+                    }});
                 });
             }
             else {
@@ -647,6 +658,7 @@ class GamePlay extends cc.Component {
         this.up_grade_need_time = this.base_data.player_experience;
         this.update_player_experience();
         this.show_click_up_grade(false);
+        this.show_popup(GameDataBaseConfig.popup_type.red);
     }
 
     /**@description 打开每日登录界面 */
@@ -726,7 +738,6 @@ class GamePlay extends cc.Component {
         else {
             this.updateExperienceCallBack = this.update_flower_current_experience.bind(this);
         }
-        cc.log(`--------updateExperienceTime-------`+this.updateExperienceTime);
         this.schedule(this.updateLevelCallBack, this.updateLevelTime);
         this.schedule(this.updateExperienceCallBack, this.updateExperienceTime);
     }
@@ -763,6 +774,19 @@ class GamePlay extends cc.Component {
             offlineLayer.parent = this.node;
             offlineLayer.getComponent(OfflineBenefitsLayer).init(offline_time ,this.game_data_config);
         }
+    }
+
+    /**@description 展示弹窗 */
+    show_popup(type: number ,data?: any) {
+        const popup = cc.instantiate(this.popup_prefab);
+        popup.parent = this.node;
+        if (this.curShowPopupList.indexOf(type) == -1) popup.getComponent(PopupLayer).init(type ,data);
+    }
+
+    /**@description 移除弹窗 */
+    remove_popup(type: number) {
+        const index = this.curShowPopupList.indexOf(type);
+        if (index != -1) this.curShowPopupList.splice(index ,1);
     }
 
     /**@description 展示Toast */
