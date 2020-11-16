@@ -287,7 +287,7 @@ export class UpdateManagerComponent extends BaseNode {
     };
 
     check_server_update(){
-        if(!GameConfig.open_update){
+        if(!GameConfig.open_update || !gamebase.jsb){
             this.update_complete_callback();
             return;
         }
