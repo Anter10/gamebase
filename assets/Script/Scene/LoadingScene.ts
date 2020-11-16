@@ -186,10 +186,11 @@ class LoadingScene extends BaseScene {
         const user_data = GameLocalData.get_instance().get_data<UserData>(UserData);
         if (user_data.user_login_data) {
             console.log("微信登陆成功 登陆成功的数据 ", JSON.stringify(user_data.user_login_data));
-            ServerData.get_instance().init();
-            GameDataConfig.server_request_server_config();
-            NativeSDKTool.wx_login_success(user_data.user_login_data);
-            this.checking_update();
+            // ServerData.get_instance().init();
+            // GameDataConfig.server_request_server_config();
+            // NativeSDKTool.wx_login_success(user_data.user_login_data);
+            // this.checking_update();
+            this.wechat_login();
         } else {
             console.log("本地没有玩家登陆的数据");
             NativeSDKTool.hideLoadBg();
