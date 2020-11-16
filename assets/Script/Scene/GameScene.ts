@@ -5,6 +5,7 @@ import GameConfig from "../GameConfig";
 import GameLocalData from "../GameLocalData/GameLocalData";
 import CommonServerData from "../GameServerData/CommonServerData";
 import BI from "../Sdk/BI";
+import { NativeSDKTool } from "../Sdk/NativeSDKTool";
 import { BiInterface } from "../Sdk/SdkInterface";
 import UIConfig from "../UI/UIManager/UIConfig";
 import UIManager from "../UI/UIManager/UIManager";
@@ -18,6 +19,7 @@ class GameScene extends BaseScene {
 
     onLoad() {
         super.onLoad();
+        NativeSDKTool.hideLoadBg();
         gamebase.game_scene = this;
         this.game_play_init();
         this.bi();
