@@ -2,6 +2,7 @@ import Test from "./Common/Test";
 import GameDataConfig from "./GameDataConfig/GameDataConfig";
 import GameLocalData from "./GameLocalData/GameLocalData";
 import CommonServerData from "./GameServerData/CommonServerData";
+import IOSServer from "./GameServerData/IOSServer";
 import ServerData from "./GameServerData/ServerData";
 import { NativeSDKTool } from "./Sdk/NativeSDKTool";
 import { SdkModule } from "./Sdk/SdkModule";
@@ -31,6 +32,7 @@ class Boot{
         GameLocalData.get_instance().init();
         GameDataConfig.init();
         NativeSDKTool.init();
+        IOSServer.get_audit_manifest();
     }
 
     static os_init(){
