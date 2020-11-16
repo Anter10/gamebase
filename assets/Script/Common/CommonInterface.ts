@@ -96,17 +96,17 @@ interface NagivatorUIInterface {
 
 
 /**@description 导航器的接口 */
-interface NagivatorInterface {
-    /**@description 返回按钮的标题 */
-    title: string;
-    /**@description 返回按钮的回调*/
-    back_callback: Function;
-    /**@description 返回按钮底部节点的widget 的左边的像素值 */
-    widget_left?: number;
-    /**@description 显示导航栏的底部 */
-    show_nagivator_bottom?: boolean;
-    /**@description  */
-    hide_return_back_button?: boolean;
+interface NagivatorInterface{
+     /**@description 返回按钮的标题 */
+     title: string;
+     /**@description 返回按钮的回调*/
+     back_callback: Function;
+     /**@description 返回按钮底部节点的widget 的左边的像素值 */
+     widget_left?: number;
+     /**@description 显示导航栏的底部 */
+     show_nagivator_bottom?: boolean;
+     /**@description  */
+     hide_return_back_button?: boolean;
 }
 
 
@@ -228,14 +228,31 @@ interface ApiVersionInterface{
     force: boolean;
 }
 
-/**@description 预拉取广告的接口 */
-interface PreLoadAdInterface{
-    /**@description 广告的ID */
-    ad_id: number,
-    /**@description 广告加载成功 */
-    success?: Function,
-    /**@description 广告加载失败 */
-    fail?:Function,
+/**@description 特殊奖励 */
+interface ApiV2SpecialCheckinInterface{
+    day: number;
+    money: number;
+    received: number;
+}
+
+/**@description 打卡功能首页的数据接口 */
+interface ApiV2CheckinInterface{
+    /**@description 第几天 */
+    checkInDay: number;
+    /**@description 今日是否完成 */
+    todayDone: boolean;
+    /**@description 已领取天数 */
+    receivedDay: number;
+    /**@description 当前进度 */
+    process: number;
+    /**@description 所需进度 */
+    needProcess: number;
+    /**@description 每页展示多少 */
+    pageSize: number; 
+    /**@description 普通奖励 */
+    normal: string;
+    /**@description 特殊奖励 */
+    special?:Array<ApiV2SpecialCheckinInterface>
 }
 
 /**@description 预拉取广告的接口 */
@@ -248,6 +265,6 @@ interface PreLoadAdInterface{
     fail?:Function,
 }
 
-export {PreLoadAdInterface, ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+export {PreLoadAdInterface, ApiV2CheckinInterface, ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
 
 
