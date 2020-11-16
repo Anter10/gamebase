@@ -13,7 +13,7 @@ export interface UserWeChatInterface{
 /**@description 观看激励视频广告的接口 */
 export interface RewardedAdInterface{
      /**@description 观看激励视频广告的ID */
-     ad_id: string;
+     ad_id: number;
      /**@description 观看激励视频成功的回调 */
      success: (res: any) => void;  
      /**@description 观看激励视频失败的成功回调*/
@@ -149,4 +149,77 @@ export interface ImageAdInterface{
     success?:(res?: any)=>void;
     /**@description 显示失败的回调 */
     fail?:(res?: any)=>void;
+}
+
+/**@description 静态图广告的接口 */
+export interface WindowImageAdInterface{
+    /**@description 宽 */
+    width: number;
+    /**@description 高 */
+    height: number;
+    /**@description 距离顶部的距离 */
+    bottom: number;
+    /**@description 展示成功 */
+    success?:(res?: any)=>void;
+    /**@description 显示失败的回调 */
+    fail?:(res?: any)=>void;
+}
+
+
+/**@description 微信登陆成功后的接口数据 */
+export interface WechatLoginSuccessInterface{
+    /**@description 用户的access_key */
+    access_key?: string,
+    /**@description 用户的ID  */
+    user_id?: string,
+    /**@description 设备ID */
+    device_id?: string,
+    /**@description rom 版本 */
+    romVersion?:string,
+    /**@description gps 信息 */
+    gps?: string,
+    /**@description mac 地址 */
+    mac?: string;
+    /**@description brand */
+    brand?:string;
+    /**@description oaid */
+    oaid?:string;
+    /**@description 渠道 */
+    channel?: string;
+    /**@description app的版本号 */
+    appVersion?: string;
+    /**@description */ 
+    env: string;
+    /**@description */ 
+    inviteCode: string;
+}
+
+
+/**@description 视频打点的数据接口 */
+export interface VideoBiInterface{
+    /**@description 视频点的名称 */
+    name: string;
+    /**@description 视频统计成功回调*/
+    success?: Function;
+    /**@description 视频统计失败回调*/
+    fail?: Function;
+}
+
+
+/**@description 显示静态图广告的接口 */
+export interface StaticImageAdInterface{
+    /**@description 静态图广告的宽 */
+    width: number;
+    /**@description 静态图广告的高 */
+    height: number;
+    /**@description 静态图广告距离顶部 的 屏幕百分比 */
+    bottom: number;
+    /**@description 静态图广告距离顶部 的 屏幕百分比*/
+    top: number;
+    /**@description 静态图广告的类型 1: 距离底部的静态图 2: 距离顶部的静态图*/
+    type: number;
+    /**@description 静态图广告加载成功的回调 */
+    success?: (code: string) => void;
+    /**@description 静态图广告加载失败的回调 */
+    fail?:(code: string) => void;
 }

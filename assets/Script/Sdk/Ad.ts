@@ -1,6 +1,7 @@
 import { gamebase } from "../Boot";
-import { AdFuncEnum } from "./SdkEnum";
-import { ImageAdInterface, RewardedAdInterface, ZhikeAdInterface } from "./SdkInterface";
+import { NativeSDKTool } from "./NativeSDKTool";
+import { AdFuncEnum, NativeSupportStatueCode } from "./SdkEnum";
+import { ImageAdInterface, RewardedAdInterface, StaticImageAdInterface, ZhikeAdInterface } from "./SdkInterface";
 import { SdkModule } from "./SdkModule";
 
 /**@description 播放激励视频广告的数据 */
@@ -50,7 +51,7 @@ class Ad {
     /**@description 播放激励视频广告 */
     static play_video_ad(rewarded_ad_interface: RewardedAdInterface) {
         if (gamebase.jsb) {
-            SdkModule.rewarded_ad(rewarded_ad_interface);
+            NativeSDKTool.showVideoAd(rewarded_ad_interface);
         } else {
             // 非原生端 直接成功回调
             rewarded_ad_interface.success && (rewarded_ad_interface.success({}))
@@ -67,7 +68,7 @@ class Ad {
     }
 
     /**@description 播放二级弹窗的静态广告 */
-    static show_image_ad(image_ad_interface: ImageAdInterface) {
+    static show_static_image_ad(image_ad_interface: ImageAdInterface) {
         if (gamebase.jsb) {
             SdkModule.render_image_ad(image_ad_interface);
         } else {
@@ -77,9 +78,23 @@ class Ad {
         }
     }
 
-    /**@description 关闭静态图的广告 */
-    static close_image_ad(){
-        SdkModule.close_image_ad();
+    /**@description 显示弹窗广告 */
+    static show_bottom_static_ad(static_image_ad_interface: StaticImageAdInterface) {
+        if (gamebase.jsb) {
+            NativeSDKTool.showImageAdBottom(static_image_ad_interface.width, static_image_ad_interface.height, static_image_ad_interface.bottom,(code: NativeSupportStatueCode) => {
+                if(code == NativeSupportStatueCode.LOAD_FAIL){
+                    static_image_ad_interface.fail && static_image_ad_interface.fail(code);
+                }else{
+                    static_image_ad_interface.success && static_image_ad_interface.success(code);
+                }
+            });
+        } else {
+            static_image_ad_interface.fail && static_image_ad_interface.fail(NativeSupportStatueCode.LOAD_FAIL);
+        }
+    }
+
+    static close_image_ad_view(){
+        NativeSDKTool.closeImageAd();
     }
 
 }
