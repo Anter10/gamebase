@@ -3,6 +3,7 @@ import BaseRecord from "./BaseRecord";
 import GameRecord from "./GameRecord";
 import GuideData from "./GuideData";
 import TurnTableData from "./TurnTableData";
+import UserLoginData from "./UserLoginData";
 
 class GameLocalData {
     static _instance: GameLocalData = null;
@@ -16,6 +17,7 @@ class GameLocalData {
         GuideData,
         GameRecord,
         TurnTableData,
+        UserLoginData,
     ];
 
     get store_data_types(): Array<any> {

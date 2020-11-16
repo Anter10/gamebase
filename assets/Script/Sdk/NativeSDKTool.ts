@@ -88,8 +88,14 @@ export class NativeSDKTool {
 
 
     /**@description 微信登陆成功后的回调 */
-    public static wx_login_success(login_success_interface: WechatLoginSuccessInterface) {
-        console.log("微信登陆成功后的参数 = ", JSON.stringify(login_success_interface));
+    public static wx_login_success(wechat_login_success: any) {
+        console.log("微信登陆成功后的参数0 = ", wechat_login_success);
+        let login_success_interface: WechatLoginSuccessInterface = wechat_login_success;
+        if(typeof(wechat_login_success) == "string"){
+            login_success_interface = JSON.parse(wechat_login_success);
+        }
+        console.log("微信登陆成功后的参数1 = ",login_success_interface);
+        console.log("微信登陆成功后的参数2 = ", JSON.stringify(login_success_interface));
         GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
         GameConfig.android_init_success_param.user_id = login_success_interface.user_id;
         GameConfig.android_init_success_param.channel = login_success_interface.channel;
@@ -100,7 +106,6 @@ export class NativeSDKTool {
         GameConfig.android_init_success_param.gps = login_success_interface.gps;
         GameConfig.android_init_success_param.mac = login_success_interface.mac;
         GameConfig.android_init_success_param.appVersion = login_success_interface.appVersion;
-        
         OSRuntime.wechat_login_success_interface = login_success_interface;
         if (sdk_module_interface.wechat_login_success_callback) {
             sdk_module_interface.wechat_login_success_callback(login_success_interface);
