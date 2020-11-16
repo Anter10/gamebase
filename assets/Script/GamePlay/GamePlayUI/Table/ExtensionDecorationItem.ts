@@ -70,7 +70,11 @@ export default class ExtensionDecorationItem extends BaseNode {
             this.get_mark.active = false;
             this.price.active = true;
             this.decoration_sprite.node.color = cc.color(100, 100, 100, 255);
-            this.ad_label.string = this.decoration_data.get_decoration_data(this.mark_number).decorationAd + "/" + this.decoration_config.upgrade_need_ad[this.level_number - 1];
+            if (this.decoration_data.get_decoration_data(this.mark_number).decorationLevel + 1 == this.level_number) {
+                this.ad_label.string = this.decoration_data.get_decoration_data(this.mark_number).decorationAd + "/" + this.decoration_config.upgrade_need_ad[this.level_number - 1];
+            } else {
+                this.ad_label.string = 0 + "/" + this.decoration_config.upgrade_need_ad[this.level_number - 1];
+            }
         }
     }
 
