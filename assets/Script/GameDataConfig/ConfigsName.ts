@@ -1,23 +1,23 @@
-import {DecorationConfig} from "./ConfigInterface" 
 import {AudioConfig} from "./ConfigInterface" 
-import {MenuConfig} from "./ConfigInterface" 
 import {ChatConfig} from "./ConfigInterface" 
+import {DecorationConfig} from "./ConfigInterface" 
+import {MenuConfig} from "./ConfigInterface" 
 import {OfflineConfig} from "./ConfigInterface" 
-import {PeopleConfig} from "./ConfigInterface" 
-import {StoreUpgradeConfig} from "./ConfigInterface" 
 import {TableConfig} from "./ConfigInterface" 
+import {PeopleConfig} from "./ConfigInterface" 
 import {UnlockMenuRewardConfig} from "./ConfigInterface" 
+import {StoreUpgradeConfig} from "./ConfigInterface" 
  
 
  const ConfigsName = {
-     DecorationConfig:"DecorationConfig", 
      AudioConfig:"AudioConfig", 
-     MenuConfig:"MenuConfig", 
      ChatConfig:"ChatConfig", 
+     DecorationConfig:"DecorationConfig", 
+     MenuConfig:"MenuConfig", 
      OfflineConfig:"OfflineConfig", 
-     PeopleConfig:"PeopleConfig", 
-     StoreUpgradeConfig:"StoreUpgradeConfig", 
      TableConfig:"TableConfig", 
+     PeopleConfig:"PeopleConfig", 
      UnlockMenuRewardConfig:"UnlockMenuRewardConfig", 
+     StoreUpgradeConfig:"StoreUpgradeConfig", 
  }; 
  export default ConfigsName;

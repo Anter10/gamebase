@@ -1,3 +1,16 @@
+interface AudioConfig { 
+    id : number; 
+    name : string; 
+    time : number; 
+    loop : boolean; 
+    info : string; 
+} 
+
+interface ChatConfig { 
+    id : number; 
+    text : string; 
+} 
+
 interface DecorationConfig { 
     id : number; 
     name : string; 
@@ -8,14 +21,6 @@ interface DecorationConfig {
     description : string; 
 } 
 
-interface AudioConfig { 
-    id : number; 
-    name : string; 
-    time : number; 
-    loop : boolean; 
-    info : string; 
-} 
-
 interface MenuConfig { 
     id : number; 
     chinese_name : string; 
@@ -23,15 +28,20 @@ interface MenuConfig {
     ad_number : number; 
 } 
 
-interface ChatConfig { 
-    id : number; 
-    text : string; 
-} 
-
 interface OfflineConfig { 
     id : number; 
     gold : number; 
     heart : number; 
+} 
+
+interface TableConfig { 
+    id : number; 
+    name : string; 
+    chinese_name : string; 
+    upgrade_need_store_level : number; 
+    upgrade : number; 
+    growth : number; 
+    description : string; 
 } 
 
 interface PeopleConfig { 
@@ -45,6 +55,13 @@ interface PeopleConfig {
     upgrade_need_coin : Array<number>; 
 } 
 
+interface UnlockMenuRewardConfig { 
+    id : number; 
+    unlock_menu : number; 
+    reward_coin : number; 
+    reward_heart : number; 
+} 
+
 interface StoreUpgradeConfig { 
     id : number; 
     name : string; 
@@ -55,24 +72,7 @@ interface StoreUpgradeConfig {
     upgrade_need_cook_woman : Array<number>; 
 } 
 
-interface TableConfig { 
-    id : number; 
-    name : string; 
-    chinese_name : string; 
-    upgrade_need_store_level : number; 
-    upgrade : number; 
-    growth : number; 
-    description : string; 
-} 
-
-interface UnlockMenuRewardConfig { 
-    id : number; 
-    unlock_menu : number; 
-    reward_coin : number; 
-    reward_heart : number; 
-} 
-
  
   
 
- export { DecorationConfig,AudioConfig,MenuConfig,ChatConfig,OfflineConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };
+ export { AudioConfig,ChatConfig,DecorationConfig,MenuConfig,OfflineConfig,TableConfig,PeopleConfig,UnlockMenuRewardConfig,StoreUpgradeConfig, };
