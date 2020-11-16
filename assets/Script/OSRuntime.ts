@@ -9,6 +9,9 @@ class OSRuntime {
     private static _wechat_login_success_interface: WechatLoginSuccessInterface = null;
     /**@description 当前播放激励视频的下标 */
     private static _play_rewarded_ad_index: number = 0;
+    /**@description 当前的静态图广告的状态 1: 显示 0: 不显示 */
+    public static static_image_ad_statue = 0;
+
 
     /**@description 激励视频广告的播放下标 */
     static get play_rewarded_ad_index(){

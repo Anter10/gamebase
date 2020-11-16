@@ -81,14 +81,31 @@ export class NativeSDKTool {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "weixin_login", "(Ljava/lang/String;)V", "weixin_login");
         }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "weixin_login:", null);
+        }
     }
 
 
     /**@description 微信登陆成功后的回调 */
-    public static wx_login_success(login_success_interface: WechatLoginSuccessInterface) {
-        console.log("微信登陆成功后的参数 = ", JSON.stringify(login_success_interface));
+    public static wx_login_success(wechat_login_success: any) {
+        console.log("微信登陆成功后的参数0 = ", wechat_login_success);
+        let login_success_interface: WechatLoginSuccessInterface = wechat_login_success;
+        if(typeof(wechat_login_success) == "string"){
+            login_success_interface = JSON.parse(wechat_login_success);
+        }
+        console.log("微信登陆成功后的参数1 = ",login_success_interface);
+        console.log("微信登陆成功后的参数2 = ", JSON.stringify(login_success_interface));
         GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
         GameConfig.android_init_success_param.user_id = login_success_interface.user_id;
+        GameConfig.android_init_success_param.channel = login_success_interface.channel;
+        GameConfig.android_init_success_param.deviceId = login_success_interface.deviceId;
+        GameConfig.android_init_success_param.oaid = login_success_interface.oaid;
+        GameConfig.android_init_success_param.brand = login_success_interface.brand;
+        GameConfig.android_init_success_param.env = login_success_interface.env;
+        GameConfig.android_init_success_param.gps = login_success_interface.gps;
+        GameConfig.android_init_success_param.mac = login_success_interface.mac;
+        GameConfig.android_init_success_param.appVersion = login_success_interface.appVersion;
         OSRuntime.wechat_login_success_interface = login_success_interface;
         if (sdk_module_interface.wechat_login_success_callback) {
             sdk_module_interface.wechat_login_success_callback(login_success_interface);
@@ -277,6 +294,7 @@ export class NativeSDKTool {
     /**@description 显示底部的时候的广告 */
     public static showImageAdBottom(adWidth: number, adHeight: number, bottom: number, callback: (code: NativeSupportStatueCode) => void) {
         this.mapNativeCallBack[this.image_ad] = callback;
+        OSRuntime.static_image_ad_statue = 1;
         if (this.isAndroid) {
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderImageAdToBottom", "(IIF)V", adWidth, adHeight, bottom);
         }
@@ -290,6 +308,9 @@ export class NativeSDKTool {
         if (this.mapNativeCallBack[this.image_ad]) {
             this.mapNativeCallBack[this.image_ad](code);
             delete this.mapNativeCallBack[this.image_ad];
+            if(OSRuntime.static_image_ad_statue == 0 && code == NativeSupportStatueCode.LOAD_OK){
+               NativeSDKTool.closeImageAd();
+            }
         }
     }
 
@@ -297,6 +318,7 @@ export class NativeSDKTool {
      * 关闭信息流广告 
      */
     public static closeImageAd() {
+        OSRuntime.static_image_ad_statue = 0;
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "closeImageAd", "()V");
@@ -342,6 +364,9 @@ export class NativeSDKTool {
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderVideoAd", "(I)V", rewarded_interface.ad_id);
+        }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "showVideoAd:", "1000372");
         }
     }
 
@@ -405,6 +430,9 @@ export class NativeSDKTool {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getEnv", "()V");
         }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "getEnv:", null);
+        }
     }
 
     /**
@@ -425,6 +453,9 @@ export class NativeSDKTool {
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "hideLoadBg", "()V");
+        }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "hideLoadBg:", null);
         }
     }
 
@@ -465,10 +496,6 @@ export class NativeSDKTool {
      * 生成分享图去分享给朋友
      */
     public static inviteShareImg(callback: (code: string) => void) {
-        // if (this.mapNativeCallBack[this.share_wx]) {
-        //     Log.log(`${this.share_wx} ===事件已经存在,等待上一个回调`)
-        //     return;
-        // }
         if (cc.sys.isBrowser) {
             callback("2");
             return;
@@ -549,11 +576,6 @@ export class NativeSDKTool {
 
     /**获取开屏广告状态 */
     public static getSplashAdState() {
-        // if (cc.sys.isBrowser) {
-        //     GameLaunchEvent.ON_SPLASH_AD_DONE.emit();
-        //     return;
-        // }
-
         console.log("=====检查开屏广告是否播放完闭");
         if (this.isAndroid) {
             //调用Java代码进行微信登录
@@ -573,6 +595,29 @@ export class NativeSDKTool {
         console.log("====开屏广告结束:", res, typeof res);
         EventManager.get_instance().emit(EventConfig.splash_ad_on);
     }
+
+    /**@description 隐藏游戏 */
+    public static  onHide(){
+        if(this.isAndroid){
+            console.log("on hide");
+        }
+    }
+
+    /**@description 进入游戏 */
+    public static onShow(){
+        if(this.isAndroid){
+            console.log("on show");
+        }
+    }
+
+    /**@description android 点击了back按钮 */
+    public static onPressBack(){
+        if(this.isAndroid){
+            console.log("on press back");
+        }
+    }
+
+
 
 }
 

@@ -15,9 +15,9 @@ export class HttpServer {
             }
         }
 
-        xhr.onreadystatechange =  () =>{
+        xhr.onreadystatechange = () => {
             console.log("get 地址 = ", this.base_url + uri);
-            console.log("xhr.readyState  = ",xhr.readyState,"xhr.status  = ",xhr.status);
+            console.log("xhr.readyState  = ", xhr.readyState, "xhr.status  = ", xhr.status);
             if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
                 const response = JSON.parse(xhr.responseText as string);
                 console.log("get 得到的数据 ", xhr.responseText);
@@ -26,6 +26,8 @@ export class HttpServer {
                 } else {
                     success && success(response.result);
                 }
+            }else if (xhr.status == 401) {
+                fail && fail();
             }
         };
         xhr.send();
@@ -41,9 +43,9 @@ export class HttpServer {
             }
         }
 
-        xhr.onreadystatechange =  () =>{
+        xhr.onreadystatechange = () => {
             console.log("post 地址 = ", this.base_url + uri);
-            console.log("xhr.readyState  = ",xhr.readyState,"xhr.status  = ",xhr.status);
+            console.log("xhr.readyState  = ", xhr.readyState, "xhr.status  = ", xhr.status);
             if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
                 const response = JSON.parse(xhr.responseText);
                 console.log("post 得到的数据 ", xhr.responseText);
@@ -52,6 +54,8 @@ export class HttpServer {
                 } else {
                     fail && fail(response);
                 }
+            } else if (xhr.status == 401) {
+                fail && fail();
             }
         };
         if (content_type) {
