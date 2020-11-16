@@ -101,7 +101,6 @@ class LoadingScene extends BaseScene {
     }
 
     splash_call_finished() {
-        NativeSDKTool.hideLoadBg();
         this.try_into_game_scene();
     }
 
@@ -193,6 +192,7 @@ class LoadingScene extends BaseScene {
             this.checking_update();
         } else {
             console.log("本地没有玩家登陆的数据");
+            NativeSDKTool.hideLoadBg();
         }
     }
 
