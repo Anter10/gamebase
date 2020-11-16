@@ -178,7 +178,9 @@ class LoadingScene extends BaseScene {
     }
 
     into_game_scene() {
-        cc.director.loadScene("GameScene");
+        setTimeout(() => {
+            cc.director.loadScene("GameScene");
+        }, 1000);
     }
 
     /**@description 尝试进入游戏 */
@@ -208,6 +210,7 @@ class LoadingScene extends BaseScene {
                     user_data.user_login_data = OSRuntime.wechat_login_success_interface;
                     this.checking_update();
                     this.bi("wechat_login_finish");
+                    Boot.preload_ad();
                 },
                 fail: (res: any) => {
                     console.log("微信登陆失败", res);
