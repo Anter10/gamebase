@@ -928,8 +928,8 @@ export default class GameMainView extends BaseUI {
     }
 
     batch_attract_customer() {
-        if (!this.start_ad) {
-            this.start_ad = true;
+        // if (!this.start_ad) {
+            // this.start_ad = true;
             let rewarded_ad_interface: RewardedAdInterface = {
                 /**@description 观看激励视频广告的ID */
                 ad_id: GameConfig.video_ad_id,
@@ -964,11 +964,11 @@ export default class GameMainView extends BaseUI {
                 },
             }
             Ad.play_video_ad(rewarded_ad_interface);
-        } else {
-            this.scheduleOnce(() => {
-                this.start_ad = false;
-            }, 20)
-        }
+        // } else {
+        //     this.scheduleOnce(() => {
+        //         this.start_ad = false;
+        //     }, 20)
+        // }
     }
 
     set_attract_customer_progress(progress_number: number) {
