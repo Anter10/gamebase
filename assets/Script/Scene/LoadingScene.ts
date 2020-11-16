@@ -73,6 +73,10 @@ class LoadingScene extends BaseScene {
     @property(cc.Asset)
     asset: cc.Asset = null;
 
+    public wait_time_number: number = 0;
+
+    public had_hide_bg: boolean = false;
+
     public assets_manager: UpdateManagerComponent = null;
 
     public loading_scene_interface: LoadingSceneInterface = {
@@ -82,7 +86,7 @@ class LoadingScene extends BaseScene {
         loading_progress_bottom_image: "loading_progress_bottom_image",
         loading_progress_upper_image: "loading_progress_upper_image",
         start_game_button_image: "start_game_button_image",
-        start_game_button_text: "开始游戏",
+        start_game_button_text: "微信登陆",
     };
 
     onLoad() {
@@ -93,7 +97,6 @@ class LoadingScene extends BaseScene {
         Boot.init();
         this.init_update_manager();
         this.flush_view();
-        this.bi();
     }
 
     splash_call_finished() {
@@ -112,15 +115,17 @@ class LoadingScene extends BaseScene {
         }
     }
 
-    bi() {
+    bi(event_name: string) {
         const bi_data: BiInterface = {
             eventId: `${GameConfig.timeId}`,
-            eventName: "into_loading_scene",
-            eventParam: "into gamescene start",
+            eventName: `${event_name}`,
+            eventParam: "bi event",
             ts: `${(new Date()).getTime()}`,
         }
         BI.bi(bi_data);
     }
+
+    
 
     special_set_sprite() {
 
@@ -192,14 +197,15 @@ class LoadingScene extends BaseScene {
 
     wechat_login() {
         if (gamebase.jsb) {
+            this.bi("click_wechat_login");
             const login_interface: WechatLoginInterface = {
                 success: (res: any) => {
-                    console.log("微信登陆成功 登陆成功的数据 ", JSON.stringify(res));
                     ServerData.get_instance().init();
                     GameDataConfig.server_request_server_config();
                     const user_data = GameLocalData.get_instance().get_data<UserData>(UserData);
                     user_data.user_login_data = OSRuntime.wechat_login_success_interface;
                     this.checking_update();
+                    this.bi("wechat_login_finish");
                 },
                 fail: (res: any) => {
                     console.log("微信登陆失败", res);
@@ -219,13 +225,17 @@ class LoadingScene extends BaseScene {
         this.start_game_button_image.node.active = false;
         this.loading_progress.node.active = true;
         this.protocol_and_privacy_node.active = false;
+        console.log("checking_update error1");
         // 加载主场景
+        this.bi("into_loading_scene");
         cc.director.preloadScene("GameScene", (completedCount: number, totalCount: number, item: any) => {
             const progress = completedCount / totalCount;
             this.loading_progress.progress = progress;
         }, (error: Error) => {
             if (!error) {
+                console.log("checking_update error1");
                 this.assets_manager.check_server_update();
+                console.log("checking_update error2");
             } else {
                 console.log("进入游戏主场景失败了");
             }
@@ -240,6 +250,7 @@ class LoadingScene extends BaseScene {
 
     start() {
         super.start();
+        this.bi("launch_finish");
     }
 
     /**@description 用户协议的调用 */
@@ -270,9 +281,16 @@ class LoadingScene extends BaseScene {
         UIManager.show_ui(ui_param_interface);
     }
 
-    update() {
-        this.loading_progress.totalLength = this.loading_progress_bottom_image.node.width;
+    update(dt) {
+        this.wait_time_number = this.wait_time_number + dt;
+        if(this.wait_time_number >= 3 && !this.had_hide_bg){
+            this.had_hide_bg = true;
+            EventManager.get_instance().emit(EventConfig.splash_ad_on);
+        }
+        this.loading_progress.totalLength = this.loading_progress_upper_image.node.width;
     }
+
+
 }
 
 
