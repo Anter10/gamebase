@@ -9,7 +9,11 @@ import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
+import GameLocalData from "../GameLocalData/GameLocalData";
+import UserData from "../GameLocalData/UserLoginData";
+import UserLoginData from "../GameLocalData/UserLoginData";
 import ServerData from "../GameServerData/ServerData";
+import OSRuntime from "../OSRuntime";
 import BI from "../Sdk/BI";
 import { NativeSDKTool } from "../Sdk/NativeSDKTool";
 import { BiInterface, WechatLoginInterface } from "../Sdk/SdkInterface";
@@ -88,14 +92,17 @@ class LoadingScene extends BaseScene {
 
     onLoad() {
         super.onLoad();
-        ServerData.get_instance().init_headers();
-        this.bi("launch");
-        EventManager.get_instance().listen(EventConfig.splash_ad_on, this, ()=>{
-            NativeSDKTool.hideLoadBg();
+        EventManager.get_instance().listen(EventConfig.splash_ad_on, this, () => {
+            this.splash_call_finished();
         })
         Boot.init();
         this.init_update_manager();
         this.flush_view();
+    }
+
+    splash_call_finished() {
+        NativeSDKTool.hideLoadBg();
+        this.try_into_game_scene();
     }
 
     init_update_manager() {
@@ -175,6 +182,20 @@ class LoadingScene extends BaseScene {
         cc.director.loadScene("GameScene");
     }
 
+    /**@description 尝试进入游戏 */
+    try_into_game_scene() {
+        const user_data = GameLocalData.get_instance().get_data<UserData>(UserData);
+        if (user_data.user_login_data) {
+            console.log("微信登陆成功 登陆成功的数据 ", JSON.stringify(user_data.user_login_data));
+            ServerData.get_instance().init();
+            GameDataConfig.server_request_server_config();
+            NativeSDKTool.wx_login_success(user_data.user_login_data);
+            this.checking_update();
+        } else {
+            console.log("本地没有玩家登陆的数据");
+        }
+    }
+
     wechat_login() {
         if (gamebase.jsb) {
             this.bi("click_wechat_login");
@@ -182,6 +203,8 @@ class LoadingScene extends BaseScene {
                 success: (res: any) => {
                     ServerData.get_instance().init();
                     GameDataConfig.server_request_server_config();
+                    const user_data = GameLocalData.get_instance().get_data<UserData>(UserData);
+                    user_data.user_login_data = OSRuntime.wechat_login_success_interface;
                     this.checking_update();
                     this.bi("wechat_login_finish");
                 },

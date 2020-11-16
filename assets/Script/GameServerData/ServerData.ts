@@ -1,7 +1,9 @@
 import { gamebase } from "../Boot";
 import { HttpHeaderInterface, UIParamInterface } from "../Common/CommonInterface";
 import GameConfig from "../GameConfig";
+import GameLocalData from "../GameLocalData/GameLocalData";
 import GameRecord from "../GameLocalData/GameRecord";
+import UserData from "../GameLocalData/UserLoginData";
 import { HttpClient } from "../NetWork/HttpClient";
 import { HttpServer } from "../NetWork/HttpServer";
 import { hexMD5 } from "../NetWork/Md5";
@@ -40,6 +42,8 @@ class ServerData {
     init_user_data() {
         CommonServerData.get_api_user((res: any) => {
             OSRuntime.api_user_interface = res;
+            const user_local_data: UserData = GameLocalData.get_instance().get_data(UserData);
+            user_local_data.user_init_data = res;
             console.log("当前的用户信息 ", JSON.stringify(OSRuntime.api_user_interface));
         }, (res) => {
             console.log("用户信息不存在");

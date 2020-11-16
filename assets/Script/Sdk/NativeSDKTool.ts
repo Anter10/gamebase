@@ -88,8 +88,14 @@ export class NativeSDKTool {
 
 
     /**@description 微信登陆成功后的回调 */
-    public static wx_login_success(login_success_interface: WechatLoginSuccessInterface) {
-        console.log("微信登陆成功后的参数 = ", JSON.stringify(login_success_interface));
+    public static wx_login_success(wechat_login_success: any) {
+        console.log("微信登陆成功后的参数0 = ", wechat_login_success);
+        let login_success_interface: WechatLoginSuccessInterface = wechat_login_success;
+        if(typeof(wechat_login_success) == "string"){
+            login_success_interface = JSON.parse(wechat_login_success);
+        }
+        console.log("微信登陆成功后的参数1 = ",login_success_interface);
+        console.log("微信登陆成功后的参数2 = ", JSON.stringify(login_success_interface));
         GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
         GameConfig.android_init_success_param.user_id = login_success_interface.user_id;
         GameConfig.android_init_success_param.channel = login_success_interface.channel;
@@ -100,7 +106,6 @@ export class NativeSDKTool {
         GameConfig.android_init_success_param.gps = login_success_interface.gps;
         GameConfig.android_init_success_param.mac = login_success_interface.mac;
         GameConfig.android_init_success_param.appVersion = login_success_interface.appVersion;
-        
         OSRuntime.wechat_login_success_interface = login_success_interface;
         if (sdk_module_interface.wechat_login_success_callback) {
             sdk_module_interface.wechat_login_success_callback(login_success_interface);
@@ -490,10 +495,6 @@ export class NativeSDKTool {
      * 生成分享图去分享给朋友
      */
     public static inviteShareImg(callback: (code: string) => void) {
-        // if (this.mapNativeCallBack[this.share_wx]) {
-        //     Log.log(`${this.share_wx} ===事件已经存在,等待上一个回调`)
-        //     return;
-        // }
         if (cc.sys.isBrowser) {
             callback("2");
             return;
@@ -574,11 +575,6 @@ export class NativeSDKTool {
 
     /**获取开屏广告状态 */
     public static getSplashAdState() {
-        // if (cc.sys.isBrowser) {
-        //     GameLaunchEvent.ON_SPLASH_AD_DONE.emit();
-        //     return;
-        // }
-
         console.log("=====检查开屏广告是否播放完闭");
         if (this.isAndroid) {
             //调用Java代码进行微信登录
@@ -598,6 +594,29 @@ export class NativeSDKTool {
         console.log("====开屏广告结束:", res, typeof res);
         EventManager.get_instance().emit(EventConfig.splash_ad_on);
     }
+
+    /**@description 隐藏游戏 */
+    public static  onHide(){
+        if(this.isAndroid){
+            console.log("on hide");
+        }
+    }
+
+    /**@description 进入游戏 */
+    public static onShow(){
+        if(this.isAndroid){
+            console.log("on show");
+        }
+    }
+
+    /**@description android 点击了back按钮 */
+    public static onPressBack(){
+        if(this.isAndroid){
+            console.log("on press back");
+        }
+    }
+
+
 
 }
 
