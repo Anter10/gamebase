@@ -11,6 +11,8 @@ const EventConfig = {
       "webUpMoney":"webUpMoney",
       /**@description 开屏广告展示完成 */
       "splash_ad_on":"splash_ad_on",
+      /**@description 请求到审核配置信息 */
+      "audit_config_success": "audit_config_success",
 }
 
 export default EventConfig;

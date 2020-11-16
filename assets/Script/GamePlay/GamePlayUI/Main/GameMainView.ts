@@ -21,6 +21,7 @@ import PeopleData, { CustomerPayInterface } from "../../../GameLocalData/PeopleD
 import SeatData from "../../../GameLocalData/SeatData";
 import TableData from "../../../GameLocalData/TableData";
 import CommonServerData from "../../../GameServerData/CommonServerData";
+import IOSServer from "../../../GameServerData/IOSServer";
 import OSRuntime from "../../../OSRuntime";
 import { Ad } from "../../../Sdk/Ad";
 import BI from "../../../Sdk/BI";
@@ -759,6 +760,13 @@ export default class GameMainView extends BaseUI {
             this.debug_call();
         });
 
+        if (IOSServer.auditing) {
+            this.punch_clock_button.active = false;
+            this.cash_out_button.active = false;
+        } else {
+            this.punch_clock_button.active = true;
+            this.cash_out_button.active = true;
+        }
     }
 
     load_gold_and_heart_item() {

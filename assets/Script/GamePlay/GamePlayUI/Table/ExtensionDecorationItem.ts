@@ -9,6 +9,7 @@ import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import DecorationData from "../../../GameLocalData/DecorationData";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
+import IOSServer from "../../../GameServerData/IOSServer";
 import OSRuntime from "../../../OSRuntime";
 import { Ad } from "../../../Sdk/Ad";
 import BI from "../../../Sdk/BI";
@@ -48,6 +49,14 @@ export default class ExtensionDecorationItem extends BaseNode {
 
     onLoad() {
         this.flush_node();
+    }
+
+    onEnable() {
+        if (IOSServer.auditing) {
+            this.node.getChildByName("price").getChildByName("ad_sprite").active = false;
+        } else {
+            this.node.getChildByName("price").getChildByName("ad_sprite").active = true;
+        }
     }
 
     start() {

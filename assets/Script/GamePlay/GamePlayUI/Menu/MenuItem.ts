@@ -8,6 +8,7 @@ import { MenuConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
+import IOSServer from "../../../GameServerData/IOSServer";
 import OSRuntime from "../../../OSRuntime";
 import { Ad } from "../../../Sdk/Ad";
 import BI from "../../../Sdk/BI";
@@ -51,6 +52,11 @@ export default class MenuItem extends BaseNode {
 
     onEnable() {
         this.need_refresh_node();
+        if(IOSServer.auditing){
+            this.node.getChildByName("price").getChildByName("ad_sprite").active = false;
+        }else{
+            this.node.getChildByName("price").getChildByName("ad_sprite").active = true;
+        }
     }
 
     set_config(menu_config: MenuConfig) {

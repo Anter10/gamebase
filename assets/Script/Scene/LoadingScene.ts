@@ -12,6 +12,7 @@ import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import GameLocalData from "../GameLocalData/GameLocalData";
 import UserData from "../GameLocalData/UserLoginData";
 import UserLoginData from "../GameLocalData/UserLoginData";
+import IOSServer from "../GameServerData/IOSServer";
 import ServerData from "../GameServerData/ServerData";
 import OSRuntime from "../OSRuntime";
 import BI from "../Sdk/BI";
@@ -59,7 +60,7 @@ class LoadingScene extends BaseScene {
 
     @property(cc.Node)
     privacy_node: cc.Node = null;
- 
+
 
     @property(cc.Node)
     debug_node: cc.Node = null;
@@ -87,7 +88,7 @@ class LoadingScene extends BaseScene {
         loading_progress_bottom_image: "loading_progress_bottom_image",
         loading_progress_upper_image: "loading_progress_upper_image",
         start_game_button_image: "start_game_button_image",
-        start_game_button_text: "微信登陆",
+        start_game_button_text: "开始游戏",
     };
 
     onLoad() {
@@ -95,6 +96,15 @@ class LoadingScene extends BaseScene {
         EventManager.get_instance().listen(EventConfig.splash_ad_on, this, () => {
             this.splash_call_finished();
         })
+
+        EventManager.get_instance().listen(EventConfig.audit_config_success, this, () => {
+            if (IOSServer.auditing) {
+                this.start_game_button_label.string = "开始游戏";
+            } else {
+                this.start_game_button_label.string = "微信登陆";
+            }
+        });
+
         Boot.init();
         this.init_update_manager();
         this.flush_view();
@@ -126,7 +136,7 @@ class LoadingScene extends BaseScene {
         BI.bi(bi_data);
     }
 
-    
+
 
     special_set_sprite() {
 
@@ -285,7 +295,7 @@ class LoadingScene extends BaseScene {
 
     update(dt) {
         this.wait_time_number = this.wait_time_number + dt;
-        if(this.wait_time_number >= 3 && !this.had_hide_bg){
+        if (this.wait_time_number >= 3 && !this.had_hide_bg) {
             this.had_hide_bg = true;
             EventManager.get_instance().emit(EventConfig.splash_ad_on);
         }
