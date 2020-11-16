@@ -3,14 +3,20 @@ import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
+import GameConfig from "../../../GameConfig";
 import { DecorationConfig } from "../../../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import DecorationData from "../../../GameLocalData/DecorationData";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
+import OSRuntime from "../../../OSRuntime";
+import { Ad } from "../../../Sdk/Ad";
+import BI from "../../../Sdk/BI";
+import { RewardedAdInterface } from "../../../Sdk/SdkInterface";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import LinkGameBase from "../../LinkGameBase";
+import { AdInterface } from "../Common/Ad/AdView";
 
 const { ccclass, property } = cc._decorator;
 
@@ -27,7 +33,7 @@ export default class ExtensionDecorationItem extends BaseNode {
     get_mark: cc.Node = null;
 
     @property(cc.Label)
-    price_label: cc.Label = null;
+    ad_label: cc.Label = null;
 
     @property(cc.Node)
     description_button: cc.Node = null;
@@ -64,7 +70,7 @@ export default class ExtensionDecorationItem extends BaseNode {
             this.get_mark.active = false;
             this.price.active = true;
             this.decoration_sprite.node.color = cc.color(100, 100, 100, 255);
-            this.price_label.string = this.decoration_config.upgrade[this.level_number - 1] + "金币";
+            this.ad_label.string = this.decoration_data.get_decoration_data(this.mark_number).decorationAd + "/" + this.decoration_config.upgrade_need_ad[this.level_number - 1];
         }
     }
 
@@ -97,30 +103,49 @@ export default class ExtensionDecorationItem extends BaseNode {
 
     click_buy_new_decoration_button() {
         if (this.decoration_data.get_decoration_data(this.mark_number).decorationLevel == this.level_number - 1) {
-            const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-            if (game_play_base_data.change_gold_coin_number(-this.decoration_config.upgrade[this.level_number - 1])) {
-                this.decoration_data.change_decoration_level_data(this.mark_number, this.level_number);
-                this.set_decoration_sprite();
-                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_decoration);
-                const ui_success_param_interface: UIParamInterface = {
-                    ui_config_path: UIConfig.Toast,
-                    ui_config_name: "Toast",
-                    param: {
-                        text: "解锁成功"
+            if (OSRuntime.api_user_interface.friendly) {
+                let ad_param: AdInterface = {
+                    text: "看完广告就可以解锁装饰了",
+                    success_call: () => { this.unlock_new_decoration(); },
+                    fail_call: () => {
+                        const ui_param_interface: UIParamInterface = {
+                            ui_config_path: UIConfig.Toast,
+                            ui_config_name: "Toast",
+                            param: {
+                                text: "解锁失败"
+                            }
+                        }
+                        UIManager.show_ui(ui_param_interface);
                     }
                 }
-                UIManager.show_ui(ui_success_param_interface);
-                // console.log("解锁成功");
+                const ui_ad_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.AdView,
+                    ui_config_name: "AdView",
+                    param: ad_param,
+                }
+                UIManager.show_ui(ui_ad_param_interface);
             } else {
-                const ui_gold_param_interface: UIParamInterface = {
-                    ui_config_path: UIConfig.Toast,
-                    ui_config_name: "Toast",
-                    param: {
-                        text: "金币不足，快去营业赚金币吧"
-                    }
+                let rewarded_ad_interface: RewardedAdInterface = {
+                    /**@description 观看激励视频广告的ID */
+                    ad_id: GameConfig.video_ad_id,
+                    /**@description 观看激励视频成功的回调 */
+                    success: (res: any) => {
+                        //播放广告。如果看完。
+                        this.unlock_new_decoration();
+                    },
+                    /**@description 观看激励视频失败的成功回调*/
+                    fail: (res: any) => {
+                        const ui_param_interface: UIParamInterface = {
+                            ui_config_path: UIConfig.Toast,
+                            ui_config_name: "Toast",
+                            param: {
+                                text: "解锁失败"
+                            }
+                        }
+                        UIManager.show_ui(ui_param_interface);
+                    },
                 }
-                UIManager.show_ui(ui_gold_param_interface);
-                // console.log("金币不足，快去营业赚金币吧");
+                Ad.play_video_ad(rewarded_ad_interface);
             }
         } else {
             const ui_param_interface: UIParamInterface = {
@@ -135,4 +160,31 @@ export default class ExtensionDecorationItem extends BaseNode {
         }
     }
 
+
+    unlock_new_decoration() {
+        let ad_data = this.decoration_data.get_decoration_data(this.mark_number);
+        BI.video_bi({ name: "解锁装饰" })
+        if (ad_data.decorationAd + 1 == this.decoration_config.upgrade_need_ad[this.level_number - 1]) {
+            this.decoration_data.change_decoration_ad_time(this.mark_number, 0);
+            this.decoration_data.change_decoration_level_data(this.mark_number, this.level_number);
+            this.set_decoration_sprite();
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_decoration);
+            this.scheduleOnce(() => {
+                EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+            }, 0.2);
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: "解锁成功"
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
+            // console.log("解锁成功);
+        } else {
+            this.decoration_data.change_decoration_ad_time(this.mark_number, ad_data.decorationAd + 1);
+            this.set_decoration_sprite();
+        }
+    }
 }
+
