@@ -1,5 +1,8 @@
 import BaseUI from "../../../Common/BaseUI";
+import { UIParamInterface } from "../../../Common/CommonInterface";
 import TouchButton from "../../../Common/TouchButton";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 
 const { ccclass, property } = cc._decorator;
 
@@ -30,11 +33,21 @@ export default class FragementView extends BaseUI {
     }
 
     click_activity_rule_button() {
-
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.ActivityRuleView,
+            ui_config_name: "ActivityRuleView",
+            param:{}
+        }
+        UIManager.show_ui(ui_param_interface);
     }
 
     click_shipping_address_button() {
-
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.ShippingAddressView,
+            ui_config_name: "ShippingAddressView",
+            param:{}
+        }
+        UIManager.show_ui(ui_param_interface);
     }
 
 }
