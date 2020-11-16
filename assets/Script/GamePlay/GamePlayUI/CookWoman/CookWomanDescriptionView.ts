@@ -83,7 +83,7 @@ export default class CookWomanDescriptionView extends BaseUI {
         } else {
             const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
             const store_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData);
-            if (this.cook_woman_level == 0 || this.cook_woman_config.upgrade_need_store_level[this.cook_woman_level - 1] <= store_level.get_store_level_data()) {
+            if (this.cook_woman_level == 0 || this.cook_woman_config.upgrade_need_store_level[this.cook_woman_level] <= store_level.get_store_level_data()) {
                 if (game_play_base_data.change_gold_coin_number(-this.cook_woman_config.upgrade_need_coin[this.cook_woman_level])) {
                     this.people_data.change_cook_woman_level(this.cook_woman_config.id, this.cook_woman_level + 1);
                     this.refresh_cook_woman_description();
@@ -113,7 +113,7 @@ export default class CookWomanDescriptionView extends BaseUI {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
-                        text: `${this.cook_woman_config.upgrade_need_store_level[this.cook_woman_level - 1]}级店铺可解锁`
+                        text: `${this.cook_woman_config.upgrade_need_store_level[this.cook_woman_level]}级店铺可解锁`
                     }
                 }
                 UIManager.show_ui(ui_param_interface);
