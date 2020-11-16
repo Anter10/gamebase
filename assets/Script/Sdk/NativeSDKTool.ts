@@ -287,7 +287,7 @@ export class NativeSDKTool {
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderImageAd", "(IIF)V", adWidth, adHeight, top);
         }
         if (this.isIOS) {
-            jsb.reflection.callStaticMethod("RootViewController", "showImageAd:height:bottom:", "", adWidth, adHeight, top);
+            jsb.reflection.callStaticMethod("RootViewController", "showImageAd:adWidth:adHeight:top:", "", adWidth, adHeight, top);
         }
     }
 
@@ -299,7 +299,7 @@ export class NativeSDKTool {
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "renderImageAdToBottom", "(IIF)V", adWidth, adHeight, bottom);
         }
         if (this.isIOS) {
-            jsb.reflection.callStaticMethod("RootViewController", "showImageAd:height:bottom:", "", adWidth, adHeight, bottom);
+            jsb.reflection.callStaticMethod("RootViewController", "showImageAd:adWidth:adHeight:bottom:", "", adWidth, adHeight, bottom);
         }
     }
     
