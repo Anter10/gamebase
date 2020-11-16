@@ -344,6 +344,8 @@ export class NativeSDKTool {
     }
 
 
+
+
     /**
      * 显示视频广告
      */
@@ -358,6 +360,15 @@ export class NativeSDKTool {
             }
         }
         if (NativeSDKTool.rewarded_videoing) {
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: "正在加载视频...",
+                    duration:3,
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
             return;
         }
         NativeSDKTool.rewarded_videoing = true;
