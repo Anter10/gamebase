@@ -222,11 +222,17 @@
       "__id__": 1
     },
     "_enabled": true,
-    "node_top": null,
-    "node_mid": null,
-    "node_bottom": null,
     "flower_prefab": {
       "__uuid__": "9672cf0c-8c7f-40d3-b947-2c047182d512"
+    },
+    "hand_prefab": {
+      "__uuid__": "80827541-52be-405f-854b-1dff49ae8bd4"
+    },
+    "flower_culture_prefab": {
+      "__uuid__": "8282209a-90cc-4fa1-af49-90e9fa483b7f"
+    },
+    "offline_benefits": {
+      "__uuid__": "ca57f5f8-df2e-4ad1-8b38-36c33420af23"
     },
     "_id": ""
   },

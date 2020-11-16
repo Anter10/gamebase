@@ -5,6 +5,8 @@ import TouchButton from "../Common/TouchButton";
 import { UpdateManagerComponent } from "../Common/UpdateManagerComponent";
 import Utils from "../Common/Utils";
 import GameConfig from "../GameConfig";
+import GameLocalData from "../GameLocalData/GameLocalData";
+import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
 import BI from "../Sdk/BI";
 import { BiInterface, WechatLoginInterface } from "../Sdk/SdkInterface";
 import { SdkModule } from "../Sdk/SdkModule";
@@ -83,6 +85,7 @@ class LoadingScene extends BaseScene {
         this.init_update_manager();
         this.flush_view();
         this.bi();
+        this.today_first_enter_game_remove_data();
     }
 
     init_update_manager() {
@@ -137,22 +140,41 @@ class LoadingScene extends BaseScene {
         gamebase.start_game_button_node = this.start_game_button_node;
     }
 
+    /**@description 每日首次进入游戏，清除本地指定数据 */
+    today_first_enter_game_remove_data() {
+        const base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        const date = new Date().getTime();
+        const curTime = this.conversion_time(date);
+        if (curTime != this.conversion_time(base_data.player_enter_game_time)) {
+            base_data.reset_flower_harvest_num();
+        }
+    }
+
+    /**@description 时间戳，转化为yyyy-mm-dd格式 */
+    conversion_time(time: number) {
+        const date = new Date(time);
+        const years = date.getFullYear();
+        const months = date.getMonth();
+        const dates = date.getDate();
+        return `${years}-${months}-${dates}`;
+    }
+
     /**@description 加载鲜花图集资源 */
-    load_flower_atlas () {
-        Loader.load_sprite_atlas(`./GamePlay/texture/flower` ,(atlas: cc.SpriteAtlas) => {
+    load_flower_atlas() {
+        Loader.load_sprite_atlas(`./GamePlay/texture/flower`, (atlas: cc.SpriteAtlas) => {
             gamebase.flowerAtlas = atlas;
         });
     }
 
     /**@description 加载GameScene界面Prefab */
-    load_gamescene_prefab () {
+    load_gamescene_prefab() {
         const prefabPath = [
-            `./GamePlay/node_top` ,
-            `./GamePlay/node_mid` ,
-            `./GamePlay/node_bottom` ,
+            `./GamePlay/node_top`,
+            `./GamePlay/node_mid`,
+            `./GamePlay/node_bottom`,
         ];
         gamebase.gameScenePrefab = [];
-        Loader.recursion_load_prefab(prefabPath ,(prefab: cc.Prefab) => {
+        Loader.recursion_load_prefab(prefabPath, (prefab: cc.Prefab) => {
             gamebase.gameScenePrefab.push(prefab);
         });
     }

@@ -7,11 +7,11 @@
             <key>flower10_crystalfountain_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1950,923},{46,32}}</string>
+                <string>{{990,201},{46,32}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{46,32}}</string>
                 <key>sourceSize</key>
@@ -20,11 +20,11 @@
             <key>flower10_crystalfountain_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1552,955},{48,67}}</string>
+                <string>{{801,1745},{48,67}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{48,67}}</string>
                 <key>sourceSize</key>
@@ -33,11 +33,11 @@
             <key>flower10_crystalfountain_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{569,625},{94,152}}</string>
+                <string>{{416,1071},{94,152}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{94,152}}</string>
                 <key>sourceSize</key>
@@ -46,11 +46,11 @@
             <key>flower10_crystalfountain_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1835,153},{146,162}}</string>
+                <string>{{285,1691},{146,162}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{146,162}}</string>
                 <key>sourceSize</key>
@@ -59,11 +59,11 @@
             <key>flower10_crystalfountain_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1496,313},{146,162}}</string>
+                <string>{{162,1361},{146,162}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{146,162}}</string>
                 <key>sourceSize</key>
@@ -72,11 +72,11 @@
             <key>flower10_crystalfountain_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1332,281},{146,162}}</string>
+                <string>{{156,1197},{146,162}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{146,162}}</string>
                 <key>sourceSize</key>
@@ -85,7 +85,7 @@
             <key>flower11_chrysanthemum_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1605,914},{48,60}}</string>
+                <string>{{737,1788},{48,60}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>flower11_chrysanthemum_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1351,611},{78,99}}</string>
+                <string>{{615,1584},{78,99}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -111,11 +111,11 @@
             <key>flower11_chrysanthemum_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1660,377},{94,161}}</string>
+                <string>{{304,1197},{94,161}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{94,161}}</string>
                 <key>sourceSize</key>
@@ -124,11 +124,11 @@
             <key>flower11_chrysanthemum_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1827,301},{147,161}}</string>
+                <string>{{310,1360},{147,161}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{147,161}}</string>
                 <key>sourceSize</key>
@@ -137,11 +137,11 @@
             <key>flower11_chrysanthemum_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{168,873},{149,164}}</string>
+                <string>{{154,866},{149,164}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{149,164}}</string>
                 <key>sourceSize</key>
@@ -150,11 +150,11 @@
             <key>flower11_chrysanthemum_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1838,2},{149,164}}</string>
+                <string>{{2,1711},{149,164}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{149,164}}</string>
                 <key>sourceSize</key>
@@ -163,11 +163,11 @@
             <key>flower12_juliet_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1999,216},{47,34}}</string>
+                <string>{{988,1115},{47,34}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{47,34}}</string>
                 <key>sourceSize</key>
@@ -176,7 +176,7 @@
             <key>flower12_juliet_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{904,923},{93,99}}</string>
+                <string>{{927,772},{93,99}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -189,11 +189,11 @@
             <key>flower12_juliet_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1090,383},{122,133}}</string>
+                <string>{{593,378},{122,133}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{122,133}}</string>
                 <key>sourceSize</key>
@@ -202,11 +202,11 @@
             <key>flower12_juliet_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{334,173},{134,139}}</string>
+                <string>{{416,930},{134,139}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{134,139}}</string>
                 <key>sourceSize</key>
@@ -215,7 +215,7 @@
             <key>flower12_juliet_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{661,780},{134,145}}</string>
+                <string>{{259,646},{134,145}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -228,7 +228,7 @@
             <key>flower12_juliet_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{417,491},{132,155}}</string>
+                <string>{{436,378},{132,155}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -241,7 +241,7 @@
             <key>flower13_triangleplum_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{999,907},{115,77}}</string>
+                <string>{{658,1685},{115,77}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -254,7 +254,7 @@
             <key>flower13_triangleplum_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{543,779},{116,79}}</string>
+                <string>{{534,1421},{116,79}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -267,11 +267,11 @@
             <key>flower13_triangleplum_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1143,890},{119,80}}</string>
+                <string>{{515,1502},{119,80}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{119,80}}</string>
                 <key>sourceSize</key>
@@ -280,7 +280,7 @@
             <key>flower13_triangleplum_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1157,805},{119,80}}</string>
+                <string>{{652,1404},{119,80}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -293,7 +293,7 @@
             <key>flower13_triangleplum_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1169,723},{119,80}}</string>
+                <string>{{652,1322},{119,80}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -306,11 +306,11 @@
             <key>flower13_triangleplum_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1310,529},{127,80}}</string>
+                <string>{{770,886},{127,80}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{127,80}}</string>
                 <key>sourceSize</key>
@@ -319,11 +319,11 @@
             <key>flower14_lily_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1473,429},{18,30}}</string>
+                <string>{{307,1167},{18,30}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{1,2},{18,30}}</string>
                 <key>sourceSize</key>
@@ -332,7 +332,7 @@
             <key>flower14_lily_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{431,309},{37,84}}</string>
+                <string>{{883,1180},{37,84}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -345,7 +345,7 @@
             <key>flower14_lily_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1439,561},{68,133}}</string>
+                <string>{{259,793},{68,133}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -358,11 +358,11 @@
             <key>flower14_lily_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1498,162},{149,163}}</string>
+                <string>{{156,1032},{149,163}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{149,163}}</string>
                 <key>sourceSize</key>
@@ -397,7 +397,7 @@
             <key>flower15_hibiscus_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{907,473},{33,15}}</string>
+                <string>{{395,646},{33,15}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -410,11 +410,11 @@
             <key>flower15_hibiscus_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1379,712},{50,70}}</string>
+                <string>{{805,1930},{50,70}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{50,70}}</string>
                 <key>sourceSize</key>
@@ -423,7 +423,7 @@
             <key>flower15_hibiscus_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{156,429},{98,138}}</string>
+                <string>{{717,378},{98,138}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -436,11 +436,11 @@
             <key>flower15_hibiscus_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1473,461},{98,142}}</string>
+                <string>{{570,1067},{98,142}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{98,142}}</string>
                 <key>sourceSize</key>
@@ -449,7 +449,7 @@
             <key>flower15_hibiscus_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1057,746},{98,142}}</string>
+                <string>{{555,787},{98,142}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -462,11 +462,11 @@
             <key>flower15_hibiscus_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{650,281},{102,147}}</string>
+                <string>{{833,517},{102,147}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{102,147}}</string>
                 <key>sourceSize</key>
@@ -475,11 +475,11 @@
             <key>flower16_endlesssummer_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1667,913},{41,48}}</string>
+                <string>{{931,1950},{41,48}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{41,48}}</string>
                 <key>sourceSize</key>
@@ -488,7 +488,7 @@
             <key>flower16_endlesssummer_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{257,173},{75,120}}</string>
+                <string>{{581,1685},{75,120}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -501,7 +501,7 @@
             <key>flower16_endlesssummer_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,625},{154,151}}</string>
+                <string>{{280,493},{154,151}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -514,7 +514,7 @@
             <key>flower16_endlesssummer_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{257,701},{154,157}}</string>
+                <string>{{280,334},{154,157}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -553,7 +553,7 @@
             <key>flower17_morningglory_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1999,252},{55,45}}</string>
+                <string>{{942,1731},{55,45}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -566,7 +566,7 @@
             <key>flower17_morningglory_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1225,887},{58,109}}</string>
+                <string>{{474,1301},{58,109}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -579,7 +579,7 @@
             <key>flower17_morningglory_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{334,860},{92,159}}</string>
+                <string>{{501,1847},{92,159}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -592,11 +592,11 @@
             <key>flower17_morningglory_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1663,259},{116,162}}</string>
+                <string>{{383,1855},{116,162}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{116,162}}</string>
                 <key>sourceSize</key>
@@ -605,11 +605,11 @@
             <key>flower17_morningglory_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1160,156},{116,170}}</string>
+                <string>{{153,1545},{116,170}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{116,170}}</string>
                 <key>sourceSize</key>
@@ -618,11 +618,11 @@
             <key>flower17_morningglory_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{475,282},{111,170}}</string>
+                <string>{{158,178},{111,170}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{111,170}}</string>
                 <key>sourceSize</key>
@@ -631,11 +631,11 @@
             <key>flower18_gardenia_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1885,950},{44,30}}</string>
+                <string>{{989,332},{44,30}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{44,30}}</string>
                 <key>sourceSize</key>
@@ -644,7 +644,7 @@
             <key>flower18_gardenia_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1290,717},{87,92}}</string>
+                <string>{{697,1502},{87,92}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -657,11 +657,11 @@
             <key>flower18_gardenia_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{907,506},{113,134}}</string>
+                <string>{{552,931},{113,134}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{113,134}}</string>
                 <key>sourceSize</key>
@@ -670,7 +670,7 @@
             <key>flower18_gardenia_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1048,610},{119,134}}</string>
+                <string>{{817,381},{119,134}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -683,7 +683,7 @@
             <key>flower18_gardenia_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{936,764},{119,141}}</string>
+                <string>{{712,518},{119,141}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -696,7 +696,7 @@
             <key>flower18_gardenia_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{927,621},{119,141}}</string>
+                <string>{{591,513},{119,141}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -709,7 +709,7 @@
             <key>flower19_clivia_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1605,860},{52,53}}</string>
+                <string>{{865,1984},{52,53}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -722,11 +722,11 @@
             <key>flower19_clivia_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1278,811},{63,109}}</string>
+                <string>{{862,764},{63,109}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{63,109}}</string>
                 <key>sourceSize</key>
@@ -735,7 +735,7 @@
             <key>flower19_clivia_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{552,860},{107,147}}</string>
+                <string>{{307,1018},{107,147}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -748,11 +748,11 @@
             <key>flower19_clivia_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1667,150},{107,166}}</string>
+                <string>{{150,698},{107,166}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{107,166}}</string>
                 <key>sourceSize</key>
@@ -761,11 +761,11 @@
             <key>flower19_clivia_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1160,274},{107,170}}</string>
+                <string>{{149,526},{107,170}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{107,170}}</string>
                 <key>sourceSize</key>
@@ -774,7 +774,7 @@
             <key>flower19_clivia_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{148,702},{107,169}}</string>
+                <string>{{148,1877},{107,169}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -787,11 +787,11 @@
             <key>flower1_forgetmenot_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{390,668},{28,20}}</string>
+                <string>{{316,1855},{28,20}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{28,20}}</string>
                 <key>sourceSize</key>
@@ -800,11 +800,11 @@
             <key>flower1_forgetmenot_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1496,955},{67,54}}</string>
+                <string>{{864,1868},{67,54}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{67,54}}</string>
                 <key>sourceSize</key>
@@ -813,7 +813,7 @@
             <key>flower1_forgetmenot_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1285,876},{62,95}}</string>
+                <string>{{758,281},{62,95}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -826,11 +826,11 @@
             <key>flower1_forgetmenot_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{230,569},{158,130}}</string>
+                <string>{{153,1717},{158,130}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{1,2},{158,130}}</string>
                 <key>sourceSize</key>
@@ -839,11 +839,11 @@
             <key>flower1_forgetmenot_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1501,2},{158,164}}</string>
+                <string>{{2,1379},{158,164}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{1,2},{158,164}}</string>
                 <key>sourceSize</key>
@@ -852,11 +852,11 @@
             <key>flower1_forgetmenot_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,873},{149,164}}</string>
+                <string>{{2,1545},{149,164}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{149,164}}</string>
                 <key>sourceSize</key>
@@ -865,7 +865,7 @@
             <key>flower20_longshagem_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1817,724},{74,37}}</string>
+                <string>{{948,1076},{74,37}}</string>
                 <key>offset</key>
                 <string>{-1,-1}</string>
                 <key>rotated</key>
@@ -878,11 +878,11 @@
             <key>flower20_longshagem_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{714,385},{98,83}}</string>
+                <string>{{770,1015},{98,83}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{98,83}}</string>
                 <key>sourceSize</key>
@@ -891,11 +891,11 @@
             <key>flower20_longshagem_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1186,513},{98,122}}</string>
+                <string>{{551,663},{98,122}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{98,122}}</string>
                 <key>sourceSize</key>
@@ -904,7 +904,7 @@
             <key>flower20_longshagem_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1328,429},{98,143}}</string>
+                <string>{{539,1211},{98,143}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -917,7 +917,7 @@
             <key>flower20_longshagem_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{971,280},{100,149}}</string>
+                <string>{{651,661},{100,149}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -930,7 +930,7 @@
             <key>flower20_longshagem_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{820,279},{100,149}}</string>
+                <string>{{822,279},{100,149}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -943,11 +943,11 @@
             <key>flower21_Lavender_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1529,704},{28,20}}</string>
+                <string>{{258,526},{28,20}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{28,20}}</string>
                 <key>sourceSize</key>
@@ -956,7 +956,7 @@
             <key>flower21_Lavender_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1806,996},{26,41}}</string>
+                <string>{{158,350},{26,41}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -969,11 +969,11 @@
             <key>flower21_Lavender_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1529,631},{43,71}}</string>
+                <string>{{852,970},{43,71}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{43,71}}</string>
                 <key>sourceSize</key>
@@ -982,7 +982,7 @@
             <key>flower21_Lavender_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1349,876},{67,85}}</string>
+                <string>{{664,1884},{67,85}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -995,11 +995,11 @@
             <key>flower21_Lavender_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1574,644},{67,85}}</string>
+                <string>{{595,1905},{67,85}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{67,85}}</string>
                 <key>sourceSize</key>
@@ -1008,7 +1008,7 @@
             <key>flower21_Lavender_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1431,727},{67,85}}</string>
+                <string>{{937,517},{67,85}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1021,7 +1021,7 @@
             <key>flower22_Cyclamen_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1849,996},{22,26}}</string>
+                <string>{{201,350},{22,26}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1034,11 +1034,11 @@
             <key>flower22_Cyclamen_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2004,2},{42,39}}</string>
+                <string>{{983,1608},{42,39}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{42,39}}</string>
                 <key>sourceSize</key>
@@ -1047,11 +1047,11 @@
             <key>flower22_Cyclamen_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1990,385},{59,54}}</string>
+                <string>{{804,1982},{59,54}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{59,54}}</string>
                 <key>sourceSize</key>
@@ -1060,7 +1060,7 @@
             <key>flower22_Cyclamen_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1886,776},{72,70}}</string>
+                <string>{{943,1336},{72,70}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1073,7 +1073,7 @@
             <key>flower22_Cyclamen_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1660,724},{74,72}}</string>
+                <string>{{948,947},{74,72}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1086,11 +1086,11 @@
             <key>flower22_Cyclamen_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1349,963},{59,80}}</string>
+                <string>{{636,1502},{59,80}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{59,80}}</string>
                 <key>sourceSize</key>
@@ -1099,7 +1099,7 @@
             <key>flower23_sakura_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1577,833},{13,18}}</string>
+                <string>{{773,1471},{13,18}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1112,11 +1112,11 @@
             <key>flower23_sakura_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1439,529},{27,25}}</string>
+                <string>{{383,2019},{27,25}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{27,25}}</string>
                 <key>sourceSize</key>
@@ -1125,11 +1125,11 @@
             <key>flower23_sakura_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1285,973},{55,49}}</string>
+                <string>{{942,1788},{55,49}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{55,49}}</string>
                 <key>sourceSize</key>
@@ -1138,7 +1138,7 @@
             <key>flower23_sakura_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1389,796},{76,78}}</string>
+                <string>{{937,586},{76,78}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1151,11 +1151,11 @@
             <key>flower23_sakura_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1661,646},{76,77}}</string>
+                <string>{{922,1178},{76,77}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{76,77}}</string>
                 <key>sourceSize</key>
@@ -1164,11 +1164,11 @@
             <key>flower23_sakura_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1899,569},{76,77}}</string>
+                <string>{{870,1015},{76,77}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{76,77}}</string>
                 <key>sourceSize</key>
@@ -1177,7 +1177,7 @@
             <key>flower24_bride_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{417,457},{19,12}}</string>
+                <string>{{271,1691},{19,12}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1190,7 +1190,7 @@
             <key>flower24_bride_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2004,115},{36,33}}</string>
+                <string>{{989,294},{36,33}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1203,7 +1203,7 @@
             <key>flower24_bride_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1878,848},{70,66}}</string>
+                <string>{{733,1903},{70,66}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1216,7 +1216,7 @@
             <key>flower24_bride_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1734,813},{70,65}}</string>
+                <string>{{870,1733},{70,65}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1229,7 +1229,7 @@
             <key>flower24_bride_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1806,826},{70,66}}</string>
+                <string>{{870,1800},{70,66}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1242,11 +1242,11 @@
             <key>flower24_bride_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1592,788},{70,66}}</string>
+                <string>{{869,1665},{70,66}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{70,66}}</string>
                 <key>sourceSize</key>
@@ -1255,11 +1255,11 @@
             <key>flower25_tulips_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1617,461},{10,32}}</string>
+                <string>{{1012,1518},{10,32}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{10,32}}</string>
                 <key>sourceSize</key>
@@ -1268,7 +1268,7 @@
             <key>flower25_tulips_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1518,727},{16,49}}</string>
+                <string>{{383,316},{16,49}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1281,11 +1281,11 @@
             <key>flower25_tulips_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1757,617},{52,58}}</string>
+                <string>{{877,1924},{52,58}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{52,58}}</string>
                 <key>sourceSize</key>
@@ -1294,7 +1294,7 @@
             <key>flower25_tulips_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1757,533},{58,82}}</string>
+                <string>{{852,886},{58,82}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1307,7 +1307,7 @@
             <key>flower25_tulips_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1697,562},{58,82}}</string>
+                <string>{{474,1412},{58,82}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1320,11 +1320,11 @@
             <key>flower25_tulips_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1738,473},{58,83}}</string>
+                <string>{{883,1266},{58,83}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{58,83}}</string>
                 <key>sourceSize</key>
@@ -1333,11 +1333,11 @@
             <key>flower26_clematis_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1950,923},{46,32}}</string>
+                <string>{{990,201},{46,32}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{46,32}}</string>
                 <key>sourceSize</key>
@@ -1346,11 +1346,11 @@
             <key>flower26_clematis_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1552,955},{48,67}}</string>
+                <string>{{801,1745},{48,67}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{48,67}}</string>
                 <key>sourceSize</key>
@@ -1359,11 +1359,11 @@
             <key>flower26_clematis_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{569,625},{94,152}}</string>
+                <string>{{416,1071},{94,152}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{94,152}}</string>
                 <key>sourceSize</key>
@@ -1372,11 +1372,11 @@
             <key>flower26_clematis_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1835,153},{146,162}}</string>
+                <string>{{285,1691},{146,162}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{146,162}}</string>
                 <key>sourceSize</key>
@@ -1385,11 +1385,11 @@
             <key>flower26_clematis_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1496,313},{146,162}}</string>
+                <string>{{162,1361},{146,162}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{146,162}}</string>
                 <key>sourceSize</key>
@@ -1398,11 +1398,11 @@
             <key>flower26_clematis_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1332,281},{146,162}}</string>
+                <string>{{156,1197},{146,162}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{146,162}}</string>
                 <key>sourceSize</key>
@@ -1411,7 +1411,7 @@
             <key>flower27_astilbe_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{799,311},{21,19}}</string>
+                <string>{{395,787},{21,19}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1424,7 +1424,7 @@
             <key>flower27_astilbe_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1851,950},{32,43}}</string>
+                <string>{{990,249},{32,43}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1437,11 +1437,11 @@
             <key>flower27_astilbe_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1999,153},{47,61}}</string>
+                <string>{{860,1542},{47,61}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{47,61}}</string>
                 <key>sourceSize</key>
@@ -1450,11 +1450,11 @@
             <key>flower27_astilbe_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1509,805},{66,69}}</string>
+                <string>{{799,1795},{66,69}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{66,69}}</string>
                 <key>sourceSize</key>
@@ -1463,7 +1463,20 @@
             <key>flower27_astilbe_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1736,745},{66,73}}</string>
+                <string>{{801,1670},{66,73}}</string>
+                <key>offset</key>
+                <string>{0,-1}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{2,2},{66,73}}</string>
+                <key>sourceSize</key>
+                <string>{70,75}</string>
+            </dict>
+            <key>flower27_astilbe_level6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{943,1408},{66,73}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1473,23 +1486,10 @@
                 <key>sourceSize</key>
                 <string>{70,75}</string>
             </dict>
-            <key>flower27_astilbe_level6.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1592,713},{66,73}}</string>
-                <key>offset</key>
-                <string>{0,-1}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{2,2},{66,73}}</string>
-                <key>sourceSize</key>
-                <string>{70,75}</string>
-            </dict>
             <key>flower28_rose_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{390,645},{21,21}}</string>
+                <string>{{539,1167},{21,21}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1502,7 +1502,7 @@
             <key>flower28_rose_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1122,335},{36,40}}</string>
+                <string>{{983,1652},{36,40}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1515,11 +1515,11 @@
             <key>flower28_rose_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1730,880},{40,65}}</string>
+                <string>{{941,1630},{40,65}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{40,65}}</string>
                 <key>sourceSize</key>
@@ -1528,11 +1528,11 @@
             <key>flower28_rose_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1563,876},{40,69}}</string>
+                <string>{{943,1476},{40,69}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,0},{40,69}}</string>
                 <key>sourceSize</key>
@@ -1541,11 +1541,11 @@
             <key>flower28_rose_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1660,871},{40,68}}</string>
+                <string>{{941,1560},{40,68}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{40,68}}</string>
                 <key>sourceSize</key>
@@ -1554,7 +1554,7 @@
             <key>flower28_rose_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1978,615},{40,68}}</string>
+                <string>{{942,1518},{40,68}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1567,7 +1567,7 @@
             <key>flower29_mandragora_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1577,805},{26,13}}</string>
+                <string>{{773,1443},{26,13}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1580,11 +1580,11 @@
             <key>flower29_mandragora_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{390,569},{36,25}}</string>
+                <string>{{459,1496},{36,25}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{36,25}}</string>
                 <key>sourceSize</key>
@@ -1593,7 +1593,7 @@
             <key>flower29_mandragora_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1893,721},{74,53}}</string>
+                <string>{{948,1021},{74,53}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1606,11 +1606,11 @@
             <key>flower29_mandragora_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1740,671},{75,72}}</string>
+                <string>{{671,1971},{75,72}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{75,72}}</string>
                 <key>sourceSize</key>
@@ -1619,7 +1619,7 @@
             <key>flower29_mandragora_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1970,657},{74,72}}</string>
+                <string>{{948,873},{74,72}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1632,11 +1632,11 @@
             <key>flower29_mandragora_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1817,569},{74,80}}</string>
+                <string>{{659,1802},{74,80}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{74,80}}</string>
                 <key>sourceSize</key>
@@ -1645,11 +1645,11 @@
             <key>flower2_jasmineofwindmill_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1669,963},{54,51}}</string>
+                <string>{{942,1845},{54,51}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{54,51}}</string>
                 <key>sourceSize</key>
@@ -1658,7 +1658,7 @@
             <key>flower2_jasmineofwindmill_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1225,383},{128,101}}</string>
+                <string>{{684,1192},{128,101}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1671,7 +1671,7 @@
             <key>flower2_jasmineofwindmill_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{574,491},{137,132}}</string>
+                <string>{{400,1167},{137,132}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1684,11 +1684,11 @@
             <key>flower2_jasmineofwindmill_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1333,2},{152,166}}</string>
+                <string>{{2,1211},{152,166}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{152,166}}</string>
                 <key>sourceSize</key>
@@ -1697,11 +1697,11 @@
             <key>flower2_jasmineofwindmill_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1165,2},{152,166}}</string>
+                <string>{{2,1043},{152,166}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{152,166}}</string>
                 <key>sourceSize</key>
@@ -1723,11 +1723,11 @@
             <key>flower30_jonquil_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{799,281},{28,19}}</string>
+                <string>{{909,1094},{28,19}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{28,19}}</string>
                 <key>sourceSize</key>
@@ -1736,11 +1736,11 @@
             <key>flower30_jonquil_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2004,79},{34,42}}</string>
+                <string>{{912,875},{34,42}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{34,42}}</string>
                 <key>sourceSize</key>
@@ -1749,7 +1749,7 @@
             <key>flower30_jonquil_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1811,763},{61,73}}</string>
+                <string>{{867,1479},{61,73}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1762,11 +1762,11 @@
             <key>flower30_jonquil_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1985,536},{61,77}}</string>
+                <string>{{909,1115},{61,77}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{61,77}}</string>
                 <key>sourceSize</key>
@@ -1775,11 +1775,11 @@
             <key>flower30_jonquil_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1985,450},{61,84}}</string>
+                <string>{{938,452},{61,84}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{61,84}}</string>
                 <key>sourceSize</key>
@@ -1788,11 +1788,11 @@
             <key>flower30_jonquil_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1418,876},{69,84}}</string>
+                <string>{{938,381},{69,84}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{69,84}}</string>
                 <key>sourceSize</key>
@@ -1801,11 +1801,11 @@
             <key>flower31_jessamine_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1740,646},{22,15}}</string>
+                <string>{{1000,1164},{22,15}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{22,15}}</string>
                 <key>sourceSize</key>
@@ -1814,7 +1814,7 @@
             <key>flower31_jessamine_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1774,962},{30,49}}</string>
+                <string>{{436,316},{30,49}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1827,11 +1827,11 @@
             <key>flower31_jessamine_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1602,964},{57,65}}</string>
+                <string>{{805,1863},{57,65}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{57,65}}</string>
                 <key>sourceSize</key>
@@ -1840,11 +1840,11 @@
             <key>flower31_jessamine_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1950,864},{57,65}}</string>
+                <string>{{745,1971},{57,65}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{57,65}}</string>
                 <key>sourceSize</key>
@@ -1853,7 +1853,7 @@
             <key>flower31_jessamine_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1960,805},{57,72}}</string>
+                <string>{{400,1301},{57,72}}</string>
                 <key>offset</key>
                 <string>{-1,-1}</string>
                 <key>rotated</key>
@@ -1866,11 +1866,11 @@
             <key>flower31_jessamine_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1518,745},{58,72}}</string>
+                <string>{{883,1351},{58,72}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{58,72}}</string>
                 <key>sourceSize</key>
@@ -1879,7 +1879,7 @@
             <key>flower32_azalea_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1738,533},{18,17}}</string>
+                <string>{{751,886},{18,17}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1892,11 +1892,11 @@
             <key>flower32_azalea_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1806,948},{43,46}}</string>
+                <string>{{920,1993},{43,46}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{43,46}}</string>
                 <key>sourceSize</key>
@@ -1905,11 +1905,11 @@
             <key>flower32_azalea_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1969,731},{72,77}}</string>
+                <string>{{794,1591},{72,77}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{72,77}}</string>
                 <key>sourceSize</key>
@@ -1918,7 +1918,7 @@
             <key>flower32_azalea_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1489,876},{72,77}}</string>
+                <string>{{786,1512},{72,77}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1931,7 +1931,7 @@
             <key>flower32_azalea_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1891,647},{72,77}}</string>
+                <string>{{788,1438},{72,77}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1944,7 +1944,7 @@
             <key>flower32_azalea_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1817,645},{72,77}}</string>
+                <string>{{943,1257},{72,77}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1957,11 +1957,11 @@
             <key>flower3_galsang_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1859,916},{46,32}}</string>
+                <string>{{990,153},{46,32}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{46,32}}</string>
                 <key>sourceSize</key>
@@ -1970,7 +1970,7 @@
             <key>flower3_galsang_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1797,894},{60,52}}</string>
+                <string>{{881,1425},{60,52}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -1983,11 +1983,11 @@
             <key>flower3_galsang_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{799,381},{90,87}}</string>
+                <string>{{383,173},{90,87}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{90,87}}</string>
                 <key>sourceSize</key>
@@ -2022,11 +2022,11 @@
             <key>flower3_galsang_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{995,2},{150,168}}</string>
+                <string>{{2,873},{150,168}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{150,168}}</string>
                 <key>sourceSize</key>
@@ -2035,11 +2035,11 @@
             <key>flower40_peony_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2004,43},{42,34}}</string>
+                <string>{{912,919},{42,34}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{42,34}}</string>
                 <key>sourceSize</key>
@@ -2048,11 +2048,11 @@
             <key>flower40_peony_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1990,309},{74,54}}</string>
+                <string>{{595,1992},{74,54}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{74,54}}</string>
                 <key>sourceSize</key>
@@ -2061,7 +2061,7 @@
             <key>flower40_peony_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{591,395},{121,94}}</string>
+                <string>{{635,282},{121,94}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -2074,11 +2074,11 @@
             <key>flower40_peony_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{713,491},{132,96}}</string>
+                <string>{{802,666},{132,96}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,0},{132,96}}</string>
                 <key>sourceSize</key>
@@ -2087,7 +2087,7 @@
             <key>flower40_peony_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{159,173},{132,96}}</string>
+                <string>{{670,1058},{132,96}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -2100,7 +2100,7 @@
             <key>flower40_peony_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{431,395},{158,94}}</string>
+                <string>{{475,282},{158,94}}</string>
                 <key>offset</key>
                 <string>{-1,-1}</string>
                 <key>rotated</key>
@@ -2113,7 +2113,7 @@
             <key>flower4_summerfireworks_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2017,864},{29,20}}</string>
+                <string>{{285,1855},{29,20}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2126,7 +2126,7 @@
             <key>flower4_summerfireworks_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1758,922},{38,35}}</string>
+                <string>{{501,2008},{38,35}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2139,11 +2139,11 @@
             <key>flower4_summerfireworks_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1431,962},{63,60}}</string>
+                <string>{{735,1838},{63,60}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{63,60}}</string>
                 <key>sourceSize</key>
@@ -2152,11 +2152,11 @@
             <key>flower4_summerfireworks_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{942,382},{122,146}}</string>
+                <string>{{156,378},{122,146}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{122,146}}</string>
                 <key>sourceSize</key>
@@ -2165,11 +2165,11 @@
             <key>flower4_summerfireworks_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{428,860},{122,154}}</string>
+                <string>{{395,663},{122,154}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{122,154}}</string>
                 <key>sourceSize</key>
@@ -2178,11 +2178,11 @@
             <key>flower4_summerfireworks_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1332,156},{123,164}}</string>
+                <string>{{271,1525},{123,164}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{123,164}}</string>
                 <key>sourceSize</key>
@@ -2191,11 +2191,11 @@
             <key>flower5_bluesnow_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1710,922},{46,39}}</string>
+                <string>{{983,1560},{46,39}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{46,39}}</string>
                 <key>sourceSize</key>
@@ -2204,7 +2204,7 @@
             <key>flower5_bluesnow_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1287,613},{102,62}}</string>
+                <string>{{737,1684},{102,62}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2217,7 +2217,7 @@
             <key>flower5_bluesnow_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1169,613},{116,108}}</string>
+                <string>{{534,1311},{116,108}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2230,7 +2230,7 @@
             <key>flower5_bluesnow_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,702},{144,169}}</string>
+                <string>{{2,1877},{144,169}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2269,7 +2269,7 @@
             <key>flower6_epiphyllum_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1467,796},{40,78}}</string>
+                <string>{{867,1100},{40,78}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2282,11 +2282,11 @@
             <key>flower6_epiphyllum_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1043,507},{101,141}}</string>
+                <string>{{667,915},{101,141}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{101,141}}</string>
                 <key>sourceSize</key>
@@ -2295,11 +2295,11 @@
             <key>flower6_epiphyllum_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1823,450},{117,160}}</string>
+                <string>{{396,1523},{117,160}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{117,160}}</string>
                 <key>sourceSize</key>
@@ -2308,11 +2308,11 @@
             <key>flower6_epiphyllum_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{990,154},{124,168}}</string>
+                <string>{{257,1877},{124,168}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{124,168}}</string>
                 <key>sourceSize</key>
@@ -2347,7 +2347,7 @@
             <key>flower7_lupine_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{390,607},{36,21}}</string>
+                <string>{{925,963},{36,21}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2360,11 +2360,11 @@
             <key>flower7_lupine_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1122,280},{36,53}}</string>
+                <string>{{538,2008},{36,53}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{36,53}}</string>
                 <key>sourceSize</key>
@@ -2373,11 +2373,11 @@
             <key>flower7_lupine_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1431,631},{94,96}}</string>
+                <string>{{787,1180},{94,96}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{94,96}}</string>
                 <key>sourceSize</key>
@@ -2386,7 +2386,7 @@
             <key>flower7_lupine_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{158,307},{109,120}}</string>
+                <string>{{751,764},{109,120}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2399,7 +2399,7 @@
             <key>flower7_lupine_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{665,625},{109,153}}</string>
+                <string>{{305,863},{109,153}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2412,11 +2412,11 @@
             <key>flower7_lupine_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{256,457},{110,159}}</string>
+                <string>{{271,173},{110,159}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{110,159}}</string>
                 <key>sourceSize</key>
@@ -2425,7 +2425,7 @@
             <key>flower8_huajuju_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1907,916},{41,32}}</string>
+                <string>{{941,1697},{41,32}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2438,11 +2438,11 @@
             <key>flower8_huajuju_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1722,963},{50,54}}</string>
+                <string>{{933,1898},{50,54}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{50,54}}</string>
                 <key>sourceSize</key>
@@ -2451,11 +2451,11 @@
             <key>flower8_huajuju_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1660,798},{71,72}}</string>
+                <string>{{868,1591},{71,72}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{71,72}}</string>
                 <key>sourceSize</key>
@@ -2464,7 +2464,7 @@
             <key>flower8_huajuju_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{804,923},{98,99}}</string>
+                <string>{{515,1584},{98,99}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2477,7 +2477,7 @@
             <key>flower8_huajuju_level5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{797,780},{141,137}}</string>
+                <string>{{416,787},{141,137}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2490,11 +2490,11 @@
             <key>flower8_huajuju_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{776,625},{153,149}}</string>
+                <string>{{436,512},{153,149}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{153,149}}</string>
                 <key>sourceSize</key>
@@ -2503,7 +2503,7 @@
             <key>flower9_chineseherbaceouspeony_level1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{799,334},{18,18}}</string>
+                <string>{{258,556},{18,18}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2516,11 +2516,11 @@
             <key>flower9_chineseherbaceouspeony_level2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{888,381},{52,90}}</string>
+                <string>{{383,262},{52,90}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{52,90}}</string>
                 <key>sourceSize</key>
@@ -2529,7 +2529,7 @@
             <key>flower9_chineseherbaceouspeony_level3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{811,473},{94,150}}</string>
+                <string>{{655,763},{94,150}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
@@ -2542,11 +2542,11 @@
             <key>flower9_chineseherbaceouspeony_level4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{269,309},{146,160}}</string>
+                <string>{{433,1685},{146,160}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{146,160}}</string>
                 <key>sourceSize</key>
@@ -2568,11 +2568,11 @@
             <key>flower9_chineseherbaceouspeony_level6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1667,2},{146,169}}</string>
+                <string>{{2,702},{146,169}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{2,2},{146,169}}</string>
                 <key>sourceSize</key>
@@ -2581,80 +2581,158 @@
             <key>huapen1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1078,890},{132,63}}</string>
+                <string>{{595,1807},{96,62}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{132,63}}</string>
+                <string>{{0,0},{96,62}}</string>
                 <key>sourceSize</key>
-                <string>{132,63}</string>
+                <string>{96,62}</string>
+            </dict>
+            <key>huapen11.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{459,1360},{121,13}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{121,13}}</string>
+                <key>sourceSize</key>
+                <string>{121,13}</string>
             </dict>
             <key>huapen2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{149,569},{131,79}}</string>
+                <string>{{788,1278},{93,78}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{93,78}}</string>
+                <key>sourceSize</key>
+                <string>{93,78}</string>
+            </dict>
+            <key>huapen22.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{773,1322},{119,13}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{131,79}}</string>
+                <string>{{0,0},{119,13}}</string>
                 <key>sourceSize</key>
-                <string>{131,79}</string>
+                <string>{119,13}</string>
             </dict>
             <key>huapen3.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1574,562},{121,80}}</string>
+                <string>{{788,1358},{91,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{121,80}}</string>
+                <string>{{0,0},{91,78}}</string>
                 <key>sourceSize</key>
-                <string>{121,80}</string>
+                <string>{91,78}</string>
+            </dict>
+            <key>huapen33.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{162,1525},{104,14}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{104,14}}</string>
+                <key>sourceSize</key>
+                <string>{104,14}</string>
             </dict>
             <key>huapen4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{413,778},{128,80}}</string>
+                <string>{{768,1100},{97,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{128,80}}</string>
+                <string>{{0,0},{97,78}}</string>
                 <key>sourceSize</key>
-                <string>{128,80}</string>
+                <string>{97,78}</string>
+            </dict>
+            <key>huapen44.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{652,1486},{111,14}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{111,14}}</string>
+                <key>sourceSize</key>
+                <string>{111,14}</string>
             </dict>
             <key>huapen5.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1617,473},{119,87}}</string>
+                <string>{{695,1596},{97,86}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{119,87}}</string>
+                <string>{{0,0},{97,86}}</string>
                 <key>sourceSize</key>
-                <string>{119,87}</string>
+                <string>{97,86}</string>
+            </dict>
+            <key>huapen55.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{973,279},{100,14}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{100,14}}</string>
+                <key>sourceSize</key>
+                <string>{100,14}</string>
             </dict>
             <key>huapen6.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{661,927},{141,88}}</string>
+                <string>{{936,666},{104,86}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{141,88}}</string>
+                <string>{{0,0},{104,86}}</string>
                 <key>sourceSize</key>
-                <string>{141,88}</string>
+                <string>{104,86}</string>
+            </dict>
+            <key>huapen66.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{995,2},{131,14}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{131,14}}</string>
+                <key>sourceSize</key>
+                <string>{131,14}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -2664,9 +2742,9 @@
             <key>realTextureFileName</key>
             <string>flower.png</string>
             <key>size</key>
-            <string>{2048,1024}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:a304751ebc7dcaa359824ebe846ac6f0$</string>
+            <string>$TexturePacker:SmartUpdate:b01bcdcc3379db67b8f48d9d010c3092$</string>
             <key>textureFileName</key>
             <string>flower.png</string>
         </dict>
