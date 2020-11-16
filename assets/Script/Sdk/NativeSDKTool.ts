@@ -1,8 +1,11 @@
 import { Boot } from "../Boot";
+import { UIParamInterface } from "../Common/CommonInterface";
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
 import OSRuntime from "../OSRuntime";
+import UIConfig from "../UI/UIManager/UIConfig";
+import UIManager from "../UI/UIManager/UIManager";
 import { NativeSupportStatueCode } from "./SdkEnum";
 import { RewardedAdInterface, SdkModuleInterface, WechatLoginInterface, WechatLoginSuccessInterface } from "./SdkInterface";
 
@@ -63,7 +66,6 @@ export class NativeSDKTool {
     public static readonly share_WebImg: string = "share_WebImg";
     public static readonly env: string = "env";
     public static readonly wx_subscribe_message: string = "wx_subscribe_message";
-
     public static rewarded_videoing = false;
 
     /**@description 初始化和原生端通信的SDK  */
@@ -615,6 +617,18 @@ export class NativeSDKTool {
         if(this.isAndroid){
             console.log("on press back");
         }
+    }
+
+    /**@description 显示点击返回按钮的提示信息 */
+    public static show_press_back_button_tip(){
+        const ui_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.Toast,
+            ui_config_name: "Toast",
+            param: {
+                text: "再按一次返回退出应用"
+            }
+        }
+        UIManager.show_ui(ui_param_interface);
     }
 
 
