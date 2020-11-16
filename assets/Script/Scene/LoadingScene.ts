@@ -228,6 +228,7 @@ class LoadingScene extends BaseScene {
         this.protocol_and_privacy_node.active = false;
         console.log("checking_update error1");
         // 加载主场景
+        this.bi("into_loading_scene");
         cc.director.preloadScene("GameScene", (completedCount: number, totalCount: number, item: any) => {
             const progress = completedCount / totalCount;
             this.loading_progress.progress = progress;
