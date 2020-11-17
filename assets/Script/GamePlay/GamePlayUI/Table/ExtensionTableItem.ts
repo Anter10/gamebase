@@ -48,7 +48,8 @@ export default class ExtensionTableItem extends BaseNode {
     onLoad() {
         this.flush_node();
     }
-    start() {
+
+    onEnable() {
         this.table_config = GameDataConfig.get_config_by_id("TableConfig", this.level_number);
         this.table_data = GameLocalData.get_instance().get_data<TableData>(TableData);
         this.set_table_sprite();

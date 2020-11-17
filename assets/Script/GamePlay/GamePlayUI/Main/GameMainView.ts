@@ -142,6 +142,8 @@ export default class GameMainView extends BaseUI {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.success_ad_video, this, this.request_checkin_data);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_gold_coin_number, this, this.refresh_task_button);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_red_heart_number, this, this.refresh_task_button);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.refresh_task_button);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_cook_woman_level, this, this.refresh_task_button);
     }
 
     start() {
