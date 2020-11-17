@@ -114,14 +114,11 @@ export default class UnlockTableDescriptionView extends BaseUI {
         const store_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData).get_store_level_data();
         if (this.table_config.upgrade_need_store_level <= store_level) {
             const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-
             if (this.table_number == 0 || this.table_data.get_table_data(this.table_number - 1).tableLevel > 0) {
                 if (game_play_base_data.change_gold_coin_number(-this.table_config.upgrade)) {
                     this.table_data.change_table_level_data(this.table_number, this.table_config.id);
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.fly_heart, this.table_number);
-                    this.scheduleOnce(() => {
-                        game_play_base_data.change_red_heart_number(2);
-                    }, 1);
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.delay_add_heart, 2);
                     this.set_table_description();
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_table, this.table_number);
                     const ui_success_param_interface: UIParamInterface = {

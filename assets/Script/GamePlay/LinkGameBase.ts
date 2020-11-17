@@ -73,6 +73,8 @@ class LinkGameBase {
       "click_table": "click_table",
       //在扩建界面点击装饰
       "click_decoration": "click_decoration",
+      //延迟加红心
+      "delay_add_heart": "delay_add_heart",
    }
 
    /**

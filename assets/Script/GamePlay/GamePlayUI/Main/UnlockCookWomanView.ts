@@ -85,7 +85,7 @@ export default class UnlockCookWomanView extends BaseUI {
                 if (game_play_base_data.change_gold_coin_number(-this.cook_woman_config.upgrade_need_coin[this.cook_woman_level])) {
                     this.people_data.change_cook_woman_level(this.cook_woman_config.id, this.cook_woman_level + 1);
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.fly_heart);
-                    game_play_base_data.change_red_heart_number(5);
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.delay_add_heart, 5);
                     this.refresh_cook_woman_description();
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_cook_woman_level);
                     const ui_success_param_interface: UIParamInterface = {

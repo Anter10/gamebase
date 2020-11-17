@@ -144,6 +144,14 @@ export default class GameMainView extends BaseUI {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_red_heart_number, this, this.refresh_task_button);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.refresh_task_button);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_cook_woman_level, this, this.refresh_task_button);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.delay_add_heart, this, this.delay_add_heart);
+    }
+
+    delay_add_heart(event, add_heart_number: number) {
+        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        this.scheduleOnce(() => {
+            game_play_base_data.change_red_heart_number(add_heart_number);
+        }, 1);
     }
 
     start() {
