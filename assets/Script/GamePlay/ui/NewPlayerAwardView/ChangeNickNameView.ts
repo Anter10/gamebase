@@ -12,6 +12,9 @@ export default class ChangeNickNameView extends BaseUI {
     @property(cc.Node)
     sure_button: cc.Node = null;
 
+    @property(cc.Label)
+    name_label: cc.Label = null;
+
     onLoad() {
         // 点击关闭按钮
         const close_button: TouchButton = this.close_button.addComponent(TouchButton);
@@ -27,7 +30,8 @@ export default class ChangeNickNameView extends BaseUI {
     }
 
     click_sure_button() {
-
+        //昵称
+        this.name_label.string;
     }
-    
+
 }
