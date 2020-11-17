@@ -174,21 +174,6 @@ const GameConfig = {
         }
     },
 
-
-    /**@description 当前播放激励视频广告的ID */
-    get preload_video_ad_id(): number {
-        if (GameConfig.env_is_debug) {
-            return GameConfig.android_init_param.debug_awarded_video_ids[0];
-        } else {
-            if (OSRuntime.play_rewarded_ad_index > GameConfig.android_init_param.release_awarded_video_ids.length - 1) {
-                OSRuntime.play_rewarded_ad_index = 0;
-            }
-            let ad_id = GameConfig.android_init_param.release_awarded_video_ids[OSRuntime.play_rewarded_ad_index];
-            return ad_id;
-        }
-    },
-
-
     /**@description 弹窗静态图的广告ID */
     get window_static_image_ad_id(): number {
         if (GameConfig.env_is_debug) {
