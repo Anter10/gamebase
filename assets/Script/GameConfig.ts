@@ -5,8 +5,6 @@ const GameConfig = {
     secretData: "fS*rD^NzBD847*KCBU7d^bgbzJddPU3u",
     /**@description 游戏的AB版本 */
     gameExamine: false,
-    /**@description 游戏的版本号 */
-    appVersion: "1.0.3",
     /**@description 游戏的平台名称 */
     os: "android",
     /**@description 产品名称 */
