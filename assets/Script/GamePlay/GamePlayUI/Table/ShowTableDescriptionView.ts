@@ -50,13 +50,13 @@ export default class ShowTableDescriptionView extends BaseUI {
         this.flush_view();
     }
 
-    update_view_widget(code: NativeSupportStatueCode){
+    update_view_widget(code: NativeSupportStatueCode) {
         const widget = this.bg.getComponent(cc.Widget);
-        if(code == NativeSupportStatueCode.LOAD_FAIL){
+        if (code == NativeSupportStatueCode.LOAD_FAIL) {
             widget.isAlignTop = false;
             widget.isAlignVerticalCenter = true;
             widget.updateAlignment();
-        }else{
+        } else {
             widget.isAlignTop = true;
             widget.top = 100;
             widget.isAlignVerticalCenter = false;
@@ -66,16 +66,16 @@ export default class ShowTableDescriptionView extends BaseUI {
 
     onAddFinished() {
         const ad_data: StaticImageAdInterface = {
-            width:340,
-            height:250,
+            width: 340,
+            height: 250,
             bottom: 0,
-            type:1,
-            success:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载成功",code);
+            type: 1,
+            success: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载成功", code);
                 this.update_view_widget(code);
             },
-            fail:(code: NativeSupportStatueCode) => {
-                console.log("静态图加载失败",code);
+            fail: (code: NativeSupportStatueCode) => {
+                console.log("静态图加载失败", code);
                 this.update_view_widget(code);
             }
         }
@@ -98,7 +98,11 @@ export default class ShowTableDescriptionView extends BaseUI {
         this.title_label.string = this.table_config.chinese_name;
         this.level_number_title.string = this.table_config.id + "级桌";
         this.description_label.string = this.table_config.description;
-        this.growth_label.string = "金币总收益增加" + this.table_config.growth + "%";
+        if (this.table_config.id != 1) {
+            this.growth_label.string = "金币总收益增加" + this.table_config.growth + "%";
+        } else {
+            this.growth_label.string = "扩建桌椅招揽更多客人赚钱啦";
+        }
         Loader.load_texture(`GamePlay/GamePlayUI/Main/texture/${this.table_config.name}`, (texture2d: cc.Texture2D) => {
             this.table_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
         })
