@@ -59,7 +59,7 @@ class ServerData {
             /**@description rom的版本 */
             romVersion: GameConfig.android_init_success_param.romVersion,
             /**@description 应用的版本号 */
-            appVersion: GameConfig.appVersion,
+            appVersion: GameConfig.android_init_success_param.appVersion,
             /**@description 渠道*/
             channel: GameConfig.android_init_success_param.channel,
             /**@description 所处的系统名称 */
