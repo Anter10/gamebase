@@ -163,35 +163,21 @@ export default class GameMainView extends BaseUI {
 
     click_task_button() {
         if (this.click_task_table_number != 0) {
-            const ui_extension_param_interface: UIParamInterface = {
-                ui_config_path: UIConfig.ExtensionTableView,
-                ui_config_name: "ExtensionTableView",
-                complete_callback: () => {
-                    const table_config: TableConfig = GameDataConfig.get_config_by_id("TableConfig", 1);
-                    const ui_table_interface: UIParamInterface = {
-                        ui_config_path: UIConfig.UnlockTableDescriptionView,
-                        ui_config_name: "UnlockTableDescriptionView",
-                        param: { table_config: table_config, table_number: this.click_task_table_number }
-                    }
-                    UIManager.show_ui(ui_table_interface);
-                }
+            const table_config: TableConfig = GameDataConfig.get_config_by_id("TableConfig", 1);
+            const ui_table_interface: UIParamInterface = {
+                ui_config_path: UIConfig.UnlockTableDescriptionView,
+                ui_config_name: "UnlockTableDescriptionView",
+                param: { table_config: table_config, table_number: this.click_task_table_number }
             }
-            UIManager.show_ui(ui_extension_param_interface);
+            UIManager.show_ui(ui_table_interface);
         } else {
             if (this.click_task_people_config) {
-                const ui_cook_woman_param_interface: UIParamInterface = {
-                    ui_config_path: UIConfig.CookWomanView,
-                    ui_config_name: "CookWomanView",
-                    complete_callback: () => {
-                        const ui_table_interface: UIParamInterface = {
-                            ui_config_path: UIConfig.UnlockCookWomanView,
-                            ui_config_name: "UnlockCookWomanView",
-                            param: this.click_task_people_config,
-                        }
-                        UIManager.show_ui(ui_table_interface);
-                    }
+                const ui_table_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.UnlockCookWomanView,
+                    ui_config_name: "UnlockCookWomanView",
+                    param: this.click_task_people_config,
                 }
-                UIManager.show_ui(ui_cook_woman_param_interface);
+                UIManager.show_ui(ui_table_interface);
             }
         }
     }
