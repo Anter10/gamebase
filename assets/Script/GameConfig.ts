@@ -6,7 +6,7 @@ const GameConfig = {
     /**@description 游戏的AB版本 */
     gameExamine: false,
     /**@description 游戏的版本号 */
-    appVersion: "1.0.9",
+    appVersion: "1.1.1",
     /**@description 游戏的平台名称 */
     os: "android",
     /**@description 产品名称 */
@@ -61,7 +61,7 @@ const GameConfig = {
         accessKey: "8a7bb4323159138e7b49d835f81a0f3f_27260",
         timeId: "20201109",
         user_id: "27260",
-        appVersion: "1.0.9",
+        appVersion: "1.1.1",
         env:"0",
         mac: "",
     },
