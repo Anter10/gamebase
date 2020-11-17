@@ -1,6 +1,8 @@
 import { Boot } from "../Boot";
 import GameConfig from "../GameConfig";
+import GameLocalData from "../GameLocalData/GameLocalData";
 import OSRuntime from "../OSRuntime";
+import { NativeSDKTool } from "../Sdk/NativeSDKTool";
 import BaseUI from "./BaseUI";
 import TouchButton from "./TouchButton";
 
@@ -20,6 +22,9 @@ export default class DebugView extends BaseUI {
 
     @property(cc.Node)
     close_btn: cc.Node = null;
+    @property(cc.Node)
+    copy_data_button: cc.Node = null;
+    
 
     // LIFE-CYCLE CALLBACKS:
 
@@ -35,6 +40,14 @@ export default class DebugView extends BaseUI {
         if(!GameConfig.env_is_debug){
            this.ad_mode_button.active = false;
         }
+        this.copy_data_button.addComponent(TouchButton).register_touch(()=>{
+            this.copy_data();   
+        });
+        
+    }
+
+    copy_data(){
+        NativeSDKTool.copyTxt(JSON.stringify(GameLocalData.get_instance().game_data));
     }
 
     start() {
