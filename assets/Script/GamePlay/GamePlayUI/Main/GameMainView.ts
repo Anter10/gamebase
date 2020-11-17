@@ -1084,18 +1084,34 @@ export default class GameMainView extends BaseUI {
     }
 
     fly_heart(event, table_number: number) {
-        let coin_node = cc.instantiate(this.heart);
-        coin_node.active = true;
-        coin_node.setPosition(this.table_node_array[table_number].getPosition());
-        coin_node.parent = this.button_array;
-        // 创建一个移动动作
-        let finished = cc.callFunc(() => {
-            coin_node.active = false;
-            coin_node.destroy();
-        });
-        let action = cc.sequence(cc.moveTo(1, this.red_heart_frame_node.getPosition()), finished);
-        // 执行动作
-        coin_node.runAction(action);
+        if (table_number) {
+            let coin_node = cc.instantiate(this.heart);
+            coin_node.active = true;
+            coin_node.setPosition(this.table_node_array[table_number].getPosition());
+            coin_node.parent = this.button_array;
+            // 创建一个移动动作
+            let finished = cc.callFunc(() => {
+                coin_node.active = false;
+                coin_node.destroy();
+            });
+            let action = cc.sequence(cc.moveTo(1, this.red_heart_frame_node.getPosition()), finished);
+            // 执行动作
+            coin_node.runAction(action);
+        }
+        else {
+            let coin_node = cc.instantiate(this.heart);
+            coin_node.active = true;
+            coin_node.setPosition(this.menu_content.getPosition());
+            coin_node.parent = this.button_array;
+            // 创建一个移动动作
+            let finished = cc.callFunc(() => {
+                coin_node.active = false;
+                coin_node.destroy();
+            });
+            let action = cc.sequence(cc.moveTo(1, this.red_heart_frame_node.getPosition()), finished);
+            // 执行动作
+            coin_node.runAction(action);
+        }
     }
 
 }
