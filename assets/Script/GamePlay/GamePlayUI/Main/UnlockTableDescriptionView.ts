@@ -19,8 +19,7 @@ import LinkGameBase from "../../LinkGameBase";
 const { ccclass, property } = cc._decorator;
 
 @ccclass
-export default class MainTableDescriptionView extends BaseUI {
-
+export default class UnlockTableDescriptionView extends BaseUI {
     @property(cc.Label)
     title_label: cc.Label = null;
 
@@ -71,6 +70,7 @@ export default class MainTableDescriptionView extends BaseUI {
 
     onLoad() {
         this.flush_view();
+
         //点击升级
         const upgrade_button: TouchButton = this.upgrade_button.addComponent(TouchButton);
         upgrade_button.register_touch(this.click_buy_button.bind(this));
@@ -94,12 +94,19 @@ export default class MainTableDescriptionView extends BaseUI {
         Loader.load_texture(`GamePlay/GamePlayUI/Main/texture/${this.table_config.name}`, (texture2d: cc.Texture2D) => {
             this.table_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
         })
-        if (this.table_config.id == GamePlayConfig.table_max_level) {
-            this.cost_coin_label.string = "";
-            this.upgrade_button_label.string = "满级";
-        } else {
+
+        console.log(this.table_data.get_table_data(this.table_number));
+        if (this.table_data.get_table_data(this.table_number).tableLevel == 0) {
+            this.upgrade_button_label.string = "解锁";
             this.cost_coin_label.string = this.table_config.upgrade + "";
-            this.upgrade_button_label.string = "升级";
+        } else {
+            if (this.table_config.id == GamePlayConfig.table_max_level) {
+                this.cost_coin_label.string = "";
+                this.upgrade_button_label.string = "满级";
+            } else {
+                this.cost_coin_label.string = this.table_config.upgrade + "";
+                this.upgrade_button_label.string = "升级";
+            }
         }
     }
 
@@ -110,7 +117,7 @@ export default class MainTableDescriptionView extends BaseUI {
 
             if (this.table_number == 0 || this.table_data.get_table_data(this.table_number - 1).tableLevel > 0) {
                 if (game_play_base_data.change_gold_coin_number(-this.table_config.upgrade)) {
-                    game_play_base_data.change_red_heart_number(2);
+                    game_play_base_data.change_red_heart_number(5);
                     this.table_data.change_table_level_data(this.table_number, this.table_config.id + 1);
                     this.set_table_description();
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_table, this.table_number);
@@ -155,5 +162,4 @@ export default class MainTableDescriptionView extends BaseUI {
             UIManager.show_ui(ui_gold_param_interface);
         }
     }
-
 }
