@@ -33,6 +33,7 @@ class Boot{
         GameDataConfig.init();
         NativeSDKTool.init();
         IOSServer.get_audit_manifest();
+        cc.debug.setDisplayStats(false)
     }
 
     static os_init(){
