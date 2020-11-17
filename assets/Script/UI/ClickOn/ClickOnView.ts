@@ -29,6 +29,7 @@ class ClickOnView extends BaseUI {
             Loader.load_texture("./UI/ClickOn/Normal/res/commen_button_back",(texture: cc.Texture2D)=>{
                 nagivator_script.set_back_arrow_sprite_frame(new cc.SpriteFrame(texture));
                 nagivator_script.nagivator_back_arrow.node.x = nagivator_script.nagivator_back_arrow.node.x + 40;
+                nagivator_script.nagivator_back_arrow.node.y = nagivator_script.nagivator_back_arrow.node.y - 40;
             })
         });
     }
