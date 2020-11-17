@@ -455,7 +455,7 @@ export default class GameMainView extends BaseUI {
 
     guide_click_cash_out() {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
-        if (guide_data.cur_guid_id == 10) {
+        if (guide_data.cur_guid_id == 10 && !IOSServer.auditing) {
             NewPlayerGuideView.show_guide(
                 11,
                 GuideType.normal,
@@ -843,7 +843,7 @@ export default class GameMainView extends BaseUI {
             game_play_base_data.attract_customer_number = game_play_base_data.attract_customer_number + GamePlayConfig.click_attract_customer_button_add;
             this.set_attract_customer_progress(game_play_base_data.attract_customer_number);
             if (total == 100) {
-                if (game_play_base_data.attract_customer_limit >= GamePlayConfig.add_customer_max) {
+                if (game_play_base_data.attract_customer_limit >= GamePlayConfig.add_customer_max && !IOSServer.auditing) {
                     this.show_attract_customer_ad();
                 } else {
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
@@ -856,7 +856,7 @@ export default class GameMainView extends BaseUI {
                 }
             }
         } else {
-            if (game_play_base_data.attract_customer_number == 100 && game_play_base_data.attract_customer_limit >= GamePlayConfig.add_customer_max) {
+            if (game_play_base_data.attract_customer_number == 100 && game_play_base_data.attract_customer_limit >= GamePlayConfig.add_customer_max && !IOSServer.auditing) {
                 this.show_attract_customer_ad();
             }
         }

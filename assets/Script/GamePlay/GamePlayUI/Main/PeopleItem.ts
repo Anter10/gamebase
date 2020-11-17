@@ -7,6 +7,7 @@ import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import MenuData from "../../../GameLocalData/MenuData";
 import PeopleData from "../../../GameLocalData/PeopleData";
+import IOSServer from "../../../GameServerData/IOSServer";
 import UIConfig from "../../../UI/UIManager/UIConfig";
 import UIManager from "../../../UI/UIManager/UIManager";
 import GamePlayConfig from "../../GamePlayConfig/GamePlayConfig";
@@ -25,8 +26,10 @@ export default class PeopleItem extends BaseNode {
 
     onLoad() {
         //点击灶王爷
-        const chicken_god_button: TouchButton = this.chicken_god.addComponent(TouchButton);
-        chicken_god_button.register_touch(this.click_chicken_god_button.bind(this));
+        if(!IOSServer.auditing){
+            const chicken_god_button: TouchButton = this.chicken_god.addComponent(TouchButton);
+            chicken_god_button.register_touch(this.click_chicken_god_button.bind(this));
+        }
     }
 
     click_chicken_god_button() {
