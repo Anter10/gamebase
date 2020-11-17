@@ -4,6 +4,7 @@ import Loader from "../../../Common/Loader";
 import TouchButton from "../../../Common/TouchButton";
 import EventManager from "../../../EventManager/EventManager";
 import { TableConfig } from "../../../GameDataConfig/ConfigInterface";
+import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import GamePlayBaseData from "../../../GameLocalData/GamePlayBaseData";
 import StoreUpgradeData from "../../../GameLocalData/StoreUpgradeData";
@@ -52,6 +53,7 @@ export default class MainTableDescriptionView extends BaseUI {
     upgrade_button: cc.Node = null;
 
     private table_config: TableConfig = null;
+    private next_table_config: TableConfig = null;
 
     //第几号桌子
     private table_number: number = 0;
@@ -66,6 +68,7 @@ export default class MainTableDescriptionView extends BaseUI {
         this.table_config = table_config;
         this.table_number = table_number;
         this.table_data = GameLocalData.get_instance().get_data<TableData>(TableData);
+        this.next_table_config = GameDataConfig.get_config_by_id("TableConfig", this.table_config.id + 1);
         this.set_table_description();
     }
 
@@ -86,10 +89,10 @@ export default class MainTableDescriptionView extends BaseUI {
         this.title_label.string = this.table_config.chinese_name;
         this.level_number_title.string = (this.table_number + 1) + "号桌";
         this.description_label.string = this.table_config.description;
-        if (this.table_config.id != 1) {
+        if (this.table_config.id == GamePlayConfig.table_max_level) {
             this.growth_label.string = "金币总收益增加" + this.table_config.growth + "%";
         } else {
-            this.growth_label.string = "扩建桌椅招揽更多客人赚钱啦";
+            this.growth_label.string = "升级可获得金币收益增加" + this.next_table_config.growth + "%";
         }
         Loader.load_texture(`GamePlay/GamePlayUI/Main/texture/${this.table_config.name}`, (texture2d: cc.Texture2D) => {
             this.table_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
@@ -98,59 +101,69 @@ export default class MainTableDescriptionView extends BaseUI {
             this.cost_coin_label.string = "";
             this.upgrade_button_label.string = "满级";
         } else {
-            this.cost_coin_label.string = this.table_config.upgrade + "";
+            this.cost_coin_label.string = this.next_table_config.upgrade + "";
             this.upgrade_button_label.string = "升级";
         }
     }
 
     click_buy_button() {
         const store_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData).get_store_level_data();
-        if (this.table_config.upgrade_need_store_level <= store_level) {
-            const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-
-            if (this.table_number == 0 || this.table_data.get_table_data(this.table_number - 1).tableLevel > 0) {
-                if (game_play_base_data.change_gold_coin_number(-this.table_config.upgrade)) {
-                    this.table_data.change_table_level_data(this.table_number, this.table_config.id + 1);
-                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_table, this.table_number);
-                    this.on_close_call();
+        if (this.table_config.id == GamePlayConfig.table_max_level) {
+            const ui_success_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: `您已满级`
+                }
+            }
+            UIManager.show_ui(ui_success_param_interface);
+        } else {
+            if (this.next_table_config.upgrade_need_store_level <= store_level) {
+                const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+                if (this.table_number == 0 || this.table_data.get_table_data(this.table_number - 1).tableLevel > 0) {
+                    if (game_play_base_data.change_gold_coin_number(-this.next_table_config.upgrade)) {
+                        this.table_data.change_table_level_data(this.table_number, this.table_config.id + 1);
+                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.upgrade_table, this.table_number);
+                        this.on_close_call();
+                        const ui_success_param_interface: UIParamInterface = {
+                            ui_config_path: UIConfig.Toast,
+                            ui_config_name: "Toast",
+                            param: {
+                                text: "解锁成功"
+                            }
+                        }
+                        UIManager.show_ui(ui_success_param_interface);
+                    } else {
+                        const ui_gold_param_interface: UIParamInterface = {
+                            ui_config_path: UIConfig.Toast,
+                            ui_config_name: "Toast",
+                            param: {
+                                text: "金币不足，快去营业赚金币吧"
+                            }
+                        }
+                        UIManager.show_ui(ui_gold_param_interface);
+                        // console.log("金币不足，快去营业赚金币吧");
+                    }
+                } else {
                     const ui_success_param_interface: UIParamInterface = {
                         ui_config_path: UIConfig.Toast,
                         ui_config_name: "Toast",
                         param: {
-                            text: "解锁成功"
+                            text: `请先解锁${this.table_data.get_max_table() + 1}号桌`
                         }
                     }
                     UIManager.show_ui(ui_success_param_interface);
-                } else {
-                    const ui_gold_param_interface: UIParamInterface = {
-                        ui_config_path: UIConfig.Toast,
-                        ui_config_name: "Toast",
-                        param: {
-                            text: "金币不足，快去营业赚金币吧"
-                        }
-                    }
-                    UIManager.show_ui(ui_gold_param_interface);
-                    // console.log("金币不足，快去营业赚金币吧");
                 }
             } else {
-                const ui_success_param_interface: UIParamInterface = {
+                const ui_gold_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
-                        text: `请先解锁${this.table_data.get_max_table() + 1}号桌`
+                        text: `${this.next_table_config.upgrade_need_store_level}级店铺可解锁`
                     }
                 }
-                UIManager.show_ui(ui_success_param_interface);
+                UIManager.show_ui(ui_gold_param_interface);
             }
-        } else {
-            const ui_gold_param_interface: UIParamInterface = {
-                ui_config_path: UIConfig.Toast,
-                ui_config_name: "Toast",
-                param: {
-                    text: `${this.table_config.upgrade_need_store_level}级店铺可解锁`
-                }
-            }
-            UIManager.show_ui(ui_gold_param_interface);
         }
     }
 

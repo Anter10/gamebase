@@ -6,21 +6,6 @@ interface AudioConfig {
     info : string; 
 } 
 
-interface ChatConfig { 
-    id : number; 
-    text : string; 
-} 
-
-interface DecorationConfig { 
-    id : number; 
-    name : string; 
-    chinese_name : string; 
-    upgrade_need_ad : Array<number>; 
-    upgrade : Array<number>; 
-    growth : Array<number>; 
-    description : string; 
-} 
-
 interface MenuConfig { 
     id : number; 
     chinese_name : string; 
@@ -34,14 +19,19 @@ interface OfflineConfig {
     heart : number; 
 } 
 
-interface TableConfig { 
+interface DecorationConfig { 
     id : number; 
     name : string; 
     chinese_name : string; 
-    upgrade_need_store_level : number; 
-    upgrade : number; 
-    growth : number; 
+    upgrade_need_ad : Array<number>; 
+    upgrade : Array<number>; 
+    growth : Array<number>; 
     description : string; 
+} 
+
+interface ChatConfig { 
+    id : number; 
+    text : string; 
 } 
 
 interface PeopleConfig { 
@@ -55,13 +45,6 @@ interface PeopleConfig {
     upgrade_need_coin : Array<number>; 
 } 
 
-interface UnlockMenuRewardConfig { 
-    id : number; 
-    unlock_menu : number; 
-    reward_coin : number; 
-    reward_heart : number; 
-} 
-
 interface StoreUpgradeConfig { 
     id : number; 
     name : string; 
@@ -72,7 +55,24 @@ interface StoreUpgradeConfig {
     upgrade_need_cook_woman : Array<number>; 
 } 
 
+interface TableConfig { 
+    id : number; 
+    name : string; 
+    chinese_name : string; 
+    upgrade_need_store_level : number; 
+    upgrade : number; 
+    growth : number; 
+    description : string; 
+} 
+
+interface UnlockMenuRewardConfig { 
+    id : number; 
+    unlock_menu : number; 
+    reward_coin : number; 
+    reward_heart : number; 
+} 
+
  
   
 
- export { AudioConfig,ChatConfig,DecorationConfig,MenuConfig,OfflineConfig,TableConfig,PeopleConfig,UnlockMenuRewardConfig,StoreUpgradeConfig, };
+ export { AudioConfig,MenuConfig,OfflineConfig,DecorationConfig,ChatConfig,PeopleConfig,StoreUpgradeConfig,TableConfig,UnlockMenuRewardConfig, };

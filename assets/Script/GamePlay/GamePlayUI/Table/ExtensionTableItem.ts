@@ -123,7 +123,6 @@ export default class ExtensionTableItem extends BaseNode {
         if (this.table_config.upgrade_need_store_level <= store_level) {
             if (this.table_data.get_table_data(this.mark_number).tableLevel == this.level_number - 1) {
                 const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-
                 if (this.mark_number == 0 || this.table_data.get_table_data(this.mark_number - 1).tableLevel > 0) {
                     if (game_play_base_data.change_gold_coin_number(-this.table_config.upgrade)) {
                         this.table_data.change_table_level_data(this.mark_number, this.level_number);
