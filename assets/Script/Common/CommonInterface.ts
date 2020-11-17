@@ -265,6 +265,13 @@ interface PreLoadAdInterface{
     fail?:Function,
 }
 
-export {PreLoadAdInterface, ApiV2CheckinInterface, ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+/**@description 通过accessKey自动登陆游戏的接口 */
+interface LoginByAccessKeyInterface{
+    access_key: string
+    success: Function,
+    fail: Function
+}
+
+export {LoginByAccessKeyInterface,PreLoadAdInterface, ApiV2CheckinInterface, ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
 
 
