@@ -141,6 +141,7 @@ export default class GameMainView extends BaseUI {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_heart, this, this.fly_heart);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.success_ad_video, this, this.request_checkin_data);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_gold_coin_number, this, this.refresh_task_button);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_red_heart_number, this, this.refresh_task_button);
     }
 
     start() {
@@ -201,6 +202,7 @@ export default class GameMainView extends BaseUI {
         const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
         if (guide_data.guide_finished(12)) {
             if (table_number == 0) {
+                this.click_task_table_number = 0;
                 //判断厨娘
                 const people_configs: Array<PeopleConfig> = GameDataConfig.get_config_array("PeopleConfig");
                 const people_data: PeopleData = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
