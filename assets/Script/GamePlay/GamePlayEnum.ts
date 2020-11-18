@@ -130,3 +130,9 @@ export enum CardStatue{
     STANDUP = "STANDUP",
     SITDOWN = "SITDOWN",
 }
+
+/**@description 展示卡牌的类型 */
+export enum ShowCardType{
+    FollowCard = "FollowCard",
+    SendCard = "SendCard",
+}

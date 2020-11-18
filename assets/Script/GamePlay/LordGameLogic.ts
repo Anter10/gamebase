@@ -5,7 +5,7 @@ import EventManager from "../EventManager/EventManager";
 import { LordGameConfig } from "../GameDataConfig/ConfigInterface";
 import GameDataConfig from "../GameDataConfig/GameDataConfig";
 import GamePlay from "./GamePlay";
-import { LordCardType, LordDealCardsType, LordGameState, PeopleIdentityType } from "./GamePlayEnum";
+import { LordCardType, LordDealCardsType, LordGameState, PeopleIdentityType, ShowCardType } from "./GamePlayEnum";
 import { CallLordDataInterface, LordCardInterface, LordSendCardInterface, NoSendCardInterface, SendCardInterface } from "./GamePlayInterface";
 import LinkGameBase from "./LinkGameBase";
 import { LordUtils } from "./LordUtils";
@@ -162,6 +162,8 @@ class LordGameLogic{
     /**@description 出牌触发的事件 */
     send_card_callback(event: any,send_card_data: LordSendCardInterface){
         this.current_send_card_data = send_card_data;
+        console.log('当前出牌的事件信息  = ',event);
+        console.log('当前出牌的信息  = ',send_card_data);
         // 判断当前的出牌是否是AI出牌 如果是AI出牌的话 如果下一家是AI的话
         if(this.current_send_card_data.lord_people_interface.position == 2){
            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
@@ -189,16 +191,20 @@ class LordGameLogic{
     }
 
 
-    /**@description 出牌的逻辑 */
-    play_card(){
-        const cur_lord_player = this.game_play.current_lord_player();
-        const lord_card_number = cur_lord_player.cards_number;
-        const play_card: SendCardInterface = this._cur_player.ai.play(lord_card_number);
+    /**
+     * 
+     * 只有以下这几个情况会调用到该函数
+     * 1: 游戏开始的时候 非玩家自己的AI为地主的时候 会调用到该逻辑
+     * 2: 当两个玩家要不起的时候 轮到AI自己出牌的时候会掉用该逻辑
+     * @description 出牌的逻辑 
+     * */
+    play_card(play_card: SendCardInterface, card_type: ShowCardType){
         this._cur_player.show_cards(play_card.cards);
         const send_data: LordSendCardInterface = {
             send_card: play_card,
             lord_people_interface: this._cur_player.player_interface
         }
+        this.send_card_callback({msg: "主动出牌", type: card_type}, send_data);
         this._cur_player.delete_cards(play_card.cards);
     }
 
@@ -219,7 +225,10 @@ class LordGameLogic{
           EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
        }else{
           // 如果是机器人的话 机器人开始出牌
-          this.play_card();
+          const cur_lord_player = this.game_play.current_lord_player();
+          const lord_card_number = cur_lord_player.cards_number;
+          const play_card: SendCardInterface = this._cur_player.ai.play(lord_card_number);
+          this.play_card(play_card,ShowCardType.SendCard);
        }
     }
     

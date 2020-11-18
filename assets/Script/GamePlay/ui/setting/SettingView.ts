@@ -83,7 +83,7 @@ export default class SettingView extends BaseUI {
     start() {
         //设置玩家游戏id???
         this.id_label.string = "ID:25933";
-        this.version_label.string = GameConfig.appVersion;
+        this.version_label.string = GameConfig.android_init_success_param.appVersion;
         this.set_effect_button();
         this.set_music_button();
     }

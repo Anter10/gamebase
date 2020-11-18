@@ -193,7 +193,6 @@ class GamePlay extends cc.Component {
        console.log("可以开始游戏了");
        this._players[this.call_lord_interface.pos].add_cards(this.deal_cards.in_bottom_cards);
        this.game_logic.gaming();
-     
        console.log("当前出牌的位置 = ",this.game_logic.cur_send_card_pos);
     }
 
