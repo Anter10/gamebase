@@ -39,7 +39,8 @@ export default class PlayerCardBoard extends cc.Component {
         const total_width = first_row_count * 63;
         let second_show_index = 0;
    
-        for (let card of cards) {
+        for (let i = cards.length - 1; i >= 0; i --) {
+            const card = cards[i];
             if (index == 10) {
                 second_show_index = 0;
             }
@@ -47,7 +48,7 @@ export default class PlayerCardBoard extends cc.Component {
                 card.node.x = (second_show_index) * card.node.width / 2 + card.node.width / 4 - (this.node.width - 120) / 2;
                 card.node.y = -30;
             } else {
-                card.node.x = (second_show_index) * (card.node.width / 2) + (card.node.width / 4) - (this.node.width - total_width) / 2;
+                card.node.x = (second_show_index) * (card.node.width / 2)  - (this.node.width) / 2 + total_width / 2  + (card.node.width / 4);
                 card.node.y = card.node.height / 2;
             }
             second_show_index++;
@@ -114,7 +115,12 @@ export default class PlayerCardBoard extends cc.Component {
         } else {
             this.show_second_cards();
         }
+    }
 
+    reset_cards_position(){
+        for (const card_node of this.card_nodes) {
+            card_node.site_down();
+        }
     }
 
     player_send_card_callback() {

@@ -53,6 +53,8 @@ class LinkGameBase {
       card_register_show_card: "card_register_show_card",
       /**@description 隐藏玩家操作的按钮事件 */
       hide_play_logic_button: "hide_play_logic_button",
+      /**@description 游戏结束事件 */
+      game_over: "game_over",
    }
 
    /**

@@ -136,6 +136,12 @@ export default class Player extends cc.Component {
         if (this.car_number_label) {
             this.car_number_label.string = `${this.player_interface.cards.length}`;
         }
+
+        if(this.player_interface.cards.length == 0){
+            // 游戏结束
+            console.log("游戏结束");
+            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.game_over, this);
+        }
     }
 
     /**@description AI 出牌 */

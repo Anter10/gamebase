@@ -228,6 +228,7 @@ class LordGameLogic {
     /**@description 要不起 / 不出 的事件 */
     no_send_card_callback(event: any, no_send_card_interface: NoSendCardInterface) {
         this.game_play.show_no_send_card_message(no_send_card_interface.position);
+        this.game_play.player_card_board.reset_cards_position();
         const player: Player = this.game_play.player_by_position(no_send_card_interface.position);
         if (no_send_card_interface.position == 2) {
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
@@ -238,7 +239,14 @@ class LordGameLogic {
             // 轮到下一家出牌
             if (player.next_player.player_interface.position == this.current_send_card_data.lord_people_interface.position) {
                 console.log("所有的人都要不起 轮到自己出牌了");
-
+                if (this._cur_player.player_interface.position == 0) {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
+                } else {
+                    const cur_lord_player = this.game_play.current_lord_player();
+                    const lord_card_number = cur_lord_player.cards_number;
+                    const play_card: SendCardInterface = this._cur_player.ai.play(lord_card_number);
+                    this.play_card(play_card, ShowCardType.SendCard);
+                }
             } else {
                 this.delay_follow_card();
             }
@@ -285,7 +293,14 @@ class LordGameLogic {
                     this._cur_player = this._cur_player.next_player;
                     if (this._cur_player.player_interface.position == this.current_send_card_data.lord_people_interface.position) {
                         console.log("所有的人都要不起 轮到自己出牌了");
-                        
+                        if (this._cur_player.player_interface.position == 0) {
+                            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
+                        } else {
+                            const cur_lord_player = this.game_play.current_lord_player();
+                            const lord_card_number = cur_lord_player.cards_number;
+                            const play_card: SendCardInterface = this._cur_player.ai.play(lord_card_number);
+                            this.play_card(play_card, ShowCardType.SendCard);
+                        }
                     } else {
                         this.delay_follow_card();
                     }
