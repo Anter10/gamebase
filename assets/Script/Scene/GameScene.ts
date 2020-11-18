@@ -64,13 +64,13 @@ class GameScene extends BaseScene {
             console.log("检查更新的数据", JSON.stringify(res));
             if (res) {
                 if (res.update) {
-                    const ui_param_interface: UIParamInterface = {
-                        ui_config_path: UIConfig.ApiVersionView,
-                        ui_config_name: "ApiVersionView",
-                        param: res
-                    }
+                    // const ui_param_interface: UIParamInterface = {
+                    //     ui_config_path: UIConfig.ApiVersionView,
+                    //     ui_config_name: "ApiVersionView",
+                    //     param: res
+                    // }
 
-                    UIManager.show_ui(ui_param_interface);
+                    // UIManager.show_ui(ui_param_interface);
                 }
             }
         }, (res) => {
