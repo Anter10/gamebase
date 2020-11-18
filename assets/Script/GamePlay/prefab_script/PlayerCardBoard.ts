@@ -7,7 +7,7 @@ import LinkGameBase from "../LinkGameBase";
 import { card_list } from "../LordUtils";
 import LordCard from "./LordCard";
 
-const {ccclass, property} = cc._decorator;
+const { ccclass, property } = cc._decorator;
 
 @ccclass
 export default class PlayerCardBoard extends cc.Component {
@@ -21,32 +21,61 @@ export default class PlayerCardBoard extends cc.Component {
 
     // LIFE-CYCLE CALLBACKS:
     public cards: Array<LordCardInterface> = null;
-    onLoad () {
+    onLoad() {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.flush_player_show_cards, this, this.flush_cards.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.delete_card, this, this.delete_cards.bind(this));
-        
-        
-        this.node.on("touchstart",this.touch_start.bind(this), this);
-        this.node.on("touchmove",this.touch_move.bind(this));
-        this.node.on("touchend",this.touch_end.bind(this), this);
-        this.node.on("touchcancel",this.touch_cancel.bind(this), this);
+        this.node.on("touchstart", this.touch_start.bind(this), this);
+        this.node.on("touchmove", this.touch_move.bind(this));
+        this.node.on("touchend", this.touch_end.bind(this), this);
+        this.node.on("touchcancel", this.touch_cancel.bind(this), this);
     }
 
-    delete_cards(cards: Array<LordCardInterface>){
-        let node_index = 0;
-        for(const card of cards){
-            for(const card_node of this.card_nodes){
-                if(card_node.card.card_type == card.card_type && card_node.card.id == card.id){
-                   this.game_play.remove_card(card_node.node);
-                   this.card_nodes.splice(node_index, 1);
-                }
+    /**@description 对卡牌进行重新排序 */
+    resort_cards() {
+        const cards = this.card_nodes;
+        let index = 0;
+        const second_row_count = this.cards.length > 10 ? 10 : this.cards.length;
+        const first_row_count = this.cards.length - second_row_count;
+        const total_width = first_row_count * 63;
+        let second_show_index = 0;
+   
+        for (let card of cards) {
+            if (index == 10) {
+                second_show_index = 0;
             }
-            node_index ++;
+            if (index < 10) {
+                card.node.x = (second_show_index) * card.node.width / 2 + card.node.width / 4 - (this.node.width - 120) / 2;
+                card.node.y = -30;
+            } else {
+                card.node.x = (second_show_index) * (card.node.width / 2) + (card.node.width / 4) - (this.node.width - total_width) / 2;
+                card.node.y = card.node.height / 2;
+            }
+            second_show_index++;
+            index++;
         }
     }
 
-    init_cards(cards: Array<LordCardInterface>){
-        console.log("玩家当前的牌信息 = ",cards);
+    delete_cards(event: any, cards: Array<LordCardInterface>) {
+        console.log("当前玩家自己需要删除的牌的信息 = ", cards)
+        for (const card of cards) {
+            let node_index = 0;
+            for (const card_node of this.card_nodes) {
+                console.log("删除1")
+                if (card_node.card.card_type == card.card_type && card_node.card.id == card.id) {
+                    this.game_play.remove_card(card_node.node);
+                    console.log("删除2")
+                    this.card_nodes.splice(node_index, 1);
+                }
+                node_index++;
+            }
+        }
+        this.resort_cards();
+        console.log("删除后还剩多少张牌 = ", this.card_nodes.length);
+    }
+
+
+    init_cards(cards: Array<LordCardInterface>) {
+        console.log("玩家当前的牌信息 = ", cards);
         this.cards = cards;
         const game_play = (<GamePlay>gamebase.game_play)
         let show_card_index = 0;
@@ -56,11 +85,11 @@ export default class PlayerCardBoard extends cc.Component {
         let show_index = 0;
         const every_day_card_time = 0.02;
 
-        if(first_row_count > 0){
+        if (first_row_count > 0) {
             const total_width = first_row_count * 63;
             const show_cards = () => {
                 const card = game_play.create_card();
-                card.x = (show_index) * (card.width / 2) +  (card.width / 4) - total_width / 2;
+                card.x = (show_index) * (card.width / 2) + (card.width / 4) - total_width / 2;
                 card.zIndex = 10 + show_card_index;
                 const lord_card: LordCard = card.getComponent(LordCard);
                 lord_card.lord_card_statue = LordCardStatue.in_hand;
@@ -70,42 +99,42 @@ export default class PlayerCardBoard extends cc.Component {
                 const data = this.cards[show_card_index];
                 lord_card.flush_data(data);
                 this.card_nodes.push(lord_card);
-                show_index ++;
-                if(show_index >= first_row_count){
+                show_index++;
+                if (show_index >= first_row_count) {
                     this.unschedule(show_cards);
                     this.show_second_cards();
                     lord_card.special = true;
-                }else{
+                } else {
                     lord_card.special = false;
                 }
-                show_card_index ++;
+                show_card_index++;
             }
 
             this.schedule(show_cards, every_day_card_time, first_row_count - 1, every_day_card_time);
-        }else{
+        } else {
             this.show_second_cards();
         }
 
     }
 
-    player_send_card_callback(){
+    player_send_card_callback() {
         const cur_cards = this.get_player_cur_selected_cards();
-        console.log("当前玩家选中的牌的数据 = ",cur_cards);
+        console.log("当前玩家选中的牌的数据 = ", cur_cards);
     }
 
-    get_card_for_touch(touch_point, card_nodes: Array<LordCard>){
-        for(const card of card_nodes){
+    get_card_for_touch(touch_point, card_nodes: Array<LordCard>) {
+        for (const card of card_nodes) {
             var box = card.node.getBoundingBox();
             let add_other_height = 0;
-            if(card.row == 1){
+            if (card.row == 1) {
                 add_other_height = box.height / 4;
             }
             let width = box.width / 2;
-            if(card.special){
+            if (card.special) {
                 width = box.width;
             }
             const box_ = new cc.Rect(box.x, box.y + add_other_height, width, box.height);
-            if(box_.contains(touch_point)){
+            if (box_.contains(touch_point)) {
                 card.isChoose = true;
                 card.node.opacity = 255;
                 return card;
@@ -139,11 +168,11 @@ export default class PlayerCardBoard extends cc.Component {
     touch_start(event) {
         var touches = event.getTouches();
         var touchLoc = touches[0].getLocation();
-        this._touch_start = this.node. convertToNodeSpaceAR(touchLoc);
+        this._touch_start = this.node.convertToNodeSpaceAR(touchLoc);
         this.get_card_for_touch(this._touch_start, this.card_nodes);
     }
 
-    touch_move(event){
+    touch_move(event) {
         var touches = event.getTouches();
         var touchLoc = touches[0].getLocation();
         this._touch_moved = this.node.convertToNodeSpaceAR(touchLoc);
@@ -156,11 +185,11 @@ export default class PlayerCardBoard extends cc.Component {
         this.touch_end_or_cancel(event);
     }
 
-    touch_cancel(event){
-       this.touch_end_or_cancel(event);
+    touch_cancel(event) {
+        this.touch_end_or_cancel(event);
     }
 
-    touch_end_or_cancel(event){
+    touch_end_or_cancel(event) {
         var touches = event.getTouches();
         var touchLoc = touches[0].getLocation();
         for (const card of this.card_nodes) {
@@ -176,20 +205,20 @@ export default class PlayerCardBoard extends cc.Component {
         }
     }
 
-    
-    select_cards(cards: card_list){
-        for(const card_script of this.card_nodes){
+
+    select_cards(cards: card_list) {
+        for (const card_script of this.card_nodes) {
             let had_find_it = false;
-            for(const card of cards){
-                if(card_script.card.card_type == card.card_type && card_script.card.id == card.id){
+            for (const card of cards) {
+                if (card_script.card.card_type == card.card_type && card_script.card.id == card.id) {
                     had_find_it = true;
                     break;
                 }
             }
 
-            if(had_find_it){
+            if (had_find_it) {
                 card_script.stand_up();
-            }else{
+            } else {
                 card_script.site_down();
             }
         }
@@ -197,10 +226,10 @@ export default class PlayerCardBoard extends cc.Component {
 
 
     /**@description 得到玩家当前自己选中的牌 */
-    get_player_cur_selected_cards(): Array<LordCardInterface>{
+    get_player_cur_selected_cards(): Array<LordCardInterface> {
         const cards: Array<LordCardInterface> = [];
-        for(const card of this.card_nodes){
-            if(card.status == CardStatue.STANDUP){
+        for (const card of this.card_nodes) {
+            if (card.status == CardStatue.STANDUP) {
                 cards.push(card.card);
             }
         }
@@ -208,12 +237,12 @@ export default class PlayerCardBoard extends cc.Component {
         return cards;
     }
 
-    flush_cards(event: any, cards: Array<LordCardInterface>){
+    flush_cards(event: any, cards: Array<LordCardInterface>) {
         this.card_nodes
     }
 
 
-    show_second_cards(){
+    show_second_cards() {
         const game_play = (<GamePlay>gamebase.game_play)
         const second_row_count = this.cards.length > 10 ? 10 : this.cards.length;
         const first_row_count = this.cards.length - second_row_count;
@@ -221,33 +250,32 @@ export default class PlayerCardBoard extends cc.Component {
         const every_day_card_time = 0.02;
         let second_show_index = 0;
         const show_second_cards = () => {
-              const data = this.cards[show_card_index];
-
-                const card = game_play.create_card();
-                card.parent = this.node;
-                card.x = (second_show_index) * card.width / 2  +  card.width / 4 - (this.node.width - 120) / 2;
-                card.y = -30;
-                card.zIndex = 100 + second_show_index;
-                const lord_card: LordCard = card.getComponent(LordCard);
-                lord_card.flush_data(data);
-                this.card_nodes.push(lord_card);
-                lord_card.lord_card_statue = LordCardStatue.in_hand;
-                show_card_index ++;
-                second_show_index ++;
-                lord_card.row = 2;
-                if(show_card_index == this.cards.length){
-                    this.unschedule(show_second_cards);
-                    lord_card.special = true;
-                }else{
-                    lord_card.special = false;
-                }
+            const data = this.cards[show_card_index];
+            const card = game_play.create_card();
+            card.parent = this.node;
+            card.x = (second_show_index) * card.width / 2 + card.width / 4 - (this.node.width - 120) / 2;
+            card.y = -30;
+            card.zIndex = 100 + second_show_index;
+            const lord_card: LordCard = card.getComponent(LordCard);
+            lord_card.flush_data(data);
+            this.card_nodes.push(lord_card);
+            lord_card.lord_card_statue = LordCardStatue.in_hand;
+            show_card_index++;
+            second_show_index++;
+            lord_card.row = 2;
+            if (show_card_index == this.cards.length) {
+                this.unschedule(show_second_cards);
+                lord_card.special = true;
+            } else {
+                lord_card.special = false;
+            }
         };
 
         this.schedule(show_second_cards, every_day_card_time, second_row_count, every_day_card_time * first_row_count);
-       
+
     }
 
-    start () {
+    start() {
 
     }
 

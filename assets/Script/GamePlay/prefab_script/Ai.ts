@@ -328,7 +328,7 @@ export class Ai {
     * @param  {boolean} isWinneris_lord 当前最大是否是地主
     * @return {number} winnerCardCount 当前最大那家剩余手牌数
     */
-    follow(winc: SendCardInterface, isWinneris_lord, winnerCardCount) {
+    follow(winc: SendCardInterface, isWinneris_lord, winnerCardCount): SendCardInterface {
         const cards = this._ai_player.player_interface.cards;
         var result = () => {
             switch (winc.card_kind) {//判断牌型
@@ -377,7 +377,7 @@ export class Ai {
                                         var pairsFromPP = this._progress_pair[i].cards.splice(j - 1, 2);
                                         return {
                                             cards: pairsFromPP,
-                                            cardKind: LordSendCardType.double,
+                                            card_kind: LordSendCardType.double,
                                             size: 2,
                                             val: pairsFromPP[0].id
                                         };
@@ -534,7 +534,7 @@ export class Ai {
                                 return null;
                             }
                         }
-                        plane.cardKind = LordSendCardType.plane_with_one;
+                        plane.card_kind = LordSendCardType.plane_with_one;
                         plane.size = plane.cards.length;
                     }
                     return plane;
@@ -555,7 +555,7 @@ export class Ai {
                                 return null;
                             }
                         }
-                        plane.cardKind = LordSendCardType.plane_with_two;
+                        plane.card_kind = LordSendCardType.plane_with_two;
                         plane.size = plane.cards.length;
                     }
                     return plane;
@@ -696,7 +696,7 @@ export class Ai {
                 one = cards.slice(0, 1);
             return {
                 size: 1,
-                cardKind: LordSendCardType.one,
+                card_kind: LordSendCardType.one,
                 cards: one,
                 val: one[0].val
             };
@@ -1302,7 +1302,7 @@ export class Ai {
     */
     judge_three(cards: card_list) {
         let stat = this.card_rule.val_count(cards);
-        console.log(this._ai_player.player_interface.position, "三对的数据 = ", stat);
+        // console.log(this._ai_player.player_interface.position, "三对的数据 = ", stat);
         for (let i = 0; i < stat.length; i++) {
             if (stat[i].count === 3) {
                 var list = [];

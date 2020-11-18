@@ -53,6 +53,7 @@ class GamePlay extends cc.Component {
         gamebase.lord_util = LordUtils;
         gamebase.card_rule = new CardRule();
         this.player_card_board = this.PlayerCardBoardNode.getComponent(PlayerCardBoard);
+        this.player_card_board.game_play = this;
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.start_waiting, this, this.start_waiting.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.waiting, this, this.waiting.bind(this));
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.mating, this, this.mating.bind(this));
@@ -209,7 +210,6 @@ class GamePlay extends cc.Component {
        console.log("可以开始游戏了");
        this._players[this.call_lord_interface.pos].add_cards(this.deal_cards.in_bottom_cards);
        this.game_logic.gaming();
-       console.log("当前出牌的位置 = ",this.game_logic.cur_send_card_pos);
     }
 
     end(){

@@ -51,6 +51,8 @@ class LinkGameBase {
       delete_card: "delete_card",
       /**@description 记牌器显示他人的牌 */
       card_register_show_card: "card_register_show_card",
+      /**@description 隐藏玩家操作的按钮事件 */
+      hide_play_logic_button: "hide_play_logic_button",
    }
 
    /**

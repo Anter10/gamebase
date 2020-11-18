@@ -133,6 +133,8 @@ export enum CardStatue{
 
 /**@description 展示卡牌的类型 */
 export enum ShowCardType{
+    /**@description 跟牌 */
     FollowCard = "FollowCard",
+    /**@description 主动出牌 */
     SendCard = "SendCard",
 }

@@ -819,10 +819,10 @@ export class CardRule {
             case CardsValue.king_boom.name:
                 result = this.compare_boom_king(cardA, cardB)
                 break
-            case CardsValue.plane_with_one.name:
-                result = this.compare_plan_with_one(cardA, cardB)
+            case CardsValue.three_with_one.name:
+                result = this.compare_three_with_one(cardA, cardB)
                 break
-            case CardsValue.plane_with_two.name:
+            case CardsValue.three_withe_two.name:
                 result = this.compare_three_with_two(cardA, cardB)
                 break
             case CardsValue.plane.name:
@@ -877,8 +877,8 @@ export class CardRule {
         for (var i = 0; i < cards.length; i++) {
             addCount(result, cards[i].id);
         }
-        console.log("cards = ", cards);
-        console.log("result = ", result);
+        // console.log("cards = ", cards);
+        // console.log("result = ", result);
 
         return result;
     }
@@ -905,6 +905,9 @@ export class CardRule {
         console.log("current_cards" + JSON.stringify(current_cards))
         const card_last_value = this.card_value(last_cards)
         const card_current_value = this.card_value(current_cards)
+
+        console.log("card_last_value" , card_last_value)
+        console.log("current_cards" , card_current_value)
         if (card_last_value.value < card_current_value.value) {
             console.log("compareWithCard less")
             return true
@@ -913,6 +916,7 @@ export class CardRule {
             if (card_last_value.name != card_current_value.name) {
                 return false
             }
+            console.log("当前 card_last_value = ",card_last_value);
             var result = this.compare(last_cards, current_cards, card_last_value)
             return result
         } else {

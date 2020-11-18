@@ -33,24 +33,27 @@ export default class GameLogicButton extends cc.Component {
    
     onLoad () {
         this.no_more_btn.addComponent(TouchButton).register_touch(()=> {
-            this.close_call();
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.no_send_card, {position: 0});
         });
 
         this.no_out_btn.addComponent(TouchButton).register_touch(()=> {
-            this.close_call();
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.no_send_card, {position: 0});
         });
 
         this.out_btn.addComponent(TouchButton).register_touch(()=> {
-            this.close_call();
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.player_send_card);
         });
 
         this.tip_button.addComponent(TouchButton).register_touch(()=> {
             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.prompt_card);
         });
+
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.hide_play_logic_button, this, ()=>{
+            this.close_call();
+        });
     }
+
+
 
     close_call(){
         this.node.active = false;

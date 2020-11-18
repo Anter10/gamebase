@@ -1,8 +1,11 @@
 import { gamebase } from "../../Boot";
+import { UIParamInterface } from "../../Common/CommonInterface";
 import Loader from "../../Common/Loader";
 import EventManager from "../../EventManager/EventManager";
+import UIConfig from "../../UI/UIManager/UIConfig";
+import UIManager from "../../UI/UIManager/UIManager";
 import GamePlay from "../GamePlay";
-import { LordCardType, PeopleIdentityType, PeopleType } from "../GamePlayEnum";
+import { LordCardType, PeopleIdentityType, PeopleType, ShowCardType } from "../GamePlayEnum";
 import { LordCardInterface, LordPeopleInterface, LordSendCardInterface, SendCardInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
 import { CardsValue, CardValueType, card_list, LordUtils } from "../LordUtils";
@@ -104,29 +107,12 @@ export default class Player extends cc.Component {
 
     set_identified(identified: PeopleIdentityType) {
         this.player_interface.people_identity_type = identified;
-        this.show_call_or_no_call_lord_message();
-    }
-
-    /**@description 玩家出牌 */
-    deal_select_cards(cards: Array<LordCardInterface>) {
-        const card_value: CardValueType = this.ai.card_rule.card_value(cards);
-        console.log("当前选中的牌型是 ", card_value);
-        if (card_value.name == CardsValue.none.name) {
-            console.log("当前选择的牌没有找到对应的牌型");
-        } else {
-            const play_card: SendCardInterface = this.ai.card_rule.type_judge(cards);
-            this.send_card = play_card;
-            const send_data: LordSendCardInterface = {
-                send_card: play_card,
-                lord_people_interface: this.player_interface
-            }
-            console.log("当前选择的牌型", play_card);
-            this.show_cards(play_card.cards);
-            this.delete_cards(cards);
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.delete_card, cards);
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.send_card, send_data);
-            EventManager.get_instance().emit(LinkGameBase.game_play_event_config.flush_player_show_cards, this.player_interface.cards);
+        let show_msg_image_path = "main_bujiao";
+        if (this.player_interface.people_identity_type == PeopleIdentityType.lord) {
+            show_msg_image_path = "main_jiaodizhu";
         }
+
+        this.show_call_or_no_call_lord_message(show_msg_image_path);
     }
 
     delete_cards(cards: Array<LordCardInterface>) {
@@ -147,6 +133,9 @@ export default class Player extends cc.Component {
         console.log("删除后剩余的牌的数据  = ", player_cards);
         this.player_interface.cards = player_cards;
         this.deal_cards(player_cards);
+        if (this.car_number_label) {
+            this.car_number_label.string = `${this.player_interface.cards.length}`;
+        }
     }
 
     /**@description AI 出牌 */
@@ -154,33 +143,6 @@ export default class Player extends cc.Component {
         this.show_cards(cards);
     }
 
-    follow_card(send_card_data: LordSendCardInterface) {
-        console.log("请下一家跟牌");
-        const follow_card = this.ai.follow(send_card_data.send_card, 0, 10);
-        console.log("当前跟牌的数据 = ", follow_card);
-        if (this.player_interface.position != 0) {
-            if (follow_card) {
-                if (follow_card.card_kind != CardsValue.none) {
-                    const play_card = this.play_card(10);
-                }
-            }else{ 
-                // 说明机器人过牌 或者 打不起
-                if(this.next_player.player_interface.position != 0){
-                   // 继续跟牌
-                   console.log("机器人跟牌")
-                   this.next_player.follow_card(send_card_data);
-                }else{
-                   // 提示玩家自己出牌
-                   console.log("玩家出牌")
-                   EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
-                }
-            }
-        }else{
-            console.log("自己不走跟牌逻辑");
-            // 玩家的下一个机器人提示下一家走
-            this.next_player.follow_card(send_card_data);
-        }
-    }
 
     show_cards(cards: Array<LordCardInterface>) {
         const container = this.player_interface.position == 0 ? gamebase.game_play.player_play_card_container : this.card_container;
@@ -198,6 +160,7 @@ export default class Player extends cc.Component {
 
             card2.width = card_width;
             card2.height = card_height;
+            console.log("刷新牌的数据  = ",card_data);
             card2.getComponent(LordCard).flush_data(card_data);
             card2.parent = container;
             if (this.player_interface.position == 0) {
@@ -211,13 +174,8 @@ export default class Player extends cc.Component {
         }
     }
 
-    show_call_or_no_call_lord_message() {
+    show_call_or_no_call_lord_message(show_msg_image_path: string) {
         this.call_or_no_call_lord_mesage_sprite.node.active = false;
-        let show_msg_image_path = "main_bujiao";
-        if (this.player_interface.people_identity_type == PeopleIdentityType.lord) {
-            show_msg_image_path = "main_jiaodizhu";
-        }
-
         Loader.load_texture(`./GamePlay/prefab/main/texture/ui/${show_msg_image_path}`, (texture: cc.Texture2D) => {
             this.call_or_no_call_lord_mesage_sprite.spriteFrame = new cc.SpriteFrame(texture);
             this.call_or_no_call_lord_mesage_sprite.node.active = true;
