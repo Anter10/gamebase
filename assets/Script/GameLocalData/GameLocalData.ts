@@ -119,6 +119,10 @@ class GameLocalData {
         }
     }
 
+    get game_data(){
+        return this._game_data;
+    }
+
 }
 
 

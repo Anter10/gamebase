@@ -16,6 +16,8 @@ const { ccclass, property } = cc._decorator;
 
 @ccclass
 class GameScene extends BaseScene {
+    @property(cc.Prefab)
+    toast_prefab: cc.Prefab;
 
     onLoad() {
         super.onLoad();

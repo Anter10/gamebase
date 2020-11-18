@@ -1,5 +1,5 @@
 import { Boot, gamebase } from "../Boot";
-import { PreLoadAdInterface, UIParamInterface } from "../Common/CommonInterface";
+import { LoginByAccessKeyInterface, PreLoadAdInterface, UIParamInterface } from "../Common/CommonInterface";
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
@@ -693,6 +693,42 @@ export class NativeSDKTool {
             }
         }
     }
+
+    /**@description 通过本地的accessKey 自动登陆游戏 */
+    public static login_by_access_key(login_accesskey_interface: LoginByAccessKeyInterface){
+        console.log("当前自动登陆的accesskey ", login_accesskey_interface.access_key)
+        sdk_module_interface.login_accesskey_interface = login_accesskey_interface;
+        if (this.isAndroid) {
+            //调用Java代码进行微信登录
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "login_by_access_key", "(Ljava/lang/String;)V", login_accesskey_interface.access_key);
+        }
+    }
+
+    public static accesskey_login_success(wechat_login_success: any){
+        console.log("自动登陆成功后的参数0 = ", wechat_login_success);
+        let login_success_interface: WechatLoginSuccessInterface = wechat_login_success;
+        if (typeof (wechat_login_success) == "string") {
+            login_success_interface = JSON.parse(wechat_login_success);
+        }
+        console.log("自动登陆成功后的参数1 = ", login_success_interface);
+        console.log("自动登陆成功后的参数2 = ", JSON.stringify(login_success_interface));
+        GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
+        GameConfig.android_init_success_param.user_id = login_success_interface.user_id;
+        GameConfig.android_init_success_param.channel = login_success_interface.channel;
+        GameConfig.android_init_success_param.deviceId = login_success_interface.deviceId;
+        GameConfig.android_init_success_param.oaid = login_success_interface.oaid;
+        GameConfig.android_init_success_param.brand = login_success_interface.brand;
+        GameConfig.android_init_success_param.env = login_success_interface.env;
+        GameConfig.android_init_success_param.gps = login_success_interface.gps;
+        GameConfig.android_init_success_param.mac = login_success_interface.mac;
+        GameConfig.android_init_success_param.appVersion = login_success_interface.appVersion;
+        OSRuntime.wechat_login_success_interface = login_success_interface;
+        if (sdk_module_interface.login_accesskey_interface) {
+            sdk_module_interface.login_accesskey_interface.success(login_success_interface);
+        }
+    }
+
+    
 }
 
 cc["NativeSDKTool"] = NativeSDKTool;
