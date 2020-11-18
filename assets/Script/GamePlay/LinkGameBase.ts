@@ -1,3 +1,4 @@
+import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
 import GuideData from "../GameLocalData/GuideData";
 import SettingData from "../GameLocalData/SettingData";
 import UIConfig from "../UI/UIManager/UIConfig";
@@ -6,6 +7,7 @@ class LinkGameBase {
    /**@description gameplay的本地存档疏忽 */
    static game_play_record: Array<any> = [
       SettingData,
+      GamePlayBaseData,
    ];
 
    /**@description game_play 相关的事件 */

@@ -1,5 +1,8 @@
 import { gamebase } from "../Boot";
+import Time from "../Common/Time";
 import EventManager from "../EventManager/EventManager";
+import GameLocalData from "../GameLocalData/GameLocalData";
+import GamePlayBaseData from "../GameLocalData/GamePlayBaseData";
 import { CardRule } from "./CardRule";
 import { CellUi } from "./CellUi";
 import { LordGameState, PeopleIdentityType } from "./GamePlayEnum";
@@ -70,6 +73,7 @@ class GamePlay extends cc.Component {
         CellUi.cell_parent_node = this.node;
         EventManager.get_instance().emit(LinkGameBase.game_play_event_config.start_waiting);
         this.init_players();
+        this.refresh_player_data();
     }
 
     register_ui(){
@@ -83,6 +87,8 @@ class GamePlay extends cc.Component {
         LinkGameBase.register_ui_path("RealNameView", "GamePlay/prefab/ui/setting/RealNameView");
         LinkGameBase.register_ui_path("ChangeNickNameView", "GamePlay/prefab/ui/setting/ChangeNickNameView");
         LinkGameBase.register_ui_path("BankRuptcyView", "GamePlay/prefab/ui/BankRuptcy/BankRuptcyView");
+        LinkGameBase.register_ui_path("GetCardRecorderView", "GamePlay/prefab/ui/GetCardRecorder/GetCardRecorderView");
+        LinkGameBase.register_ui_path("PlayerMessageView", "GamePlay/prefab/ui/PlayerMessage/PlayerMessageView");
     }
     
 
@@ -122,6 +128,15 @@ class GamePlay extends cc.Component {
 
         this.SecondPeople.active = false;
         this.ThirdPeople.active = false;
+    }
+    
+    /**@destroy 每次进入游戏，需要刷新的玩家存档 */
+    refresh_player_data(){
+        const game_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        if(Time.is_new_day(new Date(game_base_data.get_card_record_refresh_time),new Date(Time.get_time()))){
+            game_base_data.get_card_record_refresh_time = Time.get_time();
+            game_base_data.get_card_record_by_ad_time = 0;
+        }
     }
 
     /**@description 获得指定位置的人的信息 */
