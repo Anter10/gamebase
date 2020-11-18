@@ -82,6 +82,7 @@ class GamePlay extends cc.Component {
         LinkGameBase.register_ui_path("ShippingAddressView", "GamePlay/prefab/ui/Fragement/ShippingAddressView");
         LinkGameBase.register_ui_path("RealNameView", "GamePlay/prefab/ui/setting/RealNameView");
         LinkGameBase.register_ui_path("ChangeNickNameView", "GamePlay/prefab/ui/setting/ChangeNickNameView");
+        LinkGameBase.register_ui_path("BankRuptcyView", "GamePlay/prefab/ui/BankRuptcy/BankRuptcyView");
     }
     
 
