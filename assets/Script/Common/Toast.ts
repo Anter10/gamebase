@@ -14,8 +14,10 @@ class Toast extends BaseUI {
     @property(cc.Sprite)
     bottom_sprite: cc.Sprite = null;
 
-    start() {
+    public show_timer: NodeJS.Timeout = null;
 
+    start () {
+    
     }
 
     show(ui_param_interface: UIParamInterface) {
@@ -26,7 +28,11 @@ class Toast extends BaseUI {
         this.node.y = cc.winSize.height / 2;
 
         const hide_time = this.toast_interface.duration ? this.toast_interface.duration * 1000 : 2000;
-        setTimeout(() => {
+        if(this.show_timer){
+            clearTimeout(this.show_timer);
+        }
+        this.show_timer = setTimeout(()=>{
+            clearTimeout(this.show_timer);
             this.on_close_call();
             this.toast_interface.finishe_call && this.toast_interface.finishe_call();
         }, hide_time);

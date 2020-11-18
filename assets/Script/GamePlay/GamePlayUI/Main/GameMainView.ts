@@ -118,11 +118,19 @@ export default class GameMainView extends BaseUI {
     @property(cc.Node)
     debug_button: cc.Node = null;
 
+    @property(cc.Node)
+    task_button: cc.Node = null;
+
+    @property(cc.Label)
+    task_label: cc.Label = null;
 
     private _debug_click_number: number = 0;
 
     private _order_menu_number = 0;
     private start_ad = false;
+
+    private click_task_people_config: PeopleConfig = null;
+    private click_task_table_number: number = 0;
 
     onLoad() {
         this.flush_view();
@@ -133,6 +141,18 @@ export default class GameMainView extends BaseUI {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_coin, this, this.fly_coin);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.fly_heart, this, this.fly_heart);
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.success_ad_video, this, this.request_checkin_data);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_gold_coin_number, this, this.refresh_task_button);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.change_red_heart_number, this, this.refresh_task_button);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.refresh_task_button);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.upgrade_cook_woman_level, this, this.refresh_task_button);
+        EventManager.get_instance().listen(LinkGameBase.game_play_event_config.delay_add_heart, this, this.delay_add_heart);
+    }
+
+    delay_add_heart(event, add_heart_number: number) {
+        const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        this.scheduleOnce(() => {
+            game_play_base_data.change_red_heart_number(add_heart_number);
+        }, 1);
     }
 
     start() {
@@ -149,6 +169,73 @@ export default class GameMainView extends BaseUI {
         this.show_offline_view();
         this.add_customer();
         this.request_checkin_data();
+        this.refresh_task_button();
+    }
+
+    click_task_button() {
+        if (this.click_task_table_number != 0) {
+            const table_config: TableConfig = GameDataConfig.get_config_by_id("TableConfig", 1);
+            const ui_table_interface: UIParamInterface = {
+                ui_config_path: UIConfig.UnlockTableDescriptionView,
+                ui_config_name: "UnlockTableDescriptionView",
+                param: { table_config: table_config, table_number: this.click_task_table_number }
+            }
+            UIManager.show_ui(ui_table_interface);
+        } else {
+            if (this.click_task_people_config) {
+                const ui_table_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.UnlockCookWomanView,
+                    ui_config_name: "UnlockCookWomanView",
+                    param: this.click_task_people_config,
+                }
+                UIManager.show_ui(ui_table_interface);
+            }
+        }
+    }
+
+    refresh_task_button() {
+        const table_number = GameLocalData.get_instance().get_data<TableData>(TableData).get_table_number_by_unlock();
+        const game_play_base = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
+        const guide_data: GuideData = GameLocalData.get_instance().get_data<GuideData>(GuideData);
+        if (guide_data.guide_finished(12)) {
+            if (table_number == 0) {
+                this.click_task_table_number = 0;
+                //判断厨娘
+                const people_configs: Array<PeopleConfig> = GameDataConfig.get_config_array("PeopleConfig");
+                const people_data: PeopleData = GameLocalData.get_instance().get_data<PeopleData>(PeopleData);
+                let people_config: PeopleConfig = null;
+                for (let i = 0; i < people_configs.length; i++) {
+                    if (people_configs[i].type == PeopleType.cook_woman) {
+                        if (people_data.get_people_data_by_people_config_id(people_configs[i].id).peopleLevel == 0) {
+                            people_config = people_configs[i];
+                            break;
+                        }
+                    }
+                }
+                if (people_config) {
+                    if (game_play_base.gold_coin_number >= people_config.upgrade_need_coin[0]) {
+                        this.task_button.active = true;
+                        this.click_task_people_config = people_config;
+                        this.task_label.string = `解锁厨娘${people_config.chinese_name}`;
+                    } else {
+                        this.task_button.active = false;
+                    }
+                } else {
+                    this.task_button.active = false;
+                }
+            } else {
+                const table_config: TableConfig = GameDataConfig.get_config_by_id("TableConfig", 1);
+                if (game_play_base.gold_coin_number >= table_config.upgrade) {
+                    this.task_button.active = true;
+                    this.click_task_table_number = table_number;
+                    this.task_label.string = `解锁${table_number + 1}号桌`;
+                } else {
+                    this.task_button.active = false;
+                }
+            }
+        } else {
+            this.task_button.active = false;
+        }
     }
 
     request_checkin_data() {
@@ -755,6 +842,10 @@ export default class GameMainView extends BaseUI {
         const batch_attract_customer_button: TouchButton = this.batch_attract_customer_button.addComponent(TouchButton);
         batch_attract_customer_button.register_touch(this.click_batch_attract_customer_button.bind(this));
 
+        //点击任务按钮
+        const task_button: TouchButton = this.task_button.addComponent(TouchButton);
+        task_button.register_touch(this.click_task_button.bind(this));
+
         // debug
         this.debug_button.addComponent(TouchButton).register_touch(() => {
             this.debug_call();
@@ -936,47 +1027,47 @@ export default class GameMainView extends BaseUI {
     }
 
     batch_attract_customer() {
-        if (!this.start_ad) {
-            this.start_ad = true;
-            let rewarded_ad_interface: RewardedAdInterface = {
-                /**@description 观看激励视频广告的ID */
-                ad_id: GameConfig.video_ad_id,
-                /**@description 观看激励视频成功的回调 */
-                success: (res: any) => {
-                    this.start_ad = false;
-                    BI.video_bi({ name: "批量招揽顾客" });
-                    this.scheduleOnce(() => {
-                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
-                    }, 0.2)
-                    let i = 0;
-                    const callback = () => {
-                        EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
-                        i++;
-                        if (i == GamePlayConfig.batch_add_customer) {
-                            this.unschedule(callback);
-                        }
-                    }
-                    this.schedule(callback, 0.5, GamePlayConfig.batch_add_customer, 0.5);
-                },
-                /**@description 观看激励视频失败的成功回调*/
-                fail: (res: any) => {
-                    this.start_ad = false;
-                    const ui_param_interface: UIParamInterface = {
-                        ui_config_path: UIConfig.Toast,
-                        ui_config_name: "Toast",
-                        param: {
-                            text: "批量招揽失败"
-                        }
-                    }
-                    UIManager.show_ui(ui_param_interface);
-                },
-            }
-            Ad.play_video_ad(rewarded_ad_interface);
-        } else {
-            this.scheduleOnce(() => {
+        // if (!this.start_ad) {
+        // this.start_ad = true;
+        let rewarded_ad_interface: RewardedAdInterface = {
+            /**@description 观看激励视频广告的ID */
+            ad_id: GameConfig.video_ad_id,
+            /**@description 观看激励视频成功的回调 */
+            success: (res: any) => {
                 this.start_ad = false;
-            }, 20)
+                BI.video_bi({ name: "批量招揽顾客" });
+                this.scheduleOnce(() => {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.success_ad_video);
+                }, 0.2)
+                let i = 0;
+                const callback = () => {
+                    EventManager.get_instance().emit(LinkGameBase.game_play_event_config.add_customer);
+                    i++;
+                    if (i == GamePlayConfig.batch_add_customer) {
+                        this.unschedule(callback);
+                    }
+                }
+                this.schedule(callback, 0.5, GamePlayConfig.batch_add_customer, 0.5);
+            },
+            /**@description 观看激励视频失败的成功回调*/
+            fail: (res: any) => {
+                this.start_ad = false;
+                const ui_param_interface: UIParamInterface = {
+                    ui_config_path: UIConfig.Toast,
+                    ui_config_name: "Toast",
+                    param: {
+                        text: "批量招揽失败"
+                    }
+                }
+                UIManager.show_ui(ui_param_interface);
+            },
         }
+        Ad.play_video_ad(rewarded_ad_interface);
+        // } else {
+        //     this.scheduleOnce(() => {
+        //         this.start_ad = false;
+        //     }, 20)
+        // }
     }
 
     set_attract_customer_progress(progress_number: number) {
@@ -1010,18 +1101,34 @@ export default class GameMainView extends BaseUI {
     }
 
     fly_heart(event, table_number: number) {
-        let coin_node = cc.instantiate(this.heart);
-        coin_node.active = true;
-        coin_node.setPosition(this.table_node_array[table_number].getPosition());
-        coin_node.parent = this.button_array;
-        // 创建一个移动动作
-        let finished = cc.callFunc(() => {
-            coin_node.active = false;
-            coin_node.destroy();
-        });
-        let action = cc.sequence(cc.moveTo(1, this.red_heart_frame_node.getPosition()), finished);
-        // 执行动作
-        coin_node.runAction(action);
+        if (table_number) {
+            let coin_node = cc.instantiate(this.heart);
+            coin_node.active = true;
+            coin_node.setPosition(this.table_node_array[table_number].getPosition());
+            coin_node.parent = this.button_array;
+            // 创建一个移动动作
+            let finished = cc.callFunc(() => {
+                coin_node.active = false;
+                coin_node.destroy();
+            });
+            let action = cc.sequence(cc.moveTo(1, this.red_heart_frame_node.getPosition()), finished);
+            // 执行动作
+            coin_node.runAction(action);
+        }
+        else {
+            let coin_node = cc.instantiate(this.heart);
+            coin_node.active = true;
+            coin_node.setPosition(this.menu_content.getPosition());
+            coin_node.parent = this.button_array;
+            // 创建一个移动动作
+            let finished = cc.callFunc(() => {
+                coin_node.active = false;
+                coin_node.destroy();
+            });
+            let action = cc.sequence(cc.moveTo(1, this.red_heart_frame_node.getPosition()), finished);
+            // 执行动作
+            coin_node.runAction(action);
+        }
     }
 
 }

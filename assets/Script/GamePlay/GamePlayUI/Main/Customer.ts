@@ -19,6 +19,7 @@ import Map from "./Map";
 import { ChatConfig } from "../../../GameDataConfig/ConfigInterface";
 import Loader from "../../../Common/Loader";
 import OrderMenuData from "../../../GameLocalData/OrderMenuData";
+import { TouchButtonEffectType } from "../../../Common/CommonEnum";
 
 const { ccclass, property } = cc._decorator;
 
@@ -83,7 +84,7 @@ export default class Customer extends BaseNode {
     start() {
         //点击顾客头上的菜
         const menu_sprite_button: TouchButton = this.menu_sprite.addComponent(TouchButton);
-        menu_sprite_button.register_touch(this.click_customer_menu.bind(this));
+        menu_sprite_button.register_touch(this.click_customer_menu.bind(this), 2, null, TouchButtonEffectType.none);
         this.set_customer();
     }
 

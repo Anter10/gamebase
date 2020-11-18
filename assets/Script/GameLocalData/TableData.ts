@@ -61,6 +61,18 @@ class TableData extends BaseRecord {
         }
         return max;
     }
+
+    get_table_number_by_unlock(): number {
+        for (let i = 0; i < this.table_data.length; i++) {
+            if (this.table_data[i].tableNumber >= 0 && this.table_data[i].tableNumber <= 7) {
+                if (this.table_data[i].tableLevel == 0) {
+                    return this.table_data[i].tableNumber;
+                }
+            }
+        }
+        return 0;
+    }
+
 }
 
 export default TableData;

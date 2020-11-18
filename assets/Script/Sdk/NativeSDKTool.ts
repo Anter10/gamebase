@@ -1,5 +1,5 @@
-import { Boot } from "../Boot";
-import { UIParamInterface } from "../Common/CommonInterface";
+import { Boot, gamebase } from "../Boot";
+import { LoginByAccessKeyInterface, PreLoadAdInterface, UIParamInterface } from "../Common/CommonInterface";
 import EventConfig from "../EventManager/EventConfig";
 import EventManager from "../EventManager/EventManager";
 import GameConfig from "../GameConfig";
@@ -93,10 +93,10 @@ export class NativeSDKTool {
     public static wx_login_success(wechat_login_success: any) {
         console.log("微信登陆成功后的参数0 = ", wechat_login_success);
         let login_success_interface: WechatLoginSuccessInterface = wechat_login_success;
-        if(typeof(wechat_login_success) == "string"){
+        if (typeof (wechat_login_success) == "string") {
             login_success_interface = JSON.parse(wechat_login_success);
         }
-        console.log("微信登陆成功后的参数1 = ",login_success_interface);
+        console.log("微信登陆成功后的参数1 = ", login_success_interface);
         console.log("微信登陆成功后的参数2 = ", JSON.stringify(login_success_interface));
         GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
         GameConfig.android_init_success_param.user_id = login_success_interface.user_id;
@@ -304,14 +304,14 @@ export class NativeSDKTool {
             jsb.reflection.callStaticMethod("RootViewController", "showImageAd:adWidth:adHeight:bottom:", "", adWidth, adHeight, bottom);
         }
     }
-    
+
     /**@description 展示静态图广告后的回调 */
     public static imageAdResult(code: string) {
         if (this.mapNativeCallBack[this.image_ad]) {
             this.mapNativeCallBack[this.image_ad](code);
             delete this.mapNativeCallBack[this.image_ad];
-            if(OSRuntime.static_image_ad_statue == 0 && code == NativeSupportStatueCode.LOAD_OK){
-               NativeSDKTool.closeImageAd();
+            if (OSRuntime.static_image_ad_statue == 0 && code == NativeSupportStatueCode.LOAD_OK) {
+                NativeSDKTool.closeImageAd();
             }
         }
     }
@@ -344,6 +344,8 @@ export class NativeSDKTool {
     }
 
 
+
+
     /**
      * 显示视频广告
      */
@@ -358,6 +360,15 @@ export class NativeSDKTool {
             }
         }
         if (NativeSDKTool.rewarded_videoing) {
+            const ui_param_interface: UIParamInterface = {
+                ui_config_path: UIConfig.Toast,
+                ui_config_name: "Toast",
+                param: {
+                    text: "正在加载视频...",
+                    duration:3,
+                }
+            }
+            UIManager.show_ui(ui_param_interface);
             return;
         }
         NativeSDKTool.rewarded_videoing = true;
@@ -381,6 +392,7 @@ export class NativeSDKTool {
         if (code == "2") {
             if (sdk_module_interface.rewarded_video_success_callback) {
                 sdk_module_interface.rewarded_video_success_callback();
+                this.preload_next_play_video_ad();
             }
         } else if (code && code == "0") {
             if (sdk_module_interface.rewarded_video_fail_callback) {
@@ -389,6 +401,25 @@ export class NativeSDKTool {
         }
 
         NativeSDKTool.rewarded_videoing = false;
+    }
+    
+    /**@description 预加载下一个要展示的广告 */
+    public static preload_next_play_video_ad() {
+        if(this.isAndroid){
+            const preload_video_ad_id: number = GameConfig.preload_video_ad_id;
+            console.log("下一个要展示的广告id  =  ",preload_video_ad_id);
+            const preload_ad_interface: PreLoadAdInterface = {
+                ad_id: preload_video_ad_id,
+                success: (id: number) => {
+                    console.log("预备加载广告成功  ", id);
+                },
+                fail: (id: number) => {
+                    console.log("预备加载广告失败  ", id);
+                }
+            }
+    
+            NativeSDKTool.preload_ad(preload_ad_interface);
+        }
     }
 
     /**显示看文章的广告 */
@@ -598,28 +629,28 @@ export class NativeSDKTool {
     }
 
     /**@description 隐藏游戏 */
-    public static  onHide(){
-        if(this.isAndroid){
+    public static onHide() {
+        if (this.isAndroid) {
             console.log("on hide");
         }
     }
 
     /**@description 进入游戏 */
-    public static onShow(){
-        if(this.isAndroid){
+    public static onShow() {
+        if (this.isAndroid) {
             console.log("on show");
         }
     }
 
     /**@description android 点击了back按钮 */
-    public static onPressBack(){
-        if(this.isAndroid){
+    public static onPressBack() {
+        if (this.isAndroid) {
             console.log("on press back");
         }
     }
 
     /**@description 显示点击返回按钮的提示信息 */
-    public static show_press_back_button_tip(){
+    public static show_press_back_button_tip() {
         const ui_param_interface: UIParamInterface = {
             ui_config_path: UIConfig.Toast,
             ui_config_name: "Toast",
@@ -630,8 +661,74 @@ export class NativeSDKTool {
         UIManager.show_ui(ui_param_interface);
     }
 
+    /**@description 预加载广告 */
+    public static preload_ad(preload_ad_interface: PreLoadAdInterface) {
+        if (this.isAndroid) {
+            if (!sdk_module_interface.pre_load_ads) {
+                sdk_module_interface.pre_load_ads = {};
+            }
+            sdk_module_interface.pre_load_ads[`${preload_ad_interface.ad_id}`] = preload_ad_interface;
+            if (this.isAndroid) {
+                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "preload_ad", "(I)V", preload_ad_interface.ad_id);
+            }
+        }
+    }
 
+    /**@description 预加载广告成功的回调 */
+    public static preload_ad_success(ad_id: number) {
+        console.log("广告预拉去成功的回调 = ", ad_id);
+        if (sdk_module_interface.pre_load_ads && sdk_module_interface.pre_load_ads[`${ad_id}`]) {
+            if (sdk_module_interface.pre_load_ads[`${ad_id}`].success) {
+                sdk_module_interface.pre_load_ads[`${ad_id}`].success(ad_id);
+            }
+        }
+    }
 
+    /**@description 预拉去广告失败的回调 */
+    public static preload_ad_fai(ad_id: number) {
+        console.log("广告预拉去失败的回调 = ", ad_id);
+        if (sdk_module_interface.pre_load_ads && sdk_module_interface.pre_load_ads[`${ad_id}`]) {
+            if (sdk_module_interface.pre_load_ads[`${ad_id}`].fail) {
+                sdk_module_interface.pre_load_ads[`${ad_id}`].fail(ad_id);
+            }
+        }
+    }
+
+    /**@description 通过本地的accessKey 自动登陆游戏 */
+    public static login_by_access_key(login_accesskey_interface: LoginByAccessKeyInterface){
+        console.log("当前自动登陆的accesskey ", login_accesskey_interface.access_key)
+        sdk_module_interface.login_accesskey_interface = login_accesskey_interface;
+        if (this.isAndroid) {
+            //调用Java代码进行微信登录
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "login_by_access_key", "(Ljava/lang/String;)V", login_accesskey_interface.access_key);
+        }
+    }
+
+    public static accesskey_login_success(wechat_login_success: any){
+        console.log("自动登陆成功后的参数0 = ", wechat_login_success);
+        let login_success_interface: WechatLoginSuccessInterface = wechat_login_success;
+        if (typeof (wechat_login_success) == "string") {
+            login_success_interface = JSON.parse(wechat_login_success);
+        }
+        console.log("自动登陆成功后的参数1 = ", login_success_interface);
+        console.log("自动登陆成功后的参数2 = ", JSON.stringify(login_success_interface));
+        GameConfig.android_init_success_param.accessKey = login_success_interface.access_key;
+        GameConfig.android_init_success_param.user_id = login_success_interface.user_id;
+        GameConfig.android_init_success_param.channel = login_success_interface.channel;
+        GameConfig.android_init_success_param.deviceId = login_success_interface.deviceId;
+        GameConfig.android_init_success_param.oaid = login_success_interface.oaid;
+        GameConfig.android_init_success_param.brand = login_success_interface.brand;
+        GameConfig.android_init_success_param.env = login_success_interface.env;
+        GameConfig.android_init_success_param.gps = login_success_interface.gps;
+        GameConfig.android_init_success_param.mac = login_success_interface.mac;
+        GameConfig.android_init_success_param.appVersion = login_success_interface.appVersion;
+        OSRuntime.wechat_login_success_interface = login_success_interface;
+        if (sdk_module_interface.login_accesskey_interface) {
+            sdk_module_interface.login_accesskey_interface.success(login_success_interface);
+        }
+    }
+
+    
 }
 
 cc["NativeSDKTool"] = NativeSDKTool;

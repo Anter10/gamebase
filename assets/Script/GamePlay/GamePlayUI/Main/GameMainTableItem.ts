@@ -1,5 +1,7 @@
 import BaseNode from "../../../Common/BaseNode";
+import { UIParamInterface } from "../../../Common/CommonInterface";
 import Loader from "../../../Common/Loader";
+import TouchButton from "../../../Common/TouchButton";
 import EventConfig from "../../../EventManager/EventConfig";
 import EventManager from "../../../EventManager/EventManager";
 import { TableConfig } from "../../../GameDataConfig/ConfigInterface";
@@ -7,6 +9,8 @@ import GameDataConfig from "../../../GameDataConfig/GameDataConfig";
 import GameLocalData from "../../../GameLocalData/GameLocalData";
 import { CustomerPayInterface } from "../../../GameLocalData/PeopleData";
 import TableData from "../../../GameLocalData/TableData";
+import UIConfig from "../../../UI/UIManager/UIConfig";
+import UIManager from "../../../UI/UIManager/UIManager";
 import LinkGameBase from "../../LinkGameBase";
 
 const { ccclass, property } = cc._decorator;
@@ -34,6 +38,18 @@ export default class GameMainTableItem extends BaseNode {
         EventManager.get_instance().listen(LinkGameBase.game_play_event_config.show_table_gift, this, this.show_gift);
     }
 
+    click_this_node() {
+        const table_data = GameLocalData.get_instance().get_data<TableData>(TableData);
+        const table_level = table_data.get_table_data(this.table_number).tableLevel;
+        const table_config: TableConfig = GameDataConfig.get_config_by_id("TableConfig", table_level);
+        const ui_table_param_interface: UIParamInterface = {
+            ui_config_path: UIConfig.MainTableDescriptionView,
+            ui_config_name: "MainTableDescriptionView",
+            param: { table_config: table_config, table_number: this.table_number }
+        }
+        UIManager.show_ui(ui_table_param_interface);
+    }
+
     onDisable() {
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.upgrade_table, this, this.refresh_table_sprite);
         EventManager.get_instance().cancel_listen(LinkGameBase.game_play_event_config.show_table_gift, this, this.show_gift);
@@ -47,6 +63,11 @@ export default class GameMainTableItem extends BaseNode {
             Loader.load_texture(`GamePlay/GamePlayUI/Main/texture/${table_config.name}`, (texture2d: cc.Texture2D) => {
                 this.table_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
             })
+            if (!this.node.getComponent(TouchButton)) {
+                //点击节点
+                const table_button: TouchButton = this.node.addComponent(TouchButton);
+                table_button.register_touch(this.click_this_node.bind(this));
+            }
         } else {
             this.table_sprite.spriteFrame = null;
         }

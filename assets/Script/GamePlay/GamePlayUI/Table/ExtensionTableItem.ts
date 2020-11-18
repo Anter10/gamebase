@@ -34,6 +34,9 @@ export default class ExtensionTableItem extends BaseNode {
     @property(cc.Node)
     description_button: cc.Node = null;
 
+    @property(cc.Node)
+    lock: cc.Node = null;
+
     //桌子的等级
     private level_number = 0;
     //第几号桌子
@@ -45,7 +48,8 @@ export default class ExtensionTableItem extends BaseNode {
     onLoad() {
         this.flush_node();
     }
-    start() {
+
+    onEnable() {
         this.table_config = GameDataConfig.get_config_by_id("TableConfig", this.level_number);
         this.table_data = GameLocalData.get_instance().get_data<TableData>(TableData);
         this.set_table_sprite();
@@ -68,15 +72,22 @@ export default class ExtensionTableItem extends BaseNode {
             this.table_sprite.spriteFrame = new cc.SpriteFrame(texture2d);
         });
 
-        if (this.table_data.get_table_data(this.mark_number).tableLevel >= this.level_number) {
-            this.get_mark.active = true;
-            this.price.active = false;
-            this.table_sprite.node.color = cc.color(255, 255, 255, 255);
+        const store_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData).get_store_level_data();
+        if (this.table_config.upgrade_need_store_level <= store_level) {
+            this.lock.active = false;
+            if (this.table_data.get_table_data(this.mark_number).tableLevel >= this.level_number) {
+                this.get_mark.active = true;
+                this.price.active = false;
+                this.table_sprite.node.color = cc.color(255, 255, 255, 255);
+            } else {
+                this.get_mark.active = false;
+                this.price.active = true;
+                this.table_sprite.node.color = cc.color(100, 100, 100, 255);
+                this.price_label.string = this.table_config.upgrade + "金币";
+            }
         } else {
-            this.get_mark.active = false;
-            this.price.active = true;
+            this.lock.active = true;
             this.table_sprite.node.color = cc.color(100, 100, 100, 255);
-            this.price_label.string = this.table_config.upgrade + "金币";
         }
     }
 
@@ -93,6 +104,10 @@ export default class ExtensionTableItem extends BaseNode {
         //购买新的桌子
         const buy_new_table_button: TouchButton = this.price.addComponent(TouchButton);
         buy_new_table_button.register_touch(this.click_buy_new_table_button.bind(this));
+
+        //点击锁子
+        const click_lock: TouchButton = this.lock.addComponent(TouchButton);
+        click_lock.register_touch(this.click_buy_new_table_button.bind(this));
     }
 
     click_show_table_button() {
@@ -105,10 +120,10 @@ export default class ExtensionTableItem extends BaseNode {
     }
 
     click_buy_new_table_button() {
-        if (this.table_data.get_table_data(this.mark_number).tableLevel == this.level_number - 1) {
-            const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
-            const store_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData).get_store_level_data();
-            if (this.table_config.upgrade_need_store_level <= store_level) {
+        const store_level = GameLocalData.get_instance().get_data<StoreUpgradeData>(StoreUpgradeData).get_store_level_data();
+        if (this.table_config.upgrade_need_store_level <= store_level) {
+            if (this.table_data.get_table_data(this.mark_number).tableLevel == this.level_number - 1) {
+                const game_play_base_data = GameLocalData.get_instance().get_data<GamePlayBaseData>(GamePlayBaseData);
                 if (this.mark_number == 0 || this.table_data.get_table_data(this.mark_number - 1).tableLevel > 0) {
                     if (game_play_base_data.change_gold_coin_number(-this.table_config.upgrade)) {
                         this.table_data.change_table_level_data(this.mark_number, this.level_number);
@@ -144,25 +159,24 @@ export default class ExtensionTableItem extends BaseNode {
                     UIManager.show_ui(ui_success_param_interface);
                 }
             } else {
-                const ui_gold_param_interface: UIParamInterface = {
+                const ui_unlock_param_interface: UIParamInterface = {
                     ui_config_path: UIConfig.Toast,
                     ui_config_name: "Toast",
                     param: {
-                        text: `${this.table_config.upgrade_need_store_level}级店铺可解锁`
+                        text: "请先解锁前面的桌子"
                     }
                 }
-                UIManager.show_ui(ui_gold_param_interface);
+                UIManager.show_ui(ui_unlock_param_interface);
             }
         } else {
-            const ui_unlock_param_interface: UIParamInterface = {
+            const ui_gold_param_interface: UIParamInterface = {
                 ui_config_path: UIConfig.Toast,
                 ui_config_name: "Toast",
                 param: {
-                    text: "请先解锁前面的桌子"
+                    text: `${this.table_config.upgrade_need_store_level}级店铺可解锁`
                 }
             }
-            UIManager.show_ui(ui_unlock_param_interface);
-            // console.log("请先解锁前面的桌子");
+            UIManager.show_ui(ui_gold_param_interface);
         }
     }
 

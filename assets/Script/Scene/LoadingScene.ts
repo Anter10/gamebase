@@ -1,6 +1,6 @@
 
 import { Boot, gamebase } from "../Boot";
-import { UIParamInterface } from "../Common/CommonInterface";
+import { LoginByAccessKeyInterface, UIParamInterface } from "../Common/CommonInterface";
 import Loader from "../Common/Loader";
 import TouchButton from "../Common/TouchButton";
 import { UpdateManagerComponent } from "../Common/UpdateManagerComponent";
@@ -188,7 +188,9 @@ class LoadingScene extends BaseScene {
     }
 
     into_game_scene() {
-        cc.director.loadScene("GameScene");
+        setTimeout(() => {
+            cc.director.loadScene("GameScene");
+        }, 1000);
     }
 
     /**@description 尝试进入游戏 */
@@ -200,7 +202,22 @@ class LoadingScene extends BaseScene {
             // GameDataConfig.server_request_server_config();
             // NativeSDKTool.wx_login_success(user_data.user_login_data);
             // this.checking_update();
-            this.wechat_login();
+            // this.wechat_login();
+            const login_by_accesskey_interface:LoginByAccessKeyInterface = {
+                  access_key: user_data.user_login_data.access_key,
+                  success: ()=>{
+                    ServerData.get_instance().init();
+                    GameDataConfig.server_request_server_config();
+                    const user_data = GameLocalData.get_instance().get_data<UserData>(UserData);
+                    user_data.user_login_data = OSRuntime.wechat_login_success_interface;
+                    this.checking_update();
+                    this.bi("wechat_login_finish");
+                  },
+                  fail:()=>{
+                      console.log("自动登陆失败");
+                  }
+            }
+            NativeSDKTool.login_by_access_key(login_by_accesskey_interface);
         } else {
             console.log("本地没有玩家登陆的数据");
             NativeSDKTool.hideLoadBg();
@@ -218,6 +235,7 @@ class LoadingScene extends BaseScene {
                     user_data.user_login_data = OSRuntime.wechat_login_success_interface;
                     this.checking_update();
                     this.bi("wechat_login_finish");
+                    Boot.preload_ad();
                 },
                 fail: (res: any) => {
                     console.log("微信登陆失败", res);

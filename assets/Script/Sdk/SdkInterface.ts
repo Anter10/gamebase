@@ -1,3 +1,5 @@
+import { LoginByAccessKeyInterface, PreLoadAdInterface } from "../Common/CommonInterface";
+
 /**@description 用户的微信信息 */
 export interface UserWeChatInterface {
     /**@description 昵称 */
@@ -111,6 +113,10 @@ export interface SdkModuleInterface {
     show_image_ad_success_callback?: Function;
     /**@description 展示静态图广告失败 */
     show_image_ad_fail_callback?: Function;
+    /**@description 预备拉去广告成功 */
+    pre_load_ads?: {[key: number]: PreLoadAdInterface};
+    /**@description 自动登陆的接口 */
+    login_accesskey_interface?: LoginByAccessKeyInterface;
 }
 
 

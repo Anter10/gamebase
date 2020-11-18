@@ -255,5 +255,23 @@ interface ApiV2CheckinInterface{
     special?:Array<ApiV2SpecialCheckinInterface>
 }
 
+/**@description 预拉取广告的接口 */
+interface PreLoadAdInterface{
+    /**@description 广告的ID */
+    ad_id: number,
+    /**@description 广告加载成功 */
+    success?: Function,
+    /**@description 广告加载失败 */
+    fail?:Function,
+}
 
-export {ApiV2CheckinInterface, ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+/**@description 通过accessKey自动登陆游戏的接口 */
+interface LoginByAccessKeyInterface{
+    access_key: string
+    success: Function,
+    fail: Function
+}
+
+export {LoginByAccessKeyInterface,PreLoadAdInterface, ApiV2CheckinInterface, ApiVersionInterface, ApiUserInterface, HttpHeaderInterface,AndroidInitSuccessInterface, AndroidInitParamInterface, NagivatorInterface, NagivatorUIInterface, NagivatorActionInterface, UIParamInterface, ModalUiInterface, BaseUIInterface, ControllerInterface, RouterInterface, ModalInterface, ToastInterface, TouchButtonInterface };
+
+

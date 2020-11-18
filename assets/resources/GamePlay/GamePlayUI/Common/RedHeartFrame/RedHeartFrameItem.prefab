@@ -59,7 +59,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        -30,
         0,
         0,
         0,
@@ -269,7 +269,6 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_useOriginalSize": false,
     "_string": "9999",
     "_N$string": "9999",
     "_fontSize": 30,
@@ -352,7 +351,7 @@
     "asset": {
       "__uuid__": "865a535b-0788-4630-b8dc-498d2d5434f1"
     },
-    "fileId": "0dFM2DbgxFJKZjiVDIxaR5",
+    "fileId": "",
     "sync": false
   }
 ]

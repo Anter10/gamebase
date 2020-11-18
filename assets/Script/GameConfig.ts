@@ -5,8 +5,6 @@ const GameConfig = {
     secretData: "fS*rD^NzBD847*KCBU7d^bgbzJddPU3u",
     /**@description 游戏的AB版本 */
     gameExamine: false,
-    /**@description 游戏的版本号 */
-    appVersion: "1.0.9",
     /**@description 游戏的平台名称 */
     os: "android",
     /**@description 产品名称 */
@@ -61,8 +59,8 @@ const GameConfig = {
         accessKey: "8a7bb4323159138e7b49d835f81a0f3f_27260",
         timeId: "20201109",
         user_id: "27260",
-        appVersion: "1.0.9",
-        env:"0",
+        appVersion: "1.1.1",
+        env: "0",
         mac: "",
     },
 
@@ -84,7 +82,7 @@ const GameConfig = {
 
         debug_awarded_video_ids: [
             1000451,
-            1000451,
+            1000537,
         ],
         // 开屏广告的ID
         debug_splash_ad_id: 1000448,
@@ -99,7 +97,7 @@ const GameConfig = {
         window_debug_static_image_ad_id: 1000449,
         // 三个APPID
         release_tt_appid: 5117863, // 头条的广告ID
-        debug_tt_appid: 5078148, // 头条的广告ID
+        debug_tt_appid: 5119641, // 头条的广告ID
         ks_appid: 502500061, // 快手的APPID
         gdt_appid: 1111096891, // 广点通的APPID
         // 百度地图定位的key
@@ -136,16 +134,42 @@ const GameConfig = {
         return OSRuntime.wechat_login_success_interface.env == "0";
     },
 
+    get video_ad_ids() {
+        if (GameConfig.env_is_debug) {
+            return GameConfig.android_init_param.debug_awarded_video_ids;
+        } else {
+            return GameConfig.android_init_param.release_awarded_video_ids;
+        }
+    },
+
     /**@description 当前播放激励视频广告的ID */
     get video_ad_id(): number {
         if (GameConfig.env_is_debug) {
+            if (OSRuntime.play_rewarded_ad_index > GameConfig.android_init_param.debug_awarded_video_ids.length - 1) {
+                OSRuntime.play_rewarded_ad_index = 0;
+            }
+            let ad_id = GameConfig.android_init_param.debug_awarded_video_ids[OSRuntime.play_rewarded_ad_index];
+            OSRuntime.play_rewarded_ad_index++;
+            return ad_id;
+        } else {
+            if (OSRuntime.play_rewarded_ad_index > GameConfig.android_init_param.release_awarded_video_ids.length - 1) {
+                OSRuntime.play_rewarded_ad_index = 0;
+            }
+            let ad_id = GameConfig.android_init_param.release_awarded_video_ids[OSRuntime.play_rewarded_ad_index];
+            OSRuntime.play_rewarded_ad_index++;
+            return ad_id;
+        }
+    },
+
+    /**@description 当前播放激励视频广告的ID */
+    get preload_video_ad_id(): number {
+        if (GameConfig.env_is_debug) {
             return GameConfig.android_init_param.debug_awarded_video_ids[0];
         } else {
-            if(OSRuntime.play_rewarded_ad_index > GameConfig.android_init_param.release_awarded_video_ids.length - 1){
-               OSRuntime.play_rewarded_ad_index = 0;
+            if (OSRuntime.play_rewarded_ad_index > GameConfig.android_init_param.release_awarded_video_ids.length - 1) {
+                OSRuntime.play_rewarded_ad_index = 0;
             }
-            let ad_id = GameConfig.android_init_param.release_awarded_video_ids[OSRuntime.play_rewarded_ad_index]; 
-            OSRuntime.play_rewarded_ad_index ++;
+            let ad_id = GameConfig.android_init_param.release_awarded_video_ids[OSRuntime.play_rewarded_ad_index];
             return ad_id;
         }
     },

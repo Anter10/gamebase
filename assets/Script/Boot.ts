@@ -1,4 +1,6 @@
+import { PreLoadAdInterface } from "./Common/CommonInterface";
 import Test from "./Common/Test";
+import GameConfig from "./GameConfig";
 import GameDataConfig from "./GameDataConfig/GameDataConfig";
 import GameLocalData from "./GameLocalData/GameLocalData";
 import CommonServerData from "./GameServerData/CommonServerData";
@@ -38,6 +40,11 @@ class Boot{
 
     static os_init(){
         
+    }
+
+    /**@description 预备家在广告 */
+    static preload_ad(){
+        NativeSDKTool.preload_next_play_video_ad();
     }
 }
 

@@ -2,7 +2,7 @@ import { HttpServer } from "../NetWork/HttpServer";
 
 class IOSServer {
     public static audit_data: { audit: { [key: string]: boolean } } = {audit: {}};
-    public static ios_version: string = "1.0.0";
+    public static ios_version: string = "1.0.1";
 
     /**@description 发送get 请求获得 */
     public static get_data(url: string, call_back?: Function, error_callback?: Function, data?: any) {
