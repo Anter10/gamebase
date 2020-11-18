@@ -39,6 +39,9 @@ export default class PlayerMessageView extends BaseUI {
     @property(cc.Label)
     hold_label: cc.Label = null;
 
+    @property(cc.Sprite)
+    player_sprite: cc.Sprite = null;
+    
     private game_play_base_data: GamePlayBaseData = null;
 
     onLoad() {
