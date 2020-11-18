@@ -365,7 +365,7 @@ export class NativeSDKTool {
                 ui_config_name: "Toast",
                 param: {
                     text: "正在加载视频...",
-                    duration:3,
+                    duration: 3,
                 }
             }
             UIManager.show_ui(ui_param_interface);
@@ -402,12 +402,12 @@ export class NativeSDKTool {
 
         NativeSDKTool.rewarded_videoing = false;
     }
-    
+
     /**@description 预加载下一个要展示的广告 */
     public static preload_next_play_video_ad() {
-        if(this.isAndroid){
+        if (this.isAndroid) {
             const preload_video_ad_id: number = GameConfig.preload_video_ad_id;
-            console.log("下一个要展示的广告id  =  ",preload_video_ad_id);
+            console.log("下一个要展示的广告id  =  ", preload_video_ad_id);
             const preload_ad_interface: PreLoadAdInterface = {
                 ad_id: preload_video_ad_id,
                 success: (id: number) => {
@@ -417,7 +417,7 @@ export class NativeSDKTool {
                     console.log("预备加载广告失败  ", id);
                 }
             }
-    
+
             NativeSDKTool.preload_ad(preload_ad_interface);
         }
     }
@@ -695,20 +695,23 @@ export class NativeSDKTool {
     }
 
     /**@description 通过本地的accessKey 自动登陆游戏 */
-    public static login_by_access_key(login_accesskey_interface: LoginByAccessKeyInterface){
+    public static login_by_access_key(login_accesskey_interface: LoginByAccessKeyInterface) {
         console.log("当前自动登陆的accesskey ", login_accesskey_interface.access_key)
         sdk_module_interface.login_accesskey_interface = login_accesskey_interface;
         if (this.isAndroid) {
             //调用Java代码进行微信登录
             jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "login_by_access_key", "(Ljava/lang/String;)V", login_accesskey_interface.access_key);
         }
+        if (this.isIOS) {
+            jsb.reflection.callStaticMethod("RootViewController", "login_by_access_key:access_key:", "", login_accesskey_interface.access_key);
+        }
     }
 
-    public static accesskey_login_success(wechat_login_success: any){
-        console.log("自动登陆成功后的参数0 = ", wechat_login_success);
-        let login_success_interface: WechatLoginSuccessInterface = wechat_login_success;
-        if (typeof (wechat_login_success) == "string") {
-            login_success_interface = JSON.parse(wechat_login_success);
+    public static accesskey_login_success(access_key_login_success: any) {
+        console.log("自动登陆成功后的参数0 = ", access_key_login_success);
+        let login_success_interface: WechatLoginSuccessInterface = access_key_login_success;
+        if (typeof (access_key_login_success) == "string") {
+            login_success_interface = JSON.parse(access_key_login_success);
         }
         console.log("自动登陆成功后的参数1 = ", login_success_interface);
         console.log("自动登陆成功后的参数2 = ", JSON.stringify(login_success_interface));
@@ -728,7 +731,7 @@ export class NativeSDKTool {
         }
     }
 
-    
+
 }
 
 cc["NativeSDKTool"] = NativeSDKTool;

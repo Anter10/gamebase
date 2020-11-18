@@ -1,3 +1,5 @@
+import EventConfig from "../EventManager/EventConfig";
+import EventManager from "../EventManager/EventManager";
 import { HttpServer } from "../NetWork/HttpServer";
 
 class IOSServer {
@@ -17,6 +19,7 @@ class IOSServer {
             if (data) {
                 this.audit_data.audit = data.audit
             }
+            EventManager.get_instance().emit(EventConfig.audit_config_success)
             console.log("当前的审核模式 = ",this.auditing)
         });
     }

@@ -97,7 +97,9 @@ class LoadingScene extends BaseScene {
             this.splash_call_finished();
         })
 
+
         EventManager.get_instance().listen(EventConfig.audit_config_success, this, () => {
+            console.log("获得配置成功");
             if (IOSServer.auditing) {
                 this.start_game_button_label.string = "开始游戏";
             } else {
