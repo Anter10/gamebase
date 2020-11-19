@@ -4,7 +4,7 @@ import GamePlay from "../GamePlay";
 import { CardStatue, LordCardStatue } from "../GamePlayEnum";
 import { LordCardInterface } from "../GamePlayInterface";
 import LinkGameBase from "../LinkGameBase";
-import { card_list } from "../LordUtils";
+import { card_list, LordUtils } from "../LordUtils";
 import LordCard from "./LordCard";
 
 const { ccclass, property } = cc._decorator;
@@ -32,27 +32,87 @@ export default class PlayerCardBoard extends cc.Component {
 
     /**@description 对卡牌进行重新排序 */
     resort_cards() {
-        const cards = this.card_nodes;
-        let index = 0;
-        const second_row_count = this.cards.length > 10 ? 10 : this.cards.length;
-        const first_row_count = this.cards.length - second_row_count;
-        const total_width = first_row_count * 63;
-        let second_show_index = 0;
-   
-        for (let i = cards.length - 1; i >= 0; i --) {
-            const card = cards[i];
-            if (index == 10) {
-                second_show_index = 0;
-            }
-            if (index < 10) {
-                card.node.x = (second_show_index) * card.node.width / 2 + card.node.width / 4 - (this.node.width - 120) / 2;
-                card.node.y = -30;
+        // 对卡牌进行排序
+        let  sort_cards = (card1: LordCard, card2: LordCard) =>{
+            // 对牌进行排序ID从大到小
+            if (card1 && card2) {
+                if (card2.card.id > card1.card.id) {
+                    return 1;
+                } else if (card2.card.id < card1.card.id) {
+                    return -1;
+                } else {
+                    return 0;
+                }
             } else {
-                card.node.x = (second_show_index) * (card.node.width / 2)  - (this.node.width) / 2 + total_width / 2  + (card.node.width / 4);
-                card.node.y = card.node.height / 2;
+                return -1;
             }
+        }
+
+        this.card_nodes.sort(sort_cards);
+
+        const cards = this.card_nodes;
+        const game_play = (<GamePlay>gamebase.game_play)
+        let show_card_index = 0;
+        let upper_base_index = 0;
+        const second_row_count = cards.length > 10 ? 10 : cards.length;
+        const first_row_count = cards.length - second_row_count;
+        let show_index = 0;
+        const every_day_card_time = 0.02;
+        if (first_row_count > 0) {
+            const total_width = first_row_count * 63;
+            const show_cards = () => {
+                const card = cards[show_index].node;
+                card.x = (show_index) * (card.width / 2) + (card.width / 4) - total_width / 2;
+                card.zIndex = 10 + show_card_index;
+                const lord_card: LordCard = card.getComponent(LordCard);
+                lord_card.lord_card_statue = LordCardStatue.in_hand;
+                card.y = card.height / 2;
+                lord_card.row = 1;
+                show_index++;
+                if (show_index >= first_row_count) {
+                    this.unschedule(show_cards);
+                    this.resort_second_cards();
+                    lord_card.special = true;
+                } else {
+                    lord_card.special = false;
+                }
+                show_card_index++;
+            }
+            for(let i = 0; i < first_row_count; i ++){
+                show_cards();
+            }
+        } else {
+            this.resort_second_cards();
+        }
+    }
+
+    resort_second_cards(){
+        const cards = this.card_nodes;
+        const game_play = (<GamePlay>gamebase.game_play)
+        const second_row_count = cards.length > 10 ? 10 : cards.length;
+        const first_row_count = cards.length - second_row_count;
+        let show_card_index = first_row_count;
+        const every_day_card_time = 0.02;
+        let second_show_index = 0;
+        const show_second_cards = () => {
+            const card = cards[show_card_index].node;
+            card.x = (second_show_index) * card.width / 2 + card.width / 4 - (this.node.width - 120) / 2;
+            card.y = -30;
+            card.zIndex = 100 + second_show_index;
+            const lord_card: LordCard = card.getComponent(LordCard);
+            lord_card.lord_card_statue = LordCardStatue.in_hand;
+            show_card_index++;
             second_show_index++;
-            index++;
+            lord_card.row = 2;
+            if (show_card_index == cards.length) {
+                this.unschedule(show_second_cards);
+                lord_card.special = true;
+            } else {
+                lord_card.special = false;
+            }
+        };
+        for(let i = 0; i < second_row_count; i ++){
+            show_second_cards();
         }
     }
 
@@ -117,7 +177,7 @@ export default class PlayerCardBoard extends cc.Component {
         }
     }
 
-    reset_cards_position(){
+    reset_cards_position() {
         for (const card_node of this.card_nodes) {
             card_node.site_down();
         }

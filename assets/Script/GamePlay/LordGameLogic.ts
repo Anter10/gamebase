@@ -237,8 +237,9 @@ class LordGameLogic {
             const player = this.game_play.player_by_position(no_send_card_interface.position);
             this._cur_player = player.next_player;
             // 轮到下一家出牌
-            if (player.next_player.player_interface.position == this.current_send_card_data.lord_people_interface.position) {
+            if (this._cur_player.player_interface.position == this.current_send_card_data.lord_people_interface.position) {
                 console.log("所有的人都要不起 轮到自己出牌了");
+                this.current_send_card_data = null;
                 if (this._cur_player.player_interface.position == 0) {
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
                 } else {
@@ -284,15 +285,16 @@ class LordGameLogic {
                 // 说明机器人过牌 或者 打不起
                 if (this._cur_player.player_interface.position == 2) {
                     // 提示玩家自己出牌
-                    console.log("玩家出牌")
+                    console.log("所有的人都要不起 轮到自己出牌了 1");
+                    this.current_send_card_data = null;
                     this._cur_player = this._cur_player.next_player;
                     EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
                 } else {
                     // 继续跟牌
                     console.log("机器人跟牌")
-                    this._cur_player = this._cur_player.next_player;
                     if (this._cur_player.player_interface.position == this.current_send_card_data.lord_people_interface.position) {
-                        console.log("所有的人都要不起 轮到自己出牌了");
+                        console.log("所有的人都要不起 轮到自己出牌了 2");
+                        this.current_send_card_data = null;
                         if (this._cur_player.player_interface.position == 0) {
                             EventManager.get_instance().emit(LinkGameBase.game_play_event_config.show_player_play_buttons);
                         } else {
@@ -302,6 +304,7 @@ class LordGameLogic {
                             this.play_card(play_card, ShowCardType.SendCard);
                         }
                     } else {
+                        this._cur_player = this._cur_player.next_player;
                         this.delay_follow_card();
                     }
                 }
