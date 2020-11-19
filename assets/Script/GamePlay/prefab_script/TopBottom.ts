@@ -32,8 +32,8 @@ export default class TopBottom extends cc.Component {
 
         this.main_button_shezhi.addComponent(TouchButton).register_touch(()=>{
             const ui_param_interface: UIParamInterface = {
-                ui_config_path: UIConfig.SettingView,
-                ui_config_name: "SettingView",
+                ui_config_path: UIConfig.TurnTableView,
+                ui_config_name: "TurnTableView",
                 param:{}
             }
         

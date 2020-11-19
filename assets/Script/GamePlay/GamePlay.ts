@@ -90,6 +90,7 @@ class GamePlay extends cc.Component {
         LinkGameBase.register_ui_path("BankRuptcyView", "GamePlay/prefab/ui/BankRuptcy/BankRuptcyView");
         LinkGameBase.register_ui_path("GetCardRecorderView", "GamePlay/prefab/ui/GetCardRecorder/GetCardRecorderView");
         LinkGameBase.register_ui_path("PlayerMessageView", "GamePlay/prefab/ui/PlayerMessage/PlayerMessageView");
+        LinkGameBase.register_ui_path("TurnTableView", "GamePlay/prefab/ui/TurnTable/TurnTableView");
     }
     
 
